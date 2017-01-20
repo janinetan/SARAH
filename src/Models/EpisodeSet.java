@@ -1,5 +1,12 @@
+package Models;
 
 public class EpisodeSet {
+	public static final String TABLE_EPISODESET = "episode_set";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_SICKENESSID = "sicknessId";
+	public static final String COL_EPISODEID = "episodeId";
+	
 	private int id;
 	private int sicknessId;
 	private int episodeId;

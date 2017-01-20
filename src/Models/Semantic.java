@@ -1,5 +1,12 @@
+package Models;
 
 public class Semantic {
+	public static final String TABLE_SEMANTIC = "semantic";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_CONCEPT1 = "concept1";
+	public static final String COL_CONCEPT2 = "concept2";
+	
 	private int id;
 	private String concept1;
 	private String concept2;

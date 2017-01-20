@@ -1,8 +1,13 @@
+package Models;
 
-public class BodyPart {
+public class DiscourseAct {
+	public static final String TABLE_DISCOURSEACT = "discourse_act";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_NAME = "name";
+	
 	private int id;
 	private String name;
-	private String description;
 	
 	public int getId() {
 		return id;
@@ -15,12 +20,6 @@ public class BodyPart {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	

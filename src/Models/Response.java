@@ -1,5 +1,14 @@
+package Models;
 
 public class Response {
+	public static final String TABLE_RESPONSE = "response";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_DISCOURSEACTID = "discourseActId";
+	public static final String COL_MESSAGE = "message";
+	public static final String COL_VIRTUALAGENTID = "virtualAgentId";
+	public static final String COL_RESPONSETYPE = "responseType";
+	
 	private int id;
 	private int discourseActId;
 	private String message;

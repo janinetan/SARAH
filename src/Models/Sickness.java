@@ -1,5 +1,17 @@
+package Models;
 
 public class Sickness {
+	public static final String TABLE_SICKNESS = "sickness";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_NAME = "name";
+	public static final String COL_DEFINITION = "definition";
+	public static final String COL_SYMPTOMS = "symptoms";
+	public static final String COL_CAUSES = "causes";
+	public static final String COL_TREATMENT = "treatment";
+	public static final String COL_PREVENTION = "prevention";
+	public static final String COL_BODYPARTID = "bodyPartId";
+	
 	private int id;
 	private String name;
 	private String definition;

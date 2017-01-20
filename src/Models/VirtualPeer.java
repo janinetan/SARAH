@@ -1,5 +1,14 @@
+package Models;
 
 public class VirtualPeer {
+	public static final String TABLE_VIRTUALPEER = "virtual_peer";
+	
+	public static final String COL_ID = "id";
+	public static final String COL_NAME = "name";
+	public static final String COL_EMOTIONALSTATE = "emotionalState";
+	public static final String COL_ISSICK = "isSick";
+	public static final String COL_IMAGEFILEPATH = "imageFilePath";
+	
 	private int id;
 	private String name;
 	private String emotionalState;
