@@ -9,7 +9,7 @@ public class Semantic {
 	
 	private int id;
 	private String concept1;
-	private String concept2;
+	private int concept2;
 	
 	public int getId() {
 		return id;
@@ -23,10 +23,10 @@ public class Semantic {
 	public void setConcept1(String concept1) {
 		this.concept1 = concept1;
 	}
-	public String getConcept2() {
+	public int getConcept2() {
 		return concept2;
 	}
-	public void setConcept2(String concept2) {
+	public void setConcept2(int concept2) {
 		this.concept2 = concept2;
 	}
 	
