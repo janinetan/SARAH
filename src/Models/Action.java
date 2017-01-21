@@ -1,7 +1,7 @@
 package Models;
 
 public class Action {
-	public static final String TABLE_ACCOUNT = "action";
+	public static final String TABLE_ACTION = "action";
 	
 	public static final String COL_EVENTID = "eventId";
 	public static final String COL_NAME = "name";
