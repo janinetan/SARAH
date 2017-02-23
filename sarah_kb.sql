@@ -90,31 +90,6 @@ LOCK TABLES `causes` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `dialogue`
---
-
-DROP TABLE IF EXISTS `dialogue`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dialogue` (
-  `dump` int(11) NOT NULL AUTO_INCREMENT,
-  `eventId` int(11) NOT NULL,
-  `message` varchar(200) NOT NULL,
-  PRIMARY KEY (`dump`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dialogue`
---
-
-LOCK TABLES `dialogue` WRITE;
-/*!40000 ALTER TABLE `dialogue` DISABLE KEYS */;
-INSERT INTO `dialogue` VALUES (1,1,'Hello there <user>!'),(2,2,'It\'s a sunny Sunday morning and Liam wants to play with you!'),(3,3,'Liam has missed you so much!'),(4,4,'Just wait right here.'),(5,5,'I\'ll call him out.'),(6,6,'Oh, wow!'),(7,7,'Hi, <user>!'),(8,8,'How have you been?'),(9,9,'I feel sick.'),(10,10,'I have been <symptoms>.'),(11,11,'Oh, dear!'),(12,12,'I think you are sick!'),(13,13,'You should rest and drink some medicine.'),(14,14,'But I want to play with <user>!'),(15,15,'No, no...'),(16,16,'Playing will make you feel tired and you might get worse.'),(17,17,'<user>, what do you think?'),(18,0,'If you really want to...'),(19,0,'I\'ll be right here if you need me.'),(20,0,'Oh, no!'),(21,0,'I think I\'m going to faint.'),(22,0,'Let\'s go back to Sarah.'),(23,0,'I don\'t think I can handle this.'),(24,0,'Hey, kiddos!'),(25,0,'Gosh, Liam!'),(26,0,'You\'re <symptoms>. '),(27,0,'You should rest.'),(28,0,'I think you have <sickness>.'),(29,0,'What\'s that?'),(30,0,'I don\'t know that.'),(31,0,'<user>, do you know what <sickness> is?'),(32,0,'Fine, I\'m going to rest but <user>, will you stay with us?'),(33,0,'Yeah, I\'ll entertain <user> as you sleep.'),(34,0,'Go take your nap now.'),(35,0,'Good afternoon!'),(36,0,'I just woke up and what a refreshing nap that was!'),(37,0,'I feel better now, but I still feel a little <symptoms>.'),(38,0,'Oh, I think I know what you have now.'),(39,0,'What?'),(40,0,'You show signs of <sickness>.'),(41,0,'Well, I want to play!'),(42,0,'Well, <sickness> is caused by <causes>.'),(43,0,'You can get sick if they get inside your <body-part-affected>.'),(44,0,'<body-part-affected> <body-part-definition>.'),(45,0,'Can you prevent that?'),(46,0,'Yes, of course!'),(47,0,'Oh, <user>, help me out.'),(48,0,'Any clue on what preventive practices these are?'),(49,0,'To avoid having <sickness>, we have to <prevention>.'),(50,0,'Oh, I did not know that.'),(51,0,'Maybe that was how I got <sickness>.'),(52,0,'True enough, so better observe these preventive practices at all times.'),(53,0,'This way, you won\'t get <sickness> that easily.'),(54,0,'But for now, what can I do to stop <sickness> from affecting my <body-part-affected>?'),(55,0,'You have to <treatment> for him to get better.'),(56,0,'Oh, do I really have to?'),(57,0,'I think I can feel better even without doing what you just said.'),(58,0,'<user>, can you help me convince Liam to take his <treatment>?'),(59,0,'Oh well, don\'t listen to me and your <body-part-affected> will be sick and you won\'t be able to get better.'),(60,0,'Never ever?'),(61,0,'Never.'),(62,0,'Really?'),(63,0,'Hmmm... Well, let\'s see about that!'),(64,0,'Anyway, I feel that I have to rest now.'),(65,0,'Thank you for visiting us <user>!'),(66,0,'Come back a few days later and see me prove to Sarah that I don\'t need <treatment> to get better.'),(67,0,'Take care, <user!>'),(68,0,'Oh, fine... Let me have them now, please?'),(69,0,'Here you go Liam!'),(70,0,'Yes, I feel so much better now.'),(71,0,'Uhmmm... I don\'t think it works that fast Liam. '),(72,0,'You have to rest for the day, too.'),(73,0,'Rest again?'),(74,0,'Fine... I\'m feeling tired anyway.'),(75,0,'Yes, I\'ll catch up to you Liam.'),(76,0,'<user>, I\'m sorry but I have to take care of Liam now.'),(77,0,'Thank you for spending this day with us!'),(78,0,'I hope you also learned from Liam\'s experience on <sickness>.'),(79,0,'Let\'s check up on Liam together on some other day.'),(80,0,'Hopefully, he\'ll be feeling much better by then.'),(81,0,'Hi Liam!'),(82,0,'How are you?'),(83,0,'<user> is here to visit you.'),(84,0,'I still feel the same as last time you visitied me.'),(85,0,'I\'m sorry, Sarah.'),(86,0,'I didn\'t listen to you about getting <treatment>.'),(87,0,'I\'m sorry, may I have it now?'),(88,0,'Of course, Liam!'),(89,0,'Here you go.'),(90,0,'Thank you Sarah for being here to teach us about <sickness>.'),(91,0,'No problem, Liam.'),(92,0,'Get well soon!'),(93,0,'I hope both of you learned a lot about <sickness>.'),(94,0,'See you soon!'),(95,0,'I\'m all better now, thanks to you Sarah!'),(96,0,'I think we also have <user> to thank for that.'),(97,0,'Stay healthy and see you soon!');
-/*!40000 ALTER TABLE `dialogue` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `discourse_act`
 --
 
@@ -286,31 +261,6 @@ LOCK TABLES `prevention` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `response`
---
-
-DROP TABLE IF EXISTS `response`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `response` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `discourseActId` int(11) NOT NULL,
-  `message` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `response`
---
-
-LOCK TABLES `response` WRITE;
-/*!40000 ALTER TABLE `response` DISABLE KEYS */;
-INSERT INTO `response` VALUES (1,0,'Good for you!'),(2,0,'Oh, me too...'),(3,0,'Oh, I see...'),(4,0,'Yay! Let\'s go play <user>!'),(5,0,'See? <user> thinks the same way as me.'),(6,0,'Tell us about it...'),(7,0,'That\'s right, <user>!'),(8,0,'Yes, some of those facts are correct.'),(9,0,'Come on now, <user>. Is that the right attitude? You should care because he is your playmate. Let us help him get better.'),(10,0,'Come on now, Liam. Don\'t pressure <user>.'),(11,0,'That\'s partly true. Yes, <user>.'),(12,0,'Ouch, that hurts! Help me get better and we can play again.'),(13,0,'Yay! No need to take <treatment>.'),(14,0,'What now, Liam? Even <user> agrees with me.'),(15,0,'Come now, <user>. We have to help Liam get better because he is your playmate.');
-/*!40000 ALTER TABLE `response` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `semantic`
 --
 
@@ -333,6 +283,31 @@ CREATE TABLE `semantic` (
 LOCK TABLES `semantic` WRITE;
 /*!40000 ALTER TABLE `semantic` DISABLE KEYS */;
 /*!40000 ALTER TABLE `semantic` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sentence`
+--
+
+DROP TABLE IF EXISTS `sentence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sentence` (
+  `dump` int(11) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(45) NOT NULL,
+  `message` varchar(200) NOT NULL,
+  PRIMARY KEY (`dump`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sentence`
+--
+
+LOCK TABLES `sentence` WRITE;
+/*!40000 ALTER TABLE `sentence` DISABLE KEYS */;
+INSERT INTO `sentence` VALUES (111,'greetUser','Hello there, <user>!'),(112,'mentionSetting','It\'s a sunny <day> morning!'),(113,'introduceLiam','Liam wants to play with you!'),(114,'transitionToLiam','Just wait right here, I\'ll call him out.'),(115,'commentPositiveFiller','Oh, wow!'),(116,'greetUser','Hi, <user>!'),(117,'user-askFeeling','How have you been?'),(118,'suggestPlay','But I think we can still go out and play!'),(119,'suggestBothRest','I think both of you should rest and [treatment] first before you go out and play.'),(120,'stateNegativeStatus','I feel <liam-status>.'),(121,'stateSymptom','I have been experiencing [symptom] lately.'),(122,'respondToStatus','Oh dear, I think you are sick!'),(123,'suggestLiamRest','You should rest and [treatment].'),(124,'expressPlayfulness','I still want to play with <user>.'),(125,'commentNegativeFiller','No, no...'),(126,'counterPlay','Playing will make you tired and you might get worse.'),(127,'user-askPlay','<user>, what do you think?'),(128,'counterPlay','You shouldn\'t play when you\'re sick.'),(129,'ignoreSarah','Ignore her.'),(130,'expressPlayfulness','Let\'s go play, <user>!'),(131,'succumb','If you really want to...'),(132,'transitionToPlay','I\'ll be right here if you need me.'),(133,'commentNegativeFiller','Oh, no!'),(134,'stateNegativeStatus','I think I\'m gonna faint.'),(135,'transitionToSarah','Let\'s go back to Sarah.'),(136,'greetKids','Hey kids!'),(137,'expressWorry','Gosh Liam, you\'re [symptom] and [symptom] are getting worse.'),(138,'suggestRest','You shoud rest.'),(139,'stateSickness','I think you have <sickness>.'),(140,'expressDelight','<user> thinks the same way as me!'),(141,'succumb','Fine, do as you say.'),(142,'transitionToRest','I\'ll entertain <user> as you sleep.'),(143,'greetUser','Hey there, <user>!'),(144,'commentRest','I just woke up and what a refreshing nap that was!'),(145,'stateTraceOfSymptom','I still feel a little [symptom].'),(146,'stateSickness','Oh, I think you show signs of <sickness>.'),(147,'expressNaivety','I did not know that.'),(148,'user-askSickness','How about you <user>, do you know what <sickness> is?'),(149,'stateCauses','Well, <sickness> is caused by [cause].'),(150,'stateBodyPart','You can get sick if they get inside your <body-part-affected>.'),(151,'explainBodyPart','<body-part-affected> <body-part-definition>.'),(152,'askPrevention','Can you prevent that?'),(153,'stateAgreement','Yes, of course.'),(154,'user-askPrevention','<user>, help me out, any clue on to prevent <sickness>?'),(155,'statePrevention','To avoid having <sickness>, we have to [prevention] and [prevention].'),(156,'expressWonder','Maybe that was how I got my <sickness>.'),(157,'stateAgreement','True enough.'),(158,'encouragePrevention','So, better observe these practices at all times.'),(159,'concludePrevention','This way, you won\'t get <sickness> that easily.'),(160,'transitionToTreatment','But for now, what can I do to stop <sickness> from affecting my <body-part-affected>?'),(161,'stateTreatment','You have to [treatment] for you to get better.'),(162,'expressDisbelief','Oh, do I really have to?'),(163,'counterTreatment','I think I can feel better even without [treatment].'),(164,'user-askTreatment','<user>, can you help me convince Liam to take his [treatment]?'),(165,'stateWarning','Oh well, don\'t listen to me and your <body-part-affected> will be sick and you won\'t be able to get better.'),(166,'expressDisbelief','Really?'),(167,'expressStubbornness','Hmmm... Well let\'s see about that!'),(168,'transitionToEndDay','Anyway, I feel that I have to rest now.'),(169,'expressAppreciation','Thank you for visiting us <user>!'),(170,'comeBack','Come back a few days later and see the <sickness> go away by then.'),(171,'expressFarewell','Take care <user>!'),(172,'succumb','Oh fine...'),(173,'giveTreatment','Here\'s your [treatment] Liam!'),(174,'commentPositiveFiller','Yes!'),(175,'stateHealed','I feel so much better now!'),(176,'expressDoubt','I don\'t think it works that way Liam.'),(177,'suggestFullDayRest','You have to rest for the day, too.'),(178,'expressDisbelief','Oh, is that so?'),(179,'succumb','Fine...'),(180,'stateRest','I\'m resting.'),(181,'stateLiamCare','I\'ll catch up to you Liam.'),(182,'expressAppreciation','Thank you for spending this day with us!'),(183,'stateMoral','I hope you also learned from Liam\'s experience on <sickness>.'),(184,'comeBack','Let\'s meet again tomorrow and see if the <sickness> will go away by then.'),(185,'expressFarewell','See you, <user>!'),(186,'introduceLiam','Hey Liam, <user> is here to visit you!'),(187,'expressSick','I still feel the same as last time you visited me.'),(188,'expressRegret','I\'m sorry Sarah, I didn\'t listen to you about getting [treatment].'),(189,'takeTreatment','I\'m sorry, may I have it now?'),(190,'expressEmpathy','Of course Liam, here you go.'),(191,'thankSarah','Thank you Sarah, for being here to teach us about sickness.'),(192,'wishGoodHealth','Get well soon!'),(193,'stateMoral','I hope both of you learned a lot about sickness.'),(194,'expressFarewell','See you soon!'),(195,'stateHealed','I feel much better now.'),(196,'thankSarah','Thank you Sarah for being so patient with us!'),(197,'thankUser','I think we also have <user> to thank for that.'),(198,'wishGoodHealth','Keep a healthy lifestyle!'),(199,'expressFarewell','\'Til next time!');
+/*!40000 ALTER TABLE `sentence` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -446,4 +421,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-23 18:54:34
+-- Dump completed on 2017-02-24  3:36:14
