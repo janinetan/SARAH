@@ -18,7 +18,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 public class InteractionPanel extends JPanel{
-	JTextArea message;
+	JTextArea message,answer;
 	
 	public InteractionPanel(JFrame main) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -37,12 +37,8 @@ public class InteractionPanel extends JPanel{
 		
 		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box1.png");
 		dialog.setLocation(550, 40);
-		
-		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
-		SpringLayout layout = new SpringLayout();
-
-        message = new JTextArea();
-        message.setText("you can tap the arrow button on the lower right to proceed to the next part of the story.");
+		SpringLayout sarahLayout = new SpringLayout();
+		message = new JTextArea();
         message.setSize(830,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
@@ -50,7 +46,32 @@ public class InteractionPanel extends JPanel{
         message.setOpaque(false);
         message.setEditable(false);
         message.setFocusable(false);
-        message.getCaret().deinstall( message );
+        message.getCaret().deinstall(message);
+        
+		// For horizontal Alignment
+		sarahLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 0, SpringLayout.HORIZONTAL_CENTER, dialog);
+		
+		// For Vertical Alignment
+		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
+
+		
+		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
+		SpringLayout layout = new SpringLayout();
+		layout.putConstraint(SpringLayout.EAST, answer, -15, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
+
+        box.setLayout(layout);
+        box.setLocation(0, 575);
+
+        answer = new JTextArea();
+        answer.setSize(830,100);
+        answer.setFont(font);
+        answer.setWrapStyleWord(true);
+        answer.setLineWrap(true);
+        answer.setOpaque(false);
+        answer.setEditable(false);
+        answer.setFocusable(false);
+        answer.getCaret().deinstall( answer );
         //greeting.setBorder(UIManager.getBorder("JLabel"));
         //greeting.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
@@ -79,28 +100,16 @@ public class InteractionPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	message.setText("hi");
-		        
-		        
+		    	answer.setText("hi");
 		    }
 		});
-		
 
-		box.add(nextButton);
-		box.add(message);
-		
-		// For horizontal Alignment
-		layout.putConstraint(SpringLayout.EAST, message, -15, SpringLayout.EAST, box);
-
-		// For Vertical Alignment
-		layout.putConstraint(SpringLayout.NORTH, message, 15, SpringLayout.NORTH, box);
-		
-		
 		layout.putConstraint(SpringLayout.EAST, nextButton, -15, SpringLayout.EAST, box);
 		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
 
-        box.setLayout(layout);
-        box.setLocation(0, 575);
+		box.add(nextButton);
+		box.add(answer);
+		
 		
 		this.add(sarah);
 		this.add(dialog);
