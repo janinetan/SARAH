@@ -17,10 +17,10 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-public class TutorialPanel extends JPanel{
+public class InteractionPanel extends JPanel{
 	JTextArea greeting;
-	public TutorialPanel(JFrame main) throws IOException
-	{
+	
+	public InteractionPanel(JFrame main) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -35,12 +35,14 @@ public class TutorialPanel extends JPanel{
 		ImagePanel sarah = new ImagePanel("assets/sarah.png");
 		sarah.setLocation(-40, 100);
 		
+		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box.png");
+		dialog.setLocation(550, 100);
+		
 		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
 		SpringLayout layout = new SpringLayout();
 
         greeting = new JTextArea();
-        greeting.setText("When you are done reading the current text, "
-        		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
+        greeting.setText("you can tap the arrow button on the lower right to proceed to the next part of the story.");
         greeting.setSize(830,100);
         greeting.setFont(font);
         greeting.setWrapStyleWord(true);
@@ -74,27 +76,12 @@ public class TutorialPanel extends JPanel{
 		        icon = new ImageIcon(image, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		    }
-		    
-		    public void mouseClicked(java.awt.event.MouseEvent evt){
-		    	System.out.println("heeee");
-				try {
-					main.setContentPane(new InteractionPanel(main));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    }
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	greeting.setText("hi");
-		    	try {
-		    		System.out.println("heeee");
-					main.setContentPane(new InteractionPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		        
+		        
 		    }
 		});
 		
@@ -116,6 +103,7 @@ public class TutorialPanel extends JPanel{
         box.setLocation(0, 575);
 		
 		this.add(sarah);
+		this.add(dialog);
 		this.add(box);
 		this.add(room);
 	}
