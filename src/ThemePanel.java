@@ -23,7 +23,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class ThemePanel extends JPanel{
-	
+	JTextArea message; 
 	public ThemePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -36,24 +36,24 @@ public class ThemePanel extends JPanel{
 		ImagePanel box = new ImagePanel("assets/cloud.png");
 		SpringLayout dialogLayout = new SpringLayout();
 
-        JTextArea greeting = new JTextArea("What do you want to learn about?");
-        greeting.setSize(700, 200);
-        greeting.setFont(font);
-        greeting.setWrapStyleWord(true);
-        greeting.setLineWrap(true);
-        greeting.setOpaque(false);
-        greeting.setEditable(false);
-        greeting.setFocusable(false);
-        greeting.getCaret().deinstall( greeting );
-        greeting.setBorder(UIManager.getBorder("JLabel"));
+        message = new JTextArea("What do you want to learn about?");
+        message.setSize(700, 200);
+        message.setFont(font);
+        message.setWrapStyleWord(true);
+        message.setLineWrap(true);
+        message.setOpaque(false);
+        message.setEditable(false);
+        message.setFocusable(false);
+        message.getCaret().deinstall( message );
+        message.setBorder(UIManager.getBorder("JLabel"));
      
-		box.add(greeting);
+		box.add(message);
 		
 		// For horizontal Alignment
-		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, greeting, 0, SpringLayout.HORIZONTAL_CENTER, box);
+		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 0, SpringLayout.HORIZONTAL_CENTER, box);
 
 		// For Vertical Alignment
-		dialogLayout.putConstraint(SpringLayout.VERTICAL_CENTER, greeting, 0, SpringLayout.VERTICAL_CENTER, box);
+		dialogLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
 
         box.setLayout(dialogLayout);
         box.setLocation(0, 20);

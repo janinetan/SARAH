@@ -18,7 +18,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 public class TutorialPanel extends JPanel{
-	JTextArea greeting;
+	JTextArea message;
 	public TutorialPanel(JFrame main) throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -33,22 +33,22 @@ public class TutorialPanel extends JPanel{
 		room.setLocation(0, 0);
 		
 		ImagePanel sarah = new ImagePanel("assets/sarah.png");
-		sarah.setLocation(-40, 100);
+		sarah.setLocation(-70, 100);
 		
 		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
 		SpringLayout layout = new SpringLayout();
 
-        greeting = new JTextArea();
-        greeting.setText("When you are done reading the current text, "
+        message = new JTextArea();
+        message.setText("When you are done reading the current text, "
         		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
-        greeting.setSize(830,100);
-        greeting.setFont(font);
-        greeting.setWrapStyleWord(true);
-        greeting.setLineWrap(true);
-        greeting.setOpaque(false);
-        greeting.setEditable(false);
-        greeting.setFocusable(false);
-        greeting.getCaret().deinstall( greeting );
+        message.setSize(830,100);
+        message.setFont(font);
+        message.setWrapStyleWord(true);
+        message.setLineWrap(true);
+        message.setOpaque(false);
+        message.setEditable(false);
+        message.setFocusable(false);
+        message.getCaret().deinstall( message );
         //greeting.setBorder(UIManager.getBorder("JLabel"));
         //greeting.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
@@ -75,21 +75,10 @@ public class TutorialPanel extends JPanel{
 		    	nextButton.setIcon(icon);
 		    }
 		    
-		    public void mouseClicked(java.awt.event.MouseEvent evt){
-		    	System.out.println("heeee");
-				try {
-					main.setContentPane(new InteractionPanel(main));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    }
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	greeting.setText("hi");
 		    	try {
-		    		System.out.println("heeee");
 					main.setContentPane(new InteractionPanel(main));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -100,13 +89,13 @@ public class TutorialPanel extends JPanel{
 		
 
 		box.add(nextButton);
-		box.add(greeting);
+		box.add(message);
 		
 		// For horizontal Alignment
-		layout.putConstraint(SpringLayout.EAST, greeting, -15, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.EAST, message, -15, SpringLayout.EAST, box);
 
 		// For Vertical Alignment
-		layout.putConstraint(SpringLayout.NORTH, greeting, 15, SpringLayout.NORTH, box);
+		layout.putConstraint(SpringLayout.NORTH, message, 15, SpringLayout.NORTH, box);
 		
 		
 		layout.putConstraint(SpringLayout.EAST, nextButton, -15, SpringLayout.EAST, box);
