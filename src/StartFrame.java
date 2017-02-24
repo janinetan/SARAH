@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class StartFrame extends JFrame {
 
-	public static int frameWidth= 1507;
+	public static int frameWidth= 1657;
 	public static int frameHeight=1000;
 	private StartMenuPanel contentPane;
 
@@ -38,7 +38,7 @@ public class StartFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(30, 30, frameWidth, frameHeight);
 		setTitle("SARAH");
-		setResizable(false);
+		//setResizable(false);
 		contentPane = new StartMenuPanel(this);
 		setContentPane(contentPane);
 	}

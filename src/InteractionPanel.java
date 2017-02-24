@@ -18,7 +18,8 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 public class InteractionPanel extends JPanel{
-	JTextArea message,answer;
+	JTextArea message;
+	CustomTextArea answer;
 	
 	public InteractionPanel(JFrame main) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -28,7 +29,7 @@ public class InteractionPanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1500,700,"assets/cartoon_room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
@@ -36,10 +37,12 @@ public class InteractionPanel extends JPanel{
 		sarah.setLocation(-70, 100);
 		
 		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box1.png");
-		dialog.setLocation(550, 40);
 		SpringLayout sarahLayout = new SpringLayout();
-		message = new JTextArea();
-        message.setSize(830,100);
+
+		dialog.setLayout(sarahLayout);
+		dialog.setLocation(550, 25);
+		message = new JTextArea("hellooo");
+        message.setSize(800,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -47,6 +50,9 @@ public class InteractionPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall(message);
+        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        dialog.add(message);
         
 		// For horizontal Alignment
 		sarahLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 0, SpringLayout.HORIZONTAL_CENTER, dialog);
@@ -54,26 +60,30 @@ public class InteractionPanel extends JPanel{
 		// For Vertical Alignment
 		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
 
-		
-		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
+		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
+		ImagePanel box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
-		layout.putConstraint(SpringLayout.EAST, answer, -15, SpringLayout.EAST, box);
-		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
 
         box.setLayout(layout);
-        box.setLocation(0, 575);
+        box.setLocation(0, 500);
 
-        answer = new JTextArea();
-        answer.setSize(830,100);
+        answer = new CustomTextArea();
+        answer.setPlaceholder("Type your answer here...");
+        answer.setSize(1000,400);
         answer.setFont(font);
         answer.setWrapStyleWord(true);
         answer.setLineWrap(true);
-        answer.setOpaque(false);
-        answer.setEditable(false);
+        answer.setRows(5);
+       
+//        answer.setOpaque(false);
+        /*answer.setEditable(false);
         answer.setFocusable(false);
         answer.getCaret().deinstall( answer );
-        //greeting.setBorder(UIManager.getBorder("JLabel"));
-        //greeting.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        answer.setBorder(UIManager.getBorder("JLabel"));*/
+        answer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+		layout.putConstraint(SpringLayout.EAST, answer, -15, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
         BufferedImage buttonIcon1 = ImageIO.read(new File("assets/tap_next.png"));
         ImageIcon icon = new ImageIcon(buttonIcon1);

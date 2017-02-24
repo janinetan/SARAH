@@ -33,11 +33,11 @@ public class ThemePanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
 		
-		ImagePanel box = new ImagePanel("assets/cloud.png");
+		ImagePanel box = new ImagePanel("assets/cloud1.png");
 		SpringLayout dialogLayout = new SpringLayout();
 
         message = new JTextArea("What do you want to learn about?");
-        message.setSize(700, 200);
+        message.setSize(1000, 200);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -60,7 +60,8 @@ public class ThemePanel extends JPanel{
         
         JPanel themes = new JPanel();
         SpringLayout themesLayout = new SpringLayout();
-        themes.setBounds(170, 400, 1300, 500);
+        //themes.setBounds(30, 450, 1600, 270);
+        themes.setBounds(300, 310, 1300, 500);
         //themes.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         themes.setOpaque(false);
 
@@ -187,20 +188,23 @@ public class ThemePanel extends JPanel{
 		themes.add(sickButton5);
 		themes.add(sickButton6);
 		themesLayout.putConstraint(SpringLayout.WEST, sickButton1, 0, SpringLayout.WEST,themes);
-		themesLayout.putConstraint(SpringLayout.WEST, sickButton2, 60, SpringLayout.EAST, sickButton1);
-		themesLayout.putConstraint(SpringLayout.WEST, sickButton3, 60, SpringLayout.EAST, sickButton2);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton2, 100, SpringLayout.EAST, sickButton1);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton3, 100, SpringLayout.EAST, sickButton2);
+/*		themesLayout.putConstraint(SpringLayout.WEST, sickButton4, 30, SpringLayout.EAST, sickButton3);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton5, 30, SpringLayout.EAST, sickButton4);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton6, 30, SpringLayout.EAST, sickButton5);*/
 		
 		themesLayout.putConstraint(SpringLayout.NORTH, sickButton4, 30, SpringLayout.SOUTH, sickButton1);
 		themesLayout.putConstraint(SpringLayout.NORTH, sickButton5, 30, SpringLayout.SOUTH, sickButton2);
-		themesLayout.putConstraint(SpringLayout.WEST, sickButton5, 60, SpringLayout.EAST, sickButton4);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton5, 100, SpringLayout.EAST, sickButton4);
 		themesLayout.putConstraint(SpringLayout.NORTH, sickButton6, 30, SpringLayout.SOUTH, sickButton3);
-		themesLayout.putConstraint(SpringLayout.WEST, sickButton6, 60, SpringLayout.EAST, sickButton5);
+		themesLayout.putConstraint(SpringLayout.WEST, sickButton6, 100, SpringLayout.EAST, sickButton5);
         BufferedImage nextButtonIcon = ImageIO.read(new File("assets/next_button.png"));
 		JButton nextButton = new JButton(new ImageIcon(nextButtonIcon));
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
 		nextButton.setBorderPainted(false);
-		nextButton.setBounds(1000,780,500,200);
+		nextButton.setBounds(1150,780,500,200);
 		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/next_button_clicked.png");

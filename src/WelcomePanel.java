@@ -41,11 +41,12 @@ public class WelcomePanel extends JPanel{
 		name.setPlaceholder("Type Name Here");
 		name.setOpaque(false);
 		name.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		name.setFont(font);
-		name.setBounds(100, 200, 700, 100);
+		name.setBounds(100, 200, 1200, 100);
 		
-		JLabel line = new JLabel("__________________________");
-		line.setBounds(100,230,1000,100);
+		JLabel line = new JLabel("________________________________");
+		line.setBounds(100,230,1300,100);
 		line.setFont(font);
 		
 		ImagePanel liam = new ImagePanel("assets/liam_flipped.png");
@@ -90,14 +91,14 @@ public class WelcomePanel extends JPanel{
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, greeting, 0, SpringLayout.VERTICAL_CENTER, box);
 
         box.setLayout(layout);
-        box.setLocation(550, 400);
+        box.setLocation(570, 400);
 		
 		BufferedImage buttonIcon = ImageIO.read(new File("assets/next_button.png"));
 		JButton nextButton = new JButton(new ImageIcon(buttonIcon));
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
 		nextButton.setBorderPainted(false);
-		nextButton.setBounds(1000,780,500,200);
+		nextButton.setBounds(1150,780,500,200);
 		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/next_button_clicked.png");

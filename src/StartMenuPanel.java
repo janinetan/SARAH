@@ -29,16 +29,16 @@ public class StartMenuPanel extends JPanel{
 		setLayout(null);
 		
         ImagePanel title = new ImagePanel("assets/title.png");
-        title.setLocation(120, 0);
+        title.setLocation(150, 0);
         ImagePanel character = new ImagePanel("assets/tilted_sarah.png");
-        character.setLocation(600, 0);
+        character.setLocation(700, 0);
         
 		BufferedImage buttonIcon = ImageIO.read(new File("assets/start_button.png"));
 		JButton startButton = new JButton(new ImageIcon(buttonIcon));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setContentAreaFilled(false);
 		startButton.setBorderPainted(false);
-		startButton.setBounds(350,350,500,200);
+		startButton.setBounds(400,350,500,200);
 		startButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
@@ -77,7 +77,7 @@ public class StartMenuPanel extends JPanel{
 		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
 		instructionsButton.setContentAreaFilled(false);
 		instructionsButton.setBorderPainted(false);
-		instructionsButton.setBounds(350,500,500,200);
+		instructionsButton.setBounds(400,500,500,200);
 		instructionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/instructions_button_clicked.png");
@@ -102,7 +102,7 @@ public class StartMenuPanel extends JPanel{
 		aboutButton.setBorder(BorderFactory.createEmptyBorder());
 		aboutButton.setContentAreaFilled(false);
 		aboutButton.setBorderPainted(false);
-		aboutButton.setBounds(350,650,500,200);
+		aboutButton.setBounds(400,650,500,200);
 		aboutButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/about_button_clicked.png");

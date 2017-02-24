@@ -28,20 +28,21 @@ public class TutorialPanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1500,700,"assets/cartoon_room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
 		ImagePanel sarah = new ImagePanel("assets/sarah.png");
 		sarah.setLocation(-70, 100);
 		
-		ImagePanel box = new ImagePanel("assets/story_dialog_box.png");
+		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
+		ImagePanel box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
 
         message = new JTextArea();
         message.setText("When you are done reading the current text, "
         		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
-        message.setSize(830,100);
+        message.setSize(1000,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -49,8 +50,8 @@ public class TutorialPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall( message );
-        //greeting.setBorder(UIManager.getBorder("JLabel"));
-        //greeting.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //message.setBorder(UIManager.getBorder("JLabel"));
+        //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
         BufferedImage buttonIcon1 = ImageIO.read(new File("assets/tap_next.png"));
         ImageIcon icon = new ImageIcon(buttonIcon1);
@@ -102,7 +103,7 @@ public class TutorialPanel extends JPanel{
 		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
 
         box.setLayout(layout);
-        box.setLocation(0, 575);
+        box.setLocation(0, 500);
 		
 		this.add(sarah);
 		this.add(box);
