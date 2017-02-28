@@ -72,7 +72,7 @@ public class StartMenuPanel extends JPanel{
 		    }
 		});
 		
-		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/instructions_button.png"));
+		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/tutorial_button.png"));
 		JButton instructionsButton = new JButton(new ImageIcon(buttonIcon1));
 		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
 		instructionsButton.setContentAreaFilled(false);
@@ -80,19 +80,25 @@ public class StartMenuPanel extends JPanel{
 		instructionsButton.setBounds(400,500,500,200);
 		instructionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/instructions_button_clicked.png");
+		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
 		    	instructionsButton.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/instructions_button.png");
+		    	ImageIcon image = new ImageIcon("assets/tutorial_button.png");
 		    	instructionsButton.setIcon(image);
 		    }
 		});
 		instructionsButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon image = new ImageIcon("assets/instructions_button_clicked.png");
+		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
 		        instructionsButton.setIcon(image);
+		        try {
+					main.setContentPane(new StoryPanel(main));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		        
 		    }
 		});

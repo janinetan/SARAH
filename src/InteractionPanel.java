@@ -41,8 +41,10 @@ public class InteractionPanel extends JPanel{
 
 		dialog.setLayout(sarahLayout);
 		dialog.setLocation(550, 25);
-		message = new JTextArea("hellooo");
-        message.setSize(800,100);
+		//dialog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		message = new JTextArea("Playing will make you get tired and you might get worse. Ana, what do you think?");
+        message.setSize(850,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -50,12 +52,12 @@ public class InteractionPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall(message);
-        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         dialog.add(message);
         
 		// For horizontal Alignment
-		sarahLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 0, SpringLayout.HORIZONTAL_CENTER, dialog);
+        sarahLayout.putConstraint(SpringLayout.WEST, message, 120, SpringLayout.WEST, dialog);
 		
 		// For Vertical Alignment
 		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
@@ -66,6 +68,7 @@ public class InteractionPanel extends JPanel{
 
         box.setLayout(layout);
         box.setLocation(0, 500);
+        
 
         answer = new CustomTextArea();
         answer.setPlaceholder("Type your answer here...");
@@ -85,8 +88,8 @@ public class InteractionPanel extends JPanel{
 		layout.putConstraint(SpringLayout.EAST, answer, -15, SpringLayout.EAST, box);
 		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
-        BufferedImage buttonIcon1 = ImageIO.read(new File("assets/tap_next.png"));
-        ImageIcon icon = new ImageIcon(buttonIcon1);
+        BufferedImage nextButtonIcon = ImageIO.read(new File("assets/tap_next.png"));
+        ImageIcon icon = new ImageIcon(nextButtonIcon);
         Image image = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
         icon = new ImageIcon(image, icon.getDescription());
 		JButton nextButton = new JButton(icon);

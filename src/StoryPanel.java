@@ -17,9 +17,9 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-public class TutorialPanel extends JPanel{
+public class StoryPanel extends JPanel{
 	JTextArea message;
-	public TutorialPanel(JFrame main) throws IOException
+	public StoryPanel(JFrame main) throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
@@ -42,7 +42,7 @@ public class TutorialPanel extends JPanel{
         message = new JTextArea();
         message.setText("When you are done reading the current text, "
         		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
-        message.setSize(1000,100);
+        message.setSize(950,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -92,14 +92,16 @@ public class TutorialPanel extends JPanel{
 		box.add(nextButton);
 		box.add(message);
 		
-		// For horizontal Alignment
-		layout.putConstraint(SpringLayout.EAST, message, -15, SpringLayout.EAST, box);
+		// For horizontal Alignment of story message
+		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
 
-		// For Vertical Alignment
-		layout.putConstraint(SpringLayout.NORTH, message, 15, SpringLayout.NORTH, box);
+		// For Vertical Alignment of story message
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
 		
-		
+		// For horizontal alignment of next button
 		layout.putConstraint(SpringLayout.EAST, nextButton, -15, SpringLayout.EAST, box);
+		
+		// For Vertical alignment of next button
 		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
 
         box.setLayout(layout);

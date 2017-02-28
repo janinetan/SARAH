@@ -32,10 +32,11 @@ public class WelcomePanel extends JPanel{
 		setBackground(new Color(197,229,240));
 		setLayout(null);
 		
-		JLabel welcome = new JLabel("Hello there! What's your name?");
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
+		
+		/*JLabel welcome = new JLabel("Hello there! What's your name?");
 		welcome.setFont(font);
-		welcome.setBounds(100,-50,1000,300);
+		welcome.setBounds(100,-50,1000,300);*/
 		
 		CustomTextField name = new CustomTextField();
 		name.setPlaceholder("Type Name Here");
@@ -43,14 +44,14 @@ public class WelcomePanel extends JPanel{
 		name.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		name.setFont(font);
-		name.setBounds(100, 200, 1200, 100);
+		name.setBounds(630, 450, 850, 100);
 		
-		JLabel line = new JLabel("________________________________");
-		line.setBounds(100,230,1300,100);
+		JLabel line = new JLabel("_____________________");
+		line.setBounds(630,480,950,100);
 		line.setFont(font);
 		
 		ImagePanel liam = new ImagePanel("assets/liam_flipped.png");
-        liam.setLocation(-40, 400);
+        liam.setLocation(-40, 200);
         
         /*ImagePanel box = new ImagePanel("assets/liam_dialog_box.png");
         box.setLayout(new BorderLayout());
@@ -71,8 +72,8 @@ public class WelcomePanel extends JPanel{
 		ImagePanel box = new ImagePanel("assets/dialog_box.png");
 		SpringLayout layout = new SpringLayout();
 
-        JTextArea greeting = new JTextArea("Hi, I’m Liam. Let’s play together!!");
-        greeting.setSize(500, 200);
+        JTextArea greeting = new JTextArea("Hi, I’m Liam.\nWhat's your name?");
+        greeting.setSize(550, 200);
         greeting.setFont(font);
         greeting.setWrapStyleWord(true);
         greeting.setLineWrap(true);
@@ -81,7 +82,8 @@ public class WelcomePanel extends JPanel{
         greeting.setFocusable(false);
         greeting.getCaret().deinstall( greeting );
         //greeting.setBorder(UIManager.getBorder("JLabel"));
-     
+        //greeting.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
 		box.add(greeting);
 		
 		// For horizontal Alignment
@@ -91,10 +93,10 @@ public class WelcomePanel extends JPanel{
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, greeting, 0, SpringLayout.VERTICAL_CENTER, box);
 
         box.setLayout(layout);
-        box.setLocation(570, 400);
+        box.setLocation(550,70);
 		
-		BufferedImage buttonIcon = ImageIO.read(new File("assets/next_button.png"));
-		JButton nextButton = new JButton(new ImageIcon(buttonIcon));
+		BufferedImage nextButtonIcon = ImageIO.read(new File("assets/next_button.png"));
+		JButton nextButton = new JButton(new ImageIcon(nextButtonIcon));
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
 		nextButton.setBorderPainted(false);
@@ -130,13 +132,52 @@ public class WelcomePanel extends JPanel{
 		        
 		    }
 		});
+		
+		BufferedImage backButtonIcon = ImageIO.read(new File("assets/back_button.png"));
+		JButton backButton = new JButton(new ImageIcon(backButtonIcon));
+		backButton.setBorder(BorderFactory.createEmptyBorder());
+		backButton.setContentAreaFilled(false);
+		backButton.setBorderPainted(false);
+		backButton.setBounds(600,780,500,200);
+		backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
+		    	backButton.setIcon(image);
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	ImageIcon image = new ImageIcon("assets/back_button.png");
+		    	backButton.setIcon(image);
+		    }
+//		    public void mouseClicked(java.awt.event.MouseEvent evt)
+//		    {
+//		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
+//		        startButton.setIcon(image);
+//		    }
+		    
+		});
+		backButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	/*not working when mouselistener code was added*/
+		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
+		    	backButton.setIcon(image); 
+		        try {
+					main.setContentPane(new StartMenuPanel(main));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        
+		    }
+		});
         
-		this.add(welcome);
+		//this.add(welcome);
 		this.add(name);
 		this.add(line);
 		this.add(liam);
 		this.add(box);
 		this.add(nextButton);
+		this.add(backButton);
 		validate();
 	}
 }

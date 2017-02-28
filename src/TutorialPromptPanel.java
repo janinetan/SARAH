@@ -81,7 +81,7 @@ public class TutorialPromptPanel extends JPanel{
 		yesButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	try {
-					main.setContentPane(new TutorialPanel(main));
+					main.setContentPane(new StoryPanel(main));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

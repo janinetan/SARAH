@@ -226,7 +226,45 @@ public class ThemePanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
 		        try {
-					main.setContentPane(new TutorialPromptPanel(main));
+					main.setContentPane(new StoryPanel(main));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        
+		    }
+		});
+		
+		BufferedImage backButtonIcon = ImageIO.read(new File("assets/back_button.png"));
+		JButton backButton = new JButton(new ImageIcon(backButtonIcon));
+		backButton.setBorder(BorderFactory.createEmptyBorder());
+		backButton.setContentAreaFilled(false);
+		backButton.setBorderPainted(false);
+		backButton.setBounds(600,780,500,200);
+		backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
+		    	backButton.setIcon(image);
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	ImageIcon image = new ImageIcon("assets/back_button.png");
+		    	backButton.setIcon(image);
+		    }
+//		    public void mouseClicked(java.awt.event.MouseEvent evt)
+//		    {
+//		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
+//		        startButton.setIcon(image);
+//		    }
+		    
+		});
+		backButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	/*not working when mouselistener code was added*/
+		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
+		    	backButton.setIcon(image); 
+		        try {
+					main.setContentPane(new WelcomePanel(main));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -238,6 +276,7 @@ public class ThemePanel extends JPanel{
 		this.add(box);
 		this.add(themes);
 		this.add(nextButton);
+		this.add(backButton);
 		validate();
 		
 	}
