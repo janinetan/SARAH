@@ -25,7 +25,7 @@ public class EpisodeDAO {
 			if (rs.next()){
 				Episode episode = new Episode();
 				episode.setEpisodeGoalId(rs.getInt(Episode.COL_EPISODEGOALID));
-				episode.setEventId(rs.getInt(Episode.COL_EVENTID));
+				episode.setEventId(rs.getString(Episode.COL_EVENTID));
 				episode.setId(rs.getInt(Episode.COL_ID));
 				return episode;
 			}

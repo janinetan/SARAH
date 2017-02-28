@@ -26,6 +26,7 @@ public class DiscourseActDAO {
 				DiscourseAct discourseAct = new DiscourseAct();
 				discourseAct.setId(rs.getInt(DiscourseAct.COL_ID));
 				discourseAct.setName(rs.getString(DiscourseAct.COL_NAME));
+				discourseAct.setKeyword(rs.getString(DiscourseAct.COL_KEYWORD));
 				return discourseAct;
 			}
 		} catch (SQLException e) {
@@ -46,6 +47,28 @@ public class DiscourseActDAO {
 				DiscourseAct discourseAct = new DiscourseAct();
 				discourseAct.setId(rs.getInt(DiscourseAct.COL_ID));
 				discourseAct.setName(rs.getString(DiscourseAct.COL_NAME));
+				discourseAct.setKeyword(rs.getString(DiscourseAct.COL_KEYWORD));
+				return discourseAct;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public DiscourseAct getDiscourseActByKeyword(String keyword){
+		try {
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + DiscourseAct.TABLE_DISCOURSEACT + 
+														" WHERE " + DiscourseAct.COL_KEYWORD + " = ?");
+			ps.setString(1, keyword);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()){
+				DiscourseAct discourseAct = new DiscourseAct();
+				discourseAct.setId(rs.getInt(DiscourseAct.COL_ID));
+				discourseAct.setName(rs.getString(DiscourseAct.COL_NAME));
+				discourseAct.setKeyword(rs.getString(DiscourseAct.COL_KEYWORD));
 				return discourseAct;
 			}
 		} catch (SQLException e) {

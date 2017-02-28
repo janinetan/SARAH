@@ -1,15 +1,15 @@
 package Models;
 
-public class DiscourseAct {
-	public static final String TABLE_DISCOURSEACT = "discourse_act";
+public class Cause {
+	public static final String TABLE_CAUSE = "causes";
 	
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
-	public static final String COL_KEYWORD = "keyword";
+	public static final String COL_SICKNESSID = "sicknessId";
 	
 	private int id;
 	private String name;
-	private String keyword;
+	private int sicknessId;
 	
 	public int getId() {
 		return id;
@@ -23,12 +23,11 @@ public class DiscourseAct {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getKeyword() {
-		return keyword;
+	public int getSicknessId() {
+		return sicknessId;
 	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setSicknessId(int sicknessId) {
+		this.sicknessId = sicknessId;
 	}
-	
 	
 }

@@ -9,7 +9,7 @@ public class Episode {
 	
 	private int id;
 	private int episodeGoalId;
-	private int eventId;
+	private String eventId;
 	
 	public int getId() {
 		return id;
@@ -23,10 +23,10 @@ public class Episode {
 	public void setEpisodeGoalId(int episodeGoalId) {
 		this.episodeGoalId = episodeGoalId;
 	}
-	public int getEventId() {
+	public String getEventId() {
 		return eventId;
 	}
-	public void setEventId(int eventId) {
+	public void setEventId(String eventId) {
 		this.eventId = eventId;
 	}
 	

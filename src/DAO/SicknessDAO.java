@@ -24,13 +24,7 @@ public class SicknessDAO {
 			if (rs.next()){
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
-				sickness.setBodyPartId(rs.getInt(Sickness.COL_BODYPARTID));
-				sickness.setCauses(rs.getString(Sickness.COL_CAUSES));
-				sickness.setDefinition(rs.getString(Sickness.COL_DEFINITION));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setPrevention(rs.getString(Sickness.COL_PREVENTION));
-				sickness.setSymptoms(rs.getString(Sickness.COL_SYMPTOMS));
-				sickness.setTreatment(rs.getString(Sickness.COL_TREATMENT));
 				return sickness;
 			}
 		} catch (SQLException e) {

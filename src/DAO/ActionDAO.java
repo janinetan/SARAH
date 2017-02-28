@@ -27,6 +27,7 @@ public class ActionDAO {
 				action.setEventId(rs.getInt(Action.COL_EVENTID));
 				action.setName(rs.getString(Action.COL_NAME));
 				action.setObjectId(rs.getInt(Action.COL_OBJECTID));
+				action.setDuration(rs.getInt(Action.COL_DURATION));
 				return action;
 			}
 		} catch (SQLException e) {
@@ -48,6 +49,7 @@ public class ActionDAO {
 				action.setEventId(rs.getInt(Action.COL_EVENTID));
 				action.setName(rs.getString(Action.COL_NAME));
 				action.setObjectId(rs.getInt(Action.COL_OBJECTID));
+				action.setDuration(rs.getInt(Action.COL_DURATION));
 				return action;
 			}
 		} catch (SQLException e) {

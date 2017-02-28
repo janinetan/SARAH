@@ -27,6 +27,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {
@@ -48,6 +49,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {
@@ -70,6 +72,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {

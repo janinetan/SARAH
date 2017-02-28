@@ -26,6 +26,7 @@ public class SemanticDAO {
 				semantic.setConcept1(rs.getString(Semantic.COL_CONCEPT1));
 				semantic.setConcept2(rs.getInt(Semantic.COL_CONCEPT2));
 				semantic.setId(rs.getInt(Semantic.COL_ID));
+				semantic.setRuling(rs.getInt(Semantic.COL_RULING));
 				return semantic;
 			}
 		} catch (SQLException e) {
