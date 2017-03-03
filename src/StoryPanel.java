@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 public class StoryPanel extends JPanel{
 	JTextArea message;
+	ImagePanel peer, box,room,sticker,action;
 	public StoryPanel(JFrame main) throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -29,14 +30,14 @@ public class StoryPanel extends JPanel{
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
 		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
-		ImagePanel room = new ImagePanel(img);
+		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-		ImagePanel sarah = new ImagePanel("assets/sarah.png");
-		sarah.setLocation(-70, 100);
+		peer = new ImagePanel("assets/sarah.png");
+		peer.setLocation(-70, 100);
 		
 		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
-		ImagePanel box = new ImagePanel(img1);
+		box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
 
         message = new JTextArea();
@@ -79,12 +80,17 @@ public class StoryPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	try {
+		    	/*try {
 					main.setContentPane(new InteractionPanel(main));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
+		    	changePeer("liam");
+		    	String msg = "It was the Christmas of 1939 and I had just been let go. I carried myself down O'Connell street but I succumbed to the pressure. There I lay, outside the Post Office, head in my hands. Not even the soft company of snow flakes." +
+		    		    "He was a small man, lost in an overcoat. His eyes were sad, surveying my miserable presence. He must have been curious then to know why a man in a suit would be slouched on the ground. \"Bad day?\" he asked. I gazed back, intrigued by the street lights illuminating his deep wrinkles and the immense bags drooping from his eyes. ";
+		    		        
+		    	messageDialog(msg);
 		    }
 		});
 		
@@ -106,9 +112,69 @@ public class StoryPanel extends JPanel{
 
         box.setLayout(layout);
         box.setLocation(0, 500);
-		
-		this.add(sarah);
+        
+        
+	
+		this.add(peer);
+		this.add(action);
+		this.add(sticker);
 		this.add(box);
 		this.add(room);
+	}
+	
+	public void changePeer(String p)
+	{
+		this.remove(peer);
+		if(p.equals("sarah"))
+			peer = new ImagePanel("assets/sarah.png");
+		else if(p.equals("liam"))
+			peer = new ImagePanel("assets/liam.png");
+		peer.setLocation(-70, 100);
+		this.add(peer);
+		this.add(box);
+		this.add(room);
+		this.revalidate();
+		this.repaint();
+	}
+	public void messageDialog(String msg)
+	{
+		//what if sentence is more than 230 characters 
+		//
+		//remove space sa harap if start ng sentence 
+		int startIndex =0, endIndex =0;
+		String temp="", cut;
+		if(msg.length()<=230)
+			message.setText(msg);
+		else
+		{
+			while(msg.length()!=0)
+			{
+				if(msg.length()>=230){
+					temp = msg.substring(0, 230);
+					endIndex = temp.lastIndexOf(".")+1;
+					cut = temp.substring(0,endIndex);
+					message.setText(cut);
+					msg = msg.substring(endIndex);
+				}
+				else{
+					message.setText(msg);
+					msg="";
+				}
+			}
+		}
+	}
+	
+	public void addAction()
+	{
+		sticker = new ImagePanel("assets/action_bubble.png");
+		sticker.setLocation(550, 50);
+		
+		action = new ImagePanel("assets/sleep_emoji.png");
+		action.setLocation(720, 130);
+
+		this.add(action);
+		this.add(sticker);
+		this.revalidate();
+		this.repaint();
 	}
 }
