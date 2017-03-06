@@ -75,7 +75,6 @@ DROP TABLE IF EXISTS `causes`;
 CREATE TABLE `causes` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -345,6 +344,8 @@ DROP TABLE IF EXISTS `sickness`;
 CREATE TABLE `sickness` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
+  `symptomsId` varchar(45) NOT NULL,
+  `causesId` varchar(45) NOT NULL DEFAULT 'null',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -355,32 +356,32 @@ CREATE TABLE `sickness` (
 
 LOCK TABLES `sickness` WRITE;
 /*!40000 ALTER TABLE `sickness` DISABLE KEYS */;
-INSERT INTO `sickness` VALUES (1,'Cough and cold'),(2,'Stomach ache'),(3,'Asthma'),(4,'Chicken pox'),(5,'Dengue'),(6,'Fever'),(7,'Allergy'),(8,'Measles'),(9,'Pneumonia'),(10,'Urinary tract infection (UTI)');
+INSERT INTO `sickness` VALUES (1,'Cough and cold','null','null'),(2,'Stomach ache','null','null'),(3,'Asthma','null','null'),(4,'Chicken pox','1','null'),(5,'Dengue','null','null'),(6,'Fever','null','null'),(7,'Allergy','1','null'),(8,'Measles','1','null'),(9,'Pneumonia','null','null'),(10,'Urinary tract infection (UTI)','null','null');
 /*!40000 ALTER TABLE `sickness` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `symptoms`
+-- Table structure for table `symptom`
 --
 
-DROP TABLE IF EXISTS `symptoms`;
+DROP TABLE IF EXISTS `symptom`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `symptoms` (
+CREATE TABLE `symptom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `symptoms`
+-- Dumping data for table `symptom`
 --
 
-LOCK TABLES `symptoms` WRITE;
-/*!40000 ALTER TABLE `symptoms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `symptoms` ENABLE KEYS */;
+LOCK TABLES `symptom` WRITE;
+/*!40000 ALTER TABLE `symptom` DISABLE KEYS */;
+INSERT INTO `symptom` VALUES (1,'red spots'),(2,'fever'),(3,'mosquito bites'),(4,'tummy ache'),(5,'colds'),(6,'sneezing');
+/*!40000 ALTER TABLE `symptom` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -433,10 +434,6 @@ LOCK TABLES `virtual_peer` WRITE;
 INSERT INTO `virtual_peer` VALUES (1,'Sarah','happy',0,'image'),(2,'Liam','sick',1,'image');
 /*!40000 ALTER TABLE `virtual_peer` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'sarah_kb'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -447,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-03 21:41:07
+-- Dump completed on 2017-03-06 19:53:51

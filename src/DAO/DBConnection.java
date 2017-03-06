@@ -8,8 +8,9 @@ public class DBConnection {
 	
 	public DBConnection()
 	{
+		System.out.println("DB INSTANTIATION CALLED");
 		this.username = "root";
-		this.password = "1861096";
+		this.password = "abc123";
 		this.url = "jdbc:mysql://localhost:3306/sarah_kb";
 
 		try
@@ -17,6 +18,7 @@ public class DBConnection {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = DriverManager.getConnection(url, username,
 					password);
+			System.out.println("CONNECTED");
 		} catch (Exception e)
 		{
 			System.out.println(e.getMessage());
@@ -26,7 +28,13 @@ public class DBConnection {
 
 	public static Connection getConnection()
 	{
-		return connection;
+		if (connection == null){
+			new DBConnection();
+			return connection;
+		}
+		else{
+			return connection;
+		}
 	}
 
 }

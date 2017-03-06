@@ -1,7 +1,7 @@
 package Models;
 
 public class Symptom {
-	public static final String TABLE_SYMPTOM = "symptoms";
+	public static final String TABLE_SYMPTOM = "symptom";
 	
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
