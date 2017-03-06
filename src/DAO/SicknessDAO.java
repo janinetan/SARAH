@@ -25,8 +25,11 @@ public class SicknessDAO {
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
 				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
+				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
+				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
 				sicknessList.add(sickness);
 			}
 			return sicknessList;
@@ -49,8 +52,11 @@ public class SicknessDAO {
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
 				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
+				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
+				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
 				sicknessList.add(sickness);
 			}
 			return sicknessList;
@@ -72,8 +78,11 @@ public class SicknessDAO {
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
 				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
+				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
+				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
+				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
 				return sickness;
 			}
 		} catch (SQLException e) {

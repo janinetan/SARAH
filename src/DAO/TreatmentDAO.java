@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Models.Treatment;
+import Models.Treatment;
 
 
 public class TreatmentDAO {
@@ -16,22 +17,19 @@ public class TreatmentDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public ArrayList<Treatment> getTreatmentBySicknessId(int id){
-		ArrayList<Treatment> treatments = new ArrayList<Treatment>();
+	public Treatment getTreatmentById(int id){
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Treatment.TABLE_TREATMENT + 
-														" WHERE " + Treatment.COL_SICKNESSID + " = ?");
+														" WHERE " + Treatment.COL_ID + " = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
-			while (rs.next()){
+			if (rs.next()){
 				Treatment treatment = new Treatment();
 				treatment.setId(rs.getInt(Treatment.COL_ID));
 				treatment.setName(rs.getString(Treatment.COL_NAME));
-				treatment.setSicknessId(rs.getInt(Treatment.COL_SICKNESSID));
-				treatments.add(treatment);
+				return treatment;
 			}
-			return treatments;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
