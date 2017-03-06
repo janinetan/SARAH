@@ -1,3 +1,6 @@
+/DAO/
+/ImagePanel.class
+/ImgUtils.class
 /InteractionPanel$1.class
 /InteractionPanel$2.class
 /InteractionPanel.class
@@ -35,5 +38,4 @@
 /WelcomePanel$3.class
 /WelcomePanel$4.class
 /WelcomePanel.class
-/DAO/
 /driver/

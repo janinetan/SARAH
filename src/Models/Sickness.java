@@ -39,9 +39,11 @@ public class Sickness {
 	
 	public void setBodyPartsId(String bodyPartsId){
 		this.bodyPartsId = new ArrayList<Integer>();
-		String[] temp = bodyPartsId.split(",");
-		for (String tempString : temp){
-			this.bodyPartsId.add(Integer.parseInt(tempString));
+		if (bodyPartsId != null){
+			String[] temp = bodyPartsId.split(",");
+			for (String tempString : temp){
+				this.bodyPartsId.add(Integer.parseInt(tempString));
+			}
 		}
 	}
 	public ArrayList<Integer> getBodyPartsId() {
@@ -50,9 +52,11 @@ public class Sickness {
 	
 	public void setCausesId(String causesId){
 		this.causesId = new ArrayList<Integer>();
-		String[] temp = causesId.split(",");
-		for (String tempString : temp){
-			this.causesId.add(Integer.parseInt(tempString));
+		if (causesId != null){
+			String[] temp = causesId.split(",");
+			for (String tempString : temp){
+				this.causesId.add(Integer.parseInt(tempString));
+			}
 		}
 	}
 	public ArrayList<Integer> getCausesId() {
@@ -61,9 +65,11 @@ public class Sickness {
 	
 	public void setPreventionsId(String preventionsId){
 		this.preventionsId = new ArrayList<Integer>();
-		String[] temp = preventionsId.split(",");
-		for (String tempString : temp){
-			this.preventionsId.add(Integer.parseInt(tempString));
+		if (preventionsId != null){
+			String[] temp = preventionsId.split(",");
+			for (String tempString : temp){
+				this.preventionsId.add(Integer.parseInt(tempString));
+			}
 		}
 	}
 	public ArrayList<Integer> getPreventionsId() {
@@ -72,9 +78,11 @@ public class Sickness {
 	
 	public void setSymptomsId(String symptomsId){
 		this.symptomsId = new ArrayList<Integer>();
-		String[] temp = symptomsId.split(",");
-		for (String tempString : temp){
-			this.symptomsId.add(Integer.parseInt(tempString));
+		if (symptomsId != null){
+			String[] temp = symptomsId.split(",");
+			for (String tempString : temp){
+				this.symptomsId.add(Integer.parseInt(tempString));
+			}
 		}
 	}
 	public ArrayList<Integer> getSymptomsId() {
@@ -83,9 +91,11 @@ public class Sickness {
 	
 	public void setTreatmentsId(String treatmentsId){
 		this.treatmentsId = new ArrayList<Integer>();
-		String[] temp = treatmentsId.split(",");
-		for (String tempString : temp){
-			this.treatmentsId.add(Integer.parseInt(tempString));
+		if (treatmentsId != null){
+			String[] temp = treatmentsId.split(",");
+			for (String tempString : temp){
+				this.treatmentsId.add(Integer.parseInt(tempString));
+			}
 		}
 	}
 	public ArrayList<Integer> getTreatmentsId() {
@@ -100,6 +110,9 @@ public class Sickness {
 		sicknessString += "name: " + this.name + "\n";
 		sicknessString += "symptomsId: " + this.symptomsId + "\n";
 		sicknessString += "causesId: " + this.causesId + "\n";
+		sicknessString += "bodyPartsId: " + this.bodyPartsId + "\n";
+		sicknessString += "treatmentsId: " + this.treatmentsId + "\n";
+		sicknessString += "preventionsId: " + this.preventionsId + "\n";
 		return sicknessString;
 	}
 }
