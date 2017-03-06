@@ -51,7 +51,6 @@ CREATE TABLE `body_part` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(200) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -270,7 +269,6 @@ DROP TABLE IF EXISTS `prevention`;
 CREATE TABLE `prevention` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -346,6 +344,9 @@ CREATE TABLE `sickness` (
   `name` varchar(45) NOT NULL,
   `symptomsId` varchar(45) NOT NULL,
   `causesId` varchar(45) NOT NULL DEFAULT 'null',
+  `preventionsId` varchar(45) NOT NULL DEFAULT 'null',
+  `treatmentsId` varchar(45) NOT NULL DEFAULT 'null',
+  `bodyPartsId` varchar(45) NOT NULL DEFAULT 'null',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -356,7 +357,7 @@ CREATE TABLE `sickness` (
 
 LOCK TABLES `sickness` WRITE;
 /*!40000 ALTER TABLE `sickness` DISABLE KEYS */;
-INSERT INTO `sickness` VALUES (1,'Cough and cold','null','null'),(2,'Stomach ache','null','null'),(3,'Asthma','null','null'),(4,'Chicken pox','1','null'),(5,'Dengue','null','null'),(6,'Fever','null','null'),(7,'Allergy','1','null'),(8,'Measles','1','null'),(9,'Pneumonia','null','null'),(10,'Urinary tract infection (UTI)','null','null');
+INSERT INTO `sickness` VALUES (1,'Cough and cold','null','null','null','null','null'),(2,'Stomach ache','null','null','null','null','null'),(3,'Asthma','null','null','null','null','null'),(4,'Chicken pox','1','null','null','null','null'),(5,'Dengue','null','null','null','null','null'),(6,'Fever','null','null','null','null','null'),(7,'Allergy','1','null','null','null','null'),(8,'Measles','1','null','null','null','null'),(9,'Pneumonia','null','null','null','null','null'),(10,'Urinary tract infection (UTI)','null','null','null','null','null');
 /*!40000 ALTER TABLE `sickness` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,7 +395,6 @@ DROP TABLE IF EXISTS `treatment`;
 CREATE TABLE `treatment` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -444,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-06 19:53:51
+-- Dump completed on 2017-03-06 20:48:45
