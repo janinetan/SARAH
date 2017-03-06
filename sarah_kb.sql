@@ -342,11 +342,11 @@ DROP TABLE IF EXISTS `sickness`;
 CREATE TABLE `sickness` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `symptomsId` varchar(45) NOT NULL,
-  `causesId` varchar(45) NOT NULL DEFAULT 'null',
-  `preventionsId` varchar(45) NOT NULL DEFAULT 'null',
-  `treatmentsId` varchar(45) NOT NULL DEFAULT 'null',
-  `bodyPartsId` varchar(45) NOT NULL DEFAULT 'null',
+  `bodyPartsId` varchar(45) DEFAULT NULL,
+  `causesId` varchar(45) DEFAULT NULL,
+  `preventionsId` varchar(45) DEFAULT NULL,
+  `symptomsId` varchar(45) DEFAULT NULL,
+  `treatmentsId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -357,7 +357,7 @@ CREATE TABLE `sickness` (
 
 LOCK TABLES `sickness` WRITE;
 /*!40000 ALTER TABLE `sickness` DISABLE KEYS */;
-INSERT INTO `sickness` VALUES (1,'Cough and cold','null','null','null','null','null'),(2,'Stomach ache','null','null','null','null','null'),(3,'Asthma','null','null','null','null','null'),(4,'Chicken pox','1','null','null','null','null'),(5,'Dengue','null','null','null','null','null'),(6,'Fever','null','null','null','null','null'),(7,'Allergy','1','null','null','null','null'),(8,'Measles','1','null','null','null','null'),(9,'Pneumonia','null','null','null','null','null'),(10,'Urinary tract infection (UTI)','null','null','null','null','null');
+INSERT INTO `sickness` VALUES (1,'Cough and cold',NULL,NULL,NULL,NULL,NULL),(2,'Stomach ache',NULL,NULL,NULL,NULL,NULL),(3,'Asthma',NULL,NULL,NULL,NULL,NULL),(4,'Chicken pox',NULL,NULL,NULL,'1',NULL),(5,'Dengue',NULL,NULL,NULL,NULL,NULL),(6,'Fever',NULL,NULL,NULL,NULL,NULL),(7,'Allergy',NULL,NULL,NULL,'1',NULL),(8,'Measles',NULL,NULL,NULL,'1',NULL),(9,'Pneumonia',NULL,NULL,NULL,NULL,NULL),(10,'Urinary tract infection (UTI)',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sickness` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-06 20:48:45
+-- Dump completed on 2017-03-07  1:38:27
