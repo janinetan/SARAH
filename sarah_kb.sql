@@ -62,6 +62,7 @@ CREATE TABLE `body_part` (
 
 LOCK TABLES `body_part` WRITE;
 /*!40000 ALTER TABLE `body_part` DISABLE KEYS */;
+INSERT INTO `body_part` VALUES (1,'nose','no description yet',1),(2,'mouth','no description yet',1),(3,'stomach','no description yet',2),(4,'intestines','no description yet',2),(5,'lungs','no description yet',3);
 /*!40000 ALTER TABLE `body_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,6 +87,7 @@ CREATE TABLE `causes` (
 
 LOCK TABLES `causes` WRITE;
 /*!40000 ALTER TABLE `causes` DISABLE KEYS */;
+INSERT INTO `causes` VALUES (1,'virus',1),(2,'bacteria',2),(3,'virus',4),(4,'dengue virus',5);
 /*!40000 ALTER TABLE `causes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +176,7 @@ CREATE TABLE `episode_set` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `episodesId` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +185,7 @@ CREATE TABLE `episode_set` (
 
 LOCK TABLES `episode_set` WRITE;
 /*!40000 ALTER TABLE `episode_set` DISABLE KEYS */;
-INSERT INTO `episode_set` VALUES (1,'1,2,3,4,5,6,7');
+INSERT INTO `episode_set` VALUES (1,'1,2,3,4,5,6,7'),(2,'1,2,3,4,5,6,7');
 /*!40000 ALTER TABLE `episode_set` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +198,8 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(11) DEFAULT NULL COMMENT '0 - good\n1 - bad\nnull - neutral',
+  `ruling` int(11) DEFAULT NULL COMMENT '0 - good\n1 - bad\nnull - neutral',
+  `type` int(11) DEFAULT '1' COMMENT '1 - message\n0 - action',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -207,7 +210,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,NULL),(2,NULL),(3,1),(4,1),(5,0),(6,0),(7,NULL),(8,NULL),(9,1),(10,1),(11,1),(12,1),(13,1),(14,0),(15,0),(16,0),(17,0),(18,0),(19,NULL),(20,NULL),(21,NULL),(22,NULL),(23,NULL),(24,NULL),(25,NULL),(26,NULL),(27,NULL),(28,NULL),(29,NULL),(30,NULL),(31,1),(32,1),(33,0),(34,0),(35,0),(36,0),(37,0),(38,0),(39,NULL),(40,1),(41,1),(42,1),(43,1),(44,0),(45,0);
+INSERT INTO `event` VALUES (1,NULL,1),(2,NULL,1),(3,1,1),(4,1,1),(5,0,1),(6,0,1),(7,NULL,1),(8,NULL,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,0,1),(15,0,1),(16,0,1),(17,0,1),(18,0,1),(19,NULL,1),(20,NULL,1),(21,NULL,1),(22,NULL,1),(23,NULL,1),(24,NULL,1),(25,NULL,1),(26,NULL,1),(27,NULL,1),(28,NULL,1),(29,NULL,1),(30,NULL,1),(31,1,1),(32,1,1),(33,0,1),(34,0,1),(35,0,1),(36,0,1),(37,0,1),(38,0,1),(39,NULL,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,0,1),(45,0,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +273,7 @@ DROP TABLE IF EXISTS `prevention`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prevention` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -282,6 +285,7 @@ CREATE TABLE `prevention` (
 
 LOCK TABLES `prevention` WRITE;
 /*!40000 ALTER TABLE `prevention` DISABLE KEYS */;
+INSERT INTO `prevention` VALUES (1,'frequently wash our hands',1),(2,'cover our mouth with our forearm when coughing',1),(3,'avoid touching our eyes',1),(4,'avoid touching our nose',1),(5,'avoid touching our mouth',1),(6,'sneeze into a tissue',1),(7,'sneeze into sleeves',1),(8,'frequently wash our hands',2),(9,'avoid drinking unpasteurized milk',2),(10,'avoid eating raw meat or shellfish',2),(11,'clean and wash regularly',4),(12,'avoid contact with people who have chicken pox',4),(13,'use mosquito repellents',5),(14,'wear protective clothing',5),(15,'wash our hand often',6),(16,'carry hand sanitizers',6),(17,'avoid touching our nose',6),(18,'avoid touching our mouth',6),(19,'avoid toucing our eyes',6),(20,'avoid our allergens',7),(21,'take medicine given by our doctor',7),(22,'get an immunization',8),(23,'limit interaction with people who have measles',8),(24,'frequent hand cleaning',9),(25,'cough  into a sleeve',9),(26,'avoid interaction with those who are sick',9),(27,'get enough rest',9),(28,'receive proper nutrition',9),(29,'drink plenty of water',10);
 /*!40000 ALTER TABLE `prevention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,9 +373,9 @@ DROP TABLE IF EXISTS `symptom`;
 CREATE TABLE `symptom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `sicknessId` int(11) DEFAULT NULL,
+  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +384,7 @@ CREATE TABLE `symptom` (
 
 LOCK TABLES `symptom` WRITE;
 /*!40000 ALTER TABLE `symptom` DISABLE KEYS */;
-INSERT INTO `symptom` VALUES (1,'red spots',4),(2,'fever',NULL),(3,'mosquito bites',NULL),(4,'tummy ache',NULL),(5,'colds',NULL),(6,'sneezing',NULL),(7,'red spots',7),(8,'red spots',8);
+INSERT INTO `symptom` VALUES (1,'runny nose',1),(2,'stuffy nose',1),(3,'sneezing',1),(4,'coughs',1),(5,'sore throat',1),(6,'scratchy throat',1),(7,'watery eyes',1),(8,'itchy eyes',1),(9,'headaches',1),(10,'body aches',1),(11,'low fever',1),(12,'loss of appetite',2),(13,'vomiting',2),(14,'diarrhea',2),(15,'stomach pains',2),(16,'stomach cramps',2),(17,'fever',2),(18,'shortness of breath',3),(19,'tightness of chest ',3),(20,'wheezes',3),(21,'constant cough',3),(22,'fever ',4),(23,'headache',4),(24,'rashes',4),(25,'loss of appetite',4),(26,'high fever',5),(27,'terrible headaches',5),(28,'eye pains',5),(29,'joint and muscle pain',5),(30,'fatigue',5),(31,'vomiting',5),(32,'skin rash',5),(33,'high body temperature',6),(34,'skin rash',7),(35,'headache',7),(36,'sneezing',7),(37,'runny nose',7),(38,'swelling',7),(39,'diarrhea',7),(40,'cough',8),(41,'fever',8),(42,'red eyes',8),(43,'muscle aches',8),(44,'runny nose',8),(45,'sore throat',8),(46,'white spots inside the mouth',8),(47,'measles rash',8),(48,'dry cough',9),(49,'low fever',9),(50,'headache',9),(51,'tiredness',9),(52,'fever',10),(53,'tiredness',10),(54,'lower stmach pain',10);
 /*!40000 ALTER TABLE `symptom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,6 +409,7 @@ CREATE TABLE `treatment` (
 
 LOCK TABLES `treatment` WRITE;
 /*!40000 ALTER TABLE `treatment` DISABLE KEYS */;
+INSERT INTO `treatment` VALUES (1,'drink water',1),(2,'gargle with warm slat water',1),(3,'use cough drops',1),(4,'use throat sprays',1),(5,'take cold medicines',1),(6,'take nasal drops',1),(7,'drink water regularly',2),(8,'eat some salty foods',2),(9,'eat food with potassium',2),(10,'prevent itching and scratching',4),(11,'drink plenty of water',4),(12,'take painkillers for fever',4),(13,'rest',5),(14,'drink plenty of water',5);
 /*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-07 16:33:17
+-- Dump completed on 2017-03-07 19:33:01
