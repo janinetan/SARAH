@@ -29,5 +29,6 @@ public class Cause {
 	public void setSicknessId(int sicknessId) {
 		this.sicknessId = sicknessId;
 	}
+
 	
 }

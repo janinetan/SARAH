@@ -1,5 +1,8 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Sickness {
 	public static final String TABLE_SICKNESS = "sickness";
 	
@@ -21,5 +24,13 @@ public class Sickness {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+		
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String sicknessString = "";
+		sicknessString += "id: " + this.id + "\n";
+		sicknessString += "name: " + this.name + "\n";
+		return sicknessString;
+	}
 }

@@ -9,7 +9,7 @@ public class DBConnection {
 	public DBConnection()
 	{
 		this.username = "root";
-		this.password = "1861096";
+		this.password = "abc123";
 		this.url = "jdbc:mysql://localhost:3306/sarah_kb";
 
 		try
@@ -26,7 +26,13 @@ public class DBConnection {
 
 	public static Connection getConnection()
 	{
-		return connection;
+		if (connection == null){
+			new DBConnection();
+			return connection;
+		}
+		else{
+			return connection;
+		}
 	}
 
 }

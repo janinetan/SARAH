@@ -6,7 +6,7 @@ public class Prevention {
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
 	public static final String COL_SICKNESSID = "sicknessId";
-
+	
 	private int id;
 	private String name;
 	private int sicknessId;
@@ -29,4 +29,5 @@ public class Prevention {
 	public void setSicknessId(int sicknessId) {
 		this.sicknessId = sicknessId;
 	}
+
 }

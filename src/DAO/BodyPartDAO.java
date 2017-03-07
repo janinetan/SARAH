@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Models.BodyPart;
+import Models.Prevention;
 
 public class BodyPartDAO {
 	private Connection con;

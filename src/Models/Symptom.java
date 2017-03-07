@@ -1,7 +1,7 @@
 package Models;
 
 public class Symptom {
-	public static final String TABLE_SYMPTOM = "symptoms";
+	public static final String TABLE_SYMPTOM = "symptom";
 	
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
@@ -29,6 +29,14 @@ public class Symptom {
 	public void setSicknessId(int sicknessId) {
 		this.sicknessId = sicknessId;
 	}
-	
+
+	@Override
+	public String toString() {
+		String symptomString = "";
+		symptomString += "id: " + this.id + "\n";
+		symptomString += "name: " + this.name + "\n";
+		symptomString += "sicknessId: " + this.sicknessId + "\n";
+		return symptomString;
+	}
 	
 }

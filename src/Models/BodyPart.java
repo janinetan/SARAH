@@ -13,12 +13,7 @@ public class BodyPart {
 	private String description;
 	private int sicknessId;
 	
-	public int getSicknessId() {
-		return sicknessId;
-	}
-	public void setSicknessId(int sicknessId) {
-		this.sicknessId = sicknessId;
-	}
+
 	public int getId() {
 		return id;
 	}
@@ -37,6 +32,13 @@ public class BodyPart {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public int getSicknessId() {
+		return sicknessId;
+	}
+	public void setSicknessId(int sicknessId) {
+		this.sicknessId = sicknessId;
+	}
+
 	
 	
 }
