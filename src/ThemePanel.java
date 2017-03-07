@@ -199,6 +199,7 @@ public class ThemePanel extends JPanel{
 		themesLayout.putConstraint(SpringLayout.WEST, sickButton5, 100, SpringLayout.EAST, sickButton4);
 		themesLayout.putConstraint(SpringLayout.NORTH, sickButton6, 30, SpringLayout.SOUTH, sickButton3);
 		themesLayout.putConstraint(SpringLayout.WEST, sickButton6, 100, SpringLayout.EAST, sickButton5);
+		
         BufferedImage nextButtonIcon = ImageIO.read(new File("assets/next_button.png"));
 		JButton nextButton = new JButton(new ImageIcon(nextButtonIcon));
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
