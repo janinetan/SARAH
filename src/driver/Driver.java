@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import DAO.EpisodeSetDAO;
 import DAO.SicknessDAO;
+import DAO.SymptomDAO;
+import Models.EpisodeSet;
 import Models.Sickness;
+import Models.Symptom;
 
 public class Driver {
 	static Scanner sc = new Scanner (System.in);
@@ -19,22 +23,19 @@ public class Driver {
 		symptomsOptions.add("colds - 5");
 		symptomsOptions.add("sneezing - 6");
 		
-		System.out.println("Enter symptom id: ");
-		int symptomId = sc.nextInt();
+		System.out.println("Enter symptom: ");
+		String symptomInput = sc.nextLine();
 		
-		// gets Sicknesses
-		ArrayList<Sickness> sicknesses = (new SicknessDAO()).getSicknessesWithSymptomId(symptomId);
+		// gets random sickness with symptom chosen
+		System.out.println("****************** chosen sickness ******************");
+		Symptom chosenSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);
+		int sicknessId = chosenSymptom.getSicknessId();
+		Sickness chosenSickness = (new SicknessDAO()).getSicknessWithId(sicknessId);
+		System.out.println(chosenSickness);
 		
-		for (Sickness sickness: sicknesses){
-			System.out.println(sickness);
-		}
-		
-		Random rand = new Random();
-		Sickness sickness = sicknesses.get(rand.nextInt(sicknesses.size()));
-		
-		System.out.println("**********CHOSEN SICKNESS**********");
-		System.out.println(sickness);
-		
-		
+		// gets random episode set
+		System.out.println("****************** chosen story template ******************");
+		EpisodeSet chosenEpisodeSet = (new EpisodeSetDAO()).getRandomEpisodeSet();
+		System.out.println(chosenEpisodeSet);
 	}
 }

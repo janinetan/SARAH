@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Models.Cause;
+import Models.Prevention;
 
 public class CauseDAO {
 	private Connection con;
@@ -25,6 +26,7 @@ public class CauseDAO {
 				Cause cause = new Cause();
 				cause.setId(rs.getInt(Cause.COL_ID));
 				cause.setName(rs.getString(Cause.COL_NAME));
+				cause.setSicknessId(rs.getInt(Cause.COL_SICKNESSID));
 				return cause;
 			}
 		} catch (SQLException e) {

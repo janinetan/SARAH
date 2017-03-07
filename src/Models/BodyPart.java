@@ -6,10 +6,12 @@ public class BodyPart {
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
 	public static final String COL_DESCRIPTION = "description";
+	public static final String COL_SICKNESSID = "sicknessId";
 	
 	private int id;
 	private String name;
 	private String description;
+	private int sicknessId;
 	
 
 	public int getId() {
@@ -30,6 +32,13 @@ public class BodyPart {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public int getSicknessId() {
+		return sicknessId;
+	}
+	public void setSicknessId(int sicknessId) {
+		this.sicknessId = sicknessId;
+	}
+
 	
 	
 }

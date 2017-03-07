@@ -15,58 +15,27 @@ public class SicknessDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public ArrayList<Sickness> getSicknesses(){
+	public Sickness getSicknessWithId( int id ){
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Sickness.TABLE_SICKNESS);
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Sickness.TABLE_SICKNESS +
+															" WHERE " + Sickness.COL_ID + " = ?" );
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			ArrayList<Sickness> sicknessList = new ArrayList<Sickness>();
 			
-			while (rs.next()){
+			if (rs.next()){
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
-				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
-				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
-				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
-				sicknessList.add(sickness);
+				return sickness;
 			}
-			return sicknessList;
+			return null;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public ArrayList<Sickness> getSicknessesWithSymptomId(int id){
-		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Sickness.TABLE_SICKNESS + 
-					" WHERE " + Sickness.COL_SYMPTOMSID + " LIKE ?");
-			ps.setString(1, "%" + id + "%");
-			ResultSet rs = ps.executeQuery();
-			ArrayList<Sickness> sicknessList = new ArrayList<Sickness>();
-			
-			while (rs.next()){
-				Sickness sickness = new Sickness();
-				sickness.setId(rs.getInt(Sickness.COL_ID));
-				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
-				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
-				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
-				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
-				sicknessList.add(sickness);
-			}
-			return sicknessList;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+		
 	public Sickness getSicknessByName(String name){
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Sickness.TABLE_SICKNESS + 
@@ -78,11 +47,6 @@ public class SicknessDAO {
 				Sickness sickness = new Sickness();
 				sickness.setId(rs.getInt(Sickness.COL_ID));
 				sickness.setName(rs.getString(Sickness.COL_NAME));
-				sickness.setBodyPartsId(rs.getString(Sickness.COL_BODYPARTSID));
-				sickness.setCausesId(rs.getString(Sickness.COL_CAUSESID));
-				sickness.setPreventionsId(rs.getString(Sickness.COL_PREVENTIONSID));
-				sickness.setSymptomsId(rs.getString(Sickness.COL_SYMPTOMSID));
-				sickness.setTreatmentsId(rs.getString(Sickness.COL_TREATMENTSID));
 				return sickness;
 			}
 		} catch (SQLException e) {

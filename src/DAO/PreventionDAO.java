@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Models.Prevention;
+import Models.Treatment;
 import Models.Prevention;
 
 
@@ -28,6 +29,7 @@ public class PreventionDAO {
 				Prevention prevention = new Prevention();
 				prevention.setId(rs.getInt(Prevention.COL_ID));
 				prevention.setName(rs.getString(Prevention.COL_NAME));
+				prevention.setSicknessId(rs.getInt(Prevention.COL_SICKNESSID));
 				return prevention;
 			}
 		} catch (SQLException e) {

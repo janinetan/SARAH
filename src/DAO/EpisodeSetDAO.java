@@ -16,22 +16,21 @@ public class EpisodeSetDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public ArrayList<EpisodeSet> getEpisodeSetBySicknessId(int id){
-		ArrayList<EpisodeSet> EpisodeSets = new ArrayList<EpisodeSet>();
+	public EpisodeSet getRandomEpisodeSet(){
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + EpisodeSet.TABLE_EPISODESET + 
-														" WHERE " + EpisodeSet.COL_SICKENESSID + " = ?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + EpisodeSet.TABLE_EPISODESET +
+															" ORDER BY RAND() " + 
+															" LIMIT 1 "	);
+
 			ResultSet rs = ps.executeQuery();
 			
-			while (rs.next()){
+			if (rs.next()){
 				EpisodeSet episodeSet = new EpisodeSet();
-				episodeSet.setEpisodeId(rs.getInt(EpisodeSet.COL_EPISODEID));
 				episodeSet.setId(rs.getInt(EpisodeSet.COL_ID));
-				episodeSet.setSicknessId(rs.getInt(EpisodeSet.COL_SICKENESSID));
-				EpisodeSets.add(episodeSet);
+				episodeSet.setEpisodesId(rs.getString(EpisodeSet.COL_EPISODESID));
+				return episodeSet;
 			}
-			return EpisodeSets;
+			return null;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

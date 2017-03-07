@@ -51,6 +51,7 @@ CREATE TABLE `body_part` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(200) NOT NULL,
+  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -74,6 +75,7 @@ DROP TABLE IF EXISTS `causes`;
 CREATE TABLE `causes` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -169,11 +171,10 @@ DROP TABLE IF EXISTS `episode_set`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `episode_set` (
-  `id` int(11) NOT NULL,
-  `sicknessId` int(11) NOT NULL,
-  `episodeId` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `episodesId` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,6 +183,7 @@ CREATE TABLE `episode_set` (
 
 LOCK TABLES `episode_set` WRITE;
 /*!40000 ALTER TABLE `episode_set` DISABLE KEYS */;
+INSERT INTO `episode_set` VALUES (1,'1,2,3,4,5,6,7');
 /*!40000 ALTER TABLE `episode_set` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,6 +271,7 @@ DROP TABLE IF EXISTS `prevention`;
 CREATE TABLE `prevention` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -342,11 +345,6 @@ DROP TABLE IF EXISTS `sickness`;
 CREATE TABLE `sickness` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `bodyPartsId` varchar(45) DEFAULT NULL,
-  `causesId` varchar(45) DEFAULT NULL,
-  `preventionsId` varchar(45) DEFAULT NULL,
-  `symptomsId` varchar(45) DEFAULT NULL,
-  `treatmentsId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -357,7 +355,7 @@ CREATE TABLE `sickness` (
 
 LOCK TABLES `sickness` WRITE;
 /*!40000 ALTER TABLE `sickness` DISABLE KEYS */;
-INSERT INTO `sickness` VALUES (1,'Cough and cold',NULL,NULL,NULL,NULL,NULL),(2,'Stomach ache',NULL,NULL,NULL,NULL,NULL),(3,'Asthma',NULL,NULL,NULL,NULL,NULL),(4,'Chicken pox',NULL,NULL,NULL,'1',NULL),(5,'Dengue',NULL,NULL,NULL,NULL,NULL),(6,'Fever',NULL,NULL,NULL,NULL,NULL),(7,'Allergy',NULL,NULL,NULL,'1',NULL),(8,'Measles',NULL,NULL,NULL,'1',NULL),(9,'Pneumonia',NULL,NULL,NULL,NULL,NULL),(10,'Urinary tract infection (UTI)',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sickness` VALUES (1,'Cough and cold'),(2,'Stomach ache'),(3,'Asthma'),(4,'Chicken pox'),(5,'Dengue'),(6,'Fever'),(7,'Allergy'),(8,'Measles'),(9,'Pneumonia'),(10,'Urinary tract infection (UTI)');
 /*!40000 ALTER TABLE `sickness` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,8 +369,9 @@ DROP TABLE IF EXISTS `symptom`;
 CREATE TABLE `symptom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
+  `sicknessId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,7 +380,7 @@ CREATE TABLE `symptom` (
 
 LOCK TABLES `symptom` WRITE;
 /*!40000 ALTER TABLE `symptom` DISABLE KEYS */;
-INSERT INTO `symptom` VALUES (1,'red spots'),(2,'fever'),(3,'mosquito bites'),(4,'tummy ache'),(5,'colds'),(6,'sneezing');
+INSERT INTO `symptom` VALUES (1,'red spots',4),(2,'fever',NULL),(3,'mosquito bites',NULL),(4,'tummy ache',NULL),(5,'colds',NULL),(6,'sneezing',NULL),(7,'red spots',7),(8,'red spots',8);
 /*!40000 ALTER TABLE `symptom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -395,6 +394,7 @@ DROP TABLE IF EXISTS `treatment`;
 CREATE TABLE `treatment` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -444,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-07  1:38:27
+-- Dump completed on 2017-03-07 16:33:17

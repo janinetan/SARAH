@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Models.BodyPart;
+import Models.Prevention;
 
 public class BodyPartDAO {
 	private Connection con;
@@ -27,6 +28,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {
@@ -48,6 +50,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {
@@ -70,6 +73,7 @@ public class BodyPartDAO {
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
+				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
 				return bodyPart;
 			}
 		} catch (SQLException e) {

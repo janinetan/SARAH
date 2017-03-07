@@ -28,6 +28,7 @@ public class TreatmentDAO {
 				Treatment treatment = new Treatment();
 				treatment.setId(rs.getInt(Treatment.COL_ID));
 				treatment.setName(rs.getString(Treatment.COL_NAME));
+				treatment.setSicknessId(rs.getInt(Treatment.COL_SICKNESSID));
 				return treatment;
 			}
 		} catch (SQLException e) {
