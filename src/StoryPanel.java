@@ -1,6 +1,9 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -11,11 +14,17 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.UIManager;
+
 
 public class StoryPanel extends JPanel{
 	JTextArea message;
@@ -119,6 +128,10 @@ public class StoryPanel extends JPanel{
         box.setLayout(layout);
         box.setLocation(0, 500);
         
+        UIManager UI=new UIManager();
+        UI.put("OptionPane.background",new ColorUIResource(255,0,0));
+        UI.put("OptionPane.font", font);
+        
         BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
         ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
         home = new JButton(homeIcon);
@@ -126,6 +139,63 @@ public class StoryPanel extends JPanel{
         home.setContentAreaFilled(false);
         home.setBorderPainted(false);
         home.setBounds(1450,10,150,150);
+        home.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	 /*int n = JOptionPane.showConfirmDialog(  
+		                 null,
+		                 "sample question?!" ,
+		                 "",
+		                 JOptionPane.YES_NO_OPTION);
+
+		       if(n == JOptionPane.YES_OPTION)
+		       {
+		    	   try {
+					main.setContentPane(new StartMenuPanel(main));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		       }
+		       else
+		       {
+		           JOptionPane.showMessageDialog(null, "Goodbye");
+
+		       }*/
+		    	JDialog d = new JDialog((java.awt.Frame)null, "Title", true);
+		        d.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		        d.setSize(600, 300);
+		        final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		        final Dimension screenSize = toolkit.getScreenSize();
+		        final int x = (screenSize.width - d.getWidth()) / 2;
+		        final int y = (screenSize.height - d.getHeight()) / 2;
+		        d.setLocation(x, y);
+		        d.setLayout(new BorderLayout());
+		        // label with original font
+		        JLabel label = new JLabel("Are you sure you want to exit the story and go to the main menu?");
+		        label.setFont(font);
+		        d.add(label, BorderLayout.CENTER);
+		        JPanel panel = new JPanel(new BorderLayout());
+		        panel.setBackground(java.awt.Color.RED);
+		        // first button
+		        JButton larger = new JButton("Larger");
+		        larger.addActionListener((ActionEvent evt) -> {label.setFont(new Font(
+		                label.getFont().getName(),
+		                label.getFont().getStyle(),
+		                label.getFont().getSize() + 1
+		        ));});
+		        panel.add(larger, BorderLayout.LINE_START);
+		        // second button
+		        JButton smaller = new JButton("smaller");
+		        smaller.addActionListener((ActionEvent evt) -> {label.setFont(new Font(
+		                label.getFont().getName(),
+		                label.getFont().getStyle(),
+		                label.getFont().getSize() - 1
+		        ));});
+		        panel.add(smaller, BorderLayout.LINE_END);
+		        d.add(panel, BorderLayout.PAGE_START);
+		        d.setVisible(true);
+		    }
+	    });
         
         
         this.add(home);
@@ -197,7 +267,7 @@ public class StoryPanel extends JPanel{
 		
 		if(act.equals("take medicine"))
 			path = "assets/take_medicine.png";
-		else if(act.equals("play"))
+		else if(act.equals("sleep"))
 			path = "assets/sleep_emoji.png";
 		else if(act.equals("play"))
 			path = "assets/basketball.png";

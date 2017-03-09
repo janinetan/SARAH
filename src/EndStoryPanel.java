@@ -56,13 +56,6 @@ public class EndStoryPanel extends JPanel{
         message.getCaret().deinstall( message );
         message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
-        JPanel buttonPanel = new JPanel();
-        SpringLayout buttonLayout = new SpringLayout();
-        buttonPanel.setLayout(buttonLayout);
-        buttonPanel.setSize(710,200);
-        buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
         BufferedImage buttonIcon = ImageIO.read(new File("assets/yes.png"));
 		JButton yesButton = new JButton(new ImageIcon(buttonIcon));
 		yesButton.setBorder(BorderFactory.createEmptyBorder());
@@ -119,27 +112,36 @@ public class EndStoryPanel extends JPanel{
 		    }
 		});
 
-		buttonLayout.putConstraint(SpringLayout.WEST, noButton, 20, SpringLayout.EAST, yesButton);
-		buttonPanel.add(yesButton);
-        buttonPanel.add(noButton);
-        
+		layout.putConstraint(SpringLayout.WEST, noButton, 20, SpringLayout.EAST, yesButton);
+		box.add(yesButton);
+        box.add(noButton);
 		box.add(message);
-		box.add(buttonPanel);
 		
 		// For horizontal Alignment of story message
 		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
 		// For Vertical Alignment of story message
 		layout.putConstraint(SpringLayout.NORTH, message, 10, SpringLayout.NORTH, box);
 		
+		
 		// For horizontal Alignment of button panel
-		layout.putConstraint(SpringLayout.EAST, buttonPanel, 20, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.WEST, yesButton, 610, SpringLayout.WEST, box);
 		// For Vertical Alignment of button panel
-		//layout.putConstraint(SpringLayout.SOUTH, message, 10, SpringLayout.NORTH, buttonPanel);
+		layout.putConstraint(SpringLayout.NORTH, yesButton, 10, SpringLayout.SOUTH, message);
+		layout.putConstraint(SpringLayout.NORTH, noButton, 10, SpringLayout.SOUTH, message);
 		
 
         box.setLayout(layout);
         box.setLocation(0, 500);
         
+        BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
+        ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
+        home = new JButton(homeIcon);
+        home.setBorder(BorderFactory.createEmptyBorder());
+        home.setContentAreaFilled(false);
+        home.setBorderPainted(false);
+        home.setBounds(1450,10,150,150);        
+        
+        this.add(home);
         this.add(peer);
 		this.add(box);
 		this.add(room);
