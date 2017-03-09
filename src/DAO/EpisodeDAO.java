@@ -15,10 +15,10 @@ public class EpisodeDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public Episode getEpisodeByEventId(int id){
+	public Episode getEpisodeById(int id){
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Episode.TABLE_EPISODE + 
-														" WHERE " + Episode.COL_EVENTID + " = ?");
+														" WHERE " + Episode.COL_ID + " = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			

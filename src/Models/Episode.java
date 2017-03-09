@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class Episode {
 	public static final String TABLE_EPISODE = "episode";
 	
@@ -9,25 +11,80 @@ public class Episode {
 	
 	private int id;
 	private int episodeGoalId;
-	private String eventId;
+	private ArrayList<Integer> eventsId;
+	private int discourseActId;
 	
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getEpisodeGoalId() {
 		return episodeGoalId;
 	}
+	
 	public void setEpisodeGoalId(int episodeGoalId) {
 		this.episodeGoalId = episodeGoalId;
 	}
-	public String getEventId() {
-		return eventId;
+	
+	public ArrayList<Integer> getEventId() {
+		return eventsId;
 	}
+	
 	public void setEventId(String eventId) {
-		this.eventId = eventId;
+		this.eventsId = new ArrayList<Integer>();
+		if (eventId != null){
+			String[] temp = eventId.split(",");
+			for (String tempString : temp){
+				try{
+					int t = Integer.parseInt(tempString);
+					this.eventsId.add(Integer.parseInt(tempString));
+				}
+				catch (NumberFormatException e){
+					tempString = tempString.replaceAll("\\D+","");
+					System.out.println(tempString);
+					this.setDiscourseActId(Integer.parseInt(tempString));
+				}
+			}
+		}
+		
+	}
+	
+	public void setDiscourseActId(int discourseActId) {
+		this.discourseActId = discourseActId;
+	}
+	
+	public int getDiscourseActId() {
+		return discourseActId;
+	}
+	
+//	this.episodesId = new ArrayList<Integer>();
+//	if (episodesId != null){
+//		String[] temp = episodesId.split(",");
+//		for (String tempString : temp){
+//			try{
+//				int t = Integer.parseInt(tempString);
+//				this.episodesId.add(Integer.parseInt(tempString));
+//			}
+//			catch (NumberFormatException e){
+//				tempString = tempString.replace("da", "");
+//				this.setDiscourseActId(Integer.parseInt(tempString));
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+	
+	@Override
+	public String toString() {
+		String episodeString = "";
+		episodeString += "id: " + this.id + "\n";
+		episodeString += "episodeGoalId: " + this.episodeGoalId + "\n";
+		episodeString += "eventId: " + this.eventsId + "\n";
+		episodeString += "discourseActId: " + this.discourseActId + "\n";
+		return episodeString;
 	}
 	
 	

@@ -28,6 +28,10 @@ public class EpisodeSet {
 		}
 	}
 	
+	public ArrayList<Integer> getEpisodesId() {
+		return episodesId;
+	}
+	
 	@Override
 	public String toString() {
 		String episodeSetString = "";

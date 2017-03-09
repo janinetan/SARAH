@@ -4,10 +4,12 @@ public class Event {
 	public static final String TABLE_EVENT = "event";
 	
 	public static final String COL_ID = "id";
+	public static final String COL_RULING = "ruling";
 	public static final String COL_EVENTTYPE = "type";
 	
 	private int id;
-	private String type;
+	private boolean isGood;
+	private boolean isMessage;
 	
 	public int getId() {
 		return id;
@@ -15,12 +17,16 @@ public class Event {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getEventType() {
-		return type;
+	public boolean getIsGood (){
+		return isGood;
 	}
-	public void setEventType(String type) {
-		this.type = type;
+	public void setIsGood(int isGood) {
+		this.isGood = 0 == isGood;
 	}
-	
-	
+//	public boolean getIsMessage(){
+//		return isMessage;
+//	}
+//	public void setIsMessage{
+//		this.isMessage = 
+//	}
 }

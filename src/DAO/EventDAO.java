@@ -25,7 +25,7 @@ public class EventDAO {
 			if (rs.next()){
 				Event event = new Event();
 				event.setId(rs.getInt(Event.COL_ID));
-				event.setEventType(rs.getString(Event.COL_EVENTTYPE));
+//				event.setEventType(rs.getString(Event.COL_EVENTTYPE));
 				return event;
 			}
 		} catch (SQLException e) {
