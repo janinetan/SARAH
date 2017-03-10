@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `body_part`;
 CREATE TABLE `body_part` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,7 +62,7 @@ CREATE TABLE `body_part` (
 
 LOCK TABLES `body_part` WRITE;
 /*!40000 ALTER TABLE `body_part` DISABLE KEYS */;
-INSERT INTO `body_part` VALUES (1,'nose','no description yet',1),(2,'mouth','no description yet',1),(3,'stomach','no description yet',2),(4,'intestines','no description yet',2),(5,'lungs','no description yet',3);
+INSERT INTO `body_part` VALUES (1,'nose','no description yet',1),(2,'mouth','is used for eating and talking.',1),(3,'stomach','is a stretchy sack shaped like the letter J that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.',2),(4,'intestines','are long tubes packed inside you beneath your stomach that break down the food mixture even more so your body can absorb all the vitamins, minerals, proteins, carbohydrates and fats.',2),(5,'lungs','are pairs of packet like organs inside your chest that help you breathe.',3),(6,'eyes','',1),(7,'skin','no description yet',5),(8,'skin','no description yet',7),(9,'eyes','no description yet',7),(10,'nose','no description yet',7),(11,'mouth','is used for eating and talking.',7),(12,'stomach','is a stretchy sack shaped like the letter J that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.',7),(13,'nose','no description yet',8),(14,'throat','no description yet',8),(15,'lungs','are pairs of packet like organs inside your chest that help you breathe.',9),(16,'urinary track','no description yet',10);
 /*!40000 ALTER TABLE `body_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ CREATE TABLE `causes` (
 
 LOCK TABLES `causes` WRITE;
 /*!40000 ALTER TABLE `causes` DISABLE KEYS */;
-INSERT INTO `causes` VALUES (1,'virus',1),(2,'bacteria',2),(3,'virus',4),(4,'dengue virus',5);
+INSERT INTO `causes` VALUES (1,'cold-causing virus',1),(2,'bacteria',2),(3,'virus',4),(4,'dengue virus',5),(5,'virus',6),(6,'allergen',7),(7,'virus infection',8),(8,'germs',9),(9,'bacteria',10),(10,'various irritants and substances',3),(11,'bacterial infection',6);
 /*!40000 ALTER TABLE `causes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `prevention` (
 
 LOCK TABLES `prevention` WRITE;
 /*!40000 ALTER TABLE `prevention` DISABLE KEYS */;
-INSERT INTO `prevention` VALUES (1,'frequently wash our hands',1),(2,'cover our mouth with our forearm when coughing',1),(3,'avoid touching our eyes',1),(4,'avoid touching our nose',1),(5,'avoid touching our mouth',1),(6,'sneeze into a tissue',1),(7,'sneeze into sleeves',1),(8,'frequently wash our hands',2),(9,'avoid drinking unpasteurized milk',2),(10,'avoid eating raw meat or shellfish',2),(11,'clean and wash regularly',4),(12,'avoid contact with people who have chicken pox',4),(13,'use mosquito repellents',5),(14,'wear protective clothing',5),(15,'wash our hand often',6),(16,'carry hand sanitizers',6),(17,'avoid touching our nose',6),(18,'avoid touching our mouth',6),(19,'avoid toucing our eyes',6),(20,'avoid our allergens',7),(21,'take medicine given by our doctor',7),(22,'get an immunization',8),(23,'limit interaction with people who have measles',8),(24,'frequent hand cleaning',9),(25,'cough  into a sleeve',9),(26,'avoid interaction with those who are sick',9),(27,'get enough rest',9),(28,'receive proper nutrition',9),(29,'drink plenty of water',10);
+INSERT INTO `prevention` VALUES (1,'frequently wash our hands',1),(2,'cover our mouth with our forearm when coughing',1),(3,'avoid touching our eyes',1),(4,'avoid touching our nose',1),(5,'avoid touching our mouth',1),(8,'frequently wash our hands',2),(9,'avoid drinking raw milk',2),(10,'avoid eating raw meat or shellfish',2),(11,'clean and wash regularly',4),(12,'avoid contact with people who have chicken pox',4),(13,'use mosquito repellents',5),(14,'wear protective clothing',5),(15,'wash our hand often',6),(16,'carry hand sanitizers',6),(17,'avoid touching our nose',6),(18,'avoid touching our mouth',6),(19,'avoid toucing our eyes',6),(20,'avoid our allergens',7),(21,'take medicine given by our doctor',7),(22,'get an immunization',8),(23,'limit interaction with people who have measles',8),(24,'frequent hand cleaning',9),(26,'avoid interaction with those who are sick',9),(27,'get enough rest',9),(28,'receive proper nutrition',9),(29,'drink plenty of water',10);
 /*!40000 ALTER TABLE `prevention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,7 +375,7 @@ CREATE TABLE `symptom` (
   `name` varchar(45) NOT NULL,
   `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +384,7 @@ CREATE TABLE `symptom` (
 
 LOCK TABLES `symptom` WRITE;
 /*!40000 ALTER TABLE `symptom` DISABLE KEYS */;
-INSERT INTO `symptom` VALUES (1,'runny nose',1),(2,'stuffy nose',1),(3,'sneezing',1),(4,'coughs',1),(5,'sore throat',1),(6,'scratchy throat',1),(7,'watery eyes',1),(8,'itchy eyes',1),(9,'headaches',1),(10,'body aches',1),(11,'low fever',1),(12,'loss of appetite',2),(13,'vomiting',2),(14,'diarrhea',2),(15,'stomach pains',2),(16,'stomach cramps',2),(17,'fever',2),(18,'shortness of breath',3),(19,'tightness of chest ',3),(20,'wheezes',3),(21,'constant cough',3),(22,'fever ',4),(23,'headache',4),(24,'rashes',4),(25,'loss of appetite',4),(26,'high fever',5),(27,'terrible headaches',5),(28,'eye pains',5),(29,'joint and muscle pain',5),(30,'fatigue',5),(31,'vomiting',5),(32,'skin rash',5),(33,'high body temperature',6),(34,'skin rash',7),(35,'headache',7),(36,'sneezing',7),(37,'runny nose',7),(38,'swelling',7),(39,'diarrhea',7),(40,'cough',8),(41,'fever',8),(42,'red eyes',8),(43,'muscle aches',8),(44,'runny nose',8),(45,'sore throat',8),(46,'white spots inside the mouth',8),(47,'measles rash',8),(48,'dry cough',9),(49,'low fever',9),(50,'headache',9),(51,'tiredness',9),(52,'fever',10),(53,'tiredness',10),(54,'lower stmach pain',10);
+INSERT INTO `symptom` VALUES (1,'runny nose',1),(2,'stuffy nose',1),(3,'sneezing',1),(4,'coughs',1),(5,'sore throat',1),(6,'scratchy throat',1),(7,'watery eyes',1),(8,'itchy eyes',1),(9,'headaches',1),(10,'body aches',1),(11,'low fever',1),(12,'loss of appetite',2),(13,'vomiting',2),(14,'diarrhea',2),(15,'stomach pains',2),(16,'stomach cramps',2),(17,'fever',2),(18,'shortness of breath',3),(19,'tightness of chest ',3),(20,'wheezes',3),(21,'constant coughs',3),(22,'fever ',4),(23,'headaches',4),(24,'rashes',4),(25,'loss of appetite',4),(26,'high fever',5),(27,'terrible headaches',5),(28,'eye pains',5),(29,'joint and muscle pains',5),(30,'tiredness',5),(31,'vomiting',5),(32,'skin rashes',5),(33,'high body temperature',6),(34,'skin rashes',7),(35,'headaches',7),(36,'sneezing',7),(37,'runny nose',7),(38,'swelling',7),(39,'diarrhea',7),(40,'coughs',8),(41,'fever',8),(42,'red eyes',8),(43,'muscle pains',8),(44,'runny nose',8),(45,'sore throat',8),(46,'white spots inside the mouth',8),(47,'measles rash',8),(48,'dry coughs',9),(49,'low fever',9),(50,'headaches',9),(51,'tiredness',9),(52,'fever',10),(53,'tiredness',10),(54,'lower stomach pain',10),(55,'sweating',6),(56,'shivering',6),(57,'headaches',6),(58,'muscle pains',6),(59,'loss of appetite',6),(60,'dehydration',6),(61,'genral weakness',6);
 /*!40000 ALTER TABLE `symptom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,7 +409,7 @@ CREATE TABLE `treatment` (
 
 LOCK TABLES `treatment` WRITE;
 /*!40000 ALTER TABLE `treatment` DISABLE KEYS */;
-INSERT INTO `treatment` VALUES (1,'drink water',1),(2,'gargle with warm slat water',1),(3,'use cough drops',1),(4,'use throat sprays',1),(5,'take cold medicines',1),(6,'take nasal drops',1),(7,'drink water regularly',2),(8,'eat some salty foods',2),(9,'eat food with potassium',2),(10,'prevent itching and scratching',4),(11,'drink plenty of water',4),(12,'take painkillers for fever',4),(13,'rest',5),(14,'drink plenty of water',5);
+INSERT INTO `treatment` VALUES (1,'drink water',1),(2,'gargle with warm slat water',1),(3,'use cough drops',1),(4,'use throat sprays',1),(5,'take cold medicines',1),(6,'take nasal drops',1),(7,'drink water regularly',2),(8,'eat some salty foods',2),(9,'eat foods with potassium',2),(10,'prevent itching and scratching',4),(11,'drink plenty of water',4),(12,'take painkillers for fever',4),(13,'rest',5),(14,'drink plenty of water',5),(15,'staying cool',6),(16,'rest',6),(17,'drink plenty of water',6),(18,'rest',8),(19,'drink plenty of water',8),(20,'use himidifier in the room',8),(21,'take vintamin A supplement',8),(22,'drink a lot of water',9),(23,'eat healthy food',9),(24,'take medicine',9),(25,'rest',9),(26,'drink antibiotics',10);
 /*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-07 19:33:01
+-- Dump completed on 2017-03-10 19:03:13
