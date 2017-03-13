@@ -19,7 +19,10 @@ public class SentenceDAO {
 	public Sentence getSentenceByTag(String tag){
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Sentence.TABLE_SENTENCE + 
-														" WHERE " + Sentence.COL_TAG + " = ?");
+														" WHERE " + Sentence.COL_TAG + " = ?" +
+														" ORDER BY RAND()" +
+														" LIMIT 1");
+			
 			ps.setString(1, tag);
 			ResultSet rs = ps.executeQuery();
 			
