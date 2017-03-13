@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -27,7 +29,7 @@ import javax.swing.UIManager;
 
 
 public class StoryPanel extends JPanel{
-	JTextArea message;
+	JTextArea message,confirmHome;
 	JButton home;
 	ImagePanel peer, box,room,sticker,action;
 	Font font;
@@ -128,10 +130,6 @@ public class StoryPanel extends JPanel{
         box.setLayout(layout);
         box.setLocation(0, 500);
         
-        UIManager UI=new UIManager();
-        UI.put("OptionPane.background",new ColorUIResource(255,0,0));
-        UI.put("OptionPane.font", font);
-        
         BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
         ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
         home = new JButton(homeIcon);
@@ -161,38 +159,121 @@ public class StoryPanel extends JPanel{
 		           JOptionPane.showMessageDialog(null, "Goodbye");
 
 		       }*/
-		    	JDialog d = new JDialog((java.awt.Frame)null, "Title", true);
+		    	FlowLayout flow = new FlowLayout();
+		    	flow.setAlignment(FlowLayout.CENTER);
+		    	JDialog d = new JDialog((java.awt.Frame)null, "Go to Home", true);
+		    	d.getContentPane().setBackground(new Color(197,229,240));
+		    	d.getContentPane().setLayout(flow);
 		        d.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		        d.setSize(600, 300);
+		        d.setSize(600, 400);
 		        final Toolkit toolkit = Toolkit.getDefaultToolkit();
 		        final Dimension screenSize = toolkit.getScreenSize();
 		        final int x = (screenSize.width - d.getWidth()) / 2;
 		        final int y = (screenSize.height - d.getHeight()) / 2;
 		        d.setLocation(x, y);
-		        d.setLayout(new BorderLayout());
 		        // label with original font
-		        JLabel label = new JLabel("Are you sure you want to exit the story and go to the main menu?");
-		        label.setFont(font);
-		        d.add(label, BorderLayout.CENTER);
-		        JPanel panel = new JPanel(new BorderLayout());
-		        panel.setBackground(java.awt.Color.RED);
-		        // first button
-		        JButton larger = new JButton("Larger");
-		        larger.addActionListener((ActionEvent evt) -> {label.setFont(new Font(
-		                label.getFont().getName(),
-		                label.getFont().getStyle(),
-		                label.getFont().getSize() + 1
-		        ));});
-		        panel.add(larger, BorderLayout.LINE_START);
-		        // second button
-		        JButton smaller = new JButton("smaller");
-		        smaller.addActionListener((ActionEvent evt) -> {label.setFont(new Font(
-		                label.getFont().getName(),
-		                label.getFont().getStyle(),
-		                label.getFont().getSize() - 1
-		        ));});
-		        panel.add(smaller, BorderLayout.LINE_END);
-		        d.add(panel, BorderLayout.PAGE_START);
+		        confirmHome = new JTextArea();
+		        confirmHome.setText("Are you sure you want to exit the story and go to the main menu?");
+		        confirmHome.setBackground(new Color(197,229,240));
+		        confirmHome.setSize(550,100);
+		        confirmHome.setFont(font);
+		        confirmHome.setWrapStyleWord(true);
+		        confirmHome.setLineWrap(true);
+		        confirmHome.setOpaque(false);
+		        confirmHome.setEditable(false);
+		        confirmHome.setFocusable(false);
+		        confirmHome.getCaret().deinstall( confirmHome );
+		        d.add(confirmHome);
+		        
+		        FlowLayout buttonLayout = new FlowLayout();
+		        buttonLayout.setAlignment(FlowLayout.CENTER);
+		        JPanel buttonPanel = new JPanel();
+		        buttonPanel.setBackground(new Color(197,229,240));
+		        buttonPanel.setLayout(buttonLayout);
+		        BufferedImage buttonIcon = null;
+				try {
+					buttonIcon = ImageIO.read(new File("assets/yes.png"));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				ImageIcon yesIcon = new ImageIcon(buttonIcon);
+				Image image = yesIcon.getImage().getScaledInstance(yesIcon.getIconWidth() * 70/100,yesIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				yesIcon = new ImageIcon(image, yesIcon.getDescription());
+				JButton yesButton = new JButton(yesIcon);
+				yesButton.setBorder(BorderFactory.createEmptyBorder());
+				yesButton.setContentAreaFilled(false);
+				yesButton.setBorderPainted(false);
+				yesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/yes_clicked.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	yesButton.setIcon(image);
+				    }
+
+				    public void mouseExited(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/yes.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	yesButton.setIcon(image);
+				    }
+				});
+				yesButton.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	try {
+							main.setContentPane(new StoryPanel(main));
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				        
+				    }
+				});
+				BufferedImage buttonIcon1 = null;
+				try {
+					buttonIcon1 = ImageIO.read(new File("assets/no.png"));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				ImageIcon noIcon = new ImageIcon(buttonIcon1);
+				Image image1 = noIcon.getImage().getScaledInstance(noIcon.getIconWidth() * 70/100,noIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				noIcon = new ImageIcon(image1, noIcon.getDescription());
+				JButton noButton = new JButton(noIcon);
+				noButton.setBorder(BorderFactory.createEmptyBorder());
+				noButton.setContentAreaFilled(false);
+				noButton.setBorderPainted(false);
+				noButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/no_clicked.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	noButton.setIcon(image);
+				    }
+
+				    public void mouseExited(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/no.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	noButton.setIcon(image);
+				    }
+				});
+				noButton.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	/*not working when mouselistener code was added*/
+				        try {
+							main.setContentPane(new ThemePanel(main));
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				        
+				    }
+				});
+		        buttonPanel.add(yesButton);
+		        buttonPanel.add(noButton);
+		        d.add(buttonPanel);
 		        d.setVisible(true);
 		    }
 	    });
@@ -207,9 +288,9 @@ public class StoryPanel extends JPanel{
 	public void changePeer(String p)
 	{
 		this.remove(peer);
-		if(p.equals("sarah"))
+		if(p.equalsIgnoreCase("sarah"))
 			peer = new ImagePanel("assets/sarah.png");
-		else if(p.equals("liam"))
+		else if(p.equalsIgnoreCase("liam"))
 			peer = new ImagePanel("assets/liam.png");
 		peer.setLocation(-70, 100);
 		this.add(peer);
@@ -218,9 +299,10 @@ public class StoryPanel extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-	public void messageDialog(String msg)
+	public ArrayList<String> messageDialog(String msg)
 	{
 		//remove space sa harap if start ng sentence 
+		ArrayList<String> s = new ArrayList();
 		int startIndex =0, endIndex=0;
 		String temp="", cut;
 		if(msg.length()<=230)
@@ -243,15 +325,18 @@ public class StoryPanel extends JPanel{
 					if(endIndex == 0)
 						endIndex = temp.lastIndexOf(" ")+1;
 					cut = temp.substring(0,endIndex);
-					message.setText(cut);
+					s.add(cut);
+					//message.setText(cut);
 					msg = msg.substring(endIndex);
 				}
 				else{
-					message.setText(msg);
+					//message.setText(msg);
+					s.add(msg);
 					msg="";
 				}
 			}
 		}
+		return s;
 	}
 	
 	public void addAction(String act)
