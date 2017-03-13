@@ -50,6 +50,7 @@ DROP TABLE IF EXISTS `body_part`;
 CREATE TABLE `body_part` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `use` varchar(500) NOT NULL,
   `description` varchar(500) NOT NULL,
   `sicknessId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -62,7 +63,7 @@ CREATE TABLE `body_part` (
 
 LOCK TABLES `body_part` WRITE;
 /*!40000 ALTER TABLE `body_part` DISABLE KEYS */;
-INSERT INTO `body_part` VALUES (1,'nose','no description yet',1),(2,'mouth','is used for eating and talking.',1),(3,'stomach','is a stretchy sack shaped like the letter J that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.',2),(4,'intestines','are long tubes packed inside you beneath your stomach that break down the food mixture even more so your body can absorb all the vitamins, minerals, proteins, carbohydrates and fats.',2),(5,'lungs','are pairs of packet like organs inside your chest that help you breathe.',3),(6,'eyes','',1),(7,'skin','no description yet',5),(8,'skin','no description yet',7),(9,'eyes','no description yet',7),(10,'nose','no description yet',7),(11,'mouth','is used for eating and talking.',7),(12,'stomach','is a stretchy sack shaped like the letter J that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.',7),(13,'nose','no description yet',8),(14,'throat','no description yet',8),(15,'lungs','are pairs of packet like organs inside your chest that help you breathe.',9),(16,'urinary track','no description yet',10);
+INSERT INTO `body_part` VALUES (1,'nose','that you smell and breathe with.','is in the middle of your face',1),(2,'mouth','that is used for eating and talking.','is the natural opening through which food passes',1),(3,'stomach','that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.','is a stretchy sack shaped like the letter J',2),(4,'intestines','that break down the food mixture even more so your body can absorb all the vitamins, minerals, proteins, carbohydrates and fats.','are long tubes packed inside you beneath your stomach',2),(5,'lungs','that help you breathe.','are pairs of packet like organs inside your chest',3),(6,'eyes','that allows us to see.',' is about the size and shape of a ping-pong ball',1),(7,'skin','that covers and protects everything inside our body.','is the thin, protective layer that we have on the outside of our bodies',5),(8,'skin','that covers and protects everything inside our body.','is the thin, protective layer that we have on the outside of our bodies',7),(9,'eyes','that allows us to see.',' is about the size and shape of a ping-pong ball',7),(10,'nose','that you smell and breathe with.','is in the middle of your face',7),(11,'mouth','that is used for eating and talking.','is the natural opening through which food passes',7),(12,'stomach','that stores the food you’ve eaten, that breaks down the food into a liquidy mixture, that slowly empties that liquidy mixture of food into the small intestine.','is a stretchy sack shaped like the letter J',7),(13,'nose','that you smell and breathe with.','is in the middle of your face',8),(14,'throat','ensures that food proceeds to the stomach for digestion.','is the tube that leads from your mouth, through your neck, to your stomach and lungs',8),(15,'lungs','that help you breathe.','are pairs of packet like organs inside your chest',9),(16,'urinary track','that removes wastes and extra water from your body.','is a system made up of these main parts: two kidneys, two ureters',10);
 /*!40000 ALTER TABLE `body_part` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +138,7 @@ CREATE TABLE `episode` (
 
 LOCK TABLES `episode` WRITE;
 /*!40000 ALTER TABLE `episode` DISABLE KEYS */;
-INSERT INTO `episode` VALUES (1,1,'1,2,da(1)'),(2,2,'3,4,5,6,7,8,da(2)'),(3,3,'9,10,11,12,13,14,15,16,17,18,19,20,da(3)'),(4,4,'21,22,23,da(4)'),(5,5,'24,25,26,27,28,29,30,da(5)'),(6,6,'31,32,15,33,34,35,36,37,38,da(6)'),(7,7,'39,40,41,42,43,44,45');
+INSERT INTO `episode` VALUES (1,1,'1,2,da(1)'),(2,2,'3,4,5,6,7,8,da(2)'),(3,3,'9,10,11,12,13,14,15,16,17,18,19,20,da(3)'),(4,4,'21,22,23,da(4)'),(5,5,'24,25,26,27,28,29,30,da(5)'),(6,6,'31,32,14,15,33,34,35,36,37,38'),(7,7,'39,40,41,42,43,44,45');
 /*!40000 ALTER TABLE `episode` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +199,7 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ruling` int(11) DEFAULT NULL COMMENT '0 - good\n1 - bad\nnull - neutral',
+  `ruling` int(11) DEFAULT NULL COMMENT '2 - good\n1 - bad\nnull - neutral',
   `type` int(11) DEFAULT '1' COMMENT '1 - message\n0 - action',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
@@ -210,7 +211,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,NULL,1),(2,NULL,1),(3,1,1),(4,1,1),(5,0,1),(6,0,1),(7,NULL,1),(8,NULL,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,0,1),(15,0,1),(16,0,1),(17,0,1),(18,0,1),(19,NULL,1),(20,NULL,1),(21,NULL,1),(22,NULL,1),(23,NULL,1),(24,NULL,1),(25,NULL,1),(26,NULL,1),(27,NULL,1),(28,NULL,1),(29,NULL,1),(30,NULL,1),(31,1,1),(32,1,1),(33,0,1),(34,0,1),(35,0,1),(36,0,1),(37,0,1),(38,0,1),(39,NULL,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,0,1),(45,0,1);
+INSERT INTO `event` VALUES (1,NULL,1),(2,NULL,1),(3,1,1),(4,1,1),(5,2,1),(6,2,1),(7,NULL,1),(8,NULL,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,2,1),(15,2,1),(16,2,1),(17,2,1),(18,2,1),(19,NULL,1),(20,NULL,1),(21,NULL,1),(22,NULL,1),(23,NULL,1),(24,NULL,1),(25,NULL,1),(26,NULL,1),(27,NULL,1),(28,NULL,1),(29,NULL,1),(30,NULL,1),(31,1,1),(32,1,1),(33,2,1),(34,2,1),(35,2,1),(36,2,1),(37,2,1),(38,2,1),(39,NULL,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,2,1),(45,2,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-10 19:03:13
+-- Dump completed on 2017-03-13 18:45:35
