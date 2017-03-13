@@ -30,11 +30,11 @@ public class Episode {
 		this.episodeGoalId = episodeGoalId;
 	}
 	
-	public ArrayList<Integer> getEventId() {
+	public ArrayList<Integer> getEventsId() {
 		return eventsId;
 	}
 	
-	public void setEventId(String eventId) {
+	public void setEventsId(String eventId) {
 		this.eventsId = new ArrayList<Integer>();
 		if (eventId != null){
 			String[] temp = eventId.split(",");
@@ -45,7 +45,6 @@ public class Episode {
 				}
 				catch (NumberFormatException e){
 					tempString = tempString.replaceAll("\\D+","");
-					System.out.println(tempString);
 					this.setDiscourseActId(Integer.parseInt(tempString));
 				}
 			}
@@ -60,22 +59,6 @@ public class Episode {
 	public int getDiscourseActId() {
 		return discourseActId;
 	}
-	
-//	this.episodesId = new ArrayList<Integer>();
-//	if (episodesId != null){
-//		String[] temp = episodesId.split(",");
-//		for (String tempString : temp){
-//			try{
-//				int t = Integer.parseInt(tempString);
-//				this.episodesId.add(Integer.parseInt(tempString));
-//			}
-//			catch (NumberFormatException e){
-//				tempString = tempString.replace("da", "");
-//				this.setDiscourseActId(Integer.parseInt(tempString));
-//				e.printStackTrace();
-//			}
-//		}
-//	}
 	
 	@Override
 	public String toString() {

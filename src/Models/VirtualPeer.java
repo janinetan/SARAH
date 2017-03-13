@@ -9,6 +9,9 @@ public class VirtualPeer {
 	public static final String COL_ISSICK = "isSick";
 	public static final String COL_IMAGEFILEPATH = "imageFilePath";
 	
+	public static final int VP_SARAH = 1;
+	public static final int VP_LIAM = 2;
+	
 	private int id;
 	private String name;
 	private String emotionalState;
