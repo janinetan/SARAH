@@ -1,3 +1,4 @@
+package driver;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 
@@ -10,7 +11,7 @@ public class SarahChatbot {
 	}
 	
 	public static String getVerdict (String input){
-		String path = "C:/Users/Bianca/Downloads/sarah-bot";
+		String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
 		Bot bot = new Bot("sarah-bot", path);
 		Chat chat = new Chat(bot);
 		

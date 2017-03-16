@@ -16,5 +16,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Raisa/projects/SARAH/sarah-bot/lib/Ab.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

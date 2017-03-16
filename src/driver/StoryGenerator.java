@@ -58,10 +58,10 @@ public class StoryGenerator {
 		for (int tempEpisodeId: episodesId){
 			Episode episode = (new EpisodeDAO()).getEpisodeById(tempEpisodeId);
 			ArrayList<Integer> eventsId = episode.getEventsId();
+			String question = "";
 			
 			for (int tempEventId: eventsId){
 				Event event = (new EventDAO()).getEventById(tempEventId);
-				
 				if (storyRuling == event.getRuling() || event.getRuling() == 0){
 					if (event.getType() == Event.TYPE_MESSAGE){
 						Message message = (new MessageDAO()).getMessageById(event.getId());
@@ -70,6 +70,7 @@ public class StoryGenerator {
 						for (String tempSentenceTag: sentenceTags){
 							Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
 							m += sentence.getMessage() + " ";
+							question = sentence.getMessage();
 						}
 						System.out.println(this.curVP.getName() + ": " + m);
 						this.roundRobinVP();
@@ -82,7 +83,9 @@ public class StoryGenerator {
 			}
 			if (episode.getDiscourseActId() != 0)
 				this.roundRobinVP();
-			// ask for input
+			
+			String input = sc.nextLine();
+			SarahChatbot.getVerdict(question + input);
 			
 			// analyze input
 			
