@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 public class ThemePanel extends JPanel{
 	JTextArea message; 
+	String theme="";
 	public ThemePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -91,6 +92,11 @@ public class ThemePanel extends JPanel{
 		    	sickButton1.setIcon(image);
 		    }
 		});
+		sickButton1.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "rashes";
+		    }
+		});
 		
 		BufferedImage buttonIcon2 = ImageIO.read(new File("assets/sick2.png"));
 		JButton sickButton2 = new JButton(new ImageIcon(buttonIcon2));
@@ -107,7 +113,11 @@ public class ThemePanel extends JPanel{
 		    	sickButton2.setIcon(image);
 		    }
 		});
-		
+		sickButton2.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "sneezing";
+		    }
+		});
 		
 		BufferedImage buttonIcon3 = ImageIO.read(new File("assets/sick3.png"));
 		JButton sickButton3 = new JButton(new ImageIcon(buttonIcon3));
@@ -124,7 +134,11 @@ public class ThemePanel extends JPanel{
 		    	sickButton3.setIcon(image);
 		    }
 		});
-		
+		sickButton3.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "fever";
+		    }
+		});
 		
 		BufferedImage buttonIcon4 = ImageIO.read(new File("assets/sick4.png"));
 		JButton sickButton4 = new JButton(new ImageIcon(buttonIcon4));
@@ -141,9 +155,13 @@ public class ThemePanel extends JPanel{
 		    	sickButton4.setIcon(image);
 		    }
 		});
+		sickButton4.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "stomach";
+		    }
+		});
 		
-		
-		BufferedImage buttonIcon5 = ImageIO.read(new File("assets/sick5.png"));
+		BufferedImage buttonIcon5 = ImageIO.read(new File("assets/sick6.png"));
 		JButton sickButton5 = new JButton(new ImageIcon(buttonIcon5));
 		sickButton5.setBorder(BorderFactory.createEmptyBorder());
 		sickButton5.setContentAreaFilled(false);
@@ -154,8 +172,13 @@ public class ThemePanel extends JPanel{
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick5.png");
+		    	ImageIcon image = new ImageIcon("assets/sick6.png");
 		    	sickButton5.setIcon(image);
+		    }
+		});
+		sickButton5.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "cough";
 		    }
 		});
 		
@@ -177,6 +200,11 @@ public class ThemePanel extends JPanel{
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 		    	ImageIcon image = new ImageIcon("assets/sick6.png");
 		    	sickButton6.setIcon(image);
+		    }
+		});
+		sickButton6.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "difficulty breathing";
 		    }
 		});
 		
@@ -279,6 +307,10 @@ public class ThemePanel extends JPanel{
 		this.add(nextButton);
 		this.add(backButton);
 		validate();
-		
+	}
+	
+	public String getTheme()
+	{
+		return theme;
 	}
 }

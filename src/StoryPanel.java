@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,22 +17,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.UIManager;
 
 
 public class StoryPanel extends JPanel{
 	JTextArea message,confirmHome;
-	JButton home;
+	JButton home, nextButton;
 	ImagePanel peer, box,room,sticker,action;
 	Font font;
 	JFrame main;
+	ArrayList<String> messageParts;
 	public StoryPanel(JFrame main) throws IOException
 	{
 		this.main = main;
@@ -54,10 +50,10 @@ public class StoryPanel extends JPanel{
 		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
 		box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
-
+		
         message = new JTextArea();
-        message.setText("When you are done reading the current text, "
-        		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
+        //message.setText("When you are done reading the current text, "
+        //		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
         message.setSize(950,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
@@ -73,7 +69,7 @@ public class StoryPanel extends JPanel{
         ImageIcon icon = new ImageIcon(buttonIcon1);
         Image image = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
         icon = new ImageIcon(image, icon.getDescription());
-		JButton nextButton = new JButton(icon);
+		nextButton = new JButton(icon);
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
 		nextButton.setBorderPainted(false);
@@ -93,23 +89,7 @@ public class StoryPanel extends JPanel{
 		    }
 		    
 		});
-		nextButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	try {
-					main.setContentPane(new EndStoryPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		    	/*addAction("play");
-		    	changePeer("liam");
-		    	String msg = "It was the Christmas of 1939 and I had just been let go It was the Christmas of 1939 and I had just been let go It was the Christmas of 1939 and I had just been let go It was the Christmas of 1939 and I had just been let go It was the Christmas of 1939 and I had just been let go It was the Christmas of 1939 and I had just been let go ";
-		    			//I carried myself down O'Connell street but I succumbed to the pressure. There I lay, outside the Post Office, head in my hands. Not even the soft company of snow flakes." +
-		    		    //"He was a small man, lost in an overcoat. His eyes were sad, surveying my miserable presence. He must have been curious then to know why a man in a suit would be slouched on the ground. \"Bad day?\" he asked. I gazed back, intrigued by the street lights illuminating his deep wrinkles and the immense bags drooping from his eyes. ";
-		    		        
-		    	messageDialog(msg);*/
-		    }
-		});
+		
 		
 
 		box.add(nextButton);
@@ -139,26 +119,6 @@ public class StoryPanel extends JPanel{
         home.setBounds(1450,10,150,150);
         home.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	 /*int n = JOptionPane.showConfirmDialog(  
-		                 null,
-		                 "sample question?!" ,
-		                 "",
-		                 JOptionPane.YES_NO_OPTION);
-
-		       if(n == JOptionPane.YES_OPTION)
-		       {
-		    	   try {
-					main.setContentPane(new StartMenuPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		       }
-		       else
-		       {
-		           JOptionPane.showMessageDialog(null, "Goodbye");
-
-		       }*/
 		    	FlowLayout flow = new FlowLayout();
 		    	flow.setAlignment(FlowLayout.CENTER);
 		    	JDialog d = new JDialog((java.awt.Frame)null, "Go to Home", true);
@@ -278,6 +238,7 @@ public class StoryPanel extends JPanel{
 		    }
 	    });
         
+        displayMessage("The Blue Whales just played their first baseball game of the new season; I believe there is much to be excited about. Although they lost, it was against an excellent team that had won the championship last year. The Blue Whales fell behind early but showed excellent teamwork and came back to tie the game. The team had 15 hits and scored 8 runs. That’s excellent! Unfortunately, they had 5 fielding errors, which kept the other team in the lead the entire game. The game ended with the umpire making a bad call, and if the call had gone the other way, the Blue Whales might have actually won the game. It wasn’t a victory, but I say the Blue Whales look like they have a shot at the championship, especially if they continue to improve.");
         
         this.add(home);
 		this.add(peer);
@@ -299,7 +260,7 @@ public class StoryPanel extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-	public ArrayList<String> messageDialog(String msg)
+	public ArrayList<String> cutMessageDialog(String msg)
 	{
 		//remove space sa harap if start ng sentence 
 		ArrayList<String> s = new ArrayList();
@@ -372,6 +333,21 @@ public class StoryPanel extends JPanel{
 		this.add(room);
 		this.revalidate();
 		this.repaint();
+	}
+	public void displayMessage(String msg)
+	{
+		messageParts = new ArrayList<String>();
+		messageParts = cutMessageDialog(msg);
+		message.setText(messageParts.get(0));
+		nextButton.addActionListener(new ActionListener() {
+			int counter = 1;
+		    public void actionPerformed(ActionEvent e) {
+		    	if(counter<=messageParts.size()){
+			    	message.setText(messageParts.get(counter));
+			    	counter++;
+		    	}
+		    }
+		});
 	}
 	
 }
