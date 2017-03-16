@@ -83,8 +83,8 @@ public class ThemePanel extends JPanel{
 		    	/*Border b =  BorderFactory.createDashedBorder(Color.BLACK, 5, 4, 2, true);
 		    	sickButton1.setBorderPainted(true);
 		    	sickButton1.setBorder(b);*/
-		    	ImageIcon image = new ImageIcon("assets/sick1_clicked1.png");
-		    	sickButton1.setIcon(image);
+		    	//ImageIcon image = new ImageIcon("assets/sick1_clicked1.png");
+		    	//sickButton1.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
