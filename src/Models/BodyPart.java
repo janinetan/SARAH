@@ -7,12 +7,13 @@ public class BodyPart {
 	public static final String COL_NAME = "name";
 	public static final String COL_DESCRIPTION = "description";
 	public static final String COL_SICKNESSID = "sicknessId";
+	public static final String COL_USE = "use";
 	
 	private int id;
 	private String name;
 	private String description;
 	private int sicknessId;
-	
+	private String use;
 
 	public int getId() {
 		return id;
@@ -37,6 +38,12 @@ public class BodyPart {
 	}
 	public void setSicknessId(int sicknessId) {
 		this.sicknessId = sicknessId;
+	}
+	public String getUse() {
+		return use;
+	}
+	public void setUse(String use) {
+		this.use = use;
 	}
 
 	

@@ -18,20 +18,23 @@ public class PreventionDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public Prevention getPreventionById(int id){
+	public ArrayList<String> get5PreventionBySicknessId(int id){
+		ArrayList<String> preventionsList = new ArrayList<String>();
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Prevention.TABLE_PREVENTION + 
-														" WHERE " + Prevention.COL_ID + " = ?");
+														" WHERE " + Prevention.COL_SICKNESSID + " = ?" +
+														" ORDER BY RAND() " +
+														" LIMIT 5 ");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()){
+			while (rs.next()){
 				Prevention prevention = new Prevention();
 				prevention.setId(rs.getInt(Prevention.COL_ID));
 				prevention.setName(rs.getString(Prevention.COL_NAME));
 				prevention.setSicknessId(rs.getInt(Prevention.COL_SICKNESSID));
-				return prevention;
-			}
+				preventionsList.add(prevention.getName());
+			}	
+			return preventionsList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -39,20 +39,26 @@ public class SymptomDAO {
 		return null;
 	}
 	
-	public Symptom getSymptomById(int id){
+	public ArrayList<String> get4SymptomsBySicknessId(int id, String symptomName){
+		ArrayList<String> symptomsList = new ArrayList<String>();
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Symptom.TABLE_SYMPTOM + 
-														" WHERE " + Symptom.COL_ID + " = ?");
+														" WHERE " + Symptom.COL_SICKNESSID + " = ?" + 
+														" AND " + Symptom.COL_NAME + " <> ?" +
+														" ORDER BY RAND() " +
+														" LIMIT 5 ");
 			ps.setInt(1, id);
+			ps.setString(2, symptomName);
 			ResultSet rs = ps.executeQuery();
 			
-			if (rs.next()){
+			while (rs.next()){
 				Symptom symptom = new Symptom();
 				symptom.setId(rs.getInt(Symptom.COL_ID));
 				symptom.setName(rs.getString(Symptom.COL_NAME));
 				symptom.setSicknessId(rs.getInt(Symptom.COL_SICKNESSID));
-				return symptom;
+				symptomsList.add(symptom.getName());
 			}
+			return symptomsList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

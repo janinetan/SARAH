@@ -10,6 +10,10 @@ public class SarahChatbot {
 		System.out.println("Verdict: "+s);
 	}
 	
+	public static final String VERDICT_GOOD = "positive";
+	public static final String VERDICT_BAD = "negative";
+	public static final String VERDICT_NEUTRAL = "I have no answer for that.";
+	
 	public static String getVerdict (String input){
 		String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
 		Bot bot = new Bot("sarah-bot", path);

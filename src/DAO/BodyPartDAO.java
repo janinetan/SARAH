@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Models.BodyPart;
 import Models.Prevention;
@@ -16,21 +17,24 @@ public class BodyPartDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public BodyPart getBodyPartById(int id){
+	public ArrayList<BodyPart> getBodyPartsBySicknessId(int id){
+		ArrayList<BodyPart> bodyPartsList = new ArrayList<BodyPart>();
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + BodyPart.TABLE_BODYPART + 
-														" WHERE " + BodyPart.COL_ID + " = ?");
+														" WHERE " + BodyPart.COL_SICKNESSID + " = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
-			if (rs.next()){
+			while (rs.next()){
 				BodyPart bodyPart = new BodyPart();
 				bodyPart.setDescription(rs.getString(BodyPart.COL_DESCRIPTION));
 				bodyPart.setId(rs.getInt(BodyPart.COL_ID));
 				bodyPart.setName(rs.getString(BodyPart.COL_NAME));
 				bodyPart.setSicknessId(rs.getInt(BodyPart.COL_SICKNESSID));
-				return bodyPart;
+				bodyPart.setUse(rs.getString(BodyPart.COL_USE));
+				bodyPartsList.add(bodyPart);
 			}
+			return bodyPartsList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

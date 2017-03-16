@@ -1,7 +1,7 @@
 package Models;
 
 public class Treatment {
-public static final String TABLE_TREATMENT = "treatement";
+public static final String TABLE_TREATMENT = "treatment";
 	
 	public static final String COL_ID = "id";
 	public static final String COL_NAME = "name";
