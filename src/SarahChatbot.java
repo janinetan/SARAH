@@ -19,7 +19,11 @@ public class SarahChatbot {
 		
 		input = chat.multisentenceRespond(input);
 		
-		String[] output = input.split("V>");
-		return output[1];	
+		if (input.contains("V>")){
+			String[] output = input.split("V>");
+			return output[1];	
+		}
+		
+		return input;	
 	}
 }
