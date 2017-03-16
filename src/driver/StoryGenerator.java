@@ -120,6 +120,7 @@ public class StoryGenerator {
 				this.lastSentenceTag = tempSentenceTag;
 				this.lastQuestion = sentence.getMessage();
 			}
+			m = polishMessage(m);
 //			call method in UI to display message (use this.curVP.getName() for VP name, m for message)
 			System.out.println(this.curVP.getName() + ": " + m);
 			if (m.indexOf("?") == -1){
@@ -162,4 +163,36 @@ public class StoryGenerator {
 		this.curVP = this.vpList.get(indexVP); 
 	}
 	
+	public String polishMessage (String message){
+		message = message.replaceAll("<user>", "Anna");
+//		message = message.replaceAll("<day>", "Anna");
+//		message = message.replaceAll("<liam-status>", "Anna");
+		message = message.replaceAll("<sickness>", this.storyTheme.getName());
+		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
+		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
+		
+//		fixing this tomorrow :)
+//		int i = 0;
+//		while (message.contains("[treatment]")){
+//			message = message.replaceFirst("[treatment]", this.treatmentsList.get(i));
+//			i++;
+//		}
+//		i = 0;
+//		while (message.contains("[symptom]")){
+//			System.out.println("hi");
+//			message = message.replaceFirst("[symptom]", this.symptomsList.get(i));
+//			i++;
+//		}
+//		i = 0;
+//		while (message.contains("[cause]")){
+//			message = message.replaceFirst("[cause]", this.causesList.get(i));
+//			i++;
+//		}
+//		i = 0;
+//		while (message.contains("[prevention]")){
+//			message = message.replaceFirst("[prevention]", this.preventionsList.get(i));
+//			i++;
+//		}  
+		return message;
+	}
 }
