@@ -200,7 +200,8 @@ public class InteractionPanel extends JPanel{
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
 				    	try {
-							main.setContentPane(new StoryPanel(main));
+							main.setContentPane(new StartMenuPanel(main));
+							d.dispose();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -239,14 +240,7 @@ public class InteractionPanel extends JPanel{
 				});
 				noButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				    	/*not working when mouselistener code was added*/
-				        try {
-							main.setContentPane(new ThemePanel(main));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				        
+							d.dispose();
 				    }
 				});
 		        buttonPanel.add(yesButton);
