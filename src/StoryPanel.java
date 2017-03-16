@@ -182,7 +182,8 @@ public class StoryPanel extends JPanel{
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
 				    	try {
-							main.setContentPane(new StoryPanel(main));
+							main.setContentPane(new StartMenuPanel(main));
+							d.dispose();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -221,13 +222,7 @@ public class StoryPanel extends JPanel{
 				});
 				noButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				    	/*not working when mouselistener code was added*/
-				        try {
-							main.setContentPane(new ThemePanel(main));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+				    	d.dispose();
 				        
 				    }
 				});
@@ -334,8 +329,9 @@ public class StoryPanel extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-	public void displayMessage(String msg)
+	public void displayMessage(String msg,String peer)
 	{
+		changePeer(peer);
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
@@ -348,6 +344,11 @@ public class StoryPanel extends JPanel{
 		    	}
 		    }
 		});
+	}
+	public void displayMessageAction(String msg, String peer, String act)
+	{
+		addAction(act);
+		displayMessage(msg, peer);
 	}
 	
 }
