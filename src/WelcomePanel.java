@@ -24,7 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 public class WelcomePanel extends JPanel{
-	
+	CustomTextField name;
 	public WelcomePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -38,7 +38,7 @@ public class WelcomePanel extends JPanel{
 		welcome.setFont(font);
 		welcome.setBounds(100,-50,1000,300);*/
 		
-		CustomTextField name = new CustomTextField();
+		name = new CustomTextField();
 		name.setPlaceholder("Type Name Here");
 		name.setOpaque(false);
 		name.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -179,5 +179,9 @@ public class WelcomePanel extends JPanel{
 		this.add(nextButton);
 		this.add(backButton);
 		validate();
+	}
+	public String getPlayerName()
+	{
+		return name.getText();
 	}
 }

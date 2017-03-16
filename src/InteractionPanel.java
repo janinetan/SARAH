@@ -1,6 +1,9 @@
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -11,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -18,8 +22,9 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 public class InteractionPanel extends JPanel{
-	JTextArea message;
+	JTextArea message,confirmHome;
 	CustomTextArea answer;
+	JButton home;
 	
 	public InteractionPanel(JFrame main) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -123,10 +128,135 @@ public class InteractionPanel extends JPanel{
 		box.add(nextButton);
 		box.add(answer);
 		
+		BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
+        ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
+        home = new JButton(homeIcon);
+        home.setBorder(BorderFactory.createEmptyBorder());
+        home.setContentAreaFilled(false);
+        home.setBorderPainted(false);
+        home.setBounds(1450,10,150,150);
+        home.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	FlowLayout flow = new FlowLayout();
+		    	flow.setAlignment(FlowLayout.CENTER);
+		    	JDialog d = new JDialog((java.awt.Frame)null, "Go to Home", true);
+		    	d.getContentPane().setBackground(new Color(197,229,240));
+		    	d.getContentPane().setLayout(flow);
+		        d.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		        d.setSize(600, 400);
+		        final Toolkit toolkit = Toolkit.getDefaultToolkit();
+		        final Dimension screenSize = toolkit.getScreenSize();
+		        final int x = (screenSize.width - d.getWidth()) / 2;
+		        final int y = (screenSize.height - d.getHeight()) / 2;
+		        d.setLocation(x, y);
+		        // label with original font
+		        confirmHome = new JTextArea();
+		        confirmHome.setText("Are you sure you want to exit the story and go to the main menu?");
+		        confirmHome.setBackground(new Color(197,229,240));
+		        confirmHome.setSize(550,100);
+		        confirmHome.setFont(font);
+		        confirmHome.setWrapStyleWord(true);
+		        confirmHome.setLineWrap(true);
+		        confirmHome.setOpaque(false);
+		        confirmHome.setEditable(false);
+		        confirmHome.setFocusable(false);
+		        confirmHome.getCaret().deinstall( confirmHome );
+		        d.add(confirmHome);
+		        
+		        FlowLayout buttonLayout = new FlowLayout();
+		        buttonLayout.setAlignment(FlowLayout.CENTER);
+		        JPanel buttonPanel = new JPanel();
+		        buttonPanel.setBackground(new Color(197,229,240));
+		        buttonPanel.setLayout(buttonLayout);
+		        BufferedImage buttonIcon = null;
+				try {
+					buttonIcon = ImageIO.read(new File("assets/yes.png"));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				ImageIcon yesIcon = new ImageIcon(buttonIcon);
+				Image image = yesIcon.getImage().getScaledInstance(yesIcon.getIconWidth() * 70/100,yesIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				yesIcon = new ImageIcon(image, yesIcon.getDescription());
+				JButton yesButton = new JButton(yesIcon);
+				yesButton.setBorder(BorderFactory.createEmptyBorder());
+				yesButton.setContentAreaFilled(false);
+				yesButton.setBorderPainted(false);
+				yesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/yes_clicked.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	yesButton.setIcon(image);
+				    }
+
+				    public void mouseExited(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/yes.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	yesButton.setIcon(image);
+				    }
+				});
+				yesButton.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	try {
+							main.setContentPane(new StartMenuPanel(main));
+							d.dispose();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				        
+				    }
+				});
+				BufferedImage buttonIcon1 = null;
+				try {
+					buttonIcon1 = ImageIO.read(new File("assets/no.png"));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				ImageIcon noIcon = new ImageIcon(buttonIcon1);
+				Image image1 = noIcon.getImage().getScaledInstance(noIcon.getIconWidth() * 70/100,noIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				noIcon = new ImageIcon(image1, noIcon.getDescription());
+				JButton noButton = new JButton(noIcon);
+				noButton.setBorder(BorderFactory.createEmptyBorder());
+				noButton.setContentAreaFilled(false);
+				noButton.setBorderPainted(false);
+				noButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				    public void mouseEntered(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/no_clicked.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	noButton.setIcon(image);
+				    }
+
+				    public void mouseExited(java.awt.event.MouseEvent evt) {
+				    	ImageIcon image = new ImageIcon("assets/no.png");
+				    	Image image1 = image.getImage().getScaledInstance(image.getIconWidth() * 70/100,image.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+				    	image = new ImageIcon(image1, image.getDescription());
+				    	noButton.setIcon(image);
+				    }
+				});
+				noButton.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+							d.dispose();
+				    }
+				});
+		        buttonPanel.add(yesButton);
+		        buttonPanel.add(noButton);
+		        d.add(buttonPanel);
+		        d.setVisible(true);
+		    }
+	    });
 		
 		this.add(sarah);
 		this.add(dialog);
 		this.add(box);
 		this.add(room);
+	}
+	public String getUserInput()
+	{
+		return answer.getText();
 	}
 }

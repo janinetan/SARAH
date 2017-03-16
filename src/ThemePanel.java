@@ -24,6 +24,9 @@ import javax.swing.border.EmptyBorder;
 
 public class ThemePanel extends JPanel{
 	JTextArea message; 
+	String theme="";
+	ImageIcon image;
+	JButton sickButton1,sickButton2,sickButton3,sickButton4,sickButton5,sickButton6;
 	public ThemePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -68,115 +71,214 @@ public class ThemePanel extends JPanel{
 		themes.setLayout(themesLayout);
         
         BufferedImage buttonIcon1 = ImageIO.read(new File("assets/sick1.png"));
-		JButton sickButton1 = new JButton(new ImageIcon(buttonIcon1));
+		sickButton1 = new JButton(new ImageIcon(buttonIcon1));
 		sickButton1.setBorder(BorderFactory.createEmptyBorder());
 		sickButton1.setContentAreaFilled(false);
 		sickButton1.setBorderPainted(false);
 		sickButton1.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	/*ImageIcon image = new ImageIcon("assets/highlight.png");
-		    	JLabel label = new JLabel();
-		        label.setIcon(image);
-		        themes.add(label);
-		        themesLayout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, themes);*/
-		    	/*Border b =  BorderFactory.createDashedBorder(Color.BLACK, 5, 4, 2, true);
-		    	sickButton1.setBorderPainted(true);
-		    	sickButton1.setBorder(b);*/
-		    	ImageIcon image = new ImageIcon("assets/sick1_clicked1.png");
+		    	image = new ImageIcon("assets/sick1_clicked.png");
 		    	sickButton1.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick1.png");
-		    	sickButton1.setIcon(image);
+		    	if(!theme.equals("rashes"))
+		    	{
+			    	image = new ImageIcon("assets/sick1.png");
+			    	sickButton1.setIcon(image);
+			    	
+			    	
+		    	}
+		    }
+		});
+		sickButton1.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "rashes";
+		        image = new ImageIcon("assets/sick2.png");
+		        sickButton2.setIcon(image);
+		    	image = new ImageIcon("assets/sick3.png");
+		    	sickButton3.setIcon(image);
+		    	image = new ImageIcon("assets/sick4.png");
+		    	sickButton4.setIcon(image);
+		    	image = new ImageIcon("assets/sick5.png");
+		    	sickButton5.setIcon(image);
+		    	image = new ImageIcon("assets/sick6.png");
+		    	sickButton6.setIcon(image);
 		    }
 		});
 		
 		BufferedImage buttonIcon2 = ImageIO.read(new File("assets/sick2.png"));
-		JButton sickButton2 = new JButton(new ImageIcon(buttonIcon2));
+		sickButton2 = new JButton(new ImageIcon(buttonIcon2));
 		sickButton2.setBorder(BorderFactory.createEmptyBorder());
 		sickButton2.setContentAreaFilled(false);
 		sickButton2.setBorderPainted(false);
 		sickButton2.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	
+		    	image = new ImageIcon("assets/sick2_clicked.png");
+		    	sickButton2.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick2.png");
-		    	sickButton2.setIcon(image);
+		    	if(!theme.equals("sneezing"))
+		    	{
+			    	image = new ImageIcon("assets/sick2.png");
+			    	sickButton2.setIcon(image);
+		    	}
+		    }
+		});
+		sickButton2.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "sneezing";
+		        image = new ImageIcon("assets/sick1.png");
+		        sickButton1.setIcon(image);
+		    	image = new ImageIcon("assets/sick3.png");
+		    	sickButton3.setIcon(image);
+		    	image = new ImageIcon("assets/sick4.png");
+		    	sickButton4.setIcon(image);
+		    	image = new ImageIcon("assets/sick5.png");
+		    	sickButton5.setIcon(image);
+		    	image = new ImageIcon("assets/sick6.png");
+		    	sickButton6.setIcon(image);
 		    }
 		});
 		
-		
 		BufferedImage buttonIcon3 = ImageIO.read(new File("assets/sick3.png"));
-		JButton sickButton3 = new JButton(new ImageIcon(buttonIcon3));
+		sickButton3 = new JButton(new ImageIcon(buttonIcon3));
 		sickButton3.setBorder(BorderFactory.createEmptyBorder());
 		sickButton3.setContentAreaFilled(false);
 		sickButton3.setBorderPainted(false);
 		sickButton3.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	
+		    	image = new ImageIcon("assets/sick3_clicked.png");
+		    	sickButton3.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick3.png");
-		    	sickButton3.setIcon(image);
+		    	if(!theme.equals("fever")){
+			    	image = new ImageIcon("assets/sick3.png");
+			    	sickButton3.setIcon(image);
+		    	}
+		    }
+		});
+		sickButton3.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "fever";
+		        image = new ImageIcon("assets/sick1.png");
+		        sickButton1.setIcon(image);
+		    	image = new ImageIcon("assets/sick2.png");
+		    	sickButton2.setIcon(image);
+		    	image = new ImageIcon("assets/sick4.png");
+		    	sickButton4.setIcon(image);
+		    	image = new ImageIcon("assets/sick5.png");
+		    	sickButton5.setIcon(image);
+		    	image = new ImageIcon("assets/sick6.png");
+		    	sickButton6.setIcon(image);
 		    }
 		});
 		
-		
 		BufferedImage buttonIcon4 = ImageIO.read(new File("assets/sick4.png"));
-		JButton sickButton4 = new JButton(new ImageIcon(buttonIcon4));
+		sickButton4 = new JButton(new ImageIcon(buttonIcon4));
 		sickButton4.setBorder(BorderFactory.createEmptyBorder());
 		sickButton4.setContentAreaFilled(false);
 		sickButton4.setBorderPainted(false);
 		sickButton4.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	
+		    	ImageIcon image = new ImageIcon("assets/sick4_clicked.png");
+		    	sickButton4.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick4.png");
-		    	sickButton4.setIcon(image);
+		    	if(!theme.equals("stomach")){
+			    	ImageIcon image = new ImageIcon("assets/sick4.png");
+			    	sickButton4.setIcon(image);
+		    	}
+		    }
+		});
+		sickButton4.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "stomach";
+		        image = new ImageIcon("assets/sick1.png");
+		        sickButton1.setIcon(image);
+		    	image = new ImageIcon("assets/sick2.png");
+		    	sickButton2.setIcon(image);
+		    	image = new ImageIcon("assets/sick3.png");
+		    	sickButton3.setIcon(image);
+		    	image = new ImageIcon("assets/sick5.png");
+		    	sickButton5.setIcon(image);
+		    	image = new ImageIcon("assets/sick6.png");
+		    	sickButton6.setIcon(image);
 		    }
 		});
 		
-		
 		BufferedImage buttonIcon5 = ImageIO.read(new File("assets/sick5.png"));
-		JButton sickButton5 = new JButton(new ImageIcon(buttonIcon5));
+		sickButton5 = new JButton(new ImageIcon(buttonIcon5));
 		sickButton5.setBorder(BorderFactory.createEmptyBorder());
 		sickButton5.setContentAreaFilled(false);
 		sickButton5.setBorderPainted(false);
 		sickButton5.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	
+		    	image = new ImageIcon("assets/sick5_clicked.png");
+		    	sickButton5.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick5.png");
+		    	if(!theme.equals("cough"))
+		    	{
+			    	ImageIcon image = new ImageIcon("assets/sick5.png");
+			    	sickButton5.setIcon(image);
+		    	}
+		    }
+		});
+		sickButton5.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	image = new ImageIcon("assets/sick5_clicked.png");
 		    	sickButton5.setIcon(image);
+		        theme = "cough";
+		        image = new ImageIcon("assets/sick1.png");
+		        sickButton1.setIcon(image);
+		    	image = new ImageIcon("assets/sick2.png");
+		    	sickButton2.setIcon(image);
+		    	image = new ImageIcon("assets/sick3.png");
+		    	sickButton3.setIcon(image);
+		    	image = new ImageIcon("assets/sick4.png");
+		    	sickButton4.setIcon(image);
+		    	image = new ImageIcon("assets/sick6.png");
+		    	sickButton6.setIcon(image);
 		    }
 		});
 		
 		
 		BufferedImage buttonIcon6 = ImageIO.read(new File("assets/sick6.png"));
-		JButton sickButton6 = new JButton(new ImageIcon(buttonIcon6));
+		sickButton6 = new JButton(new ImageIcon(buttonIcon6));
 		sickButton6.setBorder(BorderFactory.createEmptyBorder());
 		sickButton6.setContentAreaFilled(false);
 		sickButton6.setBorderPainted(false);
 		sickButton6.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	/*ImageIcon image = new ImageIcon("assets/highlight.png");
-		    	JLabel label = new JLabel();
-		        label.setIcon(image);
-		        themes.add(label);
-		        themesLayout.putConstraint(SpringLayout.WEST, sickButton6, 0, SpringLayout.WEST, label);*/
+		    	image = new ImageIcon("assets/sick6_clicked.png");
+		    	sickButton6.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/sick6.png");
-		    	sickButton6.setIcon(image);
+		    	if(!theme.equals("difficulty breathing")){
+			    	image = new ImageIcon("assets/sick6.png");
+			    	sickButton6.setIcon(image);
+		    	}
+		    }
+		});
+		sickButton6.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        theme = "difficulty breathing";
+		        image = new ImageIcon("assets/sick1.png");
+		        sickButton1.setIcon(image);
+		    	image = new ImageIcon("assets/sick2.png");
+		    	sickButton2.setIcon(image);
+		    	image = new ImageIcon("assets/sick3.png");
+		    	sickButton3.setIcon(image);
+		    	image = new ImageIcon("assets/sick4.png");
+		    	sickButton4.setIcon(image);
+		    	image = new ImageIcon("assets/sick5.png");
+		    	sickButton5.setIcon(image);
 		    }
 		});
 		
@@ -279,6 +381,10 @@ public class ThemePanel extends JPanel{
 		this.add(nextButton);
 		this.add(backButton);
 		validate();
-		
+	}
+	
+	public String getTheme()
+	{
+		return theme;
 	}
 }
