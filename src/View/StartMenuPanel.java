@@ -13,6 +13,9 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import driver.StoryGenerator;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,9 +24,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class StartMenuPanel extends JPanel{
-
-	public StartMenuPanel(JFrame main) throws IOException
-	{
+	StoryGenerator controller;
+	public StartMenuPanel(JFrame main,StoryGenerator controller) throws IOException
+	{	
+		this.controller = controller;
+		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -64,7 +69,7 @@ public class StartMenuPanel extends JPanel{
 		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
 		        startButton.setIcon(image); 
 					try {
-						main.setContentPane(new WelcomePanel(main));
+						main.setContentPane(new WelcomePanel(main,controller));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -95,7 +100,7 @@ public class StartMenuPanel extends JPanel{
 		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
 		        instructionsButton.setIcon(image);
 		        try {
-					main.setContentPane(new StoryPanel(main));
+					main.setContentPane(new StoryPanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

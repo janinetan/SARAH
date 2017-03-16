@@ -17,15 +17,20 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StoryGenerator;
+
 public class EndStoryPanel extends JPanel{
 	JTextArea message;
 	JButton home;
 	ImagePanel peer,box,room,sticker,action;
 	Font font;
 	JFrame main;
+	StoryGenerator controller;
 	
-	public EndStoryPanel(JFrame main) throws IOException
+	public EndStoryPanel(JFrame main,StoryGenerator controller) throws IOException
 	{
+		this.controller = controller;
+		
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
@@ -76,7 +81,7 @@ public class EndStoryPanel extends JPanel{
 		yesButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	try {
-					main.setContentPane(new ThemePanel(main));
+					main.setContentPane(new ThemePanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -104,7 +109,7 @@ public class EndStoryPanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
 		        try {
-					main.setContentPane(new StartMenuPanel(main));
+					main.setContentPane(new StartMenuPanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

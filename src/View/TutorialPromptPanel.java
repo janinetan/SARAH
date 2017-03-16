@@ -18,10 +18,14 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-public class TutorialPromptPanel extends JPanel{
+import driver.StoryGenerator;
 
-	public TutorialPromptPanel(JFrame main) throws IOException
+public class TutorialPromptPanel extends JPanel{
+	StoryGenerator controller;
+	public TutorialPromptPanel(JFrame main,StoryGenerator controller) throws IOException
 	{
+		this.controller = controller;
+		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -82,7 +86,7 @@ public class TutorialPromptPanel extends JPanel{
 		yesButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	try {
-					main.setContentPane(new StoryPanel(main));
+					main.setContentPane(new StoryPanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -110,7 +114,7 @@ public class TutorialPromptPanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
 		        try {
-					main.setContentPane(new ThemePanel(main));
+					main.setContentPane(new ThemePanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

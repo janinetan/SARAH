@@ -22,12 +22,17 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StoryGenerator;
+
 public class InteractionPanel extends JPanel{
 	JTextArea message,confirmHome;
 	CustomTextArea answer;
 	JButton home;
+	StoryGenerator controller;
 	
-	public InteractionPanel(JFrame main) throws IOException {
+	public InteractionPanel(JFrame main,StoryGenerator controller) throws IOException {
+		this.controller = controller;
+		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -201,7 +206,7 @@ public class InteractionPanel extends JPanel{
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
 				    	try {
-							main.setContentPane(new StartMenuPanel(main));
+							main.setContentPane(new StartMenuPanel(main,controller));
 							d.dispose();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block

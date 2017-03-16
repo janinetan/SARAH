@@ -23,6 +23,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StoryGenerator;
+
 
 public class StoryPanel extends JPanel{
 	JTextArea message,confirmHome;
@@ -30,10 +32,13 @@ public class StoryPanel extends JPanel{
 	ImagePanel peer, box,room,sticker,action;
 	Font font;
 	JFrame main;
+	StoryGenerator controller;
 	ArrayList<String> messageParts;
-	public StoryPanel(JFrame main) throws IOException
+	public StoryPanel(JFrame main,StoryGenerator controller) throws IOException
 	{
+		this.controller = controller;
 		this.main = main;
+		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -183,7 +188,7 @@ public class StoryPanel extends JPanel{
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
 				    	try {
-							main.setContentPane(new StartMenuPanel(main));
+							main.setContentPane(new StartMenuPanel(main,controller));
 							d.dispose();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -234,7 +239,7 @@ public class StoryPanel extends JPanel{
 		    }
 	    });
         
-        displayMessage("The Blue Whales just played their first baseball game of the new season; I believe there is much to be excited about. Although they lost, it was against an excellent team that had won the championship last year. The Blue Whales fell behind early but showed excellent teamwork and came back to tie the game. The team had 15 hits and scored 8 runs. That’s excellent! Unfortunately, they had 5 fielding errors, which kept the other team in the lead the entire game. The game ended with the umpire making a bad call, and if the call had gone the other way, the Blue Whales might have actually won the game. It wasn’t a victory, but I say the Blue Whales look like they have a shot at the championship, especially if they continue to improve.","sarah");
+        //displayMessage("The Blue Whales just played their first baseball game of the new season; I believe there is much to be excited about. Although they lost, it was against an excellent team that had won the championship last year. The Blue Whales fell behind early but showed excellent teamwork and came back to tie the game. The team had 15 hits and scored 8 runs. That’s excellent! Unfortunately, they had 5 fielding errors, which kept the other team in the lead the entire game. The game ended with the umpire making a bad call, and if the call had gone the other way, the Blue Whales might have actually won the game. It wasn’t a victory, but I say the Blue Whales look like they have a shot at the championship, especially if they continue to improve.","sarah");
         
         this.add(home);
 		this.add(peer);
@@ -263,7 +268,7 @@ public class StoryPanel extends JPanel{
 		int startIndex =0, endIndex=0;
 		String temp="", cut;
 		if(msg.length()<=230)
-			message.setText(msg);
+			s.add(msg);
 		else
 		{
 			while(msg.length()!=0)
@@ -293,6 +298,7 @@ public class StoryPanel extends JPanel{
 				}
 			}
 		}
+		System.out.println(s.size());
 		return s;
 	}
 	
@@ -339,7 +345,7 @@ public class StoryPanel extends JPanel{
 		nextButton.addActionListener(new ActionListener() {
 			int counter = 1;
 		    public void actionPerformed(ActionEvent e) {
-		    	if(counter<=messageParts.size()){
+		    	if(counter<= messageParts.size()){
 			    	message.setText(messageParts.get(counter));
 			    	counter++;
 		    	}

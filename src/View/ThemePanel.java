@@ -23,13 +23,23 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import driver.StoryGenerator;
+
 public class ThemePanel extends JPanel{
 	JTextArea message; 
 	String theme="";
 	ImageIcon image;
 	JButton sickButton1,sickButton2,sickButton3,sickButton4,sickButton5,sickButton6;
-	public ThemePanel(JFrame main) throws IOException 
+	StoryGenerator controller;
+	StoryPanel panel;
+	JFrame main;
+	
+	
+	public ThemePanel(JFrame main,StoryGenerator controller) throws IOException 
 	{
+		this.controller = controller;
+		this.main = main;
+		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -328,9 +338,10 @@ public class ThemePanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	/*not working when mouselistener code was added*/
 		        try {
-					main.setContentPane(new StoryPanel(main));
+		        	panel = new StoryPanel(main,controller);
+		        	controller.tellStory(theme,panel);
+		        	main.setContentPane(panel);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -368,7 +379,7 @@ public class ThemePanel extends JPanel{
 		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
 		    	backButton.setIcon(image); 
 		        try {
-					main.setContentPane(new WelcomePanel(main));
+					main.setContentPane(new WelcomePanel(main,controller));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -382,9 +393,5 @@ public class ThemePanel extends JPanel{
 		this.add(nextButton);
 		this.add(backButton);
 		validate();
-	}
-	
-	public String getTheme(){
-		return theme;
 	}
 }

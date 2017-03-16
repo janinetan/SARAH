@@ -1,7 +1,10 @@
 package driver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.JPanel;
 
 import DAO.BodyPartDAO;
 import DAO.CauseDAO;
@@ -24,6 +27,8 @@ import Models.Sentence;
 import Models.Sickness;
 import Models.Symptom;
 import Models.VirtualPeer;
+import View.StartFrame;
+import View.StoryPanel;
 
 public class StoryGenerator {
 	Scanner sc = new Scanner (System.in);
@@ -40,8 +45,11 @@ public class StoryGenerator {
 	private EpisodeSet storyTemplate;
 	private String lastQuestion;
 	private String lastSentenceTag;
-	
-	public StoryGenerator(){
+	private StoryPanel p;
+	private StartFrame f;
+	public StoryGenerator() throws IOException{
+		f = new StartFrame(this);
+		f.setVisible(true);
 		// theme selection (red spots, fever, mosquito bites, tummy ache, colds, sneezing)
 		this.vpList = (new VirtualPeerDAO()).getAllVirtualPeers();
 		this.setCurVP(VirtualPeer.VP_SARAH);
@@ -54,13 +62,15 @@ public class StoryGenerator {
 		storyRuling = Event.RULING_GOOD;
 	}
 	
-	public void tellStory() {
-		System.out.println("Enter symptom: ");
-		String symptomInput = sc.nextLine();
+	public void tellStory(String symptomInput, StoryPanel p) {
+		this.p = p;
+/*		System.out.println("Enter symptom: ");
+		String symptomInput = sc.nextLine();*/
 		
 //		symptomInput is the theme chosen by user in themepanel
 		selectStoryTheme(symptomInput);
 		setStoryTemplate();
+		
 		
 		// story get episodes
 		System.out.println("****************** run story episodes ******************");
@@ -74,7 +84,7 @@ public class StoryGenerator {
 				Event event = (new EventDAO()).getEventById(tempEventId);
 				if (storyRuling == event.getRuling() || event.getRuling() == 0){
 					playEvent(event);
-					String dump = sc.nextLine();
+					//String dump = sc.nextLine();
 				}
 			}
 			String input = sc.nextLine();
@@ -85,11 +95,14 @@ public class StoryGenerator {
 			while (this.storyRuling == Event.RULING_NEUTRAL){
 				Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
 //				call method in UI to display message (use this.curVP.getName() for VP name, m for message)
+				p.displayMessage(sentence.getMessage(), this.curVP.getName());
 				System.out.println(this.curVP.getName() + ": " + sentence.getMessage());
 				input = sc.nextLine();
 				verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
 				translateVerdict(verdict);
 			}
+			
+			System.out.println("DONE");
 			
 			// recognize discourse acts
 			
@@ -122,6 +135,7 @@ public class StoryGenerator {
 			}
 			m = polishMessage(m);
 //			call method in UI to display message (use this.curVP.getName() for VP name, m for message)
+			p.displayMessage(m, this.curVP.getName());
 			System.out.println(this.curVP.getName() + ": " + m);
 			if (m.indexOf("?") == -1){
 				this.roundRobinVP();
