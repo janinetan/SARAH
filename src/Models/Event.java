@@ -7,6 +7,7 @@ public class Event {
 	public static final String COL_RULING = "ruling";
 	public static final String COL_EVENTTYPE = "type";
 	
+	public static final int RULING_NEUTRAL = 0;
 	public static final int RULING_BAD = 1;
 	public static final int RULING_GOOD = 2;
 	

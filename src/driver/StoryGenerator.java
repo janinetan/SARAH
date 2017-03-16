@@ -39,6 +39,7 @@ public class StoryGenerator {
 	private ArrayList<BodyPart> bodyPartsList;
 	private EpisodeSet storyTemplate;
 	private String lastQuestion;
+	private String lastSentenceTag;
 	
 	public StoryGenerator(){
 		// theme selection (red spots, fever, mosquito bites, tummy ache, colds, sneezing)
@@ -78,14 +79,19 @@ public class StoryGenerator {
 			String input = sc.nextLine();
 			String verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
 			translateVerdict(verdict);
+			System.out.println(verdict);
 			
-			// analyze input
+			while (this.storyRuling == Event.RULING_NEUTRAL){
+				Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+				System.out.println(this.curVP.getName() + ": " + sentence.getMessage());
+				input = sc.nextLine();
+				verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
+				translateVerdict(verdict);
+			}
 			
 			// recognize discourse acts
 			
 			// change storyRuling based on user input
-//			if (episode.getDiscourseActId() != 0)
-//				this.setCurVP(VirtualPeer.VP_SARAH);
 		}
 	}
 
@@ -97,7 +103,7 @@ public class StoryGenerator {
 			this.storyRuling = Event.RULING_GOOD;
 		}
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
-			
+			this.storyRuling = Event.RULING_NEUTRAL;
 		}
 	}
 
@@ -109,6 +115,7 @@ public class StoryGenerator {
 			for (String tempSentenceTag: sentenceTags){
 				Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
 				m += sentence.getMessage() + " ";
+				this.lastSentenceTag = tempSentenceTag;
 				this.lastQuestion = sentence.getMessage();
 			}
 			System.out.println(this.curVP.getName() + ": " + m);

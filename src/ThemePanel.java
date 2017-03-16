@@ -383,8 +383,7 @@ public class ThemePanel extends JPanel{
 		validate();
 	}
 	
-	public String getTheme()
-	{
+	public String getTheme(){
 		return theme;
 	}
 }
