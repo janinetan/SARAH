@@ -14,3 +14,5 @@
 0,^ 999 ^ <set>s-negation</set> ^ <set>s-negative</set> ^,*,*,V>positive,hello.aiml	
 0,^ 999 ^ <set>s-negative</set> ^,*,*,V>negative,hello.aiml
 0,^ 999 ^ <set>s-positive</set> ^,*,*,V>positive,hello.aiml
+0,^ 999 ^ NO ^,*,*,V>negative,hello.aiml
+0,^ 999 ^ YES ^,*,*,V>positive,hello.aiml
