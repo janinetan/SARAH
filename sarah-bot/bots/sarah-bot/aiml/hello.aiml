@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml version="1.0.1" encoding = "UTF-8"?>
+   <category>
+      <pattern>HELLO ALICE</pattern>
+      <template>Hello User!</template>
+   </category>
+   <category>
+      <pattern>HELLO <set>familiarname</set></pattern>
+      <template>Hello Child! <map name="familiarpredicate"><star /></map> !!!</template>
+   </category>
+</aiml>

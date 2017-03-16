@@ -1,0 +1,12 @@
+annoy
+cry
+game
+hurt
+jog
+jump
+play
+run
+slide
+toy
+walk
+ignore

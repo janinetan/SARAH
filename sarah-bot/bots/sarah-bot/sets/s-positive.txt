@@ -1,0 +1,12 @@
+behave
+drink
+eat
+lay
+listen
+medicine
+obey
+prevention
+relax
+rest
+sleep
+treatment
