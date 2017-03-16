@@ -58,6 +58,7 @@ public class StoryGenerator {
 		System.out.println("Enter symptom: ");
 		String symptomInput = sc.nextLine();
 		
+//		symptomInput is the theme chosen by user in themepanel
 		selectStoryTheme(symptomInput);
 		setStoryTemplate();
 		
@@ -83,6 +84,7 @@ public class StoryGenerator {
 			
 			while (this.storyRuling == Event.RULING_NEUTRAL){
 				Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+//				call method in UI to display message (use this.curVP.getName() for VP name, m for message)
 				System.out.println(this.curVP.getName() + ": " + sentence.getMessage());
 				input = sc.nextLine();
 				verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
@@ -118,6 +120,7 @@ public class StoryGenerator {
 				this.lastSentenceTag = tempSentenceTag;
 				this.lastQuestion = sentence.getMessage();
 			}
+//			call method in UI to display message (use this.curVP.getName() for VP name, m for message)
 			System.out.println(this.curVP.getName() + ": " + m);
 			if (m.indexOf("?") == -1){
 				this.roundRobinVP();
