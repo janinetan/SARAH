@@ -1,3 +1,4 @@
+package View;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
