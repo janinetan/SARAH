@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StartFrameController;
+
 public class EndStoryPanel extends JPanel{
 	JTextArea message;
 	JButton home;
@@ -103,12 +105,7 @@ public class EndStoryPanel extends JPanel{
 		noButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
-		        try {
-					main.setContentPane(new StartMenuPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		        StartFrameController.displayStartMenu();
 		        
 		    }
 		});

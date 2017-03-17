@@ -24,9 +24,11 @@ import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import driver.StartFrameController;
+
 public class WelcomePanel extends JPanel{
 	CustomTextField name;
-	public WelcomePanel(JFrame main) throws IOException 
+	public WelcomePanel() throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
@@ -124,13 +126,7 @@ public class WelcomePanel extends JPanel{
 		    	/*not working when mouselistener code was added*/
 		    	ImageIcon image = new ImageIcon("assets/next_button_clicked.png");
 		    	nextButton.setIcon(image); 
-		        try {
-					main.setContentPane(new ThemePanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		        StartFrameController.displayTheme();
 		    }
 		});
 		
@@ -162,13 +158,7 @@ public class WelcomePanel extends JPanel{
 		    	/*not working when mouselistener code was added*/
 		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
 		    	backButton.setIcon(image); 
-		        try {
-					main.setContentPane(new StartMenuPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		        StartFrameController.displayWelcome();
 		    }
 		});
         

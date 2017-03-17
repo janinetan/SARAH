@@ -23,6 +23,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StartFrameController;
+
 
 public class StoryPanel extends JPanel{
 	JTextArea message,confirmHome;
@@ -31,7 +33,8 @@ public class StoryPanel extends JPanel{
 	Font font;
 	JFrame main;
 	ArrayList<String> messageParts;
-	public StoryPanel(JFrame main) throws IOException
+	boolean status = true;
+	public StoryPanel() throws IOException
 	{
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -182,14 +185,8 @@ public class StoryPanel extends JPanel{
 				});
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				    	try {
-							main.setContentPane(new StartMenuPanel(main));
-							d.dispose();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				        
+				    	d.dispose();
+				    	StartFrameController.displayStartMenu();
 				    }
 				});
 				BufferedImage buttonIcon1 = null;
@@ -263,7 +260,9 @@ public class StoryPanel extends JPanel{
 		int startIndex =0, endIndex=0;
 		String temp="", cut;
 		if(msg.length()<=230)
-			message.setText(msg);
+//			message.setText(msg); removed 23c084e
+			s.add(msg);
+			
 		else
 		{
 			while(msg.length()!=0)
@@ -339,9 +338,13 @@ public class StoryPanel extends JPanel{
 		nextButton.addActionListener(new ActionListener() {
 			int counter = 1;
 		    public void actionPerformed(ActionEvent e) {
-		    	if(counter<=messageParts.size()){
+		    	if(counter < messageParts.size()){
 			    	message.setText(messageParts.get(counter));
 			    	counter++;
+			    	status = false;
+		    	}
+		    	else if (counter == messageParts.size()){
+		    		status = true;
 		    	}
 		    }
 		});

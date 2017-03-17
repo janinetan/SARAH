@@ -13,6 +13,9 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import driver.StartFrameController;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -22,7 +25,7 @@ import javax.swing.JFrame;
 
 public class StartMenuPanel extends JPanel{
 
-	public StartMenuPanel(JFrame main) throws IOException
+	public StartMenuPanel() throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
@@ -63,13 +66,7 @@ public class StartMenuPanel extends JPanel{
 		    	/*not working when mouselistener code was added*/
 		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
 		        startButton.setIcon(image); 
-					try {
-						main.setContentPane(new WelcomePanel(main));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		        
+				StartFrameController.displayWelcome();
 		    }
 		});
 		
@@ -94,13 +91,7 @@ public class StartMenuPanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
 		        instructionsButton.setIcon(image);
-		        try {
-					main.setContentPane(new StoryPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		        StartFrameController.displayStory();
 		    }
 		});
 		

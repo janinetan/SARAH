@@ -22,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import driver.StartFrameController;
+
 public class InteractionPanel extends JPanel{
 	JTextArea message,confirmHome;
 	CustomTextArea answer;
@@ -200,14 +202,8 @@ public class InteractionPanel extends JPanel{
 				});
 				yesButton.addActionListener(new ActionListener() {
 				    public void actionPerformed(ActionEvent e) {
-				    	try {
-							main.setContentPane(new StartMenuPanel(main));
-							d.dispose();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				        
+				    	d.dispose();
+				    	StartFrameController.displayStartMenu();
 				    }
 				});
 				BufferedImage buttonIcon1 = null;

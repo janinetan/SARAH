@@ -23,6 +23,8 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import driver.StartFrameController;
+
 public class ThemePanel extends JPanel{
 	JTextArea message; 
 	String theme="";
@@ -329,13 +331,7 @@ public class ThemePanel extends JPanel{
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
-		        try {
-					main.setContentPane(new StoryPanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		        StartFrameController.displayStory();
 		    }
 		});
 		
@@ -367,13 +363,7 @@ public class ThemePanel extends JPanel{
 		    	/*not working when mouselistener code was added*/
 		    	ImageIcon image = new ImageIcon("assets/back_button_clicked.png");
 		    	backButton.setIcon(image); 
-		        try {
-					main.setContentPane(new WelcomePanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		        StartFrameController.displayWelcome();
 		    }
 		});
         
