@@ -99,17 +99,16 @@ public class StoryGenerator {
 			for(int i =0; i< eventsId.size(); i++){
 				Event event = (new EventDAO()).getEventById(eventsId.get(i));
 				if (storyRuling == event.getRuling() || event.getRuling() == 0){
-					System.out.println("hellooo");
 					//while(p.getStatus() == true){
 						playEvent(event);
 						System.out.println("play");
 					//}
-						
+						System.out.println(p.getStatus());
 						// expect boolean = function message
-						while(p.getStatus()==false){
-							
-						}
-					//String dump = sc.nextLine();
+						/*while(p.getStatus()==false){
+							System.out.println("ange");
+						}*/
+					String dump = sc.nextLine();
 				}
 			}
 			

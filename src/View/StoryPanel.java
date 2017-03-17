@@ -343,6 +343,7 @@ public class StoryPanel extends JPanel{
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
+		status = false;
 		nextButton.addActionListener(new ActionListener() {
 			int counter = 1;
 		    public void actionPerformed(ActionEvent e) {
