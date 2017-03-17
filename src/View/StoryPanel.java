@@ -34,6 +34,7 @@ public class StoryPanel extends JPanel{
 	JFrame main;
 	StoryGenerator controller;
 	ArrayList<String> messageParts;
+	boolean status = true;
 	public StoryPanel(JFrame main,StoryGenerator controller) throws IOException
 	{
 		this.controller = controller;
@@ -345,12 +346,18 @@ public class StoryPanel extends JPanel{
 		nextButton.addActionListener(new ActionListener() {
 			int counter = 1;
 		    public void actionPerformed(ActionEvent e) {
-		    	if(counter<= messageParts.size()){
+		    	if(counter < messageParts.size()){
 			    	message.setText(messageParts.get(counter));
 			    	counter++;
+			    	status = false;
 		    	}
+		    	else if(counter==messageParts.size())
+		    		status = true;
 		    }
 		});
+	}
+	public boolean getStatus(){
+		return status;
 	}
 	public void displayMessageAction(String msg, String peer, String act)
 	{

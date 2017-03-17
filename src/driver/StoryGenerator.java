@@ -64,8 +64,8 @@ public class StoryGenerator {
 	
 	public void tellStory(String symptomInput, StoryPanel p) {
 		this.p = p;
-/*		System.out.println("Enter symptom: ");
-		String symptomInput = sc.nextLine();*/
+//		System.out.println("Enter symptom: ");
+//		String symptomInput = sc.nextLine();
 		
 //		symptomInput is the theme chosen by user in themepanel
 		selectStoryTheme(symptomInput);
@@ -80,13 +80,40 @@ public class StoryGenerator {
 			ArrayList<Integer> eventsId = episode.getEventsId();
 			this.lastQuestion = "";
 			
-			for (int tempEventId: eventsId){
-				Event event = (new EventDAO()).getEventById(tempEventId);
+			/*int i = 0;
+			while(i < eventsId.size()){
+				System.out.println("I"+ "size" + eventsId.size());
+				Event event = (new EventDAO()).getEventById(eventsId.get(i));
 				if (storyRuling == event.getRuling() || event.getRuling() == 0){
-					playEvent(event);
+					do{
+						playEvent(event);
+					}
+					while(p.getStatus() == true);
+					i++;//String dump = sc.nextLine();
+				}else{
+					System.out.println("ELSE");
+					i++;
+				}
+			}*/
+			
+			for(int i =0; i< eventsId.size(); i++){
+				Event event = (new EventDAO()).getEventById(eventsId.get(i));
+				if (storyRuling == event.getRuling() || event.getRuling() == 0){
+					System.out.println("hellooo");
+					//while(p.getStatus() == true){
+						playEvent(event);
+						System.out.println("play");
+					//}
+						
+						// expect boolean = function message
+						while(p.getStatus()==false){
+							
+						}
 					//String dump = sc.nextLine();
 				}
 			}
+			
+			
 			String input = sc.nextLine();
 			String verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
 			translateVerdict(verdict);
@@ -101,8 +128,6 @@ public class StoryGenerator {
 				verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
 				translateVerdict(verdict);
 			}
-			
-			System.out.println("DONE");
 			
 			// recognize discourse acts
 			

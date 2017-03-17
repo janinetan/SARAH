@@ -340,8 +340,9 @@ public class ThemePanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		        try {
 		        	panel = new StoryPanel(main,controller);
-		        	controller.tellStory(theme,panel);
 		        	main.setContentPane(panel);
+		        	controller.tellStory(theme,panel);
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
