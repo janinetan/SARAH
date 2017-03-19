@@ -16,8 +16,9 @@ public class StartFrame extends JFrame {
 //	public static int frameHeight=1000;
 	public static int frameWidth= 1657 + 500;
 	public static int frameHeight=1000 + 500;
-	private StartMenuPanel contentPane;
+//	private StartMenuPanel contentPane;
 	private JScrollPane scrPane;
+	private JPanel curPanel;
 
 	/**
 	 * Create the frame.
@@ -35,19 +36,24 @@ public class StartFrame extends JFrame {
 //		setContentPane(contentPane);
 		
 //		for non hd desktop display
-		contentPane = new StartMenuPanel();
-		contentPane.setPreferredSize(new Dimension(frameWidth, frameHeight));
-		scrPane = new JScrollPane(contentPane);
+		curPanel = new StartMenuPanel();
+		curPanel.setPreferredSize(new Dimension(frameWidth, frameHeight));
+		scrPane = new JScrollPane(curPanel);
 		add(scrPane);
 	}
 	
 	public void changePanel(JPanel panel){
+		this.curPanel = panel;
 		this.remove(scrPane);
 		this.revalidate();
 		panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
 		scrPane = new JScrollPane(panel);
 		add(scrPane);
 		this.revalidate();
+	}
+	
+	public JPanel getCurPanel() {
+		return curPanel;
 	}
 
 }

@@ -37,9 +37,10 @@ public class StoryGenerator {
 	private ArrayList<String> symptomsList;
 	private ArrayList<String> treatmentsList;
 	private ArrayList<BodyPart> bodyPartsList;
-	private EpisodeSet storyTemplate;
 	private String lastQuestion;
 	private String lastSentenceTag;
+	private ArrayList<Event> eventsList;
+	private static int curStoryEventIndex;
 	
 	public StoryGenerator(){
 		// theme selection (red spots, fever, mosquito bites, tummy ache, colds, sneezing)
@@ -50,95 +51,91 @@ public class StoryGenerator {
 		this.symptomsList = new ArrayList<String>();
 		this.treatmentsList = new ArrayList<String>();
 		this.bodyPartsList = new ArrayList<BodyPart>();
+		this.eventsList = new ArrayList<Event>();
 		// temp
 		storyRuling = Event.RULING_GOOD;
+		curStoryEventIndex = 0;
 	}
 	
-	public void tellStory() {
-		System.out.println("Enter symptom: ");
-		String symptomInput = sc.nextLine();
+	public void setUpStory() {
+		// gets random episode set
+		EpisodeSet storyTemplate = (new EpisodeSetDAO()).getRandomEpisodeSet();
 		
-//		symptomInput is the theme chosen by user in themepanel
-		selectStoryTheme(symptomInput);
-		setStoryTemplate();
-		
-		// story get episodes
-		System.out.println("****************** run story episodes ******************");
+		// stores all events into a single array
 		ArrayList<Integer> episodesId = storyTemplate.getEpisodesId();
 		for (int tempEpisodeId: episodesId){
 			Episode episode = (new EpisodeDAO()).getEpisodeById(tempEpisodeId);
 			ArrayList<Integer> eventsId = episode.getEventsId();
-			this.lastQuestion = "";
 			
 			for (int tempEventId: eventsId){
 				Event event = (new EventDAO()).getEventById(tempEventId);
-				if (storyRuling == event.getRuling() || event.getRuling() == 0){
-					playEvent(event);
-					String dump = sc.nextLine();
+				if (event.getType() == Event.TYPE_MESSAGE){
+					Message message = (new MessageDAO()).getMessageById(event.getId());
+					message.setRuling(event.getRuling());
+					eventsList.add(message);
+				}
+				else if (event.getType() == Event.TYPE_ACTION){
+					
 				}
 			}
-			String input = sc.nextLine();
-			String verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
-			translateVerdict(verdict);
-			System.out.println(verdict);
-			
-			while (this.storyRuling == Event.RULING_NEUTRAL){
-				Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
-//				call method in UI to display message (use this.curVP.getName() for VP name, m for message)
-				System.out.println(this.curVP.getName() + ": " + sentence.getMessage());
-				input = sc.nextLine();
-				verdict = SarahChatbot.getVerdict(this.lastQuestion + input);
-				translateVerdict(verdict);
+			if (episode.getDiscourseActId() != 0){
+				eventsList.get(eventsList.size()-1).setIsLast(true);
 			}
-			
-			// recognize discourse acts
-			
-			// change storyRuling based on user input
+		}
+	}
+	
+	public void playEvent(){
+		if (this.curStoryEventIndex == eventsList.size()){
+			StartFrameController.displayEnd();
+			return;
+		}
+		
+		Event e = eventsList.get(curStoryEventIndex);
+		this.curStoryEventIndex++;
+		this.lastQuestion = "";
+		if (storyRuling == e.getRuling() || e.getRuling() == Event.RULING_NEUTRAL){
+			if (e instanceof Message){
+				Message message = (Message)e;
+				ArrayList<String> sentenceTags = message.getSentenceTags();
+				String m = "";
+				for (String tempSentenceTag: sentenceTags){
+					Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
+					m += sentence.getMessage() + " ";
+					this.lastSentenceTag = tempSentenceTag;
+					this.lastQuestion = sentence.getMessage();
+				}
+//				m = polishMessage(m);
+				StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast());
+				if (!message.getIsLast()){
+					this.roundRobinVP();
+				}
+			}
+		}
+		else {
+			playEvent();
 		}
 	}
 
-	private void translateVerdict(String verdict) {
+	public void getVerdict(String userInput) {
+		String verdict = SarahChatbot.getVerdict(this.lastQuestion + userInput);
+		System.out.println(verdict);
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
 			this.storyRuling = Event.RULING_BAD;
+			StartFrameController.playEvent();
 		}
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_GOOD)){
 			this.storyRuling = Event.RULING_GOOD;
+			StartFrameController.playEvent();
 		}
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
 			this.storyRuling = Event.RULING_NEUTRAL;
+			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+			StartFrameController.displayMessage(this.curVP.getName(), sentence.getMessage(), true);
 		}
+		
 	}
 
-	private void playEvent(Event event) {
-		if (event.getType() == Event.TYPE_MESSAGE){
-			Message message = (new MessageDAO()).getMessageById(event.getId());
-			ArrayList<String> sentenceTags = message.getSentenceTags();
-			String m = "";
-			for (String tempSentenceTag: sentenceTags){
-				Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
-				m += sentence.getMessage() + " ";
-				this.lastSentenceTag = tempSentenceTag;
-				this.lastQuestion = sentence.getMessage();
-			}
-			m = polishMessage(m);
-//			call method in UI to display message (use this.curVP.getName() for VP name, m for message)
-			System.out.println(this.curVP.getName() + ": " + m);
-			if (m.indexOf("?") == -1){
-				this.roundRobinVP();
-			}
-		}
-		else if (event.getType() == Event.TYPE_ACTION){
-			
-		}
-	}
-
-	private void setStoryTemplate() {
-		// gets random episode set
-		EpisodeSet episodeSet = (new EpisodeSetDAO()).getRandomEpisodeSet();
-		this.storyTemplate = episodeSet;
-	}
-
-	private void selectStoryTheme(String symptomInput) {
+	public void selectStoryTheme(String symptomInput) {
 		// gets random sickness with symptom chosen and sets it as story theme
 		// sets all facts about selected story theme
 		Symptom selectedSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);

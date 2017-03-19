@@ -1,6 +1,6 @@
 package Models;
 
-public class Action {
+public class Action extends Event{
 	public static final String TABLE_ACTION = "action";
 	
 	public static final String COL_EVENTID = "eventId";

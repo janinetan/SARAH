@@ -34,6 +34,10 @@ public class StoryPanel extends JPanel{
 	JFrame main;
 	ArrayList<String> messageParts;
 	boolean status = true;
+	
+	private int counter;
+	private boolean isLast;
+	
 	public StoryPanel() throws IOException
 	{
 		this.main = main;
@@ -93,10 +97,11 @@ public class StoryPanel extends JPanel{
 		    }
 		    
 		});
-		
+		nextButton.addActionListener(new NextBtnListener());
 		
 
 		box.add(nextButton);
+		
 		box.add(message);
 		
 		// For horizontal Alignment of story message
@@ -231,8 +236,6 @@ public class StoryPanel extends JPanel{
 		    }
 	    });
         
-        displayMessage("The Blue Whales just played their first baseball game of the new season; I believe there is much to be excited about. Although they lost, it was against an excellent team that had won the championship last year. The Blue Whales fell behind early but showed excellent teamwork and came back to tie the game. The team had 15 hits and scored 8 runs. That’s excellent! Unfortunately, they had 5 fielding errors, which kept the other team in the lead the entire game. The game ended with the umpire making a bad call, and if the call had gone the other way, the Blue Whales might have actually won the game. It wasn’t a victory, but I say the Blue Whales look like they have a shot at the championship, especially if they continue to improve.","sarah");
-        
         this.add(home);
 		this.add(peer);
 		this.add(box);
@@ -329,30 +332,29 @@ public class StoryPanel extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-	public void displayMessage(String msg,String peer)
-	{
+	public void displayMessage(String peer, String msg){
 		changePeer(peer);
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
-		nextButton.addActionListener(new ActionListener() {
-			int counter = 1;
-		    public void actionPerformed(ActionEvent e) {
-		    	if(counter < messageParts.size()){
-			    	message.setText(messageParts.get(counter));
-			    	counter++;
-			    	status = false;
-		    	}
-		    	else if (counter == messageParts.size()){
-		    		status = true;
-		    	}
-		    }
-		});
+		counter = 1;
 	}
-	public void displayMessageAction(String msg, String peer, String act)
-	{
+	public void displayMessageAction(String msg, String peer, String act, boolean isLast){
 		addAction(act);
 		displayMessage(msg, peer);
 	}
 	
+	public class NextBtnListener implements ActionListener{	    
+		@Override
+		public void actionPerformed(ActionEvent e) {
+	    	JButton button = (JButton) e.getSource();
+	    	if(counter < messageParts.size()){
+		    	message.setText(messageParts.get(counter));
+		    	counter++;
+	    	}
+	    	else if (counter == messageParts.size()){
+	    		StartFrameController.playEvent();
+	    	}
+		}
+	}
 }

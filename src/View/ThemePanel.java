@@ -26,10 +26,10 @@ import javax.swing.border.EmptyBorder;
 import driver.StartFrameController;
 
 public class ThemePanel extends JPanel{
-	JTextArea message; 
-	String theme="";
-	ImageIcon image;
-	JButton sickButton1,sickButton2,sickButton3,sickButton4,sickButton5,sickButton6;
+	private JTextArea message; 
+	private String theme="";
+	private ImageIcon image;
+	private JButton sickButton1,sickButton2,sickButton3,sickButton4,sickButton5,sickButton6;
 	public ThemePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -331,7 +331,7 @@ public class ThemePanel extends JPanel{
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
-		        StartFrameController.displayStory();
+		        StartFrameController.displayStartStory(theme);
 		    }
 		});
 		

@@ -29,7 +29,7 @@ public class InteractionPanel extends JPanel{
 	CustomTextArea answer;
 	JButton home;
 	
-	public InteractionPanel(JFrame main) throws IOException {
+	public InteractionPanel(JFrame main, String vp, String msg) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
@@ -41,7 +41,7 @@ public class InteractionPanel extends JPanel{
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-		ImagePanel sarah = new ImagePanel("assets/sarah.png");
+		ImagePanel sarah = new ImagePanel("assets/"+vp+".png");
 		sarah.setLocation(-70, 100);
 		
 		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box1.png");
@@ -51,7 +51,7 @@ public class InteractionPanel extends JPanel{
 		dialog.setLocation(550, 25);
 		//dialog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
-		message = new JTextArea("Playing will make you get tired and you might get worse. Ana, what do you think?");
+		message = new JTextArea(msg);
         message.setSize(850,100);
         message.setFont(font);
         message.setWrapStyleWord(true);
@@ -121,7 +121,7 @@ public class InteractionPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	answer.setText("hi");
+		    	StartFrameController.sendUserResponse(answer.getText());
 		    }
 		});
 

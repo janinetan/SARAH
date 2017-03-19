@@ -17,6 +17,8 @@ public class Event {
 	private int id;
 	private int ruling;
 	private int type;
+	private boolean isLast = false;
+	
 	public int getId() {
 		return id;
 	}
@@ -35,6 +37,13 @@ public class Event {
 	public void setType(int type) {
 		this.type = type;
 	}
+	public boolean getIsLast(){
+		return this.isLast;
+	}
+	public void setIsLast(boolean isLast){
+		this.isLast = isLast;
+	}
+	
 	@Override
 	public String toString() {
 		String eventString = "";

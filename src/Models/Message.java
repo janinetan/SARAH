@@ -2,7 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Message {
+public class Message extends Event {
 	public static final String TABLE_MESSAGE = "message";
 	
 	public static final String COL_EVENTID = "eventId";
@@ -45,5 +45,4 @@ public class Message {
 		messageString += "message: " + this.message + "\n";
 		return messageString;
 	}
-	
 }

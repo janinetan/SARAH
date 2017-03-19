@@ -3,6 +3,8 @@ package driver;
 import java.awt.EventQueue;
 import java.io.IOException;
 
+import View.EndStoryPanel;
+import View.InteractionPanel;
 import View.StartFrame;
 import View.StartMenuPanel;
 import View.StoryPanel;
@@ -12,6 +14,7 @@ import View.WelcomePanel;
 public class StartFrameController implements IController {
 
 	private static StartFrame frame;
+	private static StoryGenerator storyGenerator;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -73,5 +76,48 @@ public class StartFrameController implements IController {
 	public void dispose() {
 		// TODO Auto-generated method stub
 		frame.setVisible(false);
+	}
+
+	public static void displayStartStory(String theme) {
+		storyGenerator = new StoryGenerator();
+		storyGenerator.selectStoryTheme(theme);
+		storyGenerator.setUpStory();
+		playEvent();
+	}
+	
+	public static void playEvent(){
+		storyGenerator.playEvent();
+	}
+	
+	public static void displayMessage(String peer, String msg, boolean isLast){
+		if (isLast){
+			StartFrameController.displayInteractionPanel(peer, msg);
+		}
+		else{
+			displayStory();
+			((StoryPanel)frame.getCurPanel()).displayMessage(peer, msg);
+		}
+	}
+	
+	public static void displayInteractionPanel(String vp, String msg){
+		try {
+			frame.changePanel(new InteractionPanel(frame, vp, msg));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public static void displayEnd(){
+		try {
+			frame.changePanel(new EndStoryPanel(frame));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public static void sendUserResponse(String userInput){
+		storyGenerator.getVerdict(userInput);
 	}
 }
