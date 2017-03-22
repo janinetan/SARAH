@@ -262,7 +262,6 @@ public class StoryPanel extends JPanel{
         
 		//addPeer("sarah","sarah");
 		//changeBackground("park");
-        displayMessageAction("liam", "liamssss", "play");
 	}
 	
 	public void changePeer(String p)
