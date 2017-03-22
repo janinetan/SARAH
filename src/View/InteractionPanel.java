@@ -37,12 +37,12 @@ public class InteractionPanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/room.png");
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-		ImagePanel sarah = new ImagePanel("assets/"+vp+".png");
-		sarah.setLocation(-70, 100);
+		ImagePanel peer1 = new ImagePanel("assets/"+vp+".png");
+		peer1.setLocation(-70, 100);
 		
 		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box1.png");
 		SpringLayout sarahLayout = new SpringLayout();
@@ -247,10 +247,20 @@ public class InteractionPanel extends JPanel{
 		    }
 	    });
 		
-		this.add(sarah);
+		this.add(peer1);
 		this.add(dialog);
 		this.add(box);
 		this.add(room);
+		
+		this.add(home);
+		this.add(peer1);
+		this.add(box);
+		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(peer1, 1);
+        this.setComponentZOrder(box, 2);
+        this.setComponentZOrder(room, 3);
 	}
 	public String getUserInput()
 	{

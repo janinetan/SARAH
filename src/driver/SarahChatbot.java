@@ -15,7 +15,7 @@ public class SarahChatbot {
 	public static final String VERDICT_NEUTRAL = "I have no answer for that.";
 	
 	public static String getVerdict (String input){
-		String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
+		String path = "C:/Users/Heinson/Documents/GitHub/SARAH/sarah-bot";
 		Bot bot = new Bot("sarah-bot", path);
 		Chat chat = new Chat(bot);
 		

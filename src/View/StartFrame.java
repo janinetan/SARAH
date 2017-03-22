@@ -12,10 +12,10 @@ import javax.swing.border.EmptyBorder;
 
 public class StartFrame extends JFrame {
 
-//	public static int frameWidth= 1657;
-//	public static int frameHeight=1000;
-	public static int frameWidth= 1657 + 500;
-	public static int frameHeight=1000 + 500;
+	public static int frameWidth= 1657;
+	public static int frameHeight=1000;
+//	public static int frameWidth= 1657 + 500;
+//	public static int frameHeight=1000 + 500;
 //	private StartMenuPanel contentPane;
 	private JScrollPane scrPane;
 	private JPanel curPanel;
@@ -27,7 +27,7 @@ public class StartFrame extends JFrame {
 	 */
 	public StartFrame() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(30, 30, frameWidth/2, frameHeight/2);
+		setBounds(30, 30, frameWidth, frameHeight);
 		setTitle("SARAH");
 		//setResizable(false);
 

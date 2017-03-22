@@ -29,7 +29,7 @@ import driver.StartFrameController;
 public class StoryPanel extends JPanel{
 	JTextArea message,confirmHome;
 	JButton home, nextButton;
-	ImagePanel peer, box,room,sticker,action;
+	ImagePanel peer1,peer2, box,room,sticker,action;
 	Font font;
 	JFrame main;
 	ArrayList<String> messageParts;
@@ -40,6 +40,7 @@ public class StoryPanel extends JPanel{
 	
 	public StoryPanel() throws IOException
 	{
+		System.out.println("hi");
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
@@ -48,12 +49,12 @@ public class StoryPanel extends JPanel{
 		
 		font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-		peer = new ImagePanel("assets/sarah.png");
-		peer.setLocation(-70, 100);
+		peer1 = new ImagePanel("assets/sarah.png");
+		peer1.setLocation(-70, 100);
 		
 		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
 		box = new ImagePanel(img1);
@@ -234,28 +235,182 @@ public class StoryPanel extends JPanel{
 		        d.add(buttonPanel);
 		        d.setVisible(true);
 		    }
-	    });
+	    });/*
+        BufferedImage icon2 = ImageIO.read(new File("assets/sick_liam.png"));
+		ImageIcon pIcon = new ImageIcon(icon2);
+		Image image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 60/100,pIcon.getIconHeight() * 60/100,Image.SCALE_SMOOTH);
+		peer2 = new ImagePanel(image1);
+		peer2.setLocation(1000, 50);*/
+        //peer2.setComponentZOrder(comp, index); can change order of painting
+        sticker = new ImagePanel("assets/action_bubble.png");
+		sticker.setLocation(550, 50);
+		
+        
         
         this.add(home);
-		this.add(peer);
+        this.add(sticker);
+		this.add(peer1);
 		this.add(box);
 		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(sticker, 1);
+        this.setComponentZOrder(peer1, 2);
+        this.setComponentZOrder(box, 3);
+        this.setComponentZOrder(room, 4);
+		
+        
+		//addPeer("sarah","sarah");
+		//changeBackground("park");
+        displayMessageAction("liam", "liamssss", "play");
 	}
 	
 	public void changePeer(String p)
 	{
-		this.remove(peer);
+		this.remove(peer1);
 		if(p.equalsIgnoreCase("sarah"))
-			peer = new ImagePanel("assets/sarah.png");
+			peer1 = new ImagePanel("assets/sarah.png");
 		else if(p.equalsIgnoreCase("liam"))
-			peer = new ImagePanel("assets/liam.png");
-		peer.setLocation(-70, 100);
-		this.add(peer);
-		this.add(box);
+			peer1 = new ImagePanel("assets/liam.png");
+		else if(p.equalsIgnoreCase("sick liam"))
+			peer1 = new ImagePanel("assets/sick_liam.png");
+		
+		peer1.setLocation(-70, 100);
+		
+		this.add(home);
+		this.add(peer1);
+		this.add(box); 
 		this.add(room);
+			
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(peer1, 1);
+        this.setComponentZOrder(box, 2);
+        this.setComponentZOrder(room, 3);
+        
+       
 		this.revalidate();
 		this.repaint();
 	}
+	
+	public void addPeer(String p1, String p2) throws IOException
+	{
+		BufferedImage icon = null;
+		
+		this.removeAll();
+		if(p1.equalsIgnoreCase("sarah"))
+			peer1 = new ImagePanel("assets/sarah.png");
+		else if(p1.equalsIgnoreCase("liam"))
+			peer1 = new ImagePanel("assets/liam.png");
+		else if(p1.equalsIgnoreCase("sick liam"))
+			peer1 = new ImagePanel("assets/sick_liam.png");
+		
+		if(p2.equalsIgnoreCase("sarah"))
+			icon = ImageIO.read(new File("assets/sarah.png"));
+		else if(p2.equalsIgnoreCase("liam"))
+			icon = ImageIO.read(new File("assets/liam.png"));
+		else if(p2.equalsIgnoreCase("sick liam"))
+			icon = ImageIO.read(new File("assets/sick_liam.png"));
+		
+		
+		ImageIcon pIcon = new ImageIcon(icon);
+		Image image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 70/100,pIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		peer2 = new ImagePanel(image1);
+		
+		peer1.setLocation(-70, 100);
+		peer2.setLocation(1000,50);
+		
+		this.add(home);
+		this.add(peer1);
+		this.add(box); 
+		this.add(peer2);
+		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(peer1, 1);
+        this.setComponentZOrder(box, 2);
+        this.setComponentZOrder(peer2, 3);
+        this.setComponentZOrder(room, 4);
+        
+        
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void addAction(String act)
+	{
+		String path="";
+		this.removeAll();
+		sticker = new ImagePanel("assets/action_bubble.png");
+		sticker.setLocation(550, 50);
+		SpringLayout layout = new SpringLayout();
+		sticker.setLayout(layout);
+		
+		if(act.equals("take medicine"))
+			path = "assets/take_medicine.png";
+		else if(act.equals("sleep"))
+			path = "assets/sleep_emoji.png";
+		else if(act.equals("play"))
+			path = "assets/basketball.png";
+		action = new ImagePanel(path);
+		action.setLocation(700, 130);
+
+		// For horizontal Alignment of story message
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, action, 20, SpringLayout.HORIZONTAL_CENTER, sticker);
+
+		// For Vertical Alignment of story message
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, action, -50, SpringLayout.VERTICAL_CENTER, sticker);
+		sticker.add(action);
+		
+		this.add(home);
+		this.add(sticker);
+		this.add(peer1);
+		this.add(box);
+		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+		this.setComponentZOrder(sticker, 1);
+        this.setComponentZOrder(peer1, 2);
+        this.setComponentZOrder(box, 3);
+        this.setComponentZOrder(room, 4);
+        
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void changeBackground(String place)
+	{
+		BufferedImage img;
+		String path = "";
+		
+		if(place.equalsIgnoreCase("room"))
+			path ="assets/room.png";
+		else if(place.equalsIgnoreCase("park"))
+			path = "assets/park.png";
+		
+		img= new ImgUtils().scaleImage(1640,700,path);
+		room = new ImagePanel(img);
+		
+
+		this.add(home);
+		this.add(peer1);
+		this.add(box); 
+		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(peer1, 1);
+        this.setComponentZOrder(box, 2);
+        this.setComponentZOrder(room, 3);
+        
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void changeBackgroundTwoPeers(String place, String p1, String p2) throws IOException
+	{
+		changeBackground(place);
+		addPeer(p1,p2);
+	}
+	
 	public ArrayList<String> cutMessageDialog(String msg)
 	{
 		//remove space sa harap if start ng sentence 
@@ -298,40 +453,7 @@ public class StoryPanel extends JPanel{
 		return s;
 	}
 	
-	public void addAction(String act)
-	{
-		String path="";
-		this.remove(peer);
-		this.remove(box);
-		this.remove(room);
-		sticker = new ImagePanel("assets/action_bubble.png");
-		sticker.setLocation(550, 50);
-		SpringLayout layout = new SpringLayout();
-		sticker.setLayout(layout);
-		
-		if(act.equals("take medicine"))
-			path = "assets/take_medicine.png";
-		else if(act.equals("sleep"))
-			path = "assets/sleep_emoji.png";
-		else if(act.equals("play"))
-			path = "assets/basketball.png";
-		action = new ImagePanel(path);
-		action.setLocation(700, 130);
-
-		// For horizontal Alignment of story message
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, action, 20, SpringLayout.HORIZONTAL_CENTER, sticker);
-
-		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, action, -50, SpringLayout.VERTICAL_CENTER, sticker);
-		sticker.add(action);
-		
-		this.add(sticker);
-		this.add(peer);
-		this.add(box);
-		this.add(room);
-		this.revalidate();
-		this.repaint();
-	}
+	
 	public void displayMessage(String peer, String msg){
 		changePeer(peer);
 		messageParts = new ArrayList<String>();
@@ -339,9 +461,9 @@ public class StoryPanel extends JPanel{
 		message.setText(messageParts.get(0));
 		counter = 1;
 	}
-	public void displayMessageAction(String msg, String peer, String act, boolean isLast){
+	public void displayMessageAction(String peer, String msg, String act){	
+		displayMessage(peer, msg);
 		addAction(act);
-		displayMessage(msg, peer);
 	}
 	
 	public class NextBtnListener implements ActionListener{	    
