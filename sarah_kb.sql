@@ -41,6 +41,30 @@ INSERT INTO `action` VALUES (0,'sleep',1,120),(0,'drinkWater',2,5),(0,'takeMedic
 UNLOCK TABLES;
 
 --
+-- Table structure for table `assertion`
+--
+
+DROP TABLE IF EXISTS `assertion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `assertion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(100) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assertion`
+--
+
+LOCK TABLES `assertion` WRITE;
+/*!40000 ALTER TABLE `assertion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `assertion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `body_part`
 --
 
@@ -240,6 +264,30 @@ INSERT INTO `message` VALUES (22,'askPrevention'),(8,'commentNegativeFiller + co
 UNLOCK TABLES;
 
 --
+-- Table structure for table `new_table`
+--
+
+DROP TABLE IF EXISTS `new_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `new_table` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `episode_id` int(11) NOT NULL,
+  `symptom` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `new_table`
+--
+
+LOCK TABLES `new_table` WRITE;
+/*!40000 ALTER TABLE `new_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `new_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `object`
 --
 
@@ -265,6 +313,32 @@ INSERT INTO `object` VALUES (1,'sleep','‪D:\\sample.png'),(2,'drinkWater','‪
 UNLOCK TABLES;
 
 --
+-- Table structure for table `planner`
+--
+
+DROP TABLE IF EXISTS `planner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `planner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `location` varchar(100) NOT NULL,
+  `assertion_id` int(11) DEFAULT NULL,
+  `episode_id` int(11) NOT NULL,
+  `next_episode_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `planner`
+--
+
+LOCK TABLES `planner` WRITE;
+/*!40000 ALTER TABLE `planner` DISABLE KEYS */;
+/*!40000 ALTER TABLE `planner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `prevention`
 --
 
@@ -287,6 +361,30 @@ LOCK TABLES `prevention` WRITE;
 /*!40000 ALTER TABLE `prevention` DISABLE KEYS */;
 INSERT INTO `prevention` VALUES (1,'frequently wash our hands',1),(2,'cover our mouth with our forearm when coughing',1),(3,'avoid touching our eyes',1),(4,'avoid touching our nose',1),(5,'avoid touching our mouth',1),(8,'frequently wash our hands',2),(9,'avoid drinking raw milk',2),(10,'avoid eating raw meat or shellfish',2),(11,'clean and wash regularly',4),(12,'avoid contact with people who have chicken pox',4),(13,'use mosquito repellents',5),(14,'wear protective clothing',5),(15,'wash our hand often',6),(16,'carry hand sanitizers',6),(17,'avoid touching our nose',6),(18,'avoid touching our mouth',6),(19,'avoid toucing our eyes',6),(20,'avoid our allergens',7),(21,'take medicine given by our doctor',7),(22,'get an immunization',8),(23,'limit interaction with people who have measles',8),(24,'frequent hand cleaning',9),(26,'avoid interaction with those who are sick',9),(27,'get enough rest',9),(28,'receive proper nutrition',9),(29,'drink plenty of water',10),(30,'avoid our allergens',3),(31,'avoid difficult exercises',3),(32,'avoid stress',3),(33,'avoid extreme weather condition',3),(34,'change out of we and sweaty clothes as soon as possible',10),(35,'exercise proper hygiene',10),(36,'pee as soon as possible',10);
 /*!40000 ALTER TABLE `prevention` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reaction`
+--
+
+DROP TABLE IF EXISTS `reaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reaction`
+--
+
+LOCK TABLES `reaction` WRITE;
+/*!40000 ALTER TABLE `reaction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -365,6 +463,31 @@ INSERT INTO `sickness` VALUES (1,'Cough and cold'),(2,'Stomach ache'),(3,'Asthma
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sickness_map`
+--
+
+DROP TABLE IF EXISTS `sickness_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sickness_map` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `symptom_id` int(11) NOT NULL,
+  `episode_id` int(11) NOT NULL,
+  `sickness_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sickness_map`
+--
+
+LOCK TABLES `sickness_map` WRITE;
+/*!40000 ALTER TABLE `sickness_map` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sickness_map` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `symptom`
 --
 
@@ -387,6 +510,30 @@ LOCK TABLES `symptom` WRITE;
 /*!40000 ALTER TABLE `symptom` DISABLE KEYS */;
 INSERT INTO `symptom` VALUES (1,'runny nose',1),(2,'stuffy nose',1),(3,'sneezing',1),(4,'coughs',1),(5,'sore throat',1),(6,'scratchy throat',1),(7,'watery eyes',1),(8,'itchy eyes',1),(9,'headaches',1),(10,'body aches',1),(11,'low fever',1),(12,'loss of appetite',2),(13,'vomiting',2),(14,'diarrhea',2),(15,'stomach pains',2),(16,'stomach cramps',2),(17,'fever',2),(18,'shortness of breath',3),(19,'tightness of chest ',3),(20,'wheezes',3),(21,'constant coughs',3),(22,'fever ',4),(23,'headaches',4),(24,'rashes',4),(25,'loss of appetite',4),(26,'high fever',5),(27,'terrible headaches',5),(28,'eye pains',5),(29,'joint and muscle pains',5),(30,'tiredness',5),(31,'vomiting',5),(32,'skin rashes',5),(33,'high body temperature',6),(34,'skin rashes',7),(35,'headaches',7),(36,'sneezing',7),(37,'runny nose',7),(38,'swelling',7),(39,'diarrhea',7),(40,'coughs',8),(41,'fever',8),(42,'red eyes',8),(43,'muscle pains',8),(44,'runny nose',8),(45,'sore throat',8),(46,'white spots inside the mouth',8),(47,'measles rashes',8),(48,'dry coughs',9),(49,'low fever',9),(50,'headaches',9),(51,'tiredness',9),(52,'fever',10),(53,'tiredness',10),(54,'lower stomach pain',10),(55,'sweating',6),(56,'shivering',6),(57,'headaches',6),(58,'muscle pains',6),(59,'loss of appetite',6),(60,'dehydration',6),(61,'genral weakness',6);
 /*!40000 ALTER TABLE `symptom` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `symptom_map`
+--
+
+DROP TABLE IF EXISTS `symptom_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `symptom_map` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `episode_id` int(11) NOT NULL,
+  `symptom` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `symptom_map`
+--
+
+LOCK TABLES `symptom_map` WRITE;
+/*!40000 ALTER TABLE `symptom_map` DISABLE KEYS */;
+/*!40000 ALTER TABLE `symptom_map` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -450,4 +597,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-27 16:07:31
+-- Dump completed on 2017-03-27 20:04:05
