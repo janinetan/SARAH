@@ -86,8 +86,8 @@ public class StoryPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall( message );
-        message.setBorder(UIManager.getBorder("JLabel"));
-        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//      message.setBorder(UIManager.getBorder("JLabel"));
+//      message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
         image = ImageIO.read(new File("assets/tap_next.png"));
         icon = new ImageIcon(image);
@@ -368,12 +368,7 @@ public class StoryPanel extends JPanel{
 		SpringLayout layout = new SpringLayout();
 		sticker.setLayout(layout);
 		
-		if(act.equals("take medicine"))
-			path = "assets/take_medicine.png";
-		else if(act.equals("sleep"))
-			path = "assets/sleep_emoji.png";
-		else if(act.equals("play"))
-			path = "assets/basketball.png";
+		path = "assets/"+act+".png";
 		action = new ImagePanel(path);
 		//action.setLocation(700, 130);
 
@@ -387,14 +382,16 @@ public class StoryPanel extends JPanel{
 		this.add(home);
 		this.add(sticker);
 		this.add(peer1);
+		this.add(peer2);
 		this.add(box);
 		this.add(room);
 		
 		this.setComponentZOrder(home, 0);
 		this.setComponentZOrder(sticker, 1);
         this.setComponentZOrder(peer1, 2);
-        this.setComponentZOrder(box, 3);
-        this.setComponentZOrder(room, 4);
+        this.setComponentZOrder(peer2, 3);
+        this.setComponentZOrder(box, 4);
+        this.setComponentZOrder(room, 5);
         
 		this.revalidate();
 		this.repaint();
@@ -440,7 +437,7 @@ public class StoryPanel extends JPanel{
 		ArrayList<String> s = new ArrayList();
 		int startIndex =0, endIndex=0;
 		String temp="", cut;
-		if(msg.length()<=230)
+		if(msg.length()<=153)
 //			message.setText(msg); removed 23c084e
 			s.add(msg);
 			
@@ -448,8 +445,8 @@ public class StoryPanel extends JPanel{
 		{
 			while(msg.length()!=0)
 			{
-				if(msg.length()>=230){
-					temp = msg.substring(0, 230);
+				if(msg.length()>=153){
+					temp = msg.substring(0, 153);
 					endIndex = temp.lastIndexOf(".")+1;
 					if(endIndex == 0)
 						endIndex = temp.lastIndexOf(",")+1;
@@ -519,7 +516,6 @@ public class StoryPanel extends JPanel{
 	public void displayMessage(String peer, String msg){
 		//changePeer(peer);
 		changeDialogBox(peer);
-		//addAction("sleep");
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));

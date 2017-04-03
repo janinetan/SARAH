@@ -10,6 +10,7 @@ public class DBConnection {
 	{
 		this.username = "root";
 		this.password = "123abc";
+		
 		this.url = "jdbc:mysql://localhost:3306/sarah_kb";
 
 		try
