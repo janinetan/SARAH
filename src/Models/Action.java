@@ -2,50 +2,56 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Action {
+public class Action extends Event {
 	public static final String TABLE_ACTION = "action";
 	
 	public static final String COL_ID = "id";
-	public static final String COL_ASSERTIONID = "assertion_id";
+	public static final String COL_ACTIVITYNAME = "activty_name";
 	public static final String COL_NAME = "name";
-	public static final String COL_OBJECT = "object";
+	public static final String COL_OBJECT = "object_category";
 	public static final String COL_DURATION = "duration";
-	public static final String COL_MOTIVATION = "motivation";
-	
-	public static final String TABLE_ACTIVITY = "activity";
-	public static final String COL_ACTIVITY = "activity";
-	public static final String COL_ACTIONID = "action_id";
-	
-	public static final String TABLE_LOCATION = "location";
-	public static final String COL_LOCATION = "location";
-	
-	public static final String TABLE_POSTCONDITION = "post_condition";
-	
-	public static final String TABLE_REVERSE ="reverse_precondition";
-	public static final String COL_REVERSEACTION = "reverse_action_id";
+	public static final String COL_EPISODEID = "episode_id";
 	
 	private int id;
-	private int assertionId;
+	private String activityName;
 	private String name;
-	private String object;
+	private String objectCategory;
 	private String duration;
-	private String motivation;
-	private ArrayList<String> activity;
-	private ArrayList<String> location;
-	private ArrayList<Integer> postCondition;
-	private ArrayList<Integer> reversePrecondition;
+	private String episodeId;
+	private ArrayList<Integer> precondition;
+	private ArrayList<String> locations;
+	private ArrayList<String> motivation;
+	private ArrayList<Integer> postcondition;
 	
+	public ArrayList<Integer> getPrecondition() {
+		return precondition;
+	}
+	public void setPrecondition(ArrayList<Integer> precondition) {
+		this.precondition = precondition;
+	}
+	public ArrayList<String> getLocations() {
+		return locations;
+	}
+	public void setLocations(ArrayList<String> locations) {
+		this.locations = locations;
+	}
+	public ArrayList<String> getMotivation() {
+		return motivation;
+	}
+	public void setMotivation(ArrayList<String> motivation) {
+		this.motivation = motivation;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getAssertionId() {
-		return assertionId;
+	public String getActivityName() {
+		return activityName;
 	}
-	public void setAssertionId(int assertionId) {
-		this.assertionId = assertionId;
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
 	}
 	public String getName() {
 		return name;
@@ -53,11 +59,11 @@ public class Action {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getObject() {
-		return object;
+	public String getObjectCategory() {
+		return objectCategory;
 	}
-	public void setObject(String object) {
-		this.object = object;
+	public void setObjectCategory(String objectCategory) {
+		this.objectCategory = objectCategory;
 	}
 	public String getDuration() {
 		return duration;
@@ -65,34 +71,12 @@ public class Action {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	public ArrayList<String> getActivity() {
-		return activity;
+	public String getEpisodeId() {
+		return episodeId;
 	}
-	public void setActivity(ArrayList<String> activity) {
-		this.activity = activity;
+	public void setEpisodeId(String episodeId) {
+		this.episodeId = episodeId;
 	}
-	public ArrayList<String> getLocation() {
-		return location;
-	}
-	public void setLocation(ArrayList<String> location) {
-		this.location = location;
-	}
-	public ArrayList<Integer> getPostCondition() {
-		return postCondition;
-	}
-	public void setPostCondition(ArrayList<Integer> postCondition) {
-		this.postCondition = postCondition;
-	}
-	public ArrayList<Integer> getReversePrecondition() {
-		return reversePrecondition;
-	}
-	public void setReversePrecondition(ArrayList<Integer> reversePrecondition) {
-		this.reversePrecondition = reversePrecondition;
-	}
-	public String getMotivation() {
-		return motivation;
-	}
-	public void setMotivation(String motivation) {
-		this.motivation = motivation;
-	}
+	
+	
 }

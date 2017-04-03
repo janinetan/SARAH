@@ -539,12 +539,7 @@ public class StoryPanel extends JPanel{
 		    	counter++;
 	    	}
 	    	else if (counter == messageParts.size()){
-	    		try {
-					StartFrameController.playEvent();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+	    		StartFrameController.playEvent();
 	    	}
 		}
 	}

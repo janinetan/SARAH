@@ -36,7 +36,7 @@ public class EndStoryPanel extends JPanel{
 		
 		font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/cartoon_room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
@@ -77,13 +77,7 @@ public class EndStoryPanel extends JPanel{
 		});
 		yesButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	try {
-					main.setContentPane(new ThemePanel(main));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		        
+		    	StartFrameController.displayTheme();
 		    }
 		});
 		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/no.png"));

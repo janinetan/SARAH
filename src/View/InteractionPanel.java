@@ -121,12 +121,7 @@ public class InteractionPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	try {
-					StartFrameController.sendUserResponse(answer.getText());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		    	StartFrameController.sendUserResponse(answer.getText());
 		    }
 		});
 

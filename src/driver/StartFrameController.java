@@ -14,7 +14,7 @@ import View.WelcomePanel;
 public class StartFrameController implements IController {
 
 	private static StartFrame frame;
-	private static StoryGenerator storyGenerator;
+	private static StoryGenerator2 storyGenerator;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -79,14 +79,19 @@ public class StartFrameController implements IController {
 	}
 
 	public static void displayStartStory(String theme) {
-		storyGenerator = new StoryGenerator();
+		storyGenerator = new StoryGenerator2();
 		storyGenerator.selectStoryTheme(theme);
 		storyGenerator.setUpStory();
 		playEvent();
 	}
 	
 	public static void playEvent(){
-		storyGenerator.playEvent();
+		try {
+			storyGenerator.playEvent();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void displayMessage(String peer, String msg, boolean isLast){
@@ -118,6 +123,11 @@ public class StartFrameController implements IController {
 	}
 	
 	public static void sendUserResponse(String userInput){
-		storyGenerator.getVerdict(userInput);
+		try {
+			storyGenerator.getVerdict(userInput);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

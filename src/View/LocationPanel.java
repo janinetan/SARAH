@@ -195,13 +195,7 @@ public class LocationPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	/*not working when mouselistener code was added*/
-		        try {
-					StartFrameController.displayStartStory(theme);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		    	StartFrameController.displayStartStory(theme);
 		    }
 		});
 		
