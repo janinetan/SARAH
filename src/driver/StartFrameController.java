@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import View.EndStoryPanel;
 import View.InteractionPanel;
+import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanel;
 import View.StoryPanel;
@@ -49,7 +50,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayTheme(){
 		try {
-			frame.changePanel(new ThemePanel(frame));
+			frame.changePanel(new LocationPanel(frame));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

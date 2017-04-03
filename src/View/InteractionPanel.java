@@ -43,7 +43,18 @@ public class InteractionPanel extends JPanel{
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
+		Boolean isSarahWorried = false;
+		Boolean isLiamSick = false;
+		
 		ImagePanel peer1 = new ImagePanel("assets/"+vp+".png");
+		if(vp.equalsIgnoreCase("sarah") && isSarahWorried){
+			peer1 = new ImagePanel("assets/worried sarah.png");
+		}
+			
+		if(vp.equalsIgnoreCase("liam") && isLiamSick){
+			peer1 = new ImagePanel("assets/sick liam.png");
+		}
+		
 		peer1.setLocation(-70, 100);
 		
 		ImagePanel dialog = new ImagePanel("assets/"+vp+"_dialog_box1.png");
