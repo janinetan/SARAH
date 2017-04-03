@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
@@ -49,21 +50,35 @@ public class StoryPanel extends JPanel{
 		
 		font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
+		BufferedImage img = new ImgUtils().scaleImage(StartFrame.frameWidth,StartFrame.frameHeight,"assets/park.png");
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-		peer1 = new ImagePanel("assets/sarah.png");
-		peer1.setLocation(-70, 100);
+
+		BufferedImage image = ImageIO.read(new File("assets/sarah.png"));
+		ImageIcon icon = new ImageIcon(image);
+		Image image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		peer1 = new ImagePanel(image1);
+		peer1.setLocation(0, 100);
 		
-		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
-		box = new ImagePanel(img1);
+		image = ImageIO.read(new File("assets/liam.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 60/100,icon.getIconHeight() * 60/100,Image.SCALE_SMOOTH);
+		peer2 = new ImagePanel(image1);
+		
+		peer1.setLocation(0, 100);
+		peer2.setLocation(1200,200);
+		
+		//BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/sarah_dialog_box2.png");
+		
+		box = new ImagePanel("assets/sarah_dialog_box2.png");
 		SpringLayout layout = new SpringLayout();
 		
         message = new JTextArea();
         //message.setText("When you are done reading the current text, "
         //		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
         message.setSize(950,100);
+        message.setSize(750,400);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -71,13 +86,13 @@ public class StoryPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall( message );
-        //message.setBorder(UIManager.getBorder("JLabel"));
-        //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        message.setBorder(UIManager.getBorder("JLabel"));
+        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
-        BufferedImage buttonIcon1 = ImageIO.read(new File("assets/tap_next.png"));
-        ImageIcon icon = new ImageIcon(buttonIcon1);
-        Image image = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
-        icon = new ImageIcon(image, icon.getDescription());
+        image = ImageIO.read(new File("assets/tap_next.png"));
+        icon = new ImageIcon(image);
+        image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+        icon = new ImageIcon(image1, icon.getDescription());
 		nextButton = new JButton(icon);
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
@@ -112,13 +127,13 @@ public class StoryPanel extends JPanel{
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
 		
 		// For horizontal alignment of next button
-		layout.putConstraint(SpringLayout.EAST, nextButton, -15, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.EAST, nextButton, -30, SpringLayout.EAST, box);
 		
 		// For Vertical alignment of next button
-		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
+		layout.putConstraint(SpringLayout.SOUTH, nextButton, -30, SpringLayout.SOUTH, box);
 
         box.setLayout(layout);
-        box.setLocation(0, 500);
+        box.setLocation(420, 400);
         
         BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
         ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
@@ -242,25 +257,27 @@ public class StoryPanel extends JPanel{
 		peer2 = new ImagePanel(image1);
 		peer2.setLocation(1000, 50);*/
         //peer2.setComponentZOrder(comp, index); can change order of painting
-        sticker = new ImagePanel("assets/action_bubble.png");
-		sticker.setLocation(550, 50);
+//        sticker = new ImagePanel("assets/action_bubble.png");
+//		sticker.setLocation(550, 50);
 		
         
         
         this.add(home);
-        this.add(sticker);
-		this.add(peer1);
+        //this.add(sticker);
 		this.add(box);
+		this.add(peer1);
+		this.add(peer2);
 		this.add(room);
 		
 		this.setComponentZOrder(home, 0);
-        this.setComponentZOrder(sticker, 1);
+        //this.setComponentZOrder(sticker, 1);
+        this.setComponentZOrder(box, 1);
         this.setComponentZOrder(peer1, 2);
-        this.setComponentZOrder(box, 3);
+        this.setComponentZOrder(peer2, 3);
         this.setComponentZOrder(room, 4);
 		
         
-		//addPeer("sarah","sarah");
+		//addPeer("sarah","liam");
 		//changeBackground("park");
 	}
 	
@@ -274,7 +291,7 @@ public class StoryPanel extends JPanel{
 		else if(p.equalsIgnoreCase("sick liam"))
 			peer1 = new ImagePanel("assets/sick_liam.png");
 		
-		peer1.setLocation(-70, 100);
+		peer1.setLocation(0, 100);
 		
 		this.add(home);
 		this.add(peer1);
@@ -294,29 +311,36 @@ public class StoryPanel extends JPanel{
 	public void addPeer(String p1, String p2) throws IOException
 	{
 		BufferedImage icon = null;
+		BufferedImage icon1 = null;
+		ImageIcon pIcon;
+		Image image1;
 		
 		this.removeAll();
 		if(p1.equalsIgnoreCase("sarah"))
-			peer1 = new ImagePanel("assets/sarah.png");
-		else if(p1.equalsIgnoreCase("liam"))
-			peer1 = new ImagePanel("assets/liam.png");
-		else if(p1.equalsIgnoreCase("sick liam"))
-			peer1 = new ImagePanel("assets/sick_liam.png");
-		
-		if(p2.equalsIgnoreCase("sarah"))
 			icon = ImageIO.read(new File("assets/sarah.png"));
-		else if(p2.equalsIgnoreCase("liam"))
+		else if(p1.equalsIgnoreCase("liam"))
 			icon = ImageIO.read(new File("assets/liam.png"));
-		else if(p2.equalsIgnoreCase("sick liam"))
+		else if(p1.equalsIgnoreCase("sick liam"))
 			icon = ImageIO.read(new File("assets/sick_liam.png"));
 		
+		if(p2.equalsIgnoreCase("sarah"))
+			icon1 = ImageIO.read(new File("assets/sarah.png"));
+		else if(p2.equalsIgnoreCase("liam"))
+			icon1 = ImageIO.read(new File("assets/liam.png"));
+		else if(p2.equalsIgnoreCase("sick liam"))
+			icon1 = ImageIO.read(new File("assets/sick_liam.png"));
 		
-		ImageIcon pIcon = new ImageIcon(icon);
-		Image image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 70/100,pIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+
+		pIcon = new ImageIcon(icon);
+		image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 70/100,pIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		peer1 = new ImagePanel(image1);
+		
+		pIcon = new ImageIcon(icon1);
+		image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 70/100,pIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
 		peer2 = new ImagePanel(image1);
 		
-		peer1.setLocation(-70, 100);
-		peer2.setLocation(1000,50);
+		peer1.setLocation(0, 100);
+		peer2.setLocation(1150,100);
 		
 		this.add(home);
 		this.add(peer1);
@@ -325,8 +349,8 @@ public class StoryPanel extends JPanel{
 		this.add(room);
 		
 		this.setComponentZOrder(home, 0);
-        this.setComponentZOrder(peer1, 1);
-        this.setComponentZOrder(box, 2);
+        this.setComponentZOrder(box, 1);
+        this.setComponentZOrder(peer1, 2);
         this.setComponentZOrder(peer2, 3);
         this.setComponentZOrder(room, 4);
         
@@ -351,13 +375,13 @@ public class StoryPanel extends JPanel{
 		else if(act.equals("play"))
 			path = "assets/basketball.png";
 		action = new ImagePanel(path);
-		action.setLocation(700, 130);
+		//action.setLocation(700, 130);
 
-		// For horizontal Alignment of story message
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, action, 20, SpringLayout.HORIZONTAL_CENTER, sticker);
+		// For horizontal Alignment of sticker
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, action, -30, SpringLayout.HORIZONTAL_CENTER, sticker);
 
-		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, action, -50, SpringLayout.VERTICAL_CENTER, sticker);
+		// For Vertical Alignment of sticker
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, action, -30, SpringLayout.VERTICAL_CENTER, sticker);
 		sticker.add(action);
 		
 		this.add(home);
@@ -452,15 +476,56 @@ public class StoryPanel extends JPanel{
 		return s;
 	}
 	
+	public void changeDialogBox(String peer){
+		this.removeAll();
+		if(peer.equalsIgnoreCase("sarah"))
+			box = new ImagePanel("assets/sarah_dialog_box2.png");
+		else if(peer.equalsIgnoreCase("liam"))
+			box = new ImagePanel("assets/liam_dialog_box2.png");
+		
+		SpringLayout layout = new SpringLayout();
+		box.add(nextButton);
+		box.add(message);
+		
+		// For horizontal Alignment of story message
+		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
+		// For Vertical Alignment of story message
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
+		
+		// For horizontal alignment of next button
+		layout.putConstraint(SpringLayout.EAST, nextButton, -30, SpringLayout.EAST, box);
+		// For Vertical alignment of next button
+		layout.putConstraint(SpringLayout.SOUTH, nextButton, -30, SpringLayout.SOUTH, box);
+
+        box.setLayout(layout);
+        box.setLocation(420, 400);
+
+		this.add(home);
+		this.add(box);
+		this.add(peer1);
+		this.add(peer2);
+		this.add(room);
+		
+		this.setComponentZOrder(home, 0);
+        this.setComponentZOrder(box, 1);
+        this.setComponentZOrder(peer1, 2);
+        this.setComponentZOrder(peer2, 3);
+        this.setComponentZOrder(room, 4);
+		
+		this.repaint();
+		this.revalidate();
+	}
 	
 	public void displayMessage(String peer, String msg){
-		changePeer(peer);
+		//changePeer(peer);
+		changeDialogBox(peer);
+		addAction("sleep");
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
 		counter = 1;
 	}
-	public void displayMessageAction(String peer, String msg, String act){	
+	public void displayMessageAction(String peer, String msg, String act) throws IOException{	
 		displayMessage(peer, msg);
 		addAction(act);
 	}
@@ -474,7 +539,12 @@ public class StoryPanel extends JPanel{
 		    	counter++;
 	    	}
 	    	else if (counter == messageParts.size()){
-	    		StartFrameController.playEvent();
+	    		try {
+					StartFrameController.playEvent();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	    	}
 		}
 	}

@@ -1,5 +1,6 @@
 package driver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -86,7 +87,7 @@ public class StoryGenerator {
 		}
 	}
 	
-	public void playEvent(){
+	public void playEvent() throws IOException{
 		if (this.curStoryEventIndex == eventsList.size()){
 			StartFrameController.displayEnd();
 			return;
@@ -118,7 +119,7 @@ public class StoryGenerator {
 		}
 	}
 
-	public void getVerdict(String userInput) {
+	public void getVerdict(String userInput) throws IOException {
 		String verdict = SarahChatbot.getVerdict(this.lastQuestion + userInput);
 		System.out.println(verdict);
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){

@@ -91,6 +91,7 @@ public class CustomTextArea extends JTextArea {
             public void focusGained(FocusEvent e) {
                 if (!isTextWrittenIn()) {
                     setText("");
+                    setForeground(new Color(0,0,0));
                 }
  
             }
@@ -108,6 +109,7 @@ public class CustomTextArea extends JTextArea {
  
     private void customizeText(String text) {
         setText(text);
+        
         /**If you change font, family and size will follow
          * changes, while style will always be italic**/
         setFont(new Font(getFont().getFamily(), Font.ITALIC, getFont().getSize()));
