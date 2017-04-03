@@ -25,12 +25,11 @@ DROP TABLE IF EXISTS `action`;
 CREATE TABLE `action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_name` varchar(100) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
   `object_category` varchar(100) DEFAULT NULL,
   `duration` varchar(100) NOT NULL,
-  `episode_id` int(11) NOT NULL,
+  `episode_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +38,7 @@ CREATE TABLE `action` (
 
 LOCK TABLES `action` WRITE;
 /*!40000 ALTER TABLE `action` DISABLE KEYS */;
+INSERT INTO `action` VALUES (1,'play','outdoorToy','30 minutes',NULL),(2,'play','indoorToy','30 minutes',NULL),(3,'eat','food','10 minutes',NULL),(4,'play freeze tag with','sickKid','30 minutes',NULL),(5,'scratch','facialBodyPart','1 minute',NULL),(6,'wash','hands','1 minute',NULL),(7,'sleep','sleepObject','4 hours',NULL),(8,'rest','restObject','1 hour',NULL),(9,'sanitize','sanitizer','1 minute',NULL),(10,'drink','water','3 minutes',NULL),(11,'scratch','eyes','1 minute',NULL),(12,'scratch','nose','1 minute',NULL),(13,'scratch ','lips','1 minute',NULL);
 /*!40000 ALTER TABLE `action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ CREATE TABLE `activity` (
   `name` varchar(100) NOT NULL,
   `motivation` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +63,7 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
+INSERT INTO `activity` VALUES (1,'play','fun'),(2,'play','interesting'),(3,'play','exciting'),(4,'eat','yummy'),(5,'eat','delicious'),(6,'eat','satisfying'),(7,'play freeze tag with','fun'),(8,'play freeze tag with','interesting'),(9,'play freeze tag with','exciting'),(10,'wash','refreshing'),(11,'wash','clean'),(12,'scratch','relieving'),(13,'sleep','relaxing'),(14,'sleep','refreshing'),(15,'drink','refreshing'),(16,'drink','energizing'),(17,'sanitize','sanitary'),(18,'sanitize','clean'),(19,'rest','relaxing'),(20,'rest','refreshing');
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +80,7 @@ CREATE TABLE `assertion` (
   `concept1` varchar(100) NOT NULL,
   `concept2` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +89,7 @@ CREATE TABLE `assertion` (
 
 LOCK TABLES `assertion` WRITE;
 /*!40000 ALTER TABLE `assertion` DISABLE KEYS */;
-INSERT INTO `assertion` VALUES (1,'hasProperty','hands','clean'),(2,'hasProperty','hands','dirty'),(3,'hasProperty','body','tired'),(4,'hasProperty','body ','rested'),(5,'hasProperty','body','sweaty'),(6,'oppositeOf','clean','dirty'),(7,'hasProperty','body','hydrated'),(8,'hasProperty','body','dehydrated'),(9,'oppositeOf','tired','rested'),(10,'oppositeOf','hydrated','dehydrated');
+INSERT INTO `assertion` VALUES (1,'hasProperty','hands','clean'),(2,'hasProperty','hands','dirty'),(3,'hasProperty','body','tired'),(4,'hasProperty','body ','rested'),(5,'hasProperty','body','sweaty'),(6,'oppositeOf','clean','dirty'),(7,'hasProperty','body','hydrated'),(8,'hasProperty','body','dehydrated'),(9,'oppositeOf','tired','rested'),(10,'oppositeOf','hydrated','dehydrated'),(11,'oppositeOf','sweaty','not sweaty'),(12,'is','clean','good'),(13,'is','dirty','bad'),(14,'is','tired','bad'),(15,'is','rested','good'),(16,'is','sweaty','bad'),(17,'is','not sweaty','good'),(18,'is','hydrated','good'),(19,'is','dehydrated','bad');
 /*!40000 ALTER TABLE `assertion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +279,7 @@ CREATE TABLE `location` (
   `action_id` int(11) NOT NULL,
   `location` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,7 +288,7 @@ CREATE TABLE `location` (
 
 LOCK TABLES `location` WRITE;
 /*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` VALUES (1,1,'park'),(2,2,'cr'),(3,3,'park');
+INSERT INTO `location` VALUES (4,1,'park'),(5,2,'park'),(6,3,'park'),(7,4,'park'),(8,5,'park'),(9,5,'school'),(10,5,'home'),(11,6,'park'),(12,6,'school'),(13,6,'home'),(14,7,'home'),(15,8,'park'),(16,9,'park'),(17,9,'school'),(18,9,'home'),(19,10,'park'),(20,10,'school'),(21,10,'home'),(22,3,'school'),(23,3,'home'),(24,11,'park'),(25,11,'home'),(26,11,'school'),(27,12,'park'),(28,12,'home'),(29,12,'school'),(30,13,'park'),(31,13,'home'),(32,13,'school');
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -317,30 +318,6 @@ INSERT INTO `message` VALUES (22,'askPrevention'),(8,'commentNegativeFiller + co
 UNLOCK TABLES;
 
 --
--- Table structure for table `motivation`
---
-
-DROP TABLE IF EXISTS `motivation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `motivation` (
-  `id` int(11) NOT NULL,
-  `action_id` int(11) NOT NULL,
-  `motivation` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `motivation`
---
-
-LOCK TABLES `motivation` WRITE;
-/*!40000 ALTER TABLE `motivation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `motivation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `object`
 --
 
@@ -348,12 +325,12 @@ DROP TABLE IF EXISTS `object`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `object` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `verb` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +339,33 @@ CREATE TABLE `object` (
 
 LOCK TABLES `object` WRITE;
 /*!40000 ALTER TABLE `object` DISABLE KEYS */;
+INSERT INTO `object` VALUES (1,'sickKid','sick kid','play with'),(2,'indoorToy','ball','throw'),(3,'indoorToy','stuff toy','hug'),(4,'outdoorToy','mud','splash'),(5,'outdoorToy','slide','ride'),(6,'outdoorToy','sandcastle','build'),(7,'food','sandwich','munching'),(8,'food','fruit','munching'),(9,'bodyPart','hands','clean'),(10,'facialBodyPart','eyes','rub'),(11,'facialBodyPart','nose','scratch'),(12,'facialBodyPart','face','scratch'),(13,'sanitizer','alcohol','spray'),(14,'sanitizer','alcohol','rub'),(15,'sleepObject','bed','sleep'),(16,'restObject','chair','rest');
 /*!40000 ALTER TABLE `object` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `postcondition`
+--
+
+DROP TABLE IF EXISTS `postcondition`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `postcondition` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_id` int(11) NOT NULL,
+  `assertion_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `postcondition`
+--
+
+LOCK TABLES `postcondition` WRITE;
+/*!40000 ALTER TABLE `postcondition` DISABLE KEYS */;
+INSERT INTO `postcondition` VALUES (1,1,2),(2,1,3),(3,1,5),(4,2,2),(5,6,1),(6,7,4),(7,8,4),(8,9,1),(9,10,7);
+/*!40000 ALTER TABLE `postcondition` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -374,10 +377,10 @@ DROP TABLE IF EXISTS `precondition`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `precondition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `assertion_id` int(11) NOT NULL,
   `action_id` int(11) NOT NULL,
+  `assertion_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,6 +389,7 @@ CREATE TABLE `precondition` (
 
 LOCK TABLES `precondition` WRITE;
 /*!40000 ALTER TABLE `precondition` DISABLE KEYS */;
+INSERT INTO `precondition` VALUES (1,1,4),(2,3,1),(3,4,4),(4,5,1),(5,6,2),(6,7,3),(7,8,3),(8,9,2),(9,10,8),(10,11,1),(11,12,1),(12,13,1);
 /*!40000 ALTER TABLE `precondition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,31 +494,6 @@ INSERT INTO `sickness` VALUES (1,'Cough and cold'),(2,'Stomach ache'),(3,'Asthma
 UNLOCK TABLES;
 
 --
--- Table structure for table `sickness_map`
---
-
-DROP TABLE IF EXISTS `sickness_map`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sickness_map` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `symptom` varchar(100) NOT NULL,
-  `action_id` int(11) NOT NULL,
-  `sickness_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sickness_map`
---
-
-LOCK TABLES `sickness_map` WRITE;
-/*!40000 ALTER TABLE `sickness_map` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sickness_map` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `sticker`
 --
 
@@ -576,7 +555,7 @@ CREATE TABLE `symptom_map` (
   `action_id` int(11) NOT NULL,
   `symptom` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,6 +564,7 @@ CREATE TABLE `symptom_map` (
 
 LOCK TABLES `symptom_map` WRITE;
 /*!40000 ALTER TABLE `symptom_map` DISABLE KEYS */;
+INSERT INTO `symptom_map` VALUES (17,3,'stomach'),(18,3,'fever'),(19,3,'vomiting'),(20,3,'diarrhea'),(21,4,'fever'),(22,4,'rashes'),(23,4,'headache'),(24,4,'muscle pain'),(25,4,'tiredness'),(26,4,'dehydration'),(27,5,'swelling'),(28,11,'itchy eyes'),(29,11,'watery eyes'),(30,12,'runny nose'),(31,12,'stuffy nose'),(32,13,'white spots inside the mouth');
 /*!40000 ALTER TABLE `symptom_map` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,4 +629,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-03 16:45:57
+-- Dump completed on 2017-04-03 20:13:52
