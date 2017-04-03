@@ -519,7 +519,7 @@ public class StoryPanel extends JPanel{
 	public void displayMessage(String peer, String msg){
 		//changePeer(peer);
 		changeDialogBox(peer);
-		addAction("sleep");
+		//addAction("sleep");
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
