@@ -85,7 +85,7 @@ public class LocationPanel extends JPanel{
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("rashes"))
+		    	if(!theme.equals("home"))
 		    	{
 			    	image = new ImageIcon("assets/loc1.png");
 			    	locationButton1.setIcon(image);
@@ -96,7 +96,7 @@ public class LocationPanel extends JPanel{
 		});
 		locationButton1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        theme = "rashes";
+		        theme = "home";
 		        image = new ImageIcon("assets/loc2.png");
 		        locationButton2.setIcon(image);
 		    	image = new ImageIcon("assets/loc3.png");
@@ -116,7 +116,7 @@ public class LocationPanel extends JPanel{
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("sneezing"))
+		    	if(!theme.equals("school"))
 		    	{
 			    	image = new ImageIcon("assets/loc2.png");
 			    	locationButton2.setIcon(image);
@@ -125,7 +125,7 @@ public class LocationPanel extends JPanel{
 		});
 		locationButton2.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        theme = "sneezing";
+		        theme = "school";
 		        image = new ImageIcon("assets/loc1.png");
 		        locationButton1.setIcon(image);
 		    	image = new ImageIcon("assets/loc3.png");
@@ -145,7 +145,7 @@ public class LocationPanel extends JPanel{
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("fever")){
+		    	if(!theme.equals("park")){
 			    	image = new ImageIcon("assets/loc3.png");
 			    	locationButton3.setIcon(image);
 		    	}
@@ -153,7 +153,7 @@ public class LocationPanel extends JPanel{
 		});
 		locationButton3.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        theme = "fever";
+		        theme = "park";
 		        image = new ImageIcon("assets/loc1.png");
 		        locationButton1.setIcon(image);
 		    	image = new ImageIcon("assets/loc2.png");
