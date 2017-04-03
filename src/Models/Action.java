@@ -6,22 +6,21 @@ public class Action extends Event {
 	public static final String TABLE_ACTION = "action";
 	
 	public static final String COL_ID = "id";
-	public static final String COL_ACTIVITYNAME = "activty_name";
-	public static final String COL_NAME = "name";
+	public static final String COL_ACTIVITYNAME = "activity_name";
 	public static final String COL_OBJECT = "object_category";
 	public static final String COL_DURATION = "duration";
-	public static final String COL_EPISODEID = "episode_id";
 	
 	private int id;
 	private String activityName;
-	private String name;
 	private String objectCategory;
 	private String duration;
-	private String episodeId;
 	private ArrayList<Integer> precondition;
 	private ArrayList<String> locations;
 	private ArrayList<String> motivation;
 	private ArrayList<Integer> postcondition;
+	private ArrayList<Object> obectList;
+	private Object chosenObject;
+	
 	
 	public ArrayList<Integer> getPrecondition() {
 		return precondition;
@@ -53,12 +52,6 @@ public class Action extends Event {
 	public void setActivityName(String activityName) {
 		this.activityName = activityName;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getObjectCategory() {
 		return objectCategory;
 	}
@@ -71,12 +64,29 @@ public class Action extends Event {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	public String getEpisodeId() {
-		return episodeId;
+	public ArrayList<Integer> getPostcondition() {
+		return postcondition;
 	}
-	public void setEpisodeId(String episodeId) {
-		this.episodeId = episodeId;
+	public void setPostcondition(ArrayList<Integer> postconditions){
+		this.postcondition = postconditions;
+	}
+	public ArrayList<Object> getObectList() {
+		return obectList;
+	}
+	public void setObectList(ArrayList<Object> obectList) {
+		this.obectList = obectList;
+	}
+	public Object getChosenObject() {
+		return chosenObject;
+	}
+	public void setChosenObject(Object chosenObject) {
+		this.chosenObject = chosenObject;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String actionText = "activity name: " + this.activityName + "\n";
+		actionText += "chosen object: " + this.chosenObject.getName(); 
+		return actionText;
+	}
 }

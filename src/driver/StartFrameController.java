@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import View.EndStoryPanel;
 import View.InteractionPanel;
+import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanel;
 import View.StoryPanel;

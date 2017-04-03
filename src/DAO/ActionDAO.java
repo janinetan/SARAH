@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Models.Action;
+import Models.Assertion;
 import Models.BodyPart;
+import Models.Object;
 
 public class ActionDAO {
 	private Connection con;
@@ -16,57 +18,58 @@ public class ActionDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public Action getActionWithNoPrecondition(){
-		Action action = new Action();
-		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Action.TABLE_ACTION + 
-														" WHERE " + Action.COL_ASSERTIONID + " = ?" + " ORDER BY RAND() " + 
-														" LIMIT 1 ");
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()){
-				action.setId(rs.getInt(Action.COL_ID));
-				action.setAssertionId(rs.getInt(Action.COL_ASSERTIONID));
-				action.setName(rs.getString(Action.COL_NAME));
-				action.setObject(rs.getString(Action.COL_OBJECT));
-				action.setMotivation(rs.getString(Action.COL_MOTIVATION));
-				action.setDuration(rs.getString(Action.COL_DURATION));
-				action.setActivity(getActivitiesByActionId(rs.getInt(Action.COL_ID)));
-				action.setLocation(getLocationByActionId(rs.getInt(Action.COL_ID)));
-				action.setPostCondition(getPostConditionByActionId(rs.getInt(Action.COL_ID)));
-				action.setReversePrecondition(getReversePreconditionByActionId(rs.getInt(Action.COL_ID)));
-				return action;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public ArrayList<Integer> getFirstAction(ArrayList<Integer> goodAssertions, String location){
+		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
+		String number = "";
+		for (int i = 0; i < goodAssertions.size(); i++){
+			number += goodAssertions.get(i);
+			if (i != goodAssertions.size() - 1)
+				number += ",";
 		}
-		return null;
-	}
-	
-	public Action getActionByLocationandPrecondition(int assertionId, String location){
-		Action action = new Action();
+		
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Action.TABLE_ACTION + 
-														" WHERE " + Action.COL_ID + " IN "
-														+ "(SELECT " + Action.COL_ACTIONID +" FROM "+ Action.TABLE_LOCATION +" WHERE "+ Action.COL_LOCATION +" = ?) "
-														+ "AND "+ Action.COL_ASSERTIONID +" = ? AND "+ Action.COL_ID +" IN (SELECT DISTINCT " + Action.COL_ACTIONID +" FROM "+ Action.TABLE_REVERSE +") "
-														+ "ORDER BY RAND() LIMIT 1 ");
+			PreparedStatement ps = con.prepareStatement( " SELECT possible.id FROM (SELECT * FROM ( " +
+					" SELECT a.id, a.activity_name, a.object_category, a.duration, p.assertion_id " +
+					" FROM sarah_kb.action a " +
+					" LEFT JOIN sarah_kb.precondition p " + 
+					" ON p.action_id = a.id " + 
+				" ) k " +
+				" WHERE k.assertion_id IN ( " + number + " ) OR k.assertion_id IS NULL) possible, location, postcondition WHERE location = ? And possible.id = location.action_id AND possible.id = postcondition.action_id " +
+				" GROUP BY possible.id ") ;
+				
 			ps.setString(1, location);
-			ps.setInt(2, assertionId);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				Action action = new Action();
+				action.setId(rs.getInt(Action.COL_ID));
+				actionIdsList.add(action.getId());
+			}
+			return actionIdsList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Action setActionDetails(int id){
+		try {
+			PreparedStatement ps = con.prepareStatement( " SELECT * FROM action where id = ?" ) ;
+				
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()){
+				Action action = new Action();
 				action.setId(rs.getInt(Action.COL_ID));
-				action.setAssertionId(rs.getInt(Action.COL_ASSERTIONID));
-				action.setName(rs.getString(Action.COL_NAME));
-				action.setObject(rs.getString(Action.COL_OBJECT));
-				action.setMotivation(rs.getString(Action.COL_MOTIVATION));
+				action.setActivityName(rs.getString(Action.COL_ACTIVITYNAME));
+				action.setObjectCategory(rs.getString(Action.COL_OBJECT));
 				action.setDuration(rs.getString(Action.COL_DURATION));
-				action.setActivity(getActivitiesByActionId(rs.getInt(Action.COL_ID)));
-				action.setLocation(getLocationByActionId(rs.getInt(Action.COL_ID)));
-				action.setPostCondition(getPostConditionByActionId(rs.getInt(Action.COL_ID)));
-				action.setReversePrecondition(getReversePreconditionByActionId(rs.getInt(Action.COL_ID)));
+				action.setPrecondition(getAllPrecondition(action.getId()));
+				action.setMotivation(getMotivations(action.getActivityName()));
+				action.setPostcondition(getAllPostcondition(action.getId()));
+				action.setObectList(getObjects(action.getObjectCategory()));
 				return action;
 			}
 		} catch (SQLException e) {
@@ -76,71 +79,22 @@ public class ActionDAO {
 		return null;
 	}
 	
-	
-	public Action getActionById(int id){
-		ArrayList<String> activityList = new ArrayList<String>();
-		ArrayList<String> locationList = new ArrayList<String>();
-		ArrayList<Integer> postConditionList = new ArrayList<Integer>();
-		ArrayList<Integer> reversePreconditionList = new ArrayList<Integer>();
-		Action action = new Action();
+	public ArrayList<Object> getObjects (String category){
+		ArrayList<Object> objectList = new ArrayList<Object>();
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Action.TABLE_ACTION + 
-														" WHERE " + Action.COL_ID + " = ?");
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()){
-				action.setId(rs.getInt(Action.COL_ID));
-				action.setAssertionId(rs.getInt(Action.COL_ASSERTIONID));
-				action.setName(rs.getString(Action.COL_NAME));
-				action.setObject(rs.getString(Action.COL_OBJECT));
-				action.setMotivation(rs.getString(Action.COL_MOTIVATION));
-				action.setDuration(rs.getString(Action.COL_DURATION));
-				action.setActivity(getActivitiesByActionId(id));
-				action.setLocation(getLocationByActionId(id));
-				action.setPostCondition(getPostConditionByActionId(id));
-				action.setReversePrecondition(getReversePreconditionByActionId(id));
-				return action;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	public ArrayList<String> getActivitiesByActionId(int id){
-		ArrayList<String> activityList = new ArrayList<String>();
-		try {
-			PreparedStatement ps = con.prepareStatement("SELECT "+ Action.COL_ACTIVITY+ " FROM " + Action.TABLE_ACTIVITY +
-														" WHERE " + Action.COL_ACTIONID + " = ?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement( " SELECT * FROM object WHERE category = ?" ) ;
+			ps.setString(1, category);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
-				activityList.add(rs.getString("activity"));
+				Object object = new Object();
+				object.setId(rs.getInt("id"));
+				object.setCategory(rs.getString("category"));
+				object.setName(rs.getString("name"));
+				object.setVerb(rs.getString("verb"));
+				objectList.add(object);
 			}
-			return activityList;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return null;
-	}
-	public ArrayList<String> getLocationByActionId(int id){
-		ArrayList<String> locationList = new ArrayList<String>();
-		try {
-			PreparedStatement ps = con.prepareStatement("SELECT "+ Action.COL_LOCATION+ " FROM " + Action.TABLE_LOCATION +
-														" WHERE " + Action.COL_ACTIONID + " = ?");
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			while (rs.next()){
-				locationList.add(rs.getString(Action.COL_LOCATION));
-			}
-			return locationList;
+			return objectList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,18 +102,17 @@ public class ActionDAO {
 		return null;
 	}
 	
-	public ArrayList<Integer> getPostConditionByActionId(int id){
-		ArrayList<Integer> postConditionList = new ArrayList<Integer>();
+	public ArrayList<String> getMotivations(String action){
+		ArrayList<String> motivations = new ArrayList<String>();
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT "+ Action.COL_ASSERTIONID + " FROM " + Action.TABLE_POSTCONDITION +
-														" WHERE " + Action.COL_ACTIONID + " = ?");
-			ps.setInt(1, id);
+			PreparedStatement ps = con.prepareStatement( " SELECT motivation FROM activity WHERE name = ?" ) ;
+			ps.setString(1, action);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
-				postConditionList.add(rs.getInt(Action.COL_ASSERTIONID));
+				motivations.add(rs.getString("motivation"));
 			}
-			return postConditionList;
+			return motivations;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,22 +120,43 @@ public class ActionDAO {
 		return null;
 	}
 	
-	public ArrayList<Integer> getReversePreconditionByActionId(int id){
-		ArrayList<Integer> reversePreconditionList = new ArrayList<Integer>();
+	public ArrayList<Integer> getAllPrecondition(int id){
+		ArrayList<Integer> preconditions = new ArrayList<Integer>();
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT "+ Action.COL_REVERSEACTION + " FROM " + Action.TABLE_REVERSE +
-														" WHERE " + Action.COL_ACTIONID + " = ?");
+			PreparedStatement ps = con.prepareStatement( " SELECT assertion_id FROM precondition WHERE action_id = ?" ) ;
+				
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
-				reversePreconditionList.add(rs.getInt(Action.COL_REVERSEACTION));
+				preconditions.add(rs.getInt("assertion_id"));
 			}
-			return reversePreconditionList;
+			return preconditions;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
+	public ArrayList<Integer> getAllPostcondition(int id){
+		ArrayList<Integer> postconditions = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement( " SELECT assertion_id FROM postcondition WHERE action_id = ?" ) ;
+				
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				postconditions.add(rs.getInt("assertion_id"));
+			}
+			return postconditions;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 }
