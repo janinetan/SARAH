@@ -86,8 +86,8 @@ public class StoryPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall( message );
-        message.setBorder(UIManager.getBorder("JLabel"));
-        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//        message.setBorder(UIManager.getBorder("JLabel"));
+//        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
      
         image = ImageIO.read(new File("assets/tap_next.png"));
         icon = new ImageIcon(image);

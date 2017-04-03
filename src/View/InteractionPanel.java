@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -92,7 +94,23 @@ public class InteractionPanel extends JPanel{
         answer.getCaret().deinstall( answer );
         answer.setBorder(UIManager.getBorder("JLabel"));*/
         answer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
+        answer.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					StartFrameController.sendUserResponse(answer.getText());
+                }    
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {}
+
+			@Override
+			public void keyTyped(KeyEvent e) {}
+        }
+    );
 		layout.putConstraint(SpringLayout.EAST, answer, -15, SpringLayout.EAST, box);
 		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
