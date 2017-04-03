@@ -1,7 +1,10 @@
 package driver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.apache.commons.codec.binary.StringUtils;
 
 import DAO.BodyPartDAO;
 import DAO.CauseDAO;
@@ -84,7 +87,7 @@ public class StoryGenerator {
 		}
 	}
 	
-	public void playEvent(){
+	public void playEvent() throws IOException{
 		if (this.curStoryEventIndex == eventsList.size()){
 			StartFrameController.displayEnd();
 			return;
@@ -104,7 +107,7 @@ public class StoryGenerator {
 					this.lastSentenceTag = tempSentenceTag;
 					this.lastQuestion = sentence.getMessage();
 				}
-//				m = polishMessage(m);
+				m = polishMessage(m);
 				StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast());
 				if (!message.getIsLast()){
 					this.roundRobinVP();
@@ -116,7 +119,7 @@ public class StoryGenerator {
 		}
 	}
 
-	public void getVerdict(String userInput) {
+	public void getVerdict(String userInput) throws IOException {
 		String verdict = SarahChatbot.getVerdict(this.lastQuestion + userInput);
 		System.out.println(verdict);
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
@@ -161,35 +164,61 @@ public class StoryGenerator {
 	}
 	
 	public String polishMessage (String message){
-		message = message.replaceAll("<user>", "Anna");
-//		message = message.replaceAll("<day>", "Anna");
-//		message = message.replaceAll("<liam-status>", "Anna");
+		System.out.println("**************************************************");
+		System.out.println(message);
+		
+		message = message.replaceAll("<user>", "dump-name");
+		message = message.replaceAll("<day>", "dump-day");
+		message = message.replaceAll("<liam-status>", "dump-Liam-status");
+		
 		message = message.replaceAll("<sickness>", this.storyTheme.getName());
 		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
 		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
 		
-//		fixing this tomorrow :)
-//		int i = 0;
-//		while (message.contains("[treatment]")){
-//			message = message.replaceFirst("[treatment]", this.treatmentsList.get(i));
-//			i++;
+//		String s = "Hello [replace] this is [replace]. We are [replace].";
+//		int k = 0;
+//		while (s.contains("[replace]")){
+//			if (k == 0){
+//				s = s.replaceFirst("\\[replace\\]", "howdy");
+//				System.out.println(">> howdy >> "+s);
+//			} else if (k == 1) {
+//				s = s.replaceFirst("\\[replace\\]", "cowboy");
+//				System.out.println(">> howdy, cowboy >> "+s);
+//			}else {
+//				s = s.replaceFirst("\\[replace\\]", "mate");
+//				System.out.println(">> howdy, cowboy, mate >> "+s);
+//			}
+//			k++;
 //		}
-//		i = 0;
-//		while (message.contains("[symptom]")){
-//			System.out.println("hi");
-//			message = message.replaceFirst("[symptom]", this.symptomsList.get(i));
-//			i++;
-//		}
-//		i = 0;
-//		while (message.contains("[cause]")){
-//			message = message.replaceFirst("[cause]", this.causesList.get(i));
-//			i++;
-//		}
-//		i = 0;
-//		while (message.contains("[prevention]")){
-//			message = message.replaceFirst("[prevention]", this.preventionsList.get(i));
-//			i++;
-//		}  
+		
+		int i = 0;
+		while (message.contains("[symptom]")){
+			System.out.println(".......... replacing symptom ..........");
+			message = message.replaceFirst("\\[symptom\\]", this.symptomsList.get(i));
+			i++;
+		}
+		
+		i = 0;
+		while (message.contains("[treatment]")){
+			System.out.println(".......... replacing treatment ..........");
+			message = message.replaceFirst("\\[treatment\\]", this.treatmentsList.get(i));
+			i++;
+		}
+		
+		i = 0;
+		while (message.contains("[cause]")){
+			message = message.replaceFirst("\\[cause\\]", this.causesList.get(i));
+			i++;
+		}
+		
+		i = 0;
+		while (message.contains("[prevention]")){
+			message = message.replaceFirst("\\[prevention\\]", this.preventionsList.get(i));
+			i++;
+		}  
+		
+		System.out.println(message);
+		System.out.println("**************************************************");
 		return message;
 	}
 }

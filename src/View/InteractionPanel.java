@@ -37,14 +37,14 @@ public class InteractionPanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/room.png");
+		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
 		ImagePanel room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
 		ImagePanel peer1 = new ImagePanel("assets/"+vp+".png");
 		peer1.setLocation(-70, 100);
 		
-		ImagePanel dialog = new ImagePanel("assets/sarah_dialog_box1.png");
+		ImagePanel dialog = new ImagePanel("assets/"+vp+"_dialog_box1.png");
 		SpringLayout sarahLayout = new SpringLayout();
 
 		dialog.setLayout(sarahLayout);
@@ -121,7 +121,12 @@ public class InteractionPanel extends JPanel{
 		});
 		nextButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	StartFrameController.sendUserResponse(answer.getText());
+		    	try {
+					StartFrameController.sendUserResponse(answer.getText());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		});
 
@@ -130,6 +135,9 @@ public class InteractionPanel extends JPanel{
 
 		box.add(nextButton);
 		box.add(answer);
+		
+		box.setComponentZOrder(nextButton, 0);
+		box.setComponentZOrder(answer, 1);
 		
 		BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
         ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
@@ -247,20 +255,17 @@ public class InteractionPanel extends JPanel{
 		    }
 	    });
 		
+		this.add(home);
 		this.add(peer1);
 		this.add(dialog);
 		this.add(box);
 		this.add(room);
 		
-		this.add(home);
-		this.add(peer1);
-		this.add(box);
-		this.add(room);
-		
 		this.setComponentZOrder(home, 0);
         this.setComponentZOrder(peer1, 1);
-        this.setComponentZOrder(box, 2);
-        this.setComponentZOrder(room, 3);
+        this.setComponentZOrder(dialog, 2);
+        this.setComponentZOrder(box, 3);
+        this.setComponentZOrder(room, 4);
 	}
 	public String getUserInput()
 	{
