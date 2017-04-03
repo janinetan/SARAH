@@ -440,7 +440,7 @@ public class StoryPanel extends JPanel{
 		ArrayList<String> s = new ArrayList();
 		int startIndex =0, endIndex=0;
 		String temp="", cut;
-		if(msg.length()<=230)
+		if(msg.length()<=153)
 //			message.setText(msg); removed 23c084e
 			s.add(msg);
 			
@@ -448,8 +448,8 @@ public class StoryPanel extends JPanel{
 		{
 			while(msg.length()!=0)
 			{
-				if(msg.length()>=230){
-					temp = msg.substring(0, 230);
+				if(msg.length()>=153){
+					temp = msg.substring(0, 153);
 					endIndex = temp.lastIndexOf(".")+1;
 					if(endIndex == 0)
 						endIndex = temp.lastIndexOf(",")+1;
