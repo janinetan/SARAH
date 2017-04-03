@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class VirtualPeer {
 	public static final String TABLE_VIRTUALPEER = "virtual_peer";
 	
@@ -17,6 +19,7 @@ public class VirtualPeer {
 	private String emotionalState;
 	private boolean isSick;
 	private String imageFilePath;
+	private ArrayList<Integer> healthAssertions;
 	
 	public int getId() {
 		return id;
@@ -49,5 +52,10 @@ public class VirtualPeer {
 		this.imageFilePath = imageFilePath;
 	}
 	
-	
+	public ArrayList<Integer> getHealthAssertions() {
+		return healthAssertions;
+	}
+	public void setHealthAssertions(ArrayList<Integer> healthAssertions) {
+		this.healthAssertions = healthAssertions;
+	}
 }

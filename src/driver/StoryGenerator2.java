@@ -2,10 +2,15 @@ package driver;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.apache.commons.codec.binary.StringUtils;
 
+import DAO.ActionDAO;
+import DAO.AssertionDAO;
 import DAO.BodyPartDAO;
 import DAO.CauseDAO;
 import DAO.EpisodeDAO;
@@ -43,24 +48,34 @@ public class StoryGenerator2 {
 	private ArrayList<BodyPart> bodyPartsList;
 	private String lastQuestion;
 	private String lastSentenceTag;
-	private ArrayList<Event> eventsList;
 	private static int curStoryEventIndex;
 	private ArrayList<Episode> episodesList;
 	private static int curStoryEpisodeIndex;
 	private Episode episode;
 	private ArrayList<Integer> eventsId;
+	private ArrayList<Integer> goodHealthAssertions;
+	private ArrayList<Integer> badHealthAssertions;
 	
+	private boolean firstCauseEvent = true;
+	private HashMap<Integer, String> pastAction;
+	private Random randomGenerator = new Random();
+	private Action curAction;
 	
 	public StoryGenerator2(){
+		goodHealthAssertions = (new AssertionDAO()).getHealthAssertions("good");
+		badHealthAssertions = (new AssertionDAO()).getHealthAssertions("bad");
 		// theme selection (red spots, fever, mosquito bites, tummy ache, colds, sneezing)
 		this.vpList = (new VirtualPeerDAO()).getAllVirtualPeers();
+		// set vps to have good health conditions
+		for (VirtualPeer vp: vpList){
+			vp.setHealthAssertions(goodHealthAssertions);
+		}
 		this.setCurVP(VirtualPeer.VP_SARAH);
 		this.causesList = new ArrayList<String>();
 		this.preventionsList = new ArrayList<String>();
 		this.symptomsList = new ArrayList<String>();
 		this.treatmentsList = new ArrayList<String>();
 		this.bodyPartsList = new ArrayList<BodyPart>();
-		this.eventsList = new ArrayList<Event>();
 		this.episodesList = new ArrayList<Episode>();
 		// temp
 		storyRuling = Event.RULING_GOOD;
@@ -68,6 +83,7 @@ public class StoryGenerator2 {
 		curStoryEpisodeIndex = 0;
 		curStoryEventIndex = 0;
 		eventsId = new ArrayList<Integer>();
+		pastAction = new HashMap<Integer, String>();
 	}
 	
 	public void setUpStory() {
@@ -97,14 +113,40 @@ public class StoryGenerator2 {
 			curStoryEventIndex = 0;
 		}
 		
-		if ( this.episode.getDiscourseActId() != 10) {
+		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
+			// ALGO FOR ACTION
+			ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
+			List<Integer> common = new ArrayList<Integer>(liamHealthAssertions);
+			common.retainAll(this.goodHealthAssertions);
+			if ( liamHealthAssertions == goodHealthAssertions ){
+				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
+				
+				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
+				Action a;
+				do {
+					int index = randomGenerator.nextInt(possibleActionIds.size());
+					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
+					index = randomGenerator.nextInt(a.getObectList().size());
+					a.setChosenObject(a.getObectList().get(index));
+				} while (! checkActionAcceptable(a));
+				curAction = a;
+			}
+			
+			// dapat yung assertions ni curAction nasa assertion ni Liam
+			if (!checkAssertions()){
+				Episode episode = (new EpisodeDAO()).getEpisodeById(10);
+				episodesList.add(curStoryEpisodeIndex, episode);
+				episode = (new EpisodeDAO()).getEpisodeById(11);
+				episodesList.add(curStoryEpisodeIndex+1, episode);
+				curStoryEventIndex = 0;
+			}
+		}
+		
+//		if ( this.episode.getEpisodeGoalId() < 9 || this.episode.getEpisodeGoalId() >= 11) {
 			Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
 			this.lastQuestion = "";
-			System.out.println(event);
-			System.out.println(storyRuling);
 			
 			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
-				System.out.println("hi");
 				if (event.getType() == Event.TYPE_MESSAGE){
 					Message message = (new MessageDAO()).getMessageById(event.getId());
 					message.setRuling(event.getRuling());
@@ -118,13 +160,14 @@ public class StoryGenerator2 {
 						this.lastSentenceTag = tempSentenceTag;
 						this.lastQuestion = sentence.getMessage();
 					}
-//					m = polishMessage(m);
+					m = polishMessage(m);
 					StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast());
 					if (!message.getIsLast()){
 						this.roundRobinVP();
 					}
 				}
 				else if (event.getType() == Event.TYPE_ACTION){
+//					Action action = 
 					
 				}
 				curStoryEventIndex++;
@@ -133,9 +176,27 @@ public class StoryGenerator2 {
 				curStoryEventIndex++;
 				playEvent();
 			}
+//		}
+		
+		
+	}
+	
+	public boolean checkAssertions(){
+		ArrayList<Integer> actionAssertions = curAction.getPrecondition();
+		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
+		for (int tempAssertionIndex : actionAssertions ){
+			if (actionAssertions.indexOf(tempAssertionIndex) == -1)
+				return false;
 		}
-		
-		
+		return true;
+	}
+	
+	public boolean checkActionAcceptable(Action a){
+		String activityName = a.getActivityName();
+		String object = pastAction.get(activityName);
+		if (object == null)
+			return true;
+		return false;
 	}
 
 	public void getVerdict(String userInput) throws IOException {
@@ -194,32 +255,14 @@ public class StoryGenerator2 {
 		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
 		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
 		
-//		String s = "Hello [replace] this is [replace]. We are [replace].";
-//		int k = 0;
-//		while (s.contains("[replace]")){
-//			if (k == 0){
-//				s = s.replaceFirst("\\[replace\\]", "howdy");
-//				System.out.println(">> howdy >> "+s);
-//			} else if (k == 1) {
-//				s = s.replaceFirst("\\[replace\\]", "cowboy");
-//				System.out.println(">> howdy, cowboy >> "+s);
-//			}else {
-//				s = s.replaceFirst("\\[replace\\]", "mate");
-//				System.out.println(">> howdy, cowboy, mate >> "+s);
-//			}
-//			k++;
-//		}
-		
 		int i = 0;
 		while (message.contains("[symptom]")){
-			System.out.println(".......... replacing symptom ..........");
 			message = message.replaceFirst("\\[symptom\\]", this.symptomsList.get(i));
 			i++;
 		}
 		
 		i = 0;
 		while (message.contains("[treatment]")){
-			System.out.println(".......... replacing treatment ..........");
 			message = message.replaceFirst("\\[treatment\\]", this.treatmentsList.get(i));
 			i++;
 		}
@@ -235,9 +278,6 @@ public class StoryGenerator2 {
 			message = message.replaceFirst("\\[prevention\\]", this.preventionsList.get(i));
 			i++;
 		}  
-		
-		System.out.println(message);
-		System.out.println("**************************************************");
 		return message;
 	}
 }
