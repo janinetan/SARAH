@@ -33,6 +33,13 @@ import Models.Sentence;
 import Models.Sickness;
 import Models.Symptom;
 import Models.VirtualPeer;
+import simplenlg.features.Feature;
+import simplenlg.features.Form;
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.XMLLexicon;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.phrasespec.VPPhraseSpec;
+import simplenlg.realiser.english.Realiser;
 
 public class StoryGenerator2 {
 	Scanner sc = new Scanner (System.in);
@@ -255,6 +262,24 @@ public class StoryGenerator2 {
 		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
 		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
 		
+		message = message.replaceAll("<curAction-verb-ing>", getNLG(this.curAction.getChosenObject().getVerb()));
+		message = message.replaceAll("<curAction-verb>", this.curAction.getChosenObject().getVerb());
+		message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
+		message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
+		
+		/* NO VALUES FOR 'REPLACEMENT' YET */
+//		message = message.replaceAll("<prevAction-verb-ing>", replacement);
+//		message = message.replaceAll("<prevAction-verb>", replacement);
+//		message = message.replaceAll("<prevAction-object>", replacement);
+//		
+//		message = message.replaceAll("<reverseAction-verb>", replacement);
+//		message = message.replaceAll("<reverseAction-object>", replacement);
+//		message = message.replaceAll("<reverseAction-postCondition-property>", replacement);
+//		
+//		message = message.replaceAll("<curCondition-body>", replacement);
+//		message = message.replaceAll("<curCondition-property>", replacement);
+		
+		
 		int i = 0;
 		while (message.contains("[symptom]")){
 			message = message.replaceFirst("\\[symptom\\]", this.symptomsList.get(i));
@@ -278,7 +303,20 @@ public class StoryGenerator2 {
 			message = message.replaceFirst("\\[prevention\\]", this.preventionsList.get(i));
 			i++;
 		}  
+		
 		return message;
+	}
+	public String getNLG (String word){
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		NLGFactory phraseFactory = new NLGFactory(lexicon);
+		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
+		SPhraseSpec clause = phraseFactory.createClause();
+		clause.setVerbPhrase(live);
+		clause.setFeature(Feature.FORM, Form.GERUND);
+		Realiser realizer = new Realiser(lexicon);
+		clause.setFeature(Feature.FORM, Form.GERUND);
+		String gerund = realizer.realise(clause).getRealisation();
+		return gerund;
 	}
 }
 
