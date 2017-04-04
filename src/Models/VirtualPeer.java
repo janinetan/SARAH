@@ -56,6 +56,12 @@ public class VirtualPeer {
 		return healthAssertions;
 	}
 	public void setHealthAssertions(ArrayList<Integer> healthAssertions) {
-		this.healthAssertions = healthAssertions;
+		this.healthAssertions = new ArrayList<Integer>();
+		this.healthAssertions.addAll(healthAssertions);
+	}
+	
+	public void exchangeHealthAssertion(int cur, int replacement){
+		this.healthAssertions.add(new Integer(replacement));
+		this.healthAssertions.remove(new Integer(cur));
 	}
 }

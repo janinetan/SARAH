@@ -12,6 +12,7 @@ public class Object {
 	private String name;
 	private String category;
 	private String verb;
+	private String filename;
 	
 	public int getId() {
 		return id;
@@ -37,6 +38,11 @@ public class Object {
 	public void setVerb(String verb) {
 		this.verb = verb;
 	}
-	
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	
 }

@@ -72,4 +72,38 @@ public class AssertionDAO {
 		}
 		return null;
 	}
+	
+	public int getOppsotiteAssertion(int id){
+		try {
+			PreparedStatement ps = con.prepareStatement(			
+			" SELECT id " +
+			" FROM assertion " + 
+			" WHERE concept2 = (SELECT( " +
+			    " CASE " +
+			       " WHEN concept1 = (SELECT concept2 FROM assertion WHERE id = ?) THEN concept2 " +
+			       " WHEN concept2 = (SELECT concept2 FROM assertion WHERE id = ?) THEN concept1 " +
+			    " END) AS property "  +
+				" FROM assertion "  +
+				" WHERE (concept1 = (SELECT concept2 "  + 
+								   " FROM assertion " + 
+			                       " WHERE id = ?) OR " +
+						" concept2 = (SELECT concept2 FROM assertion WHERE id = ?) " +
+					   " ) " +
+				" AND tag = 'oppositeOf')  AND tag = 'hasProperty' ");
+				
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ps.setInt(3, id);
+			ps.setInt(4, id);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()){
+				return rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

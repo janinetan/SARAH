@@ -53,6 +53,34 @@ public class ActionDAO {
 		return null;
 	}
 	
+	
+	public ArrayList<Integer> getActionWithPrecondition(String location, int assertionId){
+		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement(" SELECT * " +
+					" FROM action " +
+					" WHERE id IN ( " +
+					" SELECT precondition.action_id FROM precondition, location WHERE " +                    
+					" precondition.action_id = location.action_id AND location = ? AND assertion_id = ? " +
+					" group by precondition.action_id)") ;
+				
+			ps.setString(1, location);
+			ps.setInt(2, assertionId);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				Action action = new Action();
+				action.setId(rs.getInt(Action.COL_ID));
+				actionIdsList.add(action.getId());
+			}
+			return actionIdsList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public Action setActionDetails(int id){
 		try {
 			PreparedStatement ps = con.prepareStatement( " SELECT * FROM action where id = ?" ) ;
@@ -80,10 +108,12 @@ public class ActionDAO {
 	}
 	
 	public ArrayList<Object> getObjects (String category){
+		System.out.println(category);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		try {
-			PreparedStatement ps = con.prepareStatement( " SELECT * FROM object WHERE category = ?" ) ;
+			PreparedStatement ps = con.prepareStatement( " SELECT * FROM object WHERE category = ? OR name = ?" ) ;
 			ps.setString(1, category);
+			ps.setString(2, category);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
@@ -92,6 +122,7 @@ public class ActionDAO {
 				object.setCategory(rs.getString("category"));
 				object.setName(rs.getString("name"));
 				object.setVerb(rs.getString("verb"));
+				object.setFilename(rs.getString("filename"));
 				objectList.add(object);
 			}
 			return objectList;

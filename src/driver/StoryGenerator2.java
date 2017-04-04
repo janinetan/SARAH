@@ -56,7 +56,8 @@ public class StoryGenerator2 {
 	private ArrayList<Integer> goodHealthAssertions;
 	private ArrayList<Integer> badHealthAssertions;
 	
-	private boolean firstCauseEvent = true;
+	private boolean doneCauseEvent = false;
+	private int causeEventCount = 0;
 	private HashMap<Integer, String> pastAction;
 	private Random randomGenerator = new Random();
 	private Action curAction;
@@ -114,11 +115,7 @@ public class StoryGenerator2 {
 		}
 		
 		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
-			// ALGO FOR ACTION
-			ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
-			List<Integer> common = new ArrayList<Integer>(liamHealthAssertions);
-			common.retainAll(this.goodHealthAssertions);
-			if ( liamHealthAssertions == goodHealthAssertions ){
+			if ( checkIfLiamHasAllGoodAssertions() ){
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
 				
 				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
@@ -130,10 +127,33 @@ public class StoryGenerator2 {
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
 				curAction = a;
+				System.out.println(a);
+			}
+			else {
+				ArrayList<Integer> result = new ArrayList<Integer>(badHealthAssertions);
+				ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
+			    result.retainAll(liamHealthAssertions);
+			    System.out.println(badHealthAssertions + " " +  liamHealthAssertions + "mew: " + result);
+			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size())));
+				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition("park", rightop);
+				
+				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
+				Action a;
+				do {
+					int index = randomGenerator.nextInt(possibleActionIds.size());
+					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
+					System.out.println("debugging" +a.getObectList().size());
+					index = randomGenerator.nextInt(a.getObectList().size());
+					a.setChosenObject(a.getObectList().get(index));
+				} while (! checkActionAcceptable(a));
+				curAction = a;
+				System.out.println(a);
 			}
 			
+			
+			System.out.println(ifLiamMeetsAssertions());
 			// dapat yung assertions ni curAction nasa assertion ni Liam
-			if (!checkAssertions()){
+			if (!ifLiamMeetsAssertions()){
 				Episode episode = (new EpisodeDAO()).getEpisodeById(10);
 				episodesList.add(curStoryEpisodeIndex, episode);
 				episode = (new EpisodeDAO()).getEpisodeById(11);
@@ -166,7 +186,7 @@ public class StoryGenerator2 {
 						this.roundRobinVP();
 					}
 				}
-				else if (event.getType() == Event.TYPE_ACTION){
+				if (event.getType() == Event.TYPE_ACTION){
 //					Action action = 
 					
 				}
@@ -177,15 +197,43 @@ public class StoryGenerator2 {
 				playEvent();
 			}
 //		}
+			
+		if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1 || 
+				curStoryEventIndex == this.eventsId.size() ) ){
+			StartFrameController.displayAction(curAction.getChosenObject().getFilename());
+			
+			if (curStoryEventIndex == this.eventsId.size() - 1){
+				if (!ifLiamMeetsAssertions()){
+					System.out.println("hassymptom");
+				}
+				ArrayList<Integer> postconditions = curAction.getPostcondition();
+				for (int postconTemp: postconditions){
+					int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+					this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+				}
+			}
+			
+		}
 		
 		
 	}
 	
-	public boolean checkAssertions(){
+	private boolean checkIfLiamHasAllGoodAssertions() {
+		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
+		System.out.println(liamHealthAssertions);
+		System.out.println(goodHealthAssertions);
+		for (int assertionTemp: goodHealthAssertions){
+			if (liamHealthAssertions.indexOf(assertionTemp) == -1)
+				return false;
+		}
+		return true;
+	}
+
+	public boolean ifLiamMeetsAssertions(){
 		ArrayList<Integer> actionAssertions = curAction.getPrecondition();
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
 		for (int tempAssertionIndex : actionAssertions ){
-			if (actionAssertions.indexOf(tempAssertionIndex) == -1)
+			if (liamHealthAssertions.indexOf(tempAssertionIndex) == -1)
 				return false;
 		}
 		return true;

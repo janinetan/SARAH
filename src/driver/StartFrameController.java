@@ -105,6 +105,10 @@ public class StartFrameController implements IController {
 		}
 	}
 	
+	public static void displayAction(String act){
+		((StoryPanel)frame.getCurPanel()).addAction(act);
+	}
+	
 	public static void displayInteractionPanel(String vp, String msg){
 		try {
 			frame.changePanel(new InteractionPanel(frame, vp, msg));
