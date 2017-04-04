@@ -124,7 +124,7 @@ public class StoryGenerator2 {
 		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
 			if ( checkIfLiamHasAllGoodAssertions() ){
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
-				
+				System.out.println("entered if");
 				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
 				Action a;
 				do {
@@ -134,9 +134,10 @@ public class StoryGenerator2 {
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
 				curAction = a;
-				System.out.println(a);
+				System.out.println("A IN IF >> "+a);
 			}
 			else {
+				System.out.println("entered else");
 				ArrayList<Integer> result = new ArrayList<Integer>(badHealthAssertions);
 				ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
 			    result.retainAll(liamHealthAssertions);
@@ -154,8 +155,9 @@ public class StoryGenerator2 {
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
 				curAction = a;
-				System.out.println(a);
+				System.out.println("A IN ELSE >> "+a);
 			}
+			
 			
 			
 			System.out.println(ifLiamMeetsAssertions());
@@ -273,7 +275,7 @@ public class StoryGenerator2 {
 		
 	}
 
-	public void selectStoryTheme(String symptomInput) {
+	public void selectStoryTheme(String location, String symptomInput) {
 		// gets random sickness with symptom chosen and sets it as story theme
 		// sets all facts about selected story theme
 		Symptom selectedSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);
@@ -302,19 +304,19 @@ public class StoryGenerator2 {
 		System.out.println("**************************************************");
 		System.out.println(message);
 		
-		message = message.replaceAll("<user>", "dump-name");
-		message = message.replaceAll("<day>", "dump-day");
-		message = message.replaceAll("<liam-status>", "dump-Liam-status");
+		message = message.replaceAll("<user>", "Anna");
+		message = message.replaceAll("<day>", "Saturday");
+		message = message.replaceAll("<liam-status>", "sick");
 		
 		message = message.replaceAll("<sickness>", this.storyTheme.getName());
 		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
 		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
-		
-		message = message.replaceAll("<curAction-verb-ing>", getNLG(this.curAction.getChosenObject().getVerb()));
-		message = message.replaceAll("<curAction-verb>", this.curAction.getChosenObject().getVerb());
-		message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
-		message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
-		
+		if (message.contains("curAction")){
+			message = message.replaceAll("<curAction-verb-ing>", getNLG(this.curAction.getChosenObject().getVerb()));
+			message = message.replaceAll("<curAction-verb>", this.curAction.getChosenObject().getVerb());
+			message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
+			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
+		}
 		/* NO VALUES FOR 'REPLACEMENT' YET */
 //		message = message.replaceAll("<prevAction-verb-ing>", replacement);
 //		message = message.replaceAll("<prevAction-verb>", replacement);
@@ -355,7 +357,8 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -364,6 +367,7 @@ public class StoryGenerator2 {
 		Realiser realizer = new Realiser(lexicon);
 		clause.setFeature(Feature.FORM, Form.GERUND);
 		String gerund = realizer.realise(clause).getRealisation();
+		System.out.println(gerund);
 		return gerund;
 	}
 }
