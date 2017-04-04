@@ -50,7 +50,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayTheme(){
 		try {
-			frame.changePanel(new ThemePanel(frame));
+			frame.changePanel(new LocationPanel(frame));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

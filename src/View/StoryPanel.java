@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,10 @@ public class StoryPanel extends JPanel{
 	Font font;
 	JFrame main;
 	ArrayList<String> messageParts;
+	BufferedImage image;
+	ImageIcon icon;
+	Image image1;
+	Point p1,p2;
 	boolean status = true;
 	
 	private int counter;
@@ -50,24 +55,26 @@ public class StoryPanel extends JPanel{
 		
 		font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
+		p1 = new Point(0,100);
+		p2 = new Point(1200,200);
 		BufferedImage img = new ImgUtils().scaleImage(StartFrame.frameWidth,StartFrame.frameHeight,"assets/park.png");
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
 
-		BufferedImage image = ImageIO.read(new File("assets/sarah.png"));
-		ImageIcon icon = new ImageIcon(image);
-		Image image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		image = ImageIO.read(new File("assets/sarah.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
 		peer1 = new ImagePanel(image1);
-		peer1.setLocation(0, 100);
+		peer1.setLocation(p1);
 		
 		image = ImageIO.read(new File("assets/liam.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 60/100,icon.getIconHeight() * 60/100,Image.SCALE_SMOOTH);
 		peer2 = new ImagePanel(image1);
 		
-		peer1.setLocation(0, 100);
-		peer2.setLocation(1200,200);
+		peer1.setLocation(p1);
+		peer2.setLocation(p2);
 		
 		//BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/sarah_dialog_box2.png");
 		
@@ -291,7 +298,7 @@ public class StoryPanel extends JPanel{
 		else if(p.equalsIgnoreCase("sick liam"))
 			peer1 = new ImagePanel("assets/sick_liam.png");
 		
-		peer1.setLocation(0, 100);
+		peer1.setLocation(p1);
 		
 		this.add(home);
 		this.add(peer1);
@@ -308,7 +315,7 @@ public class StoryPanel extends JPanel{
 		this.repaint();
 	}
 	
-	public void addPeer(String p1, String p2) throws IOException
+	public void addPeer(String vp1, String vp2) throws IOException
 	{
 		BufferedImage icon = null;
 		BufferedImage icon1 = null;
@@ -316,18 +323,18 @@ public class StoryPanel extends JPanel{
 		Image image1;
 		
 		this.removeAll();
-		if(p1.equalsIgnoreCase("sarah"))
+		if(vp1.equalsIgnoreCase("sarah"))
 			icon = ImageIO.read(new File("assets/sarah.png"));
-		else if(p1.equalsIgnoreCase("liam"))
+		else if(vp1.equalsIgnoreCase("liam"))
 			icon = ImageIO.read(new File("assets/liam.png"));
-		else if(p1.equalsIgnoreCase("sick liam"))
+		else if(vp1.equalsIgnoreCase("sick liam"))
 			icon = ImageIO.read(new File("assets/sick_liam.png"));
 		
-		if(p2.equalsIgnoreCase("sarah"))
+		if(vp2.equalsIgnoreCase("sarah"))
 			icon1 = ImageIO.read(new File("assets/sarah.png"));
-		else if(p2.equalsIgnoreCase("liam"))
+		else if(vp2.equalsIgnoreCase("liam"))
 			icon1 = ImageIO.read(new File("assets/liam.png"));
-		else if(p2.equalsIgnoreCase("sick liam"))
+		else if(vp2.equalsIgnoreCase("sick liam"))
 			icon1 = ImageIO.read(new File("assets/sick_liam.png"));
 		
 
@@ -339,8 +346,8 @@ public class StoryPanel extends JPanel{
 		image1 = pIcon.getImage().getScaledInstance(pIcon.getIconWidth() * 70/100,pIcon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
 		peer2 = new ImagePanel(image1);
 		
-		peer1.setLocation(0, 100);
-		peer2.setLocation(1150,100);
+		peer1.setLocation(p1);
+		peer2.setLocation(p2);
 		
 		this.add(home);
 		this.add(peer1);
@@ -473,12 +480,36 @@ public class StoryPanel extends JPanel{
 		return s;
 	}
 	
-	public void changeDialogBox(String peer){
+	public void changeDialogBox(String peer,boolean isLiamSick, boolean isSarahWorried){
 		this.removeAll();
 		if(peer.equalsIgnoreCase("sarah"))
 			box = new ImagePanel("assets/sarah_dialog_box2.png");
-		else if(peer.equalsIgnoreCase("liam"))
+		else if(peer.equalsIgnoreCase("liam")){
 			box = new ImagePanel("assets/liam_dialog_box2.png");
+		}
+		if(isSarahWorried){
+			try {
+				image = ImageIO.read(new File("assets/"+"worried sarah"+".png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			icon = new ImageIcon(image);
+			image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+			peer1 = new ImagePanel(image1);
+		}
+			
+		if(isLiamSick){
+			try {
+				image = ImageIO.read(new File("assets/"+"sick liam"+".png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			icon = new ImageIcon(image);
+			image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 60/100,icon.getIconHeight() * 60/100,Image.SCALE_SMOOTH);
+			peer2 = new ImagePanel(image1);
+		}
 		
 		SpringLayout layout = new SpringLayout();
 		box.add(nextButton);
@@ -487,7 +518,7 @@ public class StoryPanel extends JPanel{
 		// For horizontal Alignment of story message
 		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
 		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 10, SpringLayout.VERTICAL_CENTER, box);
 		
 		// For horizontal alignment of next button
 		layout.putConstraint(SpringLayout.EAST, nextButton, -30, SpringLayout.EAST, box);
@@ -496,6 +527,8 @@ public class StoryPanel extends JPanel{
 
         box.setLayout(layout);
         box.setLocation(420, 400);
+        peer1.setLocation(p1);
+        peer2.setLocation(p2);
 
 		this.add(home);
 		this.add(box);
@@ -515,7 +548,7 @@ public class StoryPanel extends JPanel{
 	
 	public void displayMessage(String peer, String msg){
 		//changePeer(peer);
-		changeDialogBox(peer);
+		changeDialogBox(peer,true,false);
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
