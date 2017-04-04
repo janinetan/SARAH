@@ -390,15 +390,15 @@ public class StoryPanel extends JPanel{
 		this.add(sticker);
 		this.add(peer1);
 		this.add(peer2);
-		this.add(box);
+		//this.add(box);
 		this.add(room);
 		
 		this.setComponentZOrder(home, 0);
 		this.setComponentZOrder(sticker, 1);
         this.setComponentZOrder(peer1, 2);
         this.setComponentZOrder(peer2, 3);
-        this.setComponentZOrder(box, 4);
-        this.setComponentZOrder(room, 5);
+        //this.setComponentZOrder(box, 4);
+        this.setComponentZOrder(room, 4);
         
 		this.revalidate();
 		this.repaint();
@@ -548,7 +548,8 @@ public class StoryPanel extends JPanel{
 	
 	public void displayMessage(String peer, String msg){
 		//changePeer(peer);
-		changeDialogBox(peer,true,false);
+		changeDialogBox(peer,false,false);
+		//addAction("sleep");
 		messageParts = new ArrayList<String>();
 		messageParts = cutMessageDialog(msg);
 		message.setText(messageParts.get(0));
