@@ -357,8 +357,8 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();

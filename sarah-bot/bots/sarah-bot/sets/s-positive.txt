@@ -5,6 +5,7 @@ eat
 fine
 good
 great
+know
 lay
 listen
 medicine
@@ -16,5 +17,6 @@ relax
 rest
 sleep
 treatment
+wash
 well
 wonderful

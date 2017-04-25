@@ -390,15 +390,15 @@ public class StoryPanel extends JPanel{
 		this.add(sticker);
 		this.add(peer1);
 		this.add(peer2);
-		//this.add(box);
+		this.add(box);
 		this.add(room);
 		
 		this.setComponentZOrder(home, 0);
 		this.setComponentZOrder(sticker, 1);
         this.setComponentZOrder(peer1, 2);
         this.setComponentZOrder(peer2, 3);
-        //this.setComponentZOrder(box, 4);
-        this.setComponentZOrder(room, 4);
+        this.setComponentZOrder(box, 4);
+        this.setComponentZOrder(room, 5);
         
 		this.revalidate();
 		this.repaint();

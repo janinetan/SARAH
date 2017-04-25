@@ -57,7 +57,7 @@ public class EndStoryPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall( message );
-        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         BufferedImage buttonIcon = ImageIO.read(new File("assets/yes.png"));
 		JButton yesButton = new JButton(new ImageIcon(buttonIcon));
