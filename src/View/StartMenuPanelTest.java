@@ -33,21 +33,19 @@ public class StartMenuPanelTest extends JPanel{
 	BufferedImage image;
 	ImageIcon icon;
 	Image image1;
-	Color c;
 	public StartMenuPanelTest() throws IOException
 	{
 		System.out.println("hi");
-		c = new Color(197,229,240);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
-		setBackground(c);
+		setBackground(new Color(197,229,240));
 		SpringLayout mainLayout = new SpringLayout();
 		setLayout(new BorderLayout());
 		
 		SpringLayout leftLayout = new SpringLayout();
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(leftLayout);
-		leftPanel.setBackground(c);
+		leftPanel.setOpaque(false);
 		
         ImagePanel title = new ImagePanel();
 		image = ImageIO.read(new File("assets/title.png"));
@@ -74,7 +72,7 @@ public class StartMenuPanelTest extends JPanel{
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,StartFrame.frameWidth*9/100,0,0));
-        buttonPanel.setBackground(c);
+        buttonPanel.setOpaque(false);
 		image = ImageIO.read(new File("assets/start_button.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);

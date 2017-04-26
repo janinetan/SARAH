@@ -70,13 +70,16 @@ public class StartFrame extends JFrame {
 	}
 	
 	public void changePanel(JPanel panel){
-		this.curPanel = panel;
-		this.remove(scrPane);
+//		panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
+//		scrPane = new JScrollPane(panel);
+//		add(scrPane);
+//		add(panel);
+		curPanel.removeAll();
+		curPanel = panel;
+		this.setContentPane(curPanel);
 		this.revalidate();
-		panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
-		scrPane = new JScrollPane(panel);
-		add(scrPane);
-		this.revalidate();
+		this.repaint();
+		System.out.println("done");
 	}
 	
 	public JPanel getCurPanel() {

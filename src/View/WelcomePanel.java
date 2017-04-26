@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,14 +34,15 @@ public class WelcomePanel extends JPanel{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
-		setLayout(null);
+		setLayout(new BorderLayout());
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
 		
 		/*JLabel welcome = new JLabel("Hello there! What's your name?");
 		welcome.setFont(font);
 		welcome.setBounds(100,-50,1000,300);*/
-		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		name = new CustomTextField();
 		name.setPlaceholder("Type Name Here");
 		name.setOpaque(false);
@@ -49,7 +51,7 @@ public class WelcomePanel extends JPanel{
 		name.setFont(font);
 		name.setBounds(630, 450, 850, 100);
 		
-		JLabel line = new JLabel("_____________________");
+		JLabel line = new JLabel("_______________");
 		line.setBounds(630,480,950,100);
 		line.setFont(font);
 		
@@ -76,7 +78,8 @@ public class WelcomePanel extends JPanel{
 		SpringLayout layout = new SpringLayout();
 
         JTextArea greeting = new JTextArea("Hi, I’m Liam.\nWhat's your name?");
-        greeting.setSize(550, 200);
+        //greeting.setSize(550, 200);
+        greeting.setSize(StartFrame.frameWidth*50/100,StartFrame.frameHeight*20/100);
         greeting.setFont(font);
         greeting.setWrapStyleWord(true);
         greeting.setLineWrap(true);
@@ -90,13 +93,12 @@ public class WelcomePanel extends JPanel{
 		box.add(greeting);
 		
 		// For horizontal Alignment
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, greeting, 30, SpringLayout.HORIZONTAL_CENTER, box);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, greeting, StartFrame.frameWidth*5/100, SpringLayout.HORIZONTAL_CENTER, box);
 
 		// For Vertical Alignment
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, greeting, 0, SpringLayout.VERTICAL_CENTER, box);
 
         box.setLayout(layout);
-        box.setLocation(550,70);
 		
 		BufferedImage nextButtonIcon = ImageIO.read(new File("assets/next_button.png"));
 		JButton nextButton = new JButton(new ImageIcon(nextButtonIcon));
@@ -163,6 +165,10 @@ public class WelcomePanel extends JPanel{
 		});
         
 		//this.add(welcome);
+		rightPanel.add(box);
+		rightPanel.add(name);
+		rightPanel.add(line);
+		
 		this.add(name);
 		this.add(line);
 		this.add(liam);
