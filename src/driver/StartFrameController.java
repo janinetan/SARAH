@@ -8,6 +8,7 @@ import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanel;
+import View.StartMenuPanelTest;
 import View.StoryPanel;
 import View.ThemePanel;
 import View.WelcomePanel;
@@ -32,7 +33,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayStartMenu(){
 		try {
-			frame.changePanel(new StartMenuPanel());
+			frame.changePanel(new StartMenuPanelTest());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

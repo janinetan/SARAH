@@ -61,11 +61,18 @@ public class StoryPanel extends JPanel{
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
-
+		/*peer1 = new ImagePanel();
+		peer1.setSize(500, 500);
+		image = ImageIO.read(new File("assets/sarah.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(peer1.getWidth(),peer1.getHeight(),Image.SCALE_SMOOTH);
+		peer1 = new ImagePanel(image1);*/
+		
 		image = ImageIO.read(new File("assets/sarah.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
 		peer1 = new ImagePanel(image1);
+
 		peer1.setLocation(p1);
 		
 		image = ImageIO.read(new File("assets/liam.png"));
