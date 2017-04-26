@@ -85,21 +85,27 @@ public class StartMenuPanelTest extends JPanel{
 		//startButton.setBounds(400,350,500,200);
 		startButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
-		    	startButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/start_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	startButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/start_button.png");
-		    	startButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/start_button.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	startButton.setIcon(icon);
 		    }
 		    
 		});
 		
 		startButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
-		        startButton.setIcon(image); 
+		    	ImageIcon icon = new ImageIcon("assets/start_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	startButton.setIcon(icon);
 				StartFrameController.displayWelcome();
 		    }
 		});
@@ -113,19 +119,25 @@ public class StartMenuPanelTest extends JPanel{
 		instructionsButton.setBorderPainted(false);
 		instructionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
-		    	instructionsButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/tutorial_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	instructionsButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/tutorial_button.png");
-		    	instructionsButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/tutorial_button.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	instructionsButton.setIcon(icon);
 		    }
 		});
 		instructionsButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon image = new ImageIcon("assets/tutorial_button_clicked.png");
-		        instructionsButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/tutorial_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	instructionsButton.setIcon(icon);
 		        StartFrameController.displayStory();
 		    }
 		});
@@ -139,19 +151,25 @@ public class StartMenuPanelTest extends JPanel{
 		aboutButton.setBorderPainted(false);
 		aboutButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/about_button_clicked.png");
-		        aboutButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/about_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	aboutButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/about_button.png");
-		    	aboutButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/about_button.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	aboutButton.setIcon(icon);
 		    }
 		});
 		aboutButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon image = new ImageIcon("assets/about_button_clicked.png");
-		    	aboutButton.setIcon(image);
+		    	ImageIcon icon = new ImageIcon("assets/about_button_clicked.png");
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
+		    	icon = new ImageIcon(image1, icon.getDescription());
+		    	aboutButton.setIcon(icon);
 		    }
 		});
 		buttonPanel.add(startButton);
