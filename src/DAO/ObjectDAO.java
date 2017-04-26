@@ -25,7 +25,7 @@ public class ObjectDAO {
 				Object object = new Object();
 				object.setId(rs.getInt(Object.COL_ID));
 				object.setName(rs.getString(Object.COL_NAME));
-				object.setImageFilePath(rs.getString(Object.COL_IMAGEFILEPATH));
+				//object.setImageFilePath(rs.getString(Object.COL_IMAGEFILEPATH));
 				return object;
 			}
 		} catch (SQLException e) {
@@ -46,7 +46,7 @@ public class ObjectDAO {
 				Object object = new Object();
 				object.setId(rs.getInt(Object.COL_ID));
 				object.setName(rs.getString(Object.COL_NAME));
-				object.setImageFilePath(rs.getString(Object.COL_IMAGEFILEPATH));
+				//object.setImageFilePath(rs.getString(Object.COL_IMAGEFILEPATH));
 				return object;
 			}
 		} catch (SQLException e) {
