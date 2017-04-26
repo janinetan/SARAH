@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sarah_kb
 -- ------------------------------------------------------
--- Server version	5.7.9-log
+-- Server version	5.6.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `action` (
 
 LOCK TABLES `action` WRITE;
 /*!40000 ALTER TABLE `action` DISABLE KEYS */;
-INSERT INTO `action` VALUES (1,'play','outdoorToy','30 minutes',NULL),(2,'play','indoorToy','30 minutes',NULL),(3,'eat','food','10 minutes',NULL),(4,'play freeze tag with','sickKid','30 minutes',NULL),(5,'scratch','facialBodyPart','1 minute',NULL),(6,'wash','hands','1 minute',NULL),(7,'sleep','sleepObject','4 hours',NULL),(8,'rest','restObject','1 hour',NULL),(9,'sanitize','sanitizer','1 minute',NULL),(10,'drink','water','3 minutes',NULL),(11,'scratch','eyes','1 minute',NULL),(12,'scratch','nose','1 minute',NULL),(13,'scratch ','lips','1 minute',NULL);
+INSERT INTO `action` VALUES (1,'play','outdoorToy','30 minutes',NULL),(2,'play','indoorToy','30 minutes',NULL),(3,'eat','food','10 minutes',NULL),(5,'scratch','facialBodyPart','1 minute',NULL),(6,'wash','hands','1 minute',NULL),(7,'sleep','sleepObject','4 hours',NULL),(8,'rest','restObject','1 hour',NULL),(9,'sanitize','sanitizer','1 minute',NULL),(10,'drink','water','3 minutes',NULL),(11,'scratch','eyes','1 minute',NULL),(12,'scratch','nose','1 minute',NULL),(13,'scratch ','mouth','1 minute',NULL);
 /*!40000 ALTER TABLE `action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +181,7 @@ CREATE TABLE `episode` (
   `episodeGoalId` int(11) NOT NULL,
   `eventId` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `episode` (
 
 LOCK TABLES `episode` WRITE;
 /*!40000 ALTER TABLE `episode` DISABLE KEYS */;
-INSERT INTO `episode` VALUES (1,1,'1,2,da(1)'),(2,2,'3,4,5,6,7,8,da(2)'),(3,3,'9,10,11,12,13,14,15,16,17,18,19,20,da(3)'),(4,4,'21,22,23,da(3)'),(5,5,'24,25,26,27,28,29,30,da(4)'),(6,6,'31,32,14,15,33,34,35,36,37,38'),(7,7,'39,40,41,42,43,44,45'),(8,8,'46,47'),(9,9,'48,49'),(10,10,'50,51,52,14,53,54');
+INSERT INTO `episode` VALUES (1,1,'1,2,da(1)'),(2,2,'3,4,5,6,7,8,da(2)'),(3,3,'9,10,11,12,13,14,15,16,17,18,19,20,da(3)'),(4,4,'21,22,23,da(3)'),(5,5,'24,25,26,27,28,29,30,da(4)'),(6,6,'31,32,14,15,33,34,35,36,37,38'),(7,7,'39,40,41,42,43,44,45'),(8,8,'46,47'),(9,9,'48,49'),(10,10,'50,51,52,da(8)'),(11,11,'14,15,53,54'),(12,12,'1,55');
 /*!40000 ALTER TABLE `episode` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +229,7 @@ CREATE TABLE `episode_set` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `episodesId` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +238,7 @@ CREATE TABLE `episode_set` (
 
 LOCK TABLES `episode_set` WRITE;
 /*!40000 ALTER TABLE `episode_set` DISABLE KEYS */;
-INSERT INTO `episode_set` VALUES (1,'1,8,2,3,4,5,6,7');
+INSERT INTO `episode_set` VALUES (1,'12,8,9,8,9,8,9,1,2,3,4,5,6,7');
 /*!40000 ALTER TABLE `episode_set` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +254,7 @@ CREATE TABLE `event` (
   `ruling` int(11) DEFAULT NULL COMMENT '2 - good\n1 - bad\nnull - neutral',
   `type` int(11) DEFAULT '1' COMMENT '1 - message\n0 - action',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +263,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,NULL,1),(2,NULL,1),(3,1,1),(4,1,1),(5,2,1),(6,2,1),(7,NULL,1),(8,NULL,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,2,1),(15,2,1),(16,2,1),(17,2,1),(18,2,1),(19,NULL,1),(20,NULL,1),(21,NULL,1),(22,NULL,1),(23,NULL,1),(24,NULL,1),(25,NULL,1),(26,NULL,1),(27,NULL,1),(28,NULL,1),(29,NULL,1),(30,NULL,1),(31,1,1),(32,1,1),(33,2,1),(34,2,1),(35,2,1),(36,2,1),(37,2,1),(38,2,1),(39,NULL,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,2,1),(45,2,1),(46,NULL,1),(47,NULL,1),(48,NULL,1),(49,NULL,1),(50,NULL,1),(51,NULL,1),(52,NULL,1),(53,1,1),(54,1,1);
+INSERT INTO `event` VALUES (1,NULL,1),(2,NULL,1),(3,1,1),(4,1,1),(5,2,1),(6,2,1),(7,NULL,1),(8,NULL,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,2,1),(15,2,1),(16,2,1),(17,2,1),(18,2,1),(19,NULL,1),(20,NULL,1),(21,NULL,1),(22,NULL,1),(23,NULL,1),(24,NULL,1),(25,NULL,1),(26,NULL,1),(27,NULL,1),(28,NULL,1),(29,NULL,1),(30,NULL,1),(31,1,1),(32,1,1),(33,2,1),(34,2,1),(35,2,1),(36,2,1),(37,2,1),(38,2,1),(39,NULL,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,2,1),(45,2,1),(46,NULL,1),(47,NULL,1),(48,NULL,1),(49,NULL,1),(50,NULL,1),(51,NULL,1),(52,NULL,1),(53,1,1),(54,1,1),(55,NULL,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `message` (
   `message` varchar(250) NOT NULL,
   PRIMARY KEY (`eventId`),
   UNIQUE KEY `message_UNIQUE` (`message`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +313,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (22,'askPrevention'),(52,'askReverseAction'),(8,'commentNegativeFiller + counterPlay + user-askPlay'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(2,'commentPositiveFiller + greetUser + user-askFeeling'),(34,'commentPositiveFiller + stateHealed'),(54,'commentPositiveFillerPlayAction'),(9,'counterPlay'),(14,'expressDelight'),(29,'expressDisbelief + counterTreatment'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(36,'expressDisbelief + succumb + stateRest'),(35,'expressDoubt + suggestFullDayRest'),(41,'expressEmpathy'),(38,'expressFarewell'),(19,'expressNaivety'),(25,'expressNaivety + expressWonder'),(51,'expressPlayfulAction + stateCurCondition'),(7,'expressPlayfulness'),(40,'expressSick + expressRegret + takeTreatment'),(50,'expressWorryCondition + suggestRestAction'),(33,'giveTreatment'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(1,'greetUser + mentionSetting + introduceLiam + transitionToLiam'),(10,'ignoreSarah + expressPlayfulness'),(46,'inquireActivity'),(39,'introduceLiam'),(47,'inviteActivity'),(6,'respondToStatus + suggestLiamRest'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(23,'stateAgreement + user-askPrevention'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(44,'stateHealed + thankSarah'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(49,'stateMotivationAction'),(5,'stateNegativeStatus + stateSymptom'),(24,'statePrevention'),(18,'stateSickness'),(28,'stateTreatment'),(31,'stateWarning'),(48,'stateWarning + narrateAction + commentFunKids'),(15,'succumb'),(11,'succumb + transitionToPlay'),(53,'succumbPlayAction'),(4,'suggestBothRest'),(3,'suggestPlay'),(42,'thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(16,'transitionToRest'),(27,'transitionToTreatment'),(20,'user-askSickness'),(30,'user-askTreatment'),(43,'wishGoodHealth + stateMoral + expressFarewell');
+INSERT INTO `message` VALUES (22,'askPrevention'),(52,'askReverseAction'),(8,'commentNegativeFiller + counterPlay + user-askPlay'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(55,'commentPositiveFiller + greetUser '),(2,'commentPositiveFiller + greetUser + user-askFeeling'),(34,'commentPositiveFiller + stateHealed'),(54,'commentPositiveFillerPlayAction'),(9,'counterPlay'),(14,'expressDelight'),(29,'expressDisbelief + counterTreatment'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(36,'expressDisbelief + succumb + stateRest'),(35,'expressDoubt + suggestFullDayRest'),(41,'expressEmpathy'),(38,'expressFarewell'),(19,'expressNaivety'),(25,'expressNaivety + expressWonder'),(51,'expressPlayfulAction + stateCurCondition'),(7,'expressPlayfulness'),(40,'expressSick + expressRegret + takeTreatment'),(50,'expressWorryCondition + suggestRestAction'),(33,'giveTreatment'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(1,'greetUser + mentionSetting + introduceLiam + transitionToLiam'),(10,'ignoreSarah + expressPlayfulness'),(46,'inquireActivity'),(39,'introduceLiam'),(47,'inviteActivity'),(6,'respondToStatus + suggestLiamRest'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(23,'stateAgreement + user-askPrevention'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(44,'stateHealed + thankSarah'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(49,'stateMotivationAction'),(5,'stateNegativeStatus + stateSymptom'),(48,'statePrecaution + narrateAction + commentFunKids'),(24,'statePrevention'),(18,'stateSickness'),(28,'stateTreatment'),(31,'stateWarning'),(15,'succumb'),(11,'succumb + transitionToPlay'),(53,'succumbPlayAction'),(4,'suggestBothRest'),(3,'suggestPlay'),(42,'thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(16,'transitionToRest'),(27,'transitionToTreatment'),(20,'user-askSickness'),(30,'user-askTreatment'),(43,'wishGoodHealth + stateMoral + expressFarewell');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,8 +329,9 @@ CREATE TABLE `object` (
   `category` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `verb` varchar(100) NOT NULL,
+  `filename` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,7 +340,7 @@ CREATE TABLE `object` (
 
 LOCK TABLES `object` WRITE;
 /*!40000 ALTER TABLE `object` DISABLE KEYS */;
-INSERT INTO `object` VALUES (1,'sickKid','sick kid','play with'),(2,'indoorToy','ball','throw'),(3,'indoorToy','stuffed toy','hug'),(4,'outdoorToy','mud','splash'),(5,'outdoorToy','slide','ride'),(6,'outdoorToy','sandcastle','build'),(7,'food','sandwich','eat'),(8,'food','fruit','eat'),(9,'bodyPart','hands','clean'),(10,'facialBodyPart','eyes','rub'),(11,'facialBodyPart','nose','scratch'),(12,'facialBodyPart','face','scratch'),(13,'sanitizer','alcohol','spray'),(14,'sanitizer','alcohol','rub'),(15,'sleepObject','bed','sleep on the'),(16,'restObject','bench','rest on the');
+INSERT INTO `object` VALUES (2,'indoorToy','ball','throw','ball'),(3,'indoorToy','stuffed toy','hug','stuff_toy'),(4,'outdoorToy','mud','splash','mud'),(5,'outdoorToy','slide','ride','slide'),(6,'outdoorToy','sandcastle','build','sandcastle'),(7,'food','sandwich','eat','sandwich'),(8,'food','fruit','eat','fruits'),(9,'bodyPart','hands','clean','wash_hands'),(10,'facialBodyPart','eyes','rub','scratch_face'),(11,'facialBodyPart','nose','scratch','scratch_nose'),(12,'facialBodyPart','face','scratch','scratch_face'),(13,'sanitizer','alcohol','spray','sanitize_hands'),(14,'sanitizer','alcohol','rub','sanitize_hands'),(15,'sleepObject','bed','sleep on the','sleep'),(16,'restObject','bench','rest on the','bench'),(17,'facialBodyPart','mouth','scratch','scratch_face');
 /*!40000 ALTER TABLE `object` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,7 +390,7 @@ CREATE TABLE `precondition` (
 
 LOCK TABLES `precondition` WRITE;
 /*!40000 ALTER TABLE `precondition` DISABLE KEYS */;
-INSERT INTO `precondition` VALUES (1,1,4),(2,3,1),(3,4,4),(4,5,1),(5,6,2),(6,7,3),(7,8,3),(8,9,2),(9,10,8),(10,11,1),(11,12,1),(12,13,1);
+INSERT INTO `precondition` VALUES (1,1,4),(2,3,1),(4,5,1),(5,6,2),(6,7,3),(7,8,3),(8,9,2),(9,10,8),(10,11,1),(11,12,1),(12,13,1);
 /*!40000 ALTER TABLE `precondition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,7 +466,7 @@ CREATE TABLE `sentence` (
 
 LOCK TABLES `sentence` WRITE;
 /*!40000 ALTER TABLE `sentence` DISABLE KEYS */;
-INSERT INTO `sentence` VALUES (111,'greetUser','Hello there, <user>!'),(112,'mentionSetting','It\'s a sunny <day> morning!'),(113,'introduceLiam','Liam wants to play with you!'),(114,'transitionToLiam','Just wait right here, I\'ll call him out.'),(115,'commentPositiveFiller','Oh, wow!'),(116,'greetUser','Hi, <user>!'),(117,'user-askFeeling','How have you been?'),(118,'suggestPlay','But I think we can still go out and play!'),(119,'suggestBothRest','I think both of you should rest and [treatment] first before you go out and play.'),(120,'stateNegativeStatus','I feel <liam-status>.'),(121,'stateSymptom','I have been experiencing [symptom] lately.'),(122,'respondToStatus','Oh dear, I think you are sick!'),(123,'suggestLiamRest','You should rest and [treatment].'),(124,'expressPlayfulness','I still want to play with <user>.'),(125,'commentNegativeFiller','No, no...'),(126,'counterPlay','Playing will make you tired and you might get worse.'),(127,'user-askPlay','<user>, what do you think?'),(128,'counterPlay','You shouldn\'t play when you\'re sick.'),(129,'ignoreSarah','Ignore her.'),(130,'expressPlayfulness','Let\'s go play, <user>!'),(131,'succumb','If you really want to...'),(132,'transitionToPlay','I\'ll be right here if you need me.'),(133,'commentNegativeFiller','Oh, no!'),(134,'stateNegativeStatus','I think I\'m gonna faint.'),(135,'transitionToSarah','Let\'s go back to Sarah.'),(136,'greetKids','Hey kids!'),(137,'expressWorry','Gosh Liam, you\'re [symptom] and [symptom] are getting worse.'),(138,'suggestRest','You shoud rest.'),(139,'stateSickness','I think you have <sickness>.'),(140,'expressDelight','<user> thinks the same way as me!'),(141,'succumb','Fine, do as you say.'),(142,'transitionToRest','I\'ll entertain <user> as you sleep.'),(143,'greetUser','Hey there, <user>!'),(144,'commentRest','I just woke up and what a refreshing nap that was!'),(145,'stateTraceOfSymptom','I still feel a little [symptom].'),(146,'stateSickness','Oh, I think you show signs of <sickness>.'),(147,'expressNaivety','I did not know that.'),(148,'user-askSickness','How about you <user>, do you know what <sickness> is?'),(149,'stateCauses','Well, <sickness> is caused by [cause].'),(150,'stateBodyPart','You can get sick if they get inside your <body-part-affected>.'),(151,'explainBodyPart','<body-part-affected> <body-part-definition>.'),(152,'askPrevention','Can you prevent that?'),(153,'stateAgreement','Yes, of course.'),(154,'user-askPrevention','<user>, help me out, any clue on how to prevent <sickness>?'),(155,'statePrevention','To avoid having <sickness>, we have to [prevention] and [prevention].'),(156,'expressWonder','Maybe that was how I got my <sickness>.'),(157,'stateAgreement','True enough.'),(158,'encouragePrevention','So, better observe these practices at all times.'),(159,'concludePrevention','This way, you won\'t get <sickness> that easily.'),(160,'transitionToTreatment','But for now, what can I do to stop <sickness> from affecting my <body-part-affected>?'),(161,'stateTreatment','You have to [treatment] for you to get better.'),(162,'expressDisbelief','Oh, do I really have to?'),(163,'counterTreatment',' I don\'t think I need to [treatment].'),(164,'user-askTreatment','<user>, can you help me convince Liam to take his [treatment]?'),(165,'stateWarning','Oh well, don\'t listen to me and your <body-part-affected> will be sick and you won\'t be able to get better.'),(166,'expressDisbelief','Really?'),(167,'expressStubbornness','Hmmm... Well let\'s see about that!'),(168,'transitionToEndDay','Anyway, I feel that I have to rest now.'),(169,'expressAppreciation','Thank you for visiting us <user>!'),(170,'comeBack','Come back a few days later and see the <sickness> go away by then.'),(171,'expressFarewell','Take care <user>!'),(172,'succumb','Oh fine...'),(173,'giveTreatment','Here\'s your [treatment] Liam!'),(175,'stateHealed','I feel so much better now!'),(176,'expressDoubt','I don\'t think it works that way Liam.'),(177,'suggestFullDayRest','You have to rest for the day, too.'),(178,'expressDisbelief','Oh, is that so?'),(179,'succumb','Fine...'),(180,'stateRest','I\'m resting.'),(181,'stateLiamCare','I\'ll catch up to you Liam.'),(182,'expressAppreciation','Thank you for spending this day with us!'),(183,'stateMoral','I hope you also learned from Liam\'s experience on <sickness>.'),(184,'comeBack','Let\'s meet again tomorrow and see if the <sickness> will go away by then.'),(185,'expressFarewell','See you, <user>!'),(186,'introduceLiam','Hey Liam, <user> is here to visit you!'),(187,'expressSick','I still feel the same as last time you visited me.'),(188,'expressRegret','I\'m sorry Sarah, I didn\'t listen to you about [treatment].'),(189,'takeTreatment','I\'m sorry, may I have it now?'),(190,'expressEmpathy','Of course Liam, here you go.'),(191,'thankSarah','Thank you Sarah, for being here to teach us about sickness.'),(192,'wishGoodHealth','Get well soon!'),(193,'stateMoral','I hope both of you learned a lot about <sickness>.'),(194,'expressFarewell','See you soon!'),(195,'stateHealed','I feel much better now.'),(196,'thankSarah','Thank you Sarah for being so patient with us!'),(197,'thankUser','I think we also have <user> to thank for that.'),(198,'wishGoodHealth','Keep a healthy lifestyle!'),(199,'expressFarewell','\'Til next time!'),(200,'inquireActivity','Kids, what do you want to do?'),(201,'inviteActivity','Let\'s go <curAction-verb> <curAction-object>.'),(202,'stateWarning','Be careful, kids!'),(203,'narrateAction','Liam and <user> are having fun <curAction-verb-ing> the <curAction-object>.'),(204,'commentFunKids','They look like they\'re having a great time.'),(205,'stateMotivationAction','<curAction-verb-ing> <curAction-object> is so <curAction-motivation>!'),(206,'expressWorryCondition','Liam, your <curCondition-body> is <curCondition-property> from <prevAction-verb-ing> <prevAction-object> a while ago.'),(207,'suggestRestAction','I think you should <reverseAction-verb> <reverseAction-object> so that your <curCondition-body> will be <reverseAction-postCondition-property>.'),(208,'expressPlayfulAction','But I want to <curAction-verb> <curAction-object> because it is so <curAction-motivation>.'),(209,'stateCurCondition','My <curCondition-body> is just a little <curCondition-property> so it\'s no big deal.'),(210,'askReverseAction','Come now <user>, will you help me convince Liam to <reverseAction-verb> <reverseAction-object>?'),(211,'expressDelight','See, <user> thinks the same way as me!'),(212,'succumbPlayAction','Oh, fine, do as you like.'),(213,'commentPositiveFillerPlayAction','Yay!');
+INSERT INTO `sentence` VALUES (111,'greetUser','Hello there, <user>!'),(112,'mentionSetting','It\'s a sunny <day> morning!'),(113,'introduceLiam','Liam wants to play with you!'),(114,'transitionToLiam','Just wait right here, I\'ll call him out.'),(115,'commentPositiveFiller','Oh, wow!'),(116,'greetUser','Hi, <user>!'),(117,'user-askFeeling','How have you been?'),(118,'suggestPlay','But I think we can still go out and play!'),(119,'suggestBothRest','I think both of you should rest and [treatment] first before you go out and play.'),(120,'stateNegativeStatus','I feel <liam-status>.'),(121,'stateSymptom','I have been experiencing [symptom] lately.'),(122,'respondToStatus','Oh dear, I think you are sick!'),(123,'suggestLiamRest','You should rest and [treatment].'),(124,'expressPlayfulness','I still want to play with <user>.'),(125,'commentNegativeFiller','No, no...'),(126,'counterPlay','Playing will make you tired and you might get worse.'),(127,'user-askPlay','<user>, what do you think?'),(128,'counterPlay','You shouldn\'t play when you\'re sick.'),(129,'ignoreSarah','Ignore her.'),(130,'expressPlayfulness','Let\'s go play, <user>!'),(131,'succumb','If you really want to...'),(132,'transitionToPlay','I\'ll be right here if you need me.'),(133,'commentNegativeFiller','Oh, no!'),(134,'stateNegativeStatus','I think I\'m gonna faint.'),(135,'transitionToSarah','Let\'s go back to Sarah.'),(136,'greetKids','Hey kids!'),(137,'expressWorry','Gosh Liam, you\'re [symptom] and [symptom] are getting worse.'),(138,'suggestRest','You shoud rest.'),(139,'stateSickness','I think you have <sickness>.'),(140,'expressDelight','<user> thinks the same way as me!'),(141,'succumb','Fine, do as you say.'),(142,'transitionToRest','I\'ll entertain <user> as you sleep.'),(143,'greetUser','Hey there, <user>!'),(144,'commentRest','I just woke up and what a refreshing nap that was!'),(145,'stateTraceOfSymptom','I still feel a little [symptom].'),(146,'stateSickness','Oh, I think you show signs of <sickness>.'),(147,'expressNaivety','I did not know that.'),(148,'user-askSickness','How about you <user>, do you know what <sickness> is?'),(149,'stateCauses','Well, <sickness> is caused by [cause].'),(150,'stateBodyPart','You can get sick if they get inside your <body-part-affected>.'),(151,'explainBodyPart','<body-part-affected> <body-part-definition>.'),(152,'askPrevention','Can you prevent that?'),(153,'stateAgreement','Yes, of course.'),(154,'user-askPrevention','<user>, help me out, any clue on how to prevent <sickness>?'),(155,'statePrevention','To avoid having <sickness>, we have to [prevention] and [prevention].'),(156,'expressWonder','Maybe that was how I got my <sickness>.'),(157,'stateAgreement','True enough.'),(158,'encouragePrevention','So, better observe these practices at all times.'),(159,'concludePrevention','This way, you won\'t get <sickness> that easily.'),(160,'transitionToTreatment','But for now, what can I do to stop <sickness> from affecting my <body-part-affected>?'),(161,'stateTreatment','You have to [treatment] for you to get better.'),(162,'expressDisbelief','Oh, do I really have to?'),(163,'counterTreatment',' I don\'t think I need to [treatment].'),(164,'user-askTreatment','<user>, can you help me convince Liam to take his [treatment]?'),(165,'stateWarning','Oh well, don\'t listen to me and your <body-part-affected> will be sick and you won\'t be able to get better.'),(166,'expressDisbelief','Really?'),(167,'expressStubbornness','Hmmm... Well let\'s see about that!'),(168,'transitionToEndDay','Anyway, I feel that I have to rest now.'),(169,'expressAppreciation','Thank you for visiting us <user>!'),(170,'comeBack','Come back a few days later and see the <sickness> go away by then.'),(171,'expressFarewell','Take care <user>!'),(172,'succumb','Oh fine...'),(173,'giveTreatment','Here\'s your [treatment] Liam!'),(175,'stateHealed','I feel so much better now!'),(176,'expressDoubt','I don\'t think it works that way Liam.'),(177,'suggestFullDayRest','You have to rest for the day, too.'),(178,'expressDisbelief','Oh, is that so?'),(179,'succumb','Fine...'),(180,'stateRest','I\'m resting.'),(181,'stateLiamCare','I\'ll catch up to you Liam.'),(182,'expressAppreciation','Thank you for spending this day with us!'),(183,'stateMoral','I hope you also learned from Liam\'s experience on <sickness>.'),(184,'comeBack','Let\'s meet again tomorrow and see if the <sickness> will go away by then.'),(185,'expressFarewell','See you, <user>!'),(186,'introduceLiam','Hey Liam, <user> is here to visit you!'),(187,'expressSick','I still feel the same as last time you visited me.'),(188,'expressRegret','I\'m sorry Sarah, I didn\'t listen to you about [treatment].'),(189,'takeTreatment','I\'m sorry, may I have it now?'),(190,'expressEmpathy','Of course Liam, here you go.'),(191,'thankSarah','Thank you Sarah, for being here to teach us about sickness.'),(192,'wishGoodHealth','Get well soon!'),(193,'stateMoral','I hope both of you learned a lot about <sickness>.'),(194,'expressFarewell','See you soon!'),(195,'stateHealed','I feel much better now.'),(196,'thankSarah','Thank you Sarah for being so patient with us!'),(197,'thankUser','I think we also have <user> to thank for that.'),(198,'wishGoodHealth','Keep a healthy lifestyle!'),(199,'expressFarewell','\'Til next time!'),(200,'inquireActivity','Kids, what do you want to do?'),(201,'inviteActivity','Let\'s go <curAction-verb> <curAction-object>.'),(202,'statePrecaution','Be careful, kids!'),(203,'narrateAction','Liam and <user> are having fun <curAction-verb-ing> the <curAction-object>.'),(204,'commentFunKids','They look like they\'re having a great time.'),(205,'stateMotivationAction','<curAction-verb-ing> <curAction-object> is so <curAction-motivation>!'),(206,'expressWorryCondition','Liam, your <curCondition-body> is <curCondition-property> from <prevAction-verb-ing> <prevAction-object> a while ago.'),(207,'suggestRestAction','I think you should <reverseAction-verb> <reverseAction-object> so that your <curCondition-body> will be <reverseAction-postCondition-property>.'),(208,'expressPlayfulAction','But I want to <curAction-verb> <curAction-object> because it is so <curAction-motivation>.'),(209,'stateCurCondition','My <curCondition-body> is just a little <curCondition-property> so it\'s no big deal.'),(210,'askReverseAction','Come now <user>, will you help me convince Liam to <reverseAction-verb> <reverseAction-object>?'),(211,'expressDelight','See, <user> thinks the same way as me!'),(212,'succumbPlayAction','Oh, fine, do as you like.'),(213,'commentPositiveFillerPlayAction','Yay!');
 /*!40000 ALTER TABLE `sentence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -619,10 +620,6 @@ LOCK TABLES `virtual_peer` WRITE;
 INSERT INTO `virtual_peer` VALUES (1,'Sarah','happy',0,'image'),(2,'Liam','sick',1,'image');
 /*!40000 ALTER TABLE `virtual_peer` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'sarah_kb'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -633,4 +630,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-04  1:03:06
+-- Dump completed on 2017-04-26 22:41:53
