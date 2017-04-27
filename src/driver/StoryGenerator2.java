@@ -69,6 +69,8 @@ public class StoryGenerator2 {
 	private Random randomGenerator = new Random();
 	private Action curAction;
 	
+	private int actionCtr;
+	
 	public StoryGenerator2(){
 		goodHealthAssertions = (new AssertionDAO()).getHealthAssertions("good");
 		badHealthAssertions = (new AssertionDAO()).getHealthAssertions("bad");
@@ -92,6 +94,8 @@ public class StoryGenerator2 {
 		curStoryEventIndex = 0;
 		eventsId = new ArrayList<Integer>();
 		pastAction = new HashMap<Integer, String>();
+	
+		actionCtr = 0;
 	}
 	
 	public void setUpStory() {
@@ -108,6 +112,13 @@ public class StoryGenerator2 {
 	}
 	
 	public void playEvent() throws IOException{
+		System.out.println("***********************************");
+		System.out.print("event arr = "+eventsId);
+		System.out.print("; curStoryEpisodeIndex = "+curStoryEpisodeIndex);
+		System.out.print("; cur epGoal = " +episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
+		System.out.println("; actionCtr = "+actionCtr);
+		
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			StartFrameController.displayEnd();
 		}
@@ -117,9 +128,39 @@ public class StoryGenerator2 {
 			if ( this.episode.getDiscourseActId() != 10){
 				this.eventsId = episode.getEventsId();
 			}
-			curStoryEpisodeIndex++;
-			curStoryEventIndex = 0;
+			
+			//12,8,9,8,11,9,8,9
+			System.out.println(".......");
+			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
+					episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
+//				System.out.println("ENTERRRRRR");
+//				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+//				System.out.println("cur episode index = "+curStoryEpisodeIndex);
+//				int i = 0;
+//				for (Episode e : episodesList){
+//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
+				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
+//				i = 0;
+//				for (Episode e : episodesList){
+//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
+				curStoryEpisodeIndex--;
+//				System.out.println("cur episode index = "+curStoryEpisodeIndex);
+//				System.out.println("EXITTTTTTT");
+			}
+			
+			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 3){
+				curStoryEpisodeIndex--;
+			} else {
+				curStoryEpisodeIndex++;
+			}
+			
+			curStoryEventIndex = 0;	
 		}
+		
 		
 		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
 			if ( checkIfLiamHasAllGoodAssertions() ){
@@ -209,6 +250,7 @@ public class StoryGenerator2 {
 			
 		if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1 || 
 				curStoryEventIndex == this.eventsId.size() ) ){
+			
 			StartFrameController.displayAction(curAction.getChosenObject().getFilename());
 			
 			if (curStoryEventIndex == this.eventsId.size() - 1){
@@ -221,9 +263,8 @@ public class StoryGenerator2 {
 					this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 				}
 			}
-			
+			actionCtr++;	
 		}
-		
 		
 	}
 	
@@ -301,8 +342,7 @@ public class StoryGenerator2 {
 	}
 	
 	public String polishMessage (String message){
-		System.out.println("**************************************************");
-		System.out.println(message);
+		System.out.println("mssg = " +message);
 		
 		message = message.replaceAll("<user>", "Anna");
 		message = message.replaceAll("<day>", "Saturday");
