@@ -125,6 +125,9 @@ public class StoryGenerator2 {
 			StartFrameController.displayEnd();
 		}
 		
+		// TODO: if episodeGoal == 11 && ruling is good, insert reverse episode after epgoal 11, else do nothing
+		// TODO: remove reverse episode after its execution
+		
 		//if start or if tapos na sa events to move on to the next episode
 		if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size() ){
 			this.episode = episodesList.get(curStoryEpisodeIndex);
@@ -136,23 +139,23 @@ public class StoryGenerator2 {
 			System.out.println(".......");
 			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 					episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
-//				System.out.println("ENTERRRRRR");
-//				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//				System.out.println("cur episode index = "+curStoryEpisodeIndex);
-//				int i = 0;
-//				for (Episode e : episodesList){
-//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-//					i++;
-//				}
+				System.out.println("ENTERRRRRR");
+				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+				System.out.println("cur episode index = "+curStoryEpisodeIndex);
+				int i = 0;
+				for (Episode e : episodesList){
+					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					i++;
+				}
 				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
-//				i = 0;
-//				for (Episode e : episodesList){
-//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-//					i++;
-//				}
+				i = 0;
+				for (Episode e : episodesList){
+					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					i++;
+				}
 				curStoryEpisodeIndex--;
-//				System.out.println("cur episode index = "+curStoryEpisodeIndex);
-//				System.out.println("EXITTTTTTT");
+				System.out.println("cur episode index = "+curStoryEpisodeIndex);
+				System.out.println("EXITTTTTTT");
 			}
 			
 			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 3){
