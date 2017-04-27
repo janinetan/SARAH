@@ -73,7 +73,7 @@ public class Action extends Event {
 	public ArrayList<Object> getObectList() {
 		return obectList;
 	}
-	public void setObectList(ArrayList<Object> obectList) {
+	public void setObjectList(ArrayList<Object> obectList) {
 		this.obectList = obectList;
 	}
 	public Object getChosenObject() {

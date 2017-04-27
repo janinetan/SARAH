@@ -99,12 +99,13 @@ public class StoryGenerator2 {
 	}
 	
 	public void setUpStory() {
-		// gets random episode set
+		// gets random episode set (1,8,2,3,4,5,6,7)
 		EpisodeSet storyTemplate = (new EpisodeSetDAO()).getRandomEpisodeSet();
 		
 		// stores all events into a single array
 		ArrayList<Integer> episodesId = storyTemplate.getEpisodesId();
 		
+		//episode = 1 row in episode table
 		for (int tempEpisodeId: episodesId){
 			Episode episode = (new EpisodeDAO()).getEpisodeById(tempEpisodeId);
 			this.episodesList.add(episode);
@@ -119,14 +120,16 @@ public class StoryGenerator2 {
 		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
 		System.out.println("; actionCtr = "+actionCtr);
 		
+		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			StartFrameController.displayEnd();
 		}
 		
+		//if start or if tapos na sa events to move on to the next episode
 		if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size() ){
 			this.episode = episodesList.get(curStoryEpisodeIndex);
 			if ( this.episode.getDiscourseActId() != 10){
-				this.eventsId = episode.getEventsId();
+				this.eventsId = episode.getEventsId(); // return arraylist of events
 			}
 			
 			//12,8,9,8,11,9,8,9
@@ -161,7 +164,7 @@ public class StoryGenerator2 {
 			curStoryEventIndex = 0;	
 		}
 		
-		
+		// 8 - invite to do activity and eventindex is 0 
 		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
 			if ( checkIfLiamHasAllGoodAssertions() ){
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
@@ -178,10 +181,12 @@ public class StoryGenerator2 {
 				System.out.println("A IN IF >> "+a);
 			}
 			else {
+				
 				System.out.println("entered else");
 				ArrayList<Integer> result = new ArrayList<Integer>(badHealthAssertions);
 				ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
 			    result.retainAll(liamHealthAssertions);
+			    
 			    System.out.println(badHealthAssertions + " " +  liamHealthAssertions + "mew: " + result);
 			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size())));
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition("park", rightop);
@@ -202,11 +207,11 @@ public class StoryGenerator2 {
 			
 			
 			System.out.println(ifLiamMeetsAssertions());
-			// dapat yung assertions ni curAction nasa assertion ni Liam
+			//dito na suggest ni Sarah na I think you should rest
 			if (!ifLiamMeetsAssertions()){
-				Episode episode = (new EpisodeDAO()).getEpisodeById(10);
+				Episode episode = (new EpisodeDAO()).getEpisodeById(10); 
 				episodesList.add(curStoryEpisodeIndex, episode);
-				episode = (new EpisodeDAO()).getEpisodeById(11);
+				episode = (new EpisodeDAO()).getEpisodeById(11);	
 				episodesList.add(curStoryEpisodeIndex+1, episode);
 				curStoryEventIndex = 0;
 			}
@@ -216,6 +221,9 @@ public class StoryGenerator2 {
 			Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
 			this.lastQuestion = "";
 			
+	
+			//start StoryRuling is good
+			//if storyRuling is same as event ruling or event ruling is equal to neutral
 			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
 				if (event.getType() == Event.TYPE_MESSAGE){
 					Message message = (new MessageDAO()).getMessageById(event.getId());
@@ -236,10 +244,10 @@ public class StoryGenerator2 {
 						this.roundRobinVP();
 					}
 				}
-				if (event.getType() == Event.TYPE_ACTION){
+				/*if (event.getType() == Event.TYPE_ACTION){
 //					Action action = 
 					
-				}
+				}*/
 				curStoryEventIndex++;
 			}
 			else{
@@ -248,6 +256,7 @@ public class StoryGenerator2 {
 			}
 //		}
 			
+		//9 - doActivity && if curStoryEventIndex is second to the last or last	
 		if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1 || 
 				curStoryEventIndex == this.eventsId.size() ) ){
 			
@@ -257,6 +266,7 @@ public class StoryGenerator2 {
 				if (!ifLiamMeetsAssertions()){
 					System.out.println("hassymptom");
 				}
+				//apply postcondition to liam
 				ArrayList<Integer> postconditions = curAction.getPostcondition();
 				for (int postconTemp: postconditions){
 					int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
