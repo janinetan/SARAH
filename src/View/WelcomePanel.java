@@ -40,7 +40,7 @@ public class WelcomePanel extends JPanel{
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
 		
 		ImagePanel liam = new ImagePanel();
 		image = ImageIO.read(new File("assets/liam_flipped.png"));
@@ -115,7 +115,7 @@ public class WelcomePanel extends JPanel{
 //		name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		name.setFont(font);
 		name.setColumns(StartFrame.frameWidth*1/100);
-		JLabel line = new JLabel("__________________");
+		JLabel line = new JLabel("________________");
 //		line.setBounds(630,480,950,100);
 		line.setFont(font);
 
@@ -131,7 +131,7 @@ public class WelcomePanel extends JPanel{
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,0));
 		image = ImageIO.read(new File("assets/next_button.png"));
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		JButton nextButton = new JButton(new ImageIcon(image1));
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
 		nextButton.setContentAreaFilled(false);
@@ -139,14 +139,14 @@ public class WelcomePanel extends JPanel{
 		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/next_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		    }
@@ -161,7 +161,7 @@ public class WelcomePanel extends JPanel{
 		    public void actionPerformed(ActionEvent e) {
 		    	/*not working when mouselistener code was added*/
 		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		        StartFrameController.displayTheme();
@@ -170,7 +170,7 @@ public class WelcomePanel extends JPanel{
 		
 		image = ImageIO.read(new File("assets/back_button.png"));
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		JButton backButton = new JButton(new ImageIcon(image1));
 		backButton.setBorder(BorderFactory.createEmptyBorder());
 		backButton.setContentAreaFilled(false);
@@ -178,14 +178,14 @@ public class WelcomePanel extends JPanel{
 		backButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	backButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 				ImageIcon icon = new ImageIcon("assets/back_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	backButton.setIcon(icon);
 		    }
@@ -193,7 +193,7 @@ public class WelcomePanel extends JPanel{
 		backButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	backButton.setIcon(icon);
 		        StartFrameController.displayWelcome();
