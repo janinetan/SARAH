@@ -95,6 +95,7 @@ public class CustomTextField extends JTextField {
             public void focusGained(FocusEvent e) {
                 if (!isTextWrittenIn()) {
                     setText("");
+                    setForeground(new Color(0,0,0));
                 }
  
             }
