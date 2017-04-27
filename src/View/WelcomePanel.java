@@ -102,7 +102,7 @@ public class WelcomePanel extends JPanel{
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setOpaque(false);
-		rightPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		rightPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		JPanel namePanel = new JPanel();
 		SpringLayout nameLayout = new SpringLayout();
 		namePanel.setLayout(nameLayout);
