@@ -64,13 +64,16 @@ public class WelcomePanel extends JPanel{
 		box.add(greeting, BorderLayout.EAST);*/
 		
         JPanel dialogPanel = new JPanel(new BorderLayout());
-		ImagePanel box = new ImagePanel("assets/dialog_box.png");
+		ImagePanel box = new ImagePanel();
+		image = ImageIO.read(new File("assets/dialog_box.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*60/100,StartFrame.frameHeight*40/100,Image.SCALE_SMOOTH);
+		box.setImage(image1);
 		SpringLayout layout = new SpringLayout();
 		box.setLayout(layout);
-		box.setSize(StartFrame.frameWidth*50/100,StartFrame.frameHeight*30/100);
         JTextArea greeting = new JTextArea("Hi, I’m Liam.\nWhat's your name?");
         //greeting.setSize(550, 200);
-        greeting.setSize(StartFrame.frameWidth*42/100,StartFrame.frameHeight*20/100);
+        greeting.setSize(box.getWidth()*70/100,box.getHeight()*90/100);
         greeting.setFont(font);
         greeting.setWrapStyleWord(true);
         greeting.setLineWrap(true);
