@@ -45,7 +45,7 @@ public class WelcomePanel extends JPanel{
 		ImagePanel liam = new ImagePanel();
 		image = ImageIO.read(new File("assets/liam_flipped.png"));
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*40/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*40/100, StartFrame.frameWidth*70/100,Image.SCALE_SMOOTH);
 		liam.setImage(image1);
 		/*ImagePanel box = new ImagePanel("assets/liam_dialog_box.png");
         box.setLayout(new BorderLayout());
