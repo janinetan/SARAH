@@ -42,8 +42,11 @@ public class WelcomePanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
 		
-		ImagePanel liam = new ImagePanel("assets/liam_flipped.png");
-		liam.setSize(StartFrame.frameWidth*50/100,StartFrame.frameHeight);
+		ImagePanel liam = new ImagePanel();
+		image = ImageIO.read(new File("assets/liam_flipped.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*40/100, icon.getIconHeight(),Image.SCALE_SMOOTH);
+		liam.setImage(image1);
 		/*ImagePanel box = new ImagePanel("assets/liam_dialog_box.png");
         box.setLayout(new BorderLayout());
         box.setLocation(0, 400);
@@ -96,6 +99,7 @@ public class WelcomePanel extends JPanel{
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.setOpaque(false);
+		rightPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		JPanel namePanel = new JPanel();
 		SpringLayout nameLayout = new SpringLayout();
 		namePanel.setLayout(nameLayout);
