@@ -43,7 +43,7 @@ public class WelcomePanel extends JPanel{
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
 		
 		ImagePanel liam = new ImagePanel("assets/liam_flipped.png");
-		liam.setSize(StartFrame.frameWidth*50/100,StartFrame.frameHeight);
+		
 		/*ImagePanel box = new ImagePanel("assets/liam_dialog_box.png");
         box.setLayout(new BorderLayout());
         box.setLocation(0, 400);
@@ -64,7 +64,7 @@ public class WelcomePanel extends JPanel{
 		ImagePanel box = new ImagePanel("assets/dialog_box.png");
 		SpringLayout layout = new SpringLayout();
 		box.setLayout(layout);
-		box.setSize(StartFrame.frameWidth*50/100,StartFrame.frameHeight*30/100);
+		
         JTextArea greeting = new JTextArea("Hi, I’m Liam.\nWhat's your name?");
         //greeting.setSize(550, 200);
         greeting.setSize(StartFrame.frameWidth*42/100,StartFrame.frameHeight*20/100);

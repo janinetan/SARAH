@@ -35,16 +35,13 @@ public class LocationPanel extends JPanel{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
 		setBackground(new Color(197,229,240));
-		setLayout(new BorderLayout());
+		setLayout(null);
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
 		
-		JPanel dialogPanel = new JPanel();
-		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*2/100,0,0,0));
-		dialogPanel.setOpaque(false);
-		ImagePanel box = new ImagePanel("assets/cloud2.png");
+		ImagePanel box = new ImagePanel("assets/cloud1.png");
 		SpringLayout dialogLayout = new SpringLayout();
-        box.setLayout(dialogLayout);
+
         message = new JTextArea("Where do you want to go?");
         message.setSize(1000, 200);
         message.setFont(font);
@@ -55,15 +52,17 @@ public class LocationPanel extends JPanel{
         message.setFocusable(false);
         message.getCaret().deinstall( message );
         message.setBorder(UIManager.getBorder("JLabel"));
+     
 		box.add(message);
 		
 		// For horizontal Alignment
-		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, StartFrame.frameWidth*10/100, SpringLayout.HORIZONTAL_CENTER, box);
+		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 100, SpringLayout.HORIZONTAL_CENTER, box);
 
 		// For Vertical Alignment
 		dialogLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
 
-		dialogPanel.add(box);
+        box.setLayout(dialogLayout);
+        box.setLocation(0, 20);
         
         JPanel themes = new JPanel();
         SpringLayout themesLayout = new SpringLayout();
@@ -232,7 +231,7 @@ public class LocationPanel extends JPanel{
 		    }
 		});
         
-		this.add(dialogPanel, BorderLayout.NORTH);
+		this.add(box);
 		this.add(themes);
 		this.add(nextButton);
 		this.add(backButton);
