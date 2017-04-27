@@ -112,7 +112,7 @@ public class WelcomePanel extends JPanel{
 		name.setPlaceholder("Type Name Here");
 		name.setOpaque(false);
 		name.setBorder(UIManager.getBorder("JLabel"));
-		name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		name.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		name.setFont(font);
 		name.setColumns(StartFrame.frameWidth*2/150);
 		JLabel line = new JLabel("________________");
