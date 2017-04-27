@@ -97,7 +97,7 @@ public class ActionDAO {
 				action.setPrecondition(getAllPrecondition(action.getId()));
 				action.setMotivation(getMotivations(action.getActivityName()));
 				action.setPostcondition(getAllPostcondition(action.getId()));
-				action.setObectList(getObjects(action.getObjectCategory()));
+				action.setObjectList(getObjects(action.getObjectCategory()));
 				return action;
 			}
 		} catch (SQLException e) {
