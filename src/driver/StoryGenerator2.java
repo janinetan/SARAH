@@ -65,7 +65,7 @@ public class StoryGenerator2 {
 	
 	private boolean doneCauseEvent = false;
 	private int causeEventCount = 0;
-	private HashMap<Integer, String> pastAction;
+	private HashMap<String, String> pastAction;
 	private Random randomGenerator = new Random();
 	private Action curAction;
 	
@@ -93,7 +93,7 @@ public class StoryGenerator2 {
 		curStoryEpisodeIndex = 0;
 		curStoryEventIndex = 0;
 		eventsId = new ArrayList<Integer>();
-		pastAction = new HashMap<Integer, String>();
+		pastAction = new HashMap<String, String>();
 	
 		actionCtr = 0;
 	}
@@ -172,16 +172,18 @@ public class StoryGenerator2 {
 			if ( checkIfLiamHasAllGoodAssertions() ){
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
 				System.out.println("entered if");
-				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
+				
 				Action a;
 				do {
-					int index = randomGenerator.nextInt(possibleActionIds.size());
+					int index = randomGenerator.nextInt(possibleActionIds.size()-1);
+					System.out.println("rand index possible actionIds = "+index);
 					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
 					index = randomGenerator.nextInt(a.getObectList().size());
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
+				System.out.println("OUT &&IF-ACTION&& LOOP");
 				curAction = a;
-				System.out.println("A IN IF >> "+a);
+				pastAction.put(a.getActivityName(), a.getChosenObject().toString());
 			}
 			else {
 				
@@ -191,20 +193,21 @@ public class StoryGenerator2 {
 			    result.retainAll(liamHealthAssertions);
 			    
 			    System.out.println(badHealthAssertions + " " +  liamHealthAssertions + "mew: " + result);
-			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size())));
+			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size()-1)));
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition("park", rightop);
 				
-				// set action details as long as not found in pastAction = new HashMap<Integer, String>();
 				Action a;
 				do {
-					int index = randomGenerator.nextInt(possibleActionIds.size());
+					int index = randomGenerator.nextInt(possibleActionIds.size()-1);
+					System.out.println("rand index possible actionIds = "+index);
 					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
 					System.out.println("debugging" +a.getObectList().size());
 					index = randomGenerator.nextInt(a.getObectList().size());
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
+				System.out.println("OUT &&ELSE-ACTION&& LOOP");
 				curAction = a;
-				System.out.println("A IN ELSE >> "+a);
+				pastAction.put(a.getActivityName(), a.getChosenObject().toString());
 			}
 			
 			
@@ -255,6 +258,7 @@ public class StoryGenerator2 {
 			}
 			else{
 				curStoryEventIndex++;
+				//recursion
 				playEvent();
 			}
 //		}
