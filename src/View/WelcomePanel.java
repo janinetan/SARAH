@@ -87,7 +87,7 @@ public class WelcomePanel extends JPanel{
 		box.add(greeting);
 		dialogPanel.add(box);
 		dialogPanel.setOpaque(false);
-		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*3/100,0,0,0));
+		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*15/100,0,0,0));
 		// For horizontal Alignment
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, greeting, 0, SpringLayout.HORIZONTAL_CENTER, box);
 
@@ -107,7 +107,7 @@ public class WelcomePanel extends JPanel{
 		SpringLayout nameLayout = new SpringLayout();
 		namePanel.setLayout(nameLayout);
 		namePanel.setOpaque(false);
-		namePanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*5/100,StartFrame.frameWidth*5/100,0,0));
+		namePanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*5/100,StartFrame.frameWidth*8/100,0,0));
 		name = new CustomTextField();
 		name.setPlaceholder("Type Name Here");
 		name.setOpaque(false);
