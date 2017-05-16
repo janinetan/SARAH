@@ -278,7 +278,8 @@ public class StoryGenerator2 {
 			if (curStoryEventIndex == this.eventsId.size() - 1){
 				if (!ifLiamMeetsAssertions()){
 					int index = randomGenerator.nextInt(curAction.getSymptomList().size());
-					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
+//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
+					symptomsList.add( curAction.getSymptomList().get(index));
 					System.out.println("hassymptom");
 				}
 				//apply postcondition to liam

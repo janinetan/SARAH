@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sarah_kb
 -- ------------------------------------------------------
--- Server version	5.6.24-log
+-- Server version	5.7.9-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -238,7 +238,7 @@ CREATE TABLE `episode_set` (
 
 LOCK TABLES `episode_set` WRITE;
 /*!40000 ALTER TABLE `episode_set` DISABLE KEYS */;
-INSERT INTO `episode_set` VALUES (1,'12,8,9,8,9,8,9,1,2,3,4,5,6,7');
+INSERT INTO `episode_set` VALUES (1,'12,8,9,1,2,3,4,5,6,7');
 /*!40000 ALTER TABLE `episode_set` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +313,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (22,'askPrevention'),(52,'askReverseAction'),(8,'commentNegativeFiller + counterPlay + user-askPlay'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(55,'commentPositiveFiller + greetUser '),(2,'commentPositiveFiller + greetUser + user-askFeeling'),(34,'commentPositiveFiller + stateHealed'),(54,'commentPositiveFillerPlayAction'),(9,'counterPlay'),(14,'expressDelight'),(29,'expressDisbelief + counterTreatment'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(36,'expressDisbelief + succumb + stateRest'),(35,'expressDoubt + suggestFullDayRest'),(41,'expressEmpathy'),(38,'expressFarewell'),(19,'expressNaivety'),(25,'expressNaivety + expressWonder'),(51,'expressPlayfulAction + stateCurCondition'),(7,'expressPlayfulness'),(40,'expressSick + expressRegret + takeTreatment'),(50,'expressWorryCondition + suggestRestAction'),(33,'giveTreatment'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(1,'greetUser + mentionSetting + introduceLiam + transitionToLiam'),(10,'ignoreSarah + expressPlayfulness'),(46,'inquireActivity'),(39,'introduceLiam'),(47,'inviteActivity'),(6,'respondToStatus + suggestLiamRest'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(23,'stateAgreement + user-askPrevention'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(44,'stateHealed + thankSarah'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(49,'stateMotivationAction'),(5,'stateNegativeStatus + stateSymptom'),(48,'statePrecaution + narrateAction + commentFunKids'),(24,'statePrevention'),(18,'stateSickness'),(28,'stateTreatment'),(31,'stateWarning'),(15,'succumb'),(11,'succumb + transitionToPlay'),(53,'succumbPlayAction'),(4,'suggestBothRest'),(3,'suggestPlay'),(42,'thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(16,'transitionToRest'),(27,'transitionToTreatment'),(20,'user-askSickness'),(30,'user-askTreatment'),(43,'wishGoodHealth + stateMoral + expressFarewell');
+INSERT INTO `message` VALUES (22,'askPrevention'),(52,'askReverseAction'),(8,'commentNegativeFiller + counterPlay + user-askPlay'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(55,'commentPositiveFiller + greetUser'),(2,'commentPositiveFiller + greetUser + user-askFeeling'),(34,'commentPositiveFiller + stateHealed'),(54,'commentPositiveFillerPlayAction'),(9,'counterPlay'),(14,'expressDelight'),(29,'expressDisbelief + counterTreatment'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(36,'expressDisbelief + succumb + stateRest'),(35,'expressDoubt + suggestFullDayRest'),(41,'expressEmpathy'),(38,'expressFarewell'),(19,'expressNaivety'),(25,'expressNaivety + expressWonder'),(51,'expressPlayfulAction + stateCurCondition'),(7,'expressPlayfulness'),(40,'expressSick + expressRegret + takeTreatment'),(50,'expressWorryCondition + suggestRestAction'),(33,'giveTreatment'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(1,'greetUser + mentionSetting + introduceLiam + transitionToLiam'),(10,'ignoreSarah + expressPlayfulness'),(46,'inquireActivity'),(39,'introduceLiam'),(47,'inviteActivity'),(6,'respondToStatus + suggestLiamRest'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(23,'stateAgreement + user-askPrevention'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(44,'stateHealed + thankSarah'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(49,'stateMotivationAction'),(5,'stateNegativeStatus + stateSymptom'),(48,'statePrecaution + narrateAction + commentFunKids'),(24,'statePrevention'),(18,'stateSickness'),(28,'stateTreatment'),(31,'stateWarning'),(15,'succumb'),(11,'succumb + transitionToPlay'),(53,'succumbPlayAction'),(4,'suggestBothRest'),(3,'suggestPlay'),(42,'thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(16,'transitionToRest'),(27,'transitionToTreatment'),(20,'user-askSickness'),(30,'user-askTreatment'),(43,'wishGoodHealth + stateMoral + expressFarewell');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +365,7 @@ CREATE TABLE `postcondition` (
 
 LOCK TABLES `postcondition` WRITE;
 /*!40000 ALTER TABLE `postcondition` DISABLE KEYS */;
-INSERT INTO `postcondition` VALUES (1,1,2),(2,1,3),(3,1,5),(4,2,2),(5,6,1),(6,7,4),(7,8,4),(8,9,1),(9,10,7);
+INSERT INTO `postcondition` VALUES (1,1,2),(2,1,3),(4,2,2),(5,6,1),(6,7,4),(7,8,4),(8,9,1),(9,10,7);
 /*!40000 ALTER TABLE `postcondition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -620,6 +620,10 @@ LOCK TABLES `virtual_peer` WRITE;
 INSERT INTO `virtual_peer` VALUES (1,'Sarah','happy',0,'image'),(2,'Liam','sick',1,'image');
 /*!40000 ALTER TABLE `virtual_peer` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'sarah_kb'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -630,4 +634,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-26 22:41:53
+-- Dump completed on 2017-05-16 23:15:58
