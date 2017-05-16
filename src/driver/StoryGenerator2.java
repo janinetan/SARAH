@@ -65,7 +65,7 @@ public class StoryGenerator2 {
 	
 	private boolean doneCauseEvent = false;
 	private int causeEventCount = 0;
-	private HashMap<String, String> pastAction;
+	private ArrayList<String> pastAction;
 	private Random randomGenerator = new Random();
 	private Action curAction;
 	
@@ -93,7 +93,7 @@ public class StoryGenerator2 {
 		curStoryEpisodeIndex = 0;
 		curStoryEventIndex = 0;
 		eventsId = new ArrayList<Integer>();
-		pastAction = new HashMap<String, String>();
+		pastAction = new ArrayList<String>();
 	
 		actionCtr = 0;
 	}
@@ -142,20 +142,19 @@ public class StoryGenerator2 {
 				System.out.println("ENTERRRRRR");
 				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
-				int i = 0;
-				for (Episode e : episodesList){
-					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-					i++;
-				}
+//				int i = 0;
+//				for (Episode e : episodesList){
+//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
 				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
-				i = 0;
-				for (Episode e : episodesList){
-					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-					i++;
-				}
+//				i = 0;
+//				for (Episode e : episodesList){
+//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
 				curStoryEpisodeIndex--;
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
-				System.out.println("EXITTTTTTT");
 			}
 			
 			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 3){
@@ -170,44 +169,52 @@ public class StoryGenerator2 {
 		// 8 - invite to do activity and eventindex is 0 
 		if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
 			if ( checkIfLiamHasAllGoodAssertions() ){
+				System.out.println("((((( entered liam has all good assertions )))))");
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
-				System.out.println("entered if");
 				
 				Action a;
 				do {
-					int index = randomGenerator.nextInt(possibleActionIds.size()-1);
+					int index = randomGenerator.nextInt(possibleActionIds.size());
 					System.out.println("rand index possible actionIds = "+index);
 					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
 					index = randomGenerator.nextInt(a.getObectList().size());
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
-				System.out.println("OUT &&IF-ACTION&& LOOP");
 				curAction = a;
-				pastAction.put(a.getActivityName(), a.getChosenObject().toString());
+				
+				System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
+				if(!curAction.getSymptomList().isEmpty())
+					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
+				
+				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName());
 			}
 			else {
-				
-				System.out.println("entered else");
+				System.out.println("((((( entered liam has bad assertions )))))");
 				ArrayList<Integer> result = new ArrayList<Integer>(badHealthAssertions);
 				ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
 			    result.retainAll(liamHealthAssertions);
 			    
 			    System.out.println(badHealthAssertions + " " +  liamHealthAssertions + "mew: " + result);
-			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size()-1)));
+			    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size())));
 				ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition("park", rightop);
 				
 				Action a;
 				do {
-					int index = randomGenerator.nextInt(possibleActionIds.size()-1);
+					System.out.println(">>>>>>>> possibleActionIds.size() = "+possibleActionIds.size());
+					int index = randomGenerator.nextInt(possibleActionIds.size());
 					System.out.println("rand index possible actionIds = "+index);
 					a = (new ActionDAO()).setActionDetails(possibleActionIds.get(index));
 					System.out.println("debugging" +a.getObectList().size());
 					index = randomGenerator.nextInt(a.getObectList().size());
 					a.setChosenObject(a.getObectList().get(index));
 				} while (! checkActionAcceptable(a));
-				System.out.println("OUT &&ELSE-ACTION&& LOOP");
 				curAction = a;
-				pastAction.put(a.getActivityName(), a.getChosenObject().toString());
+				
+				System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
+				if(!curAction.getSymptomList().isEmpty())
+					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
+				
+				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName());
 			}
 			
 			
@@ -228,6 +235,9 @@ public class StoryGenerator2 {
 			this.lastQuestion = "";
 			
 	
+			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
+			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
+			
 			//start StoryRuling is good
 			//if storyRuling is same as event ruling or event ruling is equal to neutral
 			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
@@ -250,10 +260,6 @@ public class StoryGenerator2 {
 						this.roundRobinVP();
 					}
 				}
-				/*if (event.getType() == Event.TYPE_ACTION){
-//					Action action = 
-					
-				}*/
 				curStoryEventIndex++;
 			}
 			else{
@@ -271,6 +277,8 @@ public class StoryGenerator2 {
 			
 			if (curStoryEventIndex == this.eventsId.size() - 1){
 				if (!ifLiamMeetsAssertions()){
+					int index = randomGenerator.nextInt(curAction.getSymptomList().size());
+					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
 					System.out.println("hassymptom");
 				}
 				//apply postcondition to liam
@@ -307,11 +315,10 @@ public class StoryGenerator2 {
 	}
 	
 	public boolean checkActionAcceptable(Action a){
-		String activityName = a.getActivityName();
-		String object = pastAction.get(activityName);
-		if (object == null)
-			return true;
-		return false;
+		String check = a.getActivityName() + " " + a.getChosenObject().getName();
+		if (pastAction.contains(check))
+			return false;
+		return true;
 	}
 
 	public void getVerdict(String userInput) throws IOException {
@@ -342,8 +349,8 @@ public class StoryGenerator2 {
 		System.out.println(sickness);
 		this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(sicknessId));
 		this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(sicknessId));
-		this.symptomsList.add(symptomInput);
-		this.symptomsList.addAll((new SymptomDAO()).get4SymptomsBySicknessId(sicknessId, symptomInput));
+//		this.symptomsList.add(symptomInput);
+//		this.symptomsList.addAll((new SymptomDAO()).get4SymptomsBySicknessId(sicknessId, symptomInput));
 		this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(sicknessId));
 		this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(sicknessId));
 		this.storyTheme = sickness;

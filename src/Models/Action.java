@@ -18,10 +18,16 @@ public class Action extends Event {
 	private ArrayList<String> locations;
 	private ArrayList<String> motivation;
 	private ArrayList<Integer> postcondition;
-	private ArrayList<Object> obectList;
+	private ArrayList<Object> objectList;
 	private Object chosenObject;
+	private ArrayList<String> symptomList;
 	
-	
+	public ArrayList<String> getSymptomList() {
+		return symptomList;
+	}
+	public void setSymptomList(ArrayList<String> symptomList) {
+		this.symptomList = symptomList;
+	}
 	public ArrayList<Integer> getPrecondition() {
 		return precondition;
 	}
@@ -71,10 +77,10 @@ public class Action extends Event {
 		this.postcondition = postconditions;
 	}
 	public ArrayList<Object> getObectList() {
-		return obectList;
+		return objectList;
 	}
-	public void setObjectList(ArrayList<Object> obectList) {
-		this.obectList = obectList;
+	public void setObjectList(ArrayList<Object> objectList) {
+		this.objectList = objectList;
 	}
 	public Object getChosenObject() {
 		return chosenObject;

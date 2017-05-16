@@ -82,14 +82,15 @@ public class ActionDAO {
 	}
 	
 	public Action setActionDetails(int id){
+		ArrayList<String> symptomList = new ArrayList<String>();
 		try {
 			PreparedStatement ps = con.prepareStatement( " SELECT * FROM action where id = ?" ) ;
 				
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
+			Action action = new Action();
 			if (rs.next()){
-				Action action = new Action();
 				action.setId(rs.getInt(Action.COL_ID));
 				action.setActivityName(rs.getString(Action.COL_ACTIVITYNAME));
 				action.setObjectCategory(rs.getString(Action.COL_OBJECT));
@@ -98,8 +99,18 @@ public class ActionDAO {
 				action.setMotivation(getMotivations(action.getActivityName()));
 				action.setPostcondition(getAllPostcondition(action.getId()));
 				action.setObjectList(getObjects(action.getObjectCategory()));
-				return action;
 			}
+			
+			ps = con.prepareStatement( " SELECT * FROM symptom_map where action_id = ?" ) ;
+			
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			while (rs.next()){
+				symptomList.add(rs.getString("symptom"));
+			}
+			action.setSymptomList(symptomList);
+			return action;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
