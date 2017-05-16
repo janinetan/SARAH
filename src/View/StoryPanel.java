@@ -91,7 +91,6 @@ public class StoryPanel extends JPanel{
         message = new JTextArea();
         //message.setText("When you are done reading the current text, "
         //		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
-        message.setSize(950,100);
         message.setSize(750,400);
         message.setFont(font);
         message.setWrapStyleWord(true);
@@ -105,7 +104,7 @@ public class StoryPanel extends JPanel{
      
         image = ImageIO.read(new File("assets/tap_next.png"));
         icon = new ImageIcon(image);
-        image1 = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+        image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
         icon = new ImageIcon(image1, icon.getDescription());
 		nextButton = new JButton(icon);
 		nextButton.setBorder(BorderFactory.createEmptyBorder());
@@ -113,15 +112,15 @@ public class StoryPanel extends JPanel{
 		nextButton.setBorderPainted(false);
 		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/tap_next_clicked.png");
-		        Image image = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		    	ImageIcon icon = new ImageIcon("assets/tap_next.png");
+		        Image image = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
 		        icon = new ImageIcon(image, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/tap_next.png");
-		        Image image = icon.getImage().getScaledInstance(icon.getIconWidth() * 70/100,icon.getIconHeight() * 70/100,Image.SCALE_SMOOTH);
+		        Image image = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
 		        icon = new ImageIcon(image, icon.getDescription());
 		    	nextButton.setIcon(icon);
 		    }
