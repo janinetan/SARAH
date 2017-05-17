@@ -61,7 +61,8 @@ public class VirtualPeer {
 	}
 	
 	public void exchangeHealthAssertion(int cur, int replacement){
-		this.healthAssertions.add(new Integer(replacement));
-		this.healthAssertions.remove(new Integer(cur));
+		this.healthAssertions.set(this.healthAssertions.indexOf(cur), replacement);
+		/*this.healthAssertions.add(new Integer(replacement));
+		this.healthAssertions.remove(new Integer(cur));*/
 	}
 }

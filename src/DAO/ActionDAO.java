@@ -60,6 +60,33 @@ public class ActionDAO {
 			PreparedStatement ps = con.prepareStatement(" SELECT * " +
 					" FROM action " +
 					" WHERE id IN ( " +
+					" SELECT precondition.action_id FROM precondition, location, symptom_map WHERE " +                    
+					" precondition.action_id = location.action_id AND precondition.action_id = symptom_map.action_id AND location = ? AND assertion_id = ? " +
+					" group by precondition.action_id)") ;
+				
+			ps.setString(1, location);
+			ps.setInt(2, assertionId);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				Action action = new Action();
+				action.setId(rs.getInt(Action.COL_ID));
+				actionIdsList.add(action.getId());
+			}
+			return actionIdsList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Integer> getReverseAction(String location, int assertionId){
+		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement(" SELECT * " +
+					" FROM action " +
+					" WHERE id IN ( " +
 					" SELECT precondition.action_id FROM precondition, location WHERE " +                    
 					" precondition.action_id = location.action_id AND location = ? AND assertion_id = ? " +
 					" group by precondition.action_id)") ;

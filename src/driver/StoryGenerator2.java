@@ -68,6 +68,7 @@ public class StoryGenerator2 {
 	private ArrayList<String> pastAction;
 	private Random randomGenerator = new Random();
 	private Action curAction;
+	private Action reverse;
 	
 	private int actionCtr;
 	
@@ -142,25 +143,32 @@ public class StoryGenerator2 {
 				System.out.println("ENTERRRRRR");
 				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
-//				int i = 0;
-//				for (Episode e : episodesList){
-//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-//					i++;
-//				}
+				int i = 0;
+				for (Episode e : episodesList){
+					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					i++;
+				}
 				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
-//				i = 0;
-//				for (Episode e : episodesList){
-//					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
-//					i++;
-//				}
+				i = 0;
+				for (Episode e : episodesList){
+					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					i++;
+				}
 				curStoryEpisodeIndex--;
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
 			}
 			
-			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 3){
+			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 4){
 				curStoryEpisodeIndex--;
 			} else {
-				curStoryEpisodeIndex++;
+//				if(!(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 8 && checkIfLiamHasAllGoodAssertions()))
+					curStoryEpisodeIndex++;
+				System.out.println("Symptoms list size = "+symptomsList.size());
+				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
+					for(int i = 0; i < symptomsList.size(); i++){
+						System.out.println("SYMPTOMS : "+ symptomsList.get(i));
+					}
+				}
 			}
 			
 			curStoryEventIndex = 0;	
@@ -186,7 +194,7 @@ public class StoryGenerator2 {
 				if(!curAction.getSymptomList().isEmpty())
 					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 				
-				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName());
+				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb());
 			}
 			else {
 				System.out.println("((((( entered liam has bad assertions )))))");
@@ -214,10 +222,18 @@ public class StoryGenerator2 {
 				if(!curAction.getSymptomList().isEmpty())
 					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 				
-				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName());
+				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb());
+				
+				System.out.println("GETTING REVERSE ACTION");
+				ArrayList<Integer> reverseActions = (new ActionDAO()).getReverseAction("park", (new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0)));
+				int index = randomGenerator.nextInt(reverseActions.size());
+				reverse= (new ActionDAO()).setActionDetails(reverseActions.get(index));
+				index = randomGenerator.nextInt(reverse.getObectList().size());
+				reverse.setChosenObject(reverse.getObectList().get(index));
+				System.out.println("REVERSE : " + reverse.getActivityName());
 			}
 			
-			
+			actionCtr++;	
 			
 			System.out.println(ifLiamMeetsAssertions());
 			//dito na suggest ni Sarah na I think you should rest
@@ -277,27 +293,58 @@ public class StoryGenerator2 {
 			
 			if (curStoryEventIndex == this.eventsId.size() - 1){
 				if (!ifLiamMeetsAssertions()){
-					int index = randomGenerator.nextInt(curAction.getSymptomList().size());
-//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
-					symptomsList.add( curAction.getSymptomList().get(index));
+					if(curAction.getSymptomList().size() != 0){
+						int index = randomGenerator.nextInt(curAction.getSymptomList().size());
+	//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
+						if(!symptomsList.contains( curAction.getSymptomList().get(index)))
+							symptomsList.add( curAction.getSymptomList().get(index));
+					}
 					System.out.println("hassymptom");
 				}
 				//apply postcondition to liam
+				System.out.println("CHANGING LIAM PROPERTY");
+				
+				/*if(storyRuling == Event.RULING_GOOD){
+					System.out.println("GETTING REVERSE ACTION");
+					ArrayList<Integer> reverseActions = (new ActionDAO()).getReverseAction("park", (new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0)));
+					int index = randomGenerator.nextInt(reverseActions.size());
+					Action reverse= (new ActionDAO()).setActionDetails(reverseActions.get(index));
+					ArrayList<Integer> postconditions = reverse.getPostcondition();
+					for (int postconTemp: postconditions){
+						int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+						this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+					}
+				}*/
+			
 				ArrayList<Integer> postconditions = curAction.getPostcondition();
 				for (int postconTemp: postconditions){
 					int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
 					this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 				}
+				if(checkIfLiamHasAllGoodAssertions()){
+					curStoryEpisodeIndex--;
+					curStoryEventIndex = 0;	
+				}
+				
 			}
-			actionCtr++;	
-		}
+//			actionCtr++;	
+		}	
+		
+		/*if(storyRuling == Event.RULING_GOOD && this.episode.getEpisodeGoalId() == 11){
+			System.out.println("CHANGING 2");
+			ArrayList<Integer> postconditions = reverse.getPostcondition();
+			for (int postconTemp: postconditions){
+				int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+				this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+			}
+		}*/
 		
 	}
 	
 	private boolean checkIfLiamHasAllGoodAssertions() {
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
-		System.out.println(liamHealthAssertions);
-		System.out.println(goodHealthAssertions);
+		System.out.println("Liam's health assertions = " +liamHealthAssertions);
+		System.out.println("Good health assertions = " +goodHealthAssertions);
 		for (int assertionTemp: goodHealthAssertions){
 			if (liamHealthAssertions.indexOf(assertionTemp) == -1)
 				return false;
@@ -316,7 +363,7 @@ public class StoryGenerator2 {
 	}
 	
 	public boolean checkActionAcceptable(Action a){
-		String check = a.getActivityName() + " " + a.getChosenObject().getName();
+		String check = a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb();
 		if (pastAction.contains(check))
 			return false;
 		return true;
@@ -383,13 +430,17 @@ public class StoryGenerator2 {
 			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
 		}
 		/* NO VALUES FOR 'REPLACEMENT' YET */
-//		message = message.replaceAll("<prevAction-verb-ing>", replacement);
-//		message = message.replaceAll("<prevAction-verb>", replacement);
-//		message = message.replaceAll("<prevAction-object>", replacement);
-//		
-//		message = message.replaceAll("<reverseAction-verb>", replacement);
-//		message = message.replaceAll("<reverseAction-object>", replacement);
-//		message = message.replaceAll("<reverseAction-postCondition-property>", replacement);
+		if(message.contains("prevAction")){
+			message = message.replaceAll("<prevAction-verb-ing>", pastAction.get(pastAction.size()-2).split(" ")[2]);
+			message = message.replaceAll("<prevAction-verb>", pastAction.get(pastAction.size()-2).split(" ")[2]);
+			message = message.replaceAll("<prevAction-object>", pastAction.get(pastAction.size()-2).split(" ")[1]);
+		}
+////		
+		if(message.contains("reverseAction")){
+		message = message.replaceAll("<reverseAction-verb>", reverse.getChosenObject().getVerb());
+		message = message.replaceAll("<reverseAction-object>", reverse.getChosenObject().getName());
+		message = message.replaceAll("<reverseAction-postCondition-property>", "BASTA");
+		}
 //		
 //		message = message.replaceAll("<curCondition-body>", replacement);
 //		message = message.replaceAll("<curCondition-property>", replacement);
