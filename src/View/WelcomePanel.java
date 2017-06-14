@@ -40,7 +40,7 @@ public class WelcomePanel extends JPanel{
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, StartFrame.frameWidth*4/100);
 		
 		ImagePanel liam = new ImagePanel();
 		image = ImageIO.read(new File("assets/liam_flipped.png"));
