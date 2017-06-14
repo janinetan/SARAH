@@ -42,7 +42,7 @@ public class LocationPanel extends JPanel{
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 60);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, StartFrame.frameWidth*4/100);
 		
 		JPanel dialogPanel = new JPanel();
 		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*6/100,0,0,0));
@@ -55,7 +55,7 @@ public class LocationPanel extends JPanel{
 		SpringLayout dialogLayout = new SpringLayout();
         box.setLayout(dialogLayout);
         message = new JTextArea("Where do you want to go?");
-        message.setSize(1000, 200);
+        message.setSize(StartFrame.frameWidth*55/100, StartFrame.frameHeight*20/100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -67,7 +67,7 @@ public class LocationPanel extends JPanel{
 		box.add(message);
 		
 		// For horizontal Alignment
-		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, StartFrame.frameWidth*10/100, SpringLayout.HORIZONTAL_CENTER, box);
+		dialogLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, message, 0, SpringLayout.HORIZONTAL_CENTER, box);
 
 		// For Vertical Alignment
 		dialogLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, box);
