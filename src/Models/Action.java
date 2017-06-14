@@ -21,6 +21,7 @@ public class Action extends Event {
 	private ArrayList<Object> objectList;
 	private Object chosenObject;
 	private ArrayList<String> symptomList;
+	private ArrayList<Integer> reverseActions;
 	
 	public ArrayList<String> getSymptomList() {
 		return symptomList;
@@ -94,5 +95,11 @@ public class Action extends Event {
 		String actionText = "activity name: " + this.activityName + "\n";
 		actionText += "chosen object: " + this.chosenObject.getName(); 
 		return actionText;
+	}
+	public ArrayList<Integer> getReverseActions() {
+		return reverseActions;
+	}
+	public void setReverseActions(ArrayList<Integer> reverseActions) {
+		this.reverseActions = reverseActions;
 	}
 }

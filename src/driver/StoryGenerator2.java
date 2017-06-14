@@ -143,17 +143,25 @@ public class StoryGenerator2 {
 				System.out.println("ENTERRRRRR");
 				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
+				
+				System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+				
 				int i = 0;
 				for (Episode e : episodesList){
-					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
 					i++;
 				}
+				
 				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
+				
+				System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+				
 				i = 0;
 				for (Episode e : episodesList){
-					System.out.println("ep (" +i+ ") = "+e.getEpisodeGoalId());
+					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
 					i++;
 				}
+				
 				curStoryEpisodeIndex--;
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
 			}
