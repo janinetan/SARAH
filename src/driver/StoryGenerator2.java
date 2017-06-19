@@ -126,6 +126,8 @@ public class StoryGenerator2 {
 			StartFrameController.displayEnd();
 		}
 		
+		
+		
 		// TODO: if episodeGoal == 11 && ruling is good, insert reverse episode after epgoal 11, else do nothing
 		// TODO: remove reverse episode after its execution
 		
@@ -144,39 +146,41 @@ public class StoryGenerator2 {
 				System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
 				
-				System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-				
-				int i = 0;
-				for (Episode e : episodesList){
-					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-					i++;
-				}
+//				System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+//				
+//				int i = 0;
+//				for (Episode e : episodesList){
+//					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
 				
 				episodesList.remove(episodesList.get(curStoryEpisodeIndex));
 				
-				System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-				
-				i = 0;
-				for (Episode e : episodesList){
-					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-					i++;
-				}
+//				System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+//				
+//				i = 0;
+//				for (Episode e : episodesList){
+//					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
+//					i++;
+//				}
 				
 				curStoryEpisodeIndex--;
 				System.out.println("cur episode index = "+curStoryEpisodeIndex);
 			}
+			
+			
 			
 			if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 4){
 				curStoryEpisodeIndex--;
 			} else {
 //				if(!(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 8 && checkIfLiamHasAllGoodAssertions()))
 					curStoryEpisodeIndex++;
-				System.out.println("Symptoms list size = "+symptomsList.size());
-				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
-					for(int i = 0; i < symptomsList.size(); i++){
-						System.out.println("SYMPTOMS : "+ symptomsList.get(i));
-					}
-				}
+				System.out.println("***Symptoms list size = "+symptomsList.size());
+//				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
+//					for(int i = 0; i < symptomsList.size(); i++){
+//						System.out.println("SYMPTOMS : "+ symptomsList.get(i));
+//					}
+//				}
 			}
 			
 			curStoryEventIndex = 0;	
@@ -199,8 +203,8 @@ public class StoryGenerator2 {
 				curAction = a;
 				
 				System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
-				if(!curAction.getSymptomList().isEmpty())
-					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
+//				if(!curAction.getSymptomList().isEmpty())
+//					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 				
 				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb());
 			}
@@ -226,19 +230,22 @@ public class StoryGenerator2 {
 				} while (! checkActionAcceptable(a));
 				curAction = a;
 				
-				System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
-				if(!curAction.getSymptomList().isEmpty())
-					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
+//				System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
+//				if(!curAction.getSymptomList().isEmpty())
+//					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 				
 				pastAction.add(a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb());
 				
 				System.out.println("GETTING REVERSE ACTION");
 				ArrayList<Integer> reverseActions = (new ActionDAO()).getReverseAction("park", (new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0)));
-				int index = randomGenerator.nextInt(reverseActions.size());
-				reverse= (new ActionDAO()).setActionDetails(reverseActions.get(index));
-				index = randomGenerator.nextInt(reverse.getObectList().size());
-				reverse.setChosenObject(reverse.getObectList().get(index));
-				System.out.println("REVERSE : " + reverse.getActivityName());
+				if(reverseActions.size() != 0){
+					int index = randomGenerator.nextInt(reverseActions.size());		
+					reverse = (new ActionDAO()).setActionDetails(reverseActions.get(index));
+					index = randomGenerator.nextInt(reverse.getObectList().size());
+					reverse.setChosenObject(reverse.getObectList().get(index));
+					System.out.println("REVERSE : " + reverse.getActivityName());
+					curAction.setReverseActions(reverse);
+				}
 			}
 			
 			actionCtr++;	
@@ -294,20 +301,22 @@ public class StoryGenerator2 {
 //		}
 			
 		//9 - doActivity && if curStoryEventIndex is second to the last or last	
-		if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1 || 
-				curStoryEventIndex == this.eventsId.size() ) ){
+		if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) ){
 			
 			StartFrameController.displayAction(curAction.getChosenObject().getFilename());
 			
 			if (curStoryEventIndex == this.eventsId.size() - 1){
 				if (!ifLiamMeetsAssertions()){
-					if(curAction.getSymptomList().size() != 0){
-						int index = randomGenerator.nextInt(curAction.getSymptomList().size());
-	//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
-						if(!symptomsList.contains( curAction.getSymptomList().get(index)))
-							symptomsList.add( curAction.getSymptomList().get(index));
+					if(storyRuling == Event.RULING_BAD){
+						if(curAction.getSymptomList().size() != 0){
+							int index = randomGenerator.nextInt(curAction.getSymptomList().size());
+		//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
+							if(!symptomsList.contains( curAction.getSymptomList().get(index)))
+								symptomsList.add( curAction.getSymptomList().get(index));
+						}
+						System.out.println("hassymptom");
+						System.out.println("symptomsList size: "+symptomsList.size());
 					}
-					System.out.println("hassymptom");
 				}
 				//apply postcondition to liam
 				System.out.println("CHANGING LIAM PROPERTY");
@@ -323,21 +332,44 @@ public class StoryGenerator2 {
 						this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 					}
 				}*/
-			
-				ArrayList<Integer> postconditions = curAction.getPostcondition();
-				for (int postconTemp: postconditions){
-					int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
-					this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
-				}
-				if(checkIfLiamHasAllGoodAssertions()){
+				/*if(checkIfLiamHasAllGoodAssertions()){
 					curStoryEpisodeIndex--;
 					curStoryEventIndex = 0;	
+				}*/
+				
+				
+				if(storyRuling == Event.RULING_GOOD && curAction.getReverseActions()!= null){
+					System.out.println("UPDATING REVERSE");
+					ArrayList<Integer> postconditions = reverse.getPostcondition();
+					System.out.println("POSTCONDITION SIZE: " + postconditions.size());
+					for (int postconTemp: postconditions){
+						int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+						System.out.println("TO BE SEARCH: " + assertionIdOpp);
+						this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+					}
+				}
+				else{
+					System.out.println("UPDATING");
+					ArrayList<Integer> postconditions = curAction.getPostcondition();
+					System.out.println("curAction name = " +curAction.getActivityName());
+					System.out.println("posconditions size = "+postconditions.size());
+					for (int postconTemp: postconditions){
+						int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+						this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+					}
 				}
 				
-			}
-//			actionCtr++;	
+				
+				
+				
+				
+			} //if (curStoryEventIndex == this.eventsId.size() - 1){	
 		}	
 		
+		if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
+			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: entered if ni madam");
+			selectStoryTheme();
+		}
 		/*if(storyRuling == Event.RULING_GOOD && this.episode.getEpisodeGoalId() == 11){
 			System.out.println("CHANGING 2");
 			ArrayList<Integer> postconditions = reverse.getPostcondition();
@@ -347,7 +379,7 @@ public class StoryGenerator2 {
 			}
 		}*/
 		
-	}
+	} // end playEvent
 	
 	private boolean checkIfLiamHasAllGoodAssertions() {
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
@@ -361,8 +393,21 @@ public class StoryGenerator2 {
 	}
 
 	public boolean ifLiamMeetsAssertions(){
+		
+		System.out.println("called ifLiamMeetsAssertions()");
+		
 		ArrayList<Integer> actionAssertions = curAction.getPrecondition();
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
+		
+//		System.out.println("LIAM HEALTH: ");
+//		for (int temp1 : liamHealthAssertions)
+//			System.out.print(temp1 + ", ");
+//		System.out.println();
+//		System.out.println("ACTION PRECOND: ");
+//		for (int temp2 : actionAssertions)
+//			System.out.print(temp2 + ", ");
+//		System.out.println();
+		
 		for (int tempAssertionIndex : actionAssertions ){
 			if (liamHealthAssertions.indexOf(tempAssertionIndex) == -1)
 				return false;
@@ -396,20 +441,64 @@ public class StoryGenerator2 {
 		
 	}
 
-	public void selectStoryTheme(String location, String symptomInput) {
+	public void selectStoryTheme() {
 		// gets random sickness with symptom chosen and sets it as story theme
 		// sets all facts about selected story theme
-		Symptom selectedSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);
-		int sicknessId = selectedSymptom.getSicknessId();
-		Sickness sickness = (new SicknessDAO()).getSicknessWithId(sicknessId);
-		System.out.println(sickness);
-		this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(sicknessId));
-		this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(sicknessId));
-//		this.symptomsList.add(symptomInput);
-//		this.symptomsList.addAll((new SymptomDAO()).get4SymptomsBySicknessId(sicknessId, symptomInput));
-		this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(sicknessId));
-		this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(sicknessId));
-		this.storyTheme = sickness;
+//		Symptom selectedSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);
+//		int sicknessId = selectedSymptom.getSicknessId();
+//		Sickness sickness = (new SicknessDAO()).getSicknessWithId(sicknessId);
+//		System.out.println("?????");
+//		System.out.println(sickness);
+//		this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(sicknessId));
+//		this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(sicknessId));
+//		this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(sicknessId));
+//		this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(sicknessId));
+//		this.storyTheme = sickness;
+		
+		System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW: entered function selectStoryTheme");
+		System.out.println("symptomsList size = " +symptomsList.size());
+		
+		for(String s : symptomsList)
+			System.out.println("SYMPTOM: "+s);
+		
+		if(symptomsList.size() != 0){
+			float maxPercentage = 0;
+			Sickness maxSickness = new Sickness();
+			
+			for(int i = 1; i <= 10; i++){
+				Sickness sickness = (new SicknessDAO()).getSicknessWithId(i);
+				
+				System.out.println("sickness = "+sickness.getName());
+				
+				ArrayList<String> symptoms = (new SymptomDAO()).getSymptomsBySicknessId(i);
+				
+				
+				System.out.println("symptoms before retain: "+symptoms.size());
+				symptoms.retainAll(symptomsList);
+				System.out.println("symptoms after retain: "+symptoms.size());
+				
+		
+				
+				float percentage = ((float)symptoms.size() / (float)symptomsList.size()) * 100;
+				
+				System.out.println("percentage = "+percentage);
+				
+				if (percentage > maxPercentage){
+					maxPercentage = percentage;
+					maxSickness = sickness;
+					System.out.println("maxPercentage = "+maxPercentage);
+				}
+			}
+			
+			System.out.println("maxSickness id = " +maxSickness.getId());
+			System.out.println("maxSickness name = " +maxSickness.getName());
+			
+			this.storyTheme = maxSickness;
+			this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(maxSickness.getId()));
+			this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(maxSickness.getId()));
+			this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(maxSickness.getId()));
+			this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(maxSickness.getId()));
+		} // if symptomsList is not empty
 	}
 	
 	public void setCurVP(int idVP) {
@@ -428,9 +517,14 @@ public class StoryGenerator2 {
 		message = message.replaceAll("<day>", "Saturday");
 		message = message.replaceAll("<liam-status>", "sick");
 		
-		message = message.replaceAll("<sickness>", this.storyTheme.getName());
-		message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
-		message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
+		if(message.contains("sickness"))
+			message = message.replaceAll("<sickness>", this.storyTheme.getName());
+		
+		if(message.contains("body-part")){
+			message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
+			message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
+		}
+		
 		if (message.contains("curAction")){
 			message = message.replaceAll("<curAction-verb-ing>", getNLG(this.curAction.getChosenObject().getVerb()));
 			message = message.replaceAll("<curAction-verb>", this.curAction.getChosenObject().getVerb());

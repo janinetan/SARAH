@@ -82,7 +82,7 @@ public class StartFrameController implements IController {
 
 	public static void displayStartStory(String theme) {
 		storyGenerator = new StoryGenerator2();
-		storyGenerator.selectStoryTheme(theme, "runny nose");
+//		storyGenerator.selectStoryTheme(theme, "runny nose");
 		storyGenerator.setUpStory();
 		playEvent();
 	}

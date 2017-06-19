@@ -39,16 +39,12 @@ public class SymptomDAO {
 		return null;
 	}
 	
-	public ArrayList<String> get4SymptomsBySicknessId(int id, String symptomName){
+	public ArrayList<String> getSymptomsBySicknessId(int id){
 		ArrayList<String> symptomsList = new ArrayList<String>();
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Symptom.TABLE_SYMPTOM + 
-														" WHERE " + Symptom.COL_SICKNESSID + " = ?" + 
-														" AND " + Symptom.COL_NAME + " <> ?" +
-														" ORDER BY RAND() " +
-														" LIMIT 5 ");
+														" WHERE " + Symptom.COL_SICKNESSID + " = ?");
 			ps.setInt(1, id);
-			ps.setString(2, symptomName);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
