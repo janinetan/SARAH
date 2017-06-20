@@ -21,7 +21,7 @@ public class TreatmentDAO {
 		ArrayList<String> treatmentsList = new ArrayList<String>();
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + Treatment.TABLE_TREATMENT + 
-														" WHERE " + Treatment.COL_ID + " = ?" +
+														" WHERE " + Treatment.COL_SICKNESSID + " = ?" +
 														" ORDER BY RAND() " +
 														" LIMIT 5 ");
 			ps.setInt(1, id);
