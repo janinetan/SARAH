@@ -96,7 +96,7 @@ public class InteractionPanel extends JPanel{
         message.setEditable(false);
         message.setFocusable(false);
         message.getCaret().deinstall(message);
-        message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         dialog.add(message);
         
