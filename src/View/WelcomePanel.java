@@ -29,7 +29,7 @@ import javax.swing.border.EmptyBorder;
 import driver.StartFrameController;
 
 public class WelcomePanel extends JPanel{
-	CustomTextField name;
+	public static CustomTextField name;
 	BufferedImage image;
 	ImageIcon icon;
 	Image image1;
@@ -214,8 +214,10 @@ public class WelcomePanel extends JPanel{
 		this.add(rightPanel, BorderLayout.EAST);
 		validate();
 	}
-	public String getPlayerName()
-	{
+	
+	public static String getPlayerName(){
 		return name.getText();
 	}
+	
+	
 }

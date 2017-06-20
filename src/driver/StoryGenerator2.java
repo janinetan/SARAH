@@ -33,6 +33,7 @@ import Models.Sentence;
 import Models.Sickness;
 import Models.Symptom;
 import Models.VirtualPeer;
+import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
 import simplenlg.framework.NLGFactory;
@@ -73,8 +74,11 @@ public class StoryGenerator2 {
 	private Action reverse;
 	
 	private int actionCtr;
+	private String username;
+	
 	
 	public StoryGenerator2(){
+		username = WelcomePanel.getPlayerName();
 		goodHealthAssertions = (new AssertionDAO()).getHealthAssertions("good");
 		badHealthAssertions = (new AssertionDAO()).getHealthAssertions("bad");
 		// theme selection (red spots, fever, mosquito bites, tummy ache, colds, sneezing)
@@ -433,7 +437,7 @@ public class StoryGenerator2 {
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
 			this.storyRuling = Event.RULING_NEUTRAL;
 			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
-			StartFrameController.displayMessage(this.curVP.getName(), sentence.getMessage(), true);
+			StartFrameController.displayMessage(this.curVP.getName(), polishMessage(sentence.getMessage()), true);
 		}
 		
 	}
@@ -462,6 +466,7 @@ public class StoryGenerator2 {
 			float maxPercentage = 0;
 			Sickness maxSickness = new Sickness();
 			ArrayList<Float> result =  new ArrayList<Float>();
+			ArrayList<Integer> highest = new ArrayList<Integer>();
 			
 			for(int i = 1; i <= 10; i++){
 				Sickness sickness = (new SicknessDAO()).getSicknessWithId(i);
@@ -474,7 +479,7 @@ public class StoryGenerator2 {
 				symptoms.retainAll(symptomsList);
 				System.out.println("symptoms after retain: "+symptoms.size());
 				
-		
+				
 				
 				float percentage = ((float)symptoms.size() / (float)symptomsList.size()) * 100;
 				result.add(percentage);
@@ -486,6 +491,17 @@ public class StoryGenerator2 {
 					System.out.println("maxPercentage = "+maxPercentage);
 				}
 			}
+			
+			for(int i = 1; i <= 10; i++){
+				if(maxPercentage == result.get(i-1)){
+					highest.add(i);
+				}
+			}
+			
+			System.out.println("HIGHEST SIZE: " + highest.size());
+			
+			int index = randomGenerator.nextInt(highest.size());
+			maxSickness = (new SicknessDAO()).getSicknessWithId(highest.get(index));
 			
 			System.out.println("maxSickness id = " +maxSickness.getId());
 			System.out.println("maxSickness name = " +maxSickness.getName());
@@ -510,9 +526,9 @@ public class StoryGenerator2 {
 	public String polishMessage (String message){
 		System.out.println("mssg = " +message);
 		
-		message = message.replaceAll("<user>", "Anna");
+		message = message.replaceAll("<user>", username);
 		message = message.replaceAll("<day>", "Saturday");
-		message = message.replaceAll("<liam-status>", "sick");
+		message = message.replaceAll("<liam-status>", " <liam-status>sick");
 		
 		if(message.contains("sickness"))
 			message = message.replaceAll("<sickness>", this.storyTheme.getName());
