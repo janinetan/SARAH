@@ -268,6 +268,76 @@ public class StoryGenerator2 {
 				}
 			}
 			
+			//9 - doActivity && if curStoryEventIndex is second to the last or last	
+			if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) ){
+				
+				System.out.println("pasok dito!");
+				System.out.println("episode goal = "+episode.getEpisodeGoalId());
+				System.out.println("event index = "+curStoryEventIndex);
+				System.out.println("events size = "+(eventsId.size()-1));
+				
+				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
+				
+				if (curStoryEventIndex == this.eventsId.size() - 1){
+					if (!ifLiamMeetsAssertions()){
+						if(storyRuling == Event.RULING_BAD){
+							if(curAction.getSymptomList().size() != 0){
+								int index = randomGenerator.nextInt(curAction.getSymptomList().size());
+			//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
+								if(!symptomsList.contains( curAction.getSymptomList().get(index)))
+									symptomsList.add( curAction.getSymptomList().get(index));
+							}
+							System.out.println("hassymptom");
+							System.out.println("symptomsList size: "+symptomsList.size());
+						}
+					}
+					//apply postcondition to liam
+					System.out.println("CHANGING LIAM PROPERTY");
+					
+//					System.out.println("THIS = "+ curAction.getActivityName() + " " + curAction.getChosenObject().getName() + " " + curAction.getChosenObject().getVerb());
+					
+					if(storyRuling == Event.RULING_GOOD && curAction.getReverseActions()!= null && curStoryEventIndex == this.eventsId.size() - 1){
+						System.out.println("UPDATING REVERSE");
+						ArrayList<Integer> postconditions = reverse.getPostcondition();
+						System.out.println("POSTCONDITION SIZE: " + postconditions.size());
+						for (int postconTemp: postconditions){
+							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+							System.out.println("TO BE SEARCH: " + assertionIdOpp);
+							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+						}
+						
+						
+						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " " + reverse.getChosenObject().getName() + " " + reverse.getChosenObject().getVerb());
+						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
+						
+						if (curAction.getPostcondition().size() == 0){
+							mappingActionSymptom.add("NONE");
+						}else{
+							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept2());
+						}
+						
+					}
+					else{
+						System.out.println("UPDATING");
+						ArrayList<Integer> postconditions = curAction.getPostcondition();
+						System.out.println("curAction name = " +curAction.getActivityName());
+						System.out.println("posconditions size = "+postconditions.size());
+						for (int postconTemp: postconditions){
+							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
+							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+						}
+						
+						if (postconditions.size() == 0){
+							mappingActionSymptom.add("NONE");
+						}else{
+							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
+						}
+						
+					}
+					
+				} //if (curStoryEventIndex == this.eventsId.size() - 1){	
+			}
+			
 	//		if ( this.episode.getEpisodeGoalId() < 9 || this.episode.getEpisodeGoalId() >= 11) {
 				Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
 				this.lastQuestion = "";
@@ -307,60 +377,9 @@ public class StoryGenerator2 {
 				}
 	//		}
 				
-			//9 - doActivity && if curStoryEventIndex is second to the last or last	
-			if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) ){
 				
-				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
-				
-				if (curStoryEventIndex == this.eventsId.size() - 1){
-					if (!ifLiamMeetsAssertions()){
-						if(storyRuling == Event.RULING_BAD){
-							if(curAction.getSymptomList().size() != 0){
-								int index = randomGenerator.nextInt(curAction.getSymptomList().size());
-			//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
-								if(!symptomsList.contains( curAction.getSymptomList().get(index)))
-									symptomsList.add( curAction.getSymptomList().get(index));
-							}
-							System.out.println("hassymptom");
-							System.out.println("symptomsList size: "+symptomsList.size());
-						}
-					}
-					//apply postcondition to liam
-					System.out.println("CHANGING LIAM PROPERTY");
-					
-					if(storyRuling == Event.RULING_GOOD && curAction.getReverseActions()!= null){
-						System.out.println("UPDATING REVERSE");
-						ArrayList<Integer> postconditions = reverse.getPostcondition();
-						System.out.println("POSTCONDITION SIZE: " + postconditions.size());
-						for (int postconTemp: postconditions){
-							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
-							System.out.println("TO BE SEARCH: " + assertionIdOpp);
-							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
-						}
-						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " " + reverse.getChosenObject().getName() + " " + reverse.getChosenObject().getVerb());
-						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
-					}
-					else{
-						System.out.println("UPDATING");
-						ArrayList<Integer> postconditions = curAction.getPostcondition();
-						System.out.println("curAction name = " +curAction.getActivityName());
-						System.out.println("posconditions size = "+postconditions.size());
-						for (int postconTemp: postconditions){
-							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
-							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
-						}
-						if (postconditions.size() == 0){
-							mappingActionSymptom.add("NONE");
-						}else{
-							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
-						}
-					}
-					
-				} //if (curStoryEventIndex == this.eventsId.size() - 1){	
-			}	
 			
 			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: entered if ni madam");
 				selectStoryTheme();
 			}
 		
