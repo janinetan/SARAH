@@ -563,13 +563,22 @@ public class StoryGenerator2 {
 			message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
 			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
 		}
-		
+
 		if(message.contains("prevAction")){
-			message = message.replaceAll("<prevAction-verb-ing>", pastAction.get(pastAction.size()-2).split(" ")[2]);
-			message = message.replaceAll("<prevAction-verb>", pastAction.get(pastAction.size()-2).split(" ")[2]);
-			message = message.replaceAll("<prevAction-object>", pastAction.get(pastAction.size()-2).split(" ")[1]);
+			String tempPrevAction = "";
+			
+			for(int i = mappingActionSymptom.size()-1; i >= 0; i-=2){
+				if(!mappingActionSymptom.get(i-1).equalsIgnoreCase("NONE")){
+					tempPrevAction = mappingActionSymptom.get(i-2);
+					break;
+				}
+			}
+			
+			message = message.replaceAll("<prevAction-verb-ing>", tempPrevAction.split(" ")[2]);
+			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" ")[2]);
+			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" ")[1]);
 		}
-////		
+		
 		if(message.contains("reverseAction")){
 		message = message.replaceAll("<reverseAction-verb>", reverse.getChosenObject().getVerb());
 		message = message.replaceAll("<reverseAction-object>", reverse.getChosenObject().getName());
