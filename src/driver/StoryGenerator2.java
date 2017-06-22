@@ -73,6 +73,8 @@ public class StoryGenerator2 {
 	private Action curAction;
 	private Action reverse;
 	
+	private int successionCtr;
+	
 	private int actionCtr;
 	private String username;
 	
@@ -106,6 +108,7 @@ public class StoryGenerator2 {
 		pastAction = new ArrayList<String>();
 	
 		actionCtr = 0;
+		successionCtr = 0;
 	}
 	
 	public void setUpStory() {
@@ -213,7 +216,7 @@ public class StoryGenerator2 {
 	//				if(!curAction.getSymptomList().isEmpty())
 	//					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 					
-					String tempAction = a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb();
+					String tempAction = a.getActivityName() + " :: " + a.getChosenObject().getName() + " :: " + a.getChosenObject().getVerb();
 					pastAction.add(tempAction);
 					mappingActionSymptom.add(tempAction);
 				}
@@ -243,7 +246,7 @@ public class StoryGenerator2 {
 	//				if(!curAction.getSymptomList().isEmpty())
 	//					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
 					
-					String tempAction = a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb();
+					String tempAction = a.getActivityName() + " :: " + a.getChosenObject().getName() + " :: " + a.getChosenObject().getVerb();
 					pastAction.add(tempAction);
 					mappingActionSymptom.add(tempAction);
 					
@@ -311,13 +314,13 @@ public class StoryGenerator2 {
 						}
 						
 						
-						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " " + reverse.getChosenObject().getName() + " " + reverse.getChosenObject().getVerb());
-						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
+						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " :: " + reverse.getChosenObject().getName() + " :: " + reverse.getChosenObject().getVerb());
+						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
 						
 						if (curAction.getPostcondition().size() == 0){
 							mappingActionSymptom.add("NONE");
 						}else{
-							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept2());
+							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept2());
 						}
 						
 					}
@@ -334,7 +337,7 @@ public class StoryGenerator2 {
 						if (postconditions.size() == 0){
 							mappingActionSymptom.add("NONE");
 						}else{
-							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
+							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
 						}
 						
 					}
@@ -426,7 +429,7 @@ public class StoryGenerator2 {
 	}
 	
 	public boolean checkActionAcceptable(Action a){
-		String check = a.getActivityName() + " " + a.getChosenObject().getName() + " " + a.getChosenObject().getVerb();
+		String check = a.getActivityName() + " :: " + a.getChosenObject().getName() + " :: " + a.getChosenObject().getVerb();
 		
 		
 		System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
@@ -452,12 +455,24 @@ public class StoryGenerator2 {
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_GOOD)){
 			this.storyRuling = Event.RULING_GOOD;
 			StartFrameController.playEvent();
-		}
-		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
+		}else{
 			this.storyRuling = Event.RULING_NEUTRAL;
+			successionCtr++;
+			
 			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
-			StartFrameController.displayMessage(this.curVP.getName(), polishMessage(sentence.getMessage()), true);
+			
+			if(successionCtr == 3){
+				successionCtr = 0;
+				verdict = "Wait, we're going out of topic. Let's go back. " + polishMessage(sentence.getMessage());
+			}
+			
+			StartFrameController.displayMessage(this.curVP.getName(), verdict, true);
 		}
+//		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
+//			this.storyRuling = Event.RULING_NEUTRAL;
+//			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+//			StartFrameController.displayMessage(this.curVP.getName(), polishMessage(sentence.getMessage()), true);
+//		}
 		
 	}
 
@@ -574,9 +589,9 @@ public class StoryGenerator2 {
 				}
 			}
 			
-			message = message.replaceAll("<prevAction-verb-ing>", tempPrevAction.split(" ")[2]);
-			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" ")[2]);
-			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" ")[1]);
+			message = message.replaceAll("<prevAction-verb-ing>", tempPrevAction.split(" :: ")[2]);
+			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" :: ")[2]);
+			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" :: ")[1]);
 		}
 		
 		if(message.contains("reverseAction")){
