@@ -145,42 +145,8 @@ public class InteractionPanel extends JPanel{
 //		layout.putConstraint(SpringLayout.WEST, answer, 5, SpringLayout.WEST, box);
 //		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
-        BufferedImage nextButtonIcon = ImageIO.read(new File("assets/tap_next.png"));
-        ImageIcon icon = new ImageIcon(nextButtonIcon);
-        Image image = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
-        icon = new ImageIcon(image, icon.getDescription());
-		JButton nextButton = new JButton(icon);
-		nextButton.setBorder(BorderFactory.createEmptyBorder());
-		nextButton.setContentAreaFilled(false);
-		nextButton.setBorderPainted(false);
-		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/tap_next.png");
-		        Image image = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
-		        icon = new ImageIcon(image, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/tap_next.png");
-		        Image image = icon.getImage().getScaledInstance(StartFrame.frameWidth * 7/100, StartFrame.frameHeight * 10/100,Image.SCALE_SMOOTH);
-		        icon = new ImageIcon(image, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-		});
-		nextButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	StartFrameController.sendUserResponse(answer.getText());
-		    }
-		});
-
-		layout.putConstraint(SpringLayout.EAST, nextButton, -15, SpringLayout.EAST, box);
-		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
-
-		box.add(nextButton);
 //		box.add(answer);
 		
-		box.setComponentZOrder(nextButton, 0);
 //		box.setComponentZOrder(answer, 1);
 		
 		rightPanel.add(dialog, BorderLayout.NORTH);

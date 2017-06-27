@@ -117,7 +117,7 @@ public class StartFrame extends JFrame {
 		curPanel = panel;
 		lPane.removeAll();
 		
-		if (panel instanceof StoryPanelRaisa ){
+		if (panel instanceof StoryPanelRaisa || panel instanceof InteractionPanel){
 			JPanel homePanel = new JPanel();
 			homePanel.setOpaque(false);
 			homePanel.setSize(StartFrame.s);

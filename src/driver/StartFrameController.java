@@ -3,6 +3,8 @@ package driver;
 import java.awt.EventQueue;
 import java.io.IOException;
 
+import javax.swing.JPanel;
+
 import View.EndStoryPanel;
 import View.InteractionPanel;
 import View.LocationPanel;
@@ -130,5 +132,9 @@ public class StartFrameController implements IController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static JPanel getFramePanel(){
+		return frame.getCurPanel();
 	}
 }
