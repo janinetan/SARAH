@@ -43,15 +43,16 @@ public class InteractionPanel extends JPanel{
 	private Image myImage;
 	public InteractionPanel(JFrame main, String vp, String msg) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,(int)(StartFrame.frameWidth*99/100),StartFrame.frameHeight*95/100);
+		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*95.2/100));
 		//setBackground(new Color(197,229,240));
 		setBackground("assets/park.png");
 		setLayout(new BorderLayout());
 		rightPanel = new JPanel(new BorderLayout());
-		rightPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, 0,0,0));
+		rightPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*7/100, 0,0,0));
 		rightPanel.setOpaque(false);
 		leftPanel = new JPanel(new BorderLayout());
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
+		leftPanel.setOpaque(false);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
 		
 	/*	BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
 		ImagePanel room = new ImagePanel(img);
@@ -71,16 +72,16 @@ public class InteractionPanel extends JPanel{
 		}
 		
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*90/100,Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*35/100, StartFrame.frameHeight*90/100,Image.SCALE_SMOOTH);
 		peer1.setImage(image1);
 //		peer1.setLocation(-70, 100);
-		leftPanel.setBorder(BorderFactory.createEmptyBorder(0, -StartFrame.frameWidth*3/100, 0, 0));
+		leftPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, -StartFrame.frameWidth*1/100, 0, 0));
 		leftPanel.add(peer1);
 		
 		ImagePanel dialog = new ImagePanel("");
-		image = ImageIO.read(new File("assets/"+vp+"_dialog_box1.png"));
+		image = ImageIO.read(new File("assets/"+vp+"_dialog_interaction.png"));
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*70/100,StartFrame.frameHeight*45/100,Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*70/100,StartFrame.frameHeight*40/100,Image.SCALE_SMOOTH);
 		dialog.setImage(image1);
 		dialog.setOpaque(false);
 		
@@ -109,7 +110,7 @@ public class InteractionPanel extends JPanel{
 		// For Vertical Alignment
 		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
 		
-		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth*70/100,StartFrame.frameHeight*45/100,"assets/story_dialog_box.png");
+		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth*70/100,StartFrame.frameHeight*44/100,"assets/story_dialog_box.png");
 		ImagePanel box = new ImagePanel(img1);
 		box.setOpaque(false);
 		SpringLayout layout = new SpringLayout();
