@@ -26,6 +26,8 @@ import javax.swing.border.EmptyBorder;
 import driver.StartFrameController;
 import viewElements.ImagePanel;
 
+// THIS IS OLD FILE... CURRENTLY NOT USED
+
 public class ThemePanel extends JPanel{
 	private JTextArea message; 
 	private String theme="";

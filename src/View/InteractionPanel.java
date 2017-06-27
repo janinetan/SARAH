@@ -54,10 +54,6 @@ public class InteractionPanel extends JPanel{
 		leftPanel.setOpaque(false);
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
 		
-	/*	BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
-		ImagePanel room = new ImagePanel(img);
-		room.setLocation(0, 0);*/
-		
 		Boolean isSarahWorried = false;
 		Boolean isLiamSick = false;
 		

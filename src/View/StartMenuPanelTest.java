@@ -30,13 +30,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class StartMenuPanelTest extends JPanel{
-	JPanel buttonPanel;
-	BufferedImage image;
-	ImageIcon icon;
-	Image image1;
-	public StartMenuPanelTest() throws IOException
-	{
-		System.out.println("hi");
+	private JPanel buttonPanel;
+	private BufferedImage image;
+	private ImageIcon icon;
+	private Image image1;
+	
+	public StartMenuPanelTest() throws IOException	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth*99/100,(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(new Color(197,229,240));

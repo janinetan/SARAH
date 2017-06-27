@@ -3,10 +3,6 @@ package driver;
 import Models.Event;
 
 public class StoryWorldManager {
-
-	// background photos
-	
-	// virtual peer photos
 	
 	private String folderName = "assets/"; 
 	private String negativeExt = "_neg";
@@ -30,4 +26,7 @@ public class StoryWorldManager {
 		
 		return imagePath;
 	}
+	
+//	object image paths
+	
 }

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import View.InteractionPanel;
 import View.StartFrame;
 import View.StoryPanel;
-import View.StoryPanelRaisa;
+import View.StoryPanel2;
 import driver.StartFrameController;
 
 public class PanelNext extends JPanel {
@@ -56,11 +56,11 @@ public class PanelNext extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
-			if (StartFrameController.getFramePanel() instanceof StoryPanelRaisa && button == btnNext){
-				if ( StoryPanelRaisa.isOkay )
+			if (StartFrameController.getFramePanel() instanceof StoryPanel2 && button == btnNext){
+				if ( StoryPanel2.isOkay )
 					StartFrameController.playEvent();
 				else
-					StoryPanelRaisa.reflectInMsgArea();
+					StoryPanel2.reflectInMsgArea();
 			}
 			else if (StartFrameController.getFramePanel() instanceof InteractionPanel ){
 		    	StartFrameController.sendUserResponse(((InteractionPanel)StartFrameController.getFramePanel()).getUserInput());

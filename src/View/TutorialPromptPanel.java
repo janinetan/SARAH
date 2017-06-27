@@ -84,7 +84,7 @@ public class TutorialPromptPanel extends JPanel{
 		});
 		yesButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	StartFrameController.displayStory();
+		    	StartFrameController.displayStory("assets/loc-park.png");
 		    }
 		});
 		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/no.png"));

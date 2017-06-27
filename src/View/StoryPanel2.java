@@ -29,7 +29,7 @@ import javax.swing.border.EmptyBorder;
 
 import viewElements.ItemLoggerPanel;
 
-public class StoryPanelRaisa extends JPanel{
+public class StoryPanel2 extends JPanel{
 	private JPanel upperControlHolder, lowerControlHolder;
 	private ItemLoggerPanel activityLogPanel;
 	private ItemLoggerPanel healthLogPanel;
@@ -47,7 +47,7 @@ public class StoryPanelRaisa extends JPanel{
 	private static int msgCounter;
 	private int msgLength = 150;
 	
-	public StoryPanelRaisa(String backgroundImagePath) {
+	public StoryPanel2(String backgroundImagePath) {
 		// TODO Auto-generated constructor stub
 		
 		JPanel bodyPanel = new JPanel();
@@ -240,10 +240,7 @@ public class StoryPanelRaisa extends JPanel{
 		return storyElementHolder;
 	}
 	
-	// 	ADD FILEPATH AS VARIABLE
 	public void displayMessage( String vp, String message, String filepath ){
-		
-//		String filepath = "assets/worried sarah.png";
 		BufferedImage bufferedImage;
 		String imagePath = "assets/msg-" + vp.toLowerCase() + ".png";
 		

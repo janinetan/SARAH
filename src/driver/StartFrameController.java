@@ -11,7 +11,7 @@ import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanelTest;
 import View.StoryPanel;
-import View.StoryPanelRaisa;
+import View.StoryPanel2;
 import View.ThemePanel;
 import View.WelcomePanel;
 
@@ -61,7 +61,7 @@ public class StartFrameController implements IController {
 	}
 	
 	public static void displayStory(String bgFilePath){
-		frame.changePanel(new StoryPanelRaisa(bgFilePath));
+		frame.changePanel(new StoryPanel2(bgFilePath));
 	}
 
 	@Override
@@ -79,7 +79,6 @@ public class StartFrameController implements IController {
 
 	public static void displayStartStory(String theme) {
 		storyGenerator = new StoryGenerator2();
-//		storyGenerator.selectStoryTheme(theme, "runny nose");
 		storyGenerator.setUpStory();
 		displayStory((new StoryWorldManager()).getLocationBg(theme));
 		playEvent();
@@ -99,7 +98,7 @@ public class StartFrameController implements IController {
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
-			((StoryPanelRaisa)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
+			((StoryPanel2)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
 		}
 	}
 	
