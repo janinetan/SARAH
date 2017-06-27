@@ -45,7 +45,7 @@ public class StoryPanelRaisa extends JPanel{
 	private static JTextArea msgTextArea;
 	private static ArrayList<String> msgList;
 	private static int msgCounter;
-	private int msgLength = 190;
+	private int msgLength = 150;
 	
 	public StoryPanelRaisa(String backgroundImagePath) {
 		// TODO Auto-generated constructor stub
