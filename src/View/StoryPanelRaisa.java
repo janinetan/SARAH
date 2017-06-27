@@ -173,16 +173,15 @@ public class StoryPanelRaisa extends JPanel{
 		double x = StartFrame.w/2 - w/2 ;
 		double y = StartFrame.h*0.5 - h - h*0.15;
 		msgHolder.setBounds((new Double(x)).intValue(),(new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
-		msgHolder.setLayout(new BorderLayout());
-		
+		msgHolder.setLayout(new FlowLayout());
 		
 		int fontSize = msgHolder.getBounds().height / 8;
 		Font font = new Font("Comic Sans MS", Font.PLAIN, fontSize);
-		msgTextArea = new JTextArea();
+		msgTextArea = new JTextArea(5, 20);
 //        msgTextArea.setText("When you are done reading the current text, "
 //        		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
 //        message.setSize(950,100);
-        msgTextArea.setSize(750,400);
+//        msgTextArea.setSize(750,400);
         msgTextArea.setFont(font);
         msgTextArea.setWrapStyleWord(true);
         msgTextArea.setLineWrap(true);
@@ -191,7 +190,7 @@ public class StoryPanelRaisa extends JPanel{
         msgTextArea.setFocusable(false);
         msgTextArea.getCaret().deinstall( msgTextArea );
         
-        msgHolder.add(msgTextArea, BorderLayout.CENTER);
+        msgHolder.add(msgTextArea);
         
 		JPanel characterHolder = new JPanel();
 		h = StartFrame.h*0.6;	
@@ -215,8 +214,9 @@ public class StoryPanelRaisa extends JPanel{
 		sarahPanel.add(sarahHolder, BorderLayout.CENTER);
 		
 		JPanel gapPanel = new JPanel();
-		double gap = StartFrame.w*0.65;
-		sarahHolder.setPreferredSize(new Dimension((new Double(gap)).intValue(), (new Double(h)).intValue()));
+		gapPanel.setOpaque(false);
+		double gap = StartFrame.w*0.40;
+		gapPanel.setPreferredSize(new Dimension((new Double(gap)).intValue(), (new Double(h)).intValue()));
 		
 		JPanel liamPanel = new JPanel();
 		liamPanel.setLayout( new BorderLayout() );
@@ -240,11 +240,22 @@ public class StoryPanelRaisa extends JPanel{
 		return storyElementHolder;
 	}
 	
+	// 	ADD FILEPATH AS VARIABLE
 	public void displayMessage( String vp, String message ){
 		
-		System.out.println("bonjour!!" + vp + "message"+ message);
+		String filepath = "assets/worried sarah.png";
 		BufferedImage bufferedImage;
 		String imagePath = "assets/msg-" + vp.toLowerCase() + ".png";
+		
+		ImagePanel charHolder = null;
+		if (vp.equalsIgnoreCase("sarah")){
+			charHolder = sarahHolder;
+		}
+		else if (vp.equalsIgnoreCase("liam")){
+			charHolder = liamHolder;
+		}
+		this.setVPImage(filepath, charHolder);
+		
 		try {
 			bufferedImage = ImageIO.read(new File(imagePath));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
@@ -255,6 +266,13 @@ public class StoryPanelRaisa extends JPanel{
 			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
 			msgHolder.setImage(image);
 //			msgHolder.setBounds((new Double(x)).intValue(),(new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
+			
+			if (vp.equalsIgnoreCase("sarah")){
+				msgHolder.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+			}
+			else if (vp.equalsIgnoreCase("liam")){
+				msgHolder.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+			}
 			
 			msgHolder.repaint();
 			msgHolder.revalidate();
