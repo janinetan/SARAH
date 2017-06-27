@@ -63,7 +63,7 @@ public class PanelNext extends JPanel {
 					StoryPanelRaisa.reflectInMsgArea();
 			}
 			else if (StartFrameController.getFramePanel() instanceof InteractionPanel ){
-//		    	StartFrameController.sendUserResponse(((InteractionPanel)StartFrameController.getFramePanel()).getUserInput());
+		    	StartFrameController.sendUserResponse(((InteractionPanel)StartFrameController.getFramePanel()).getUserInput());
 			}
 		}
 	}
