@@ -37,7 +37,7 @@ public class WelcomePanel extends JPanel{
 	public WelcomePanel() throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,StartFrame.frameWidth*99/100,StartFrame.frameHeight*95/100);
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
@@ -129,7 +129,7 @@ public class WelcomePanel extends JPanel{
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.X_AXIS));
         buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,StartFrame.frameHeight*5/100));
 		image = ImageIO.read(new File("assets/next_button.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);

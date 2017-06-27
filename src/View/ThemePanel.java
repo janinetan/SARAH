@@ -34,7 +34,7 @@ public class ThemePanel extends JPanel{
 	public ThemePanel(JFrame main) throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,StartFrame.frameWidth*99/100,StartFrame.frameHeight*95/100);
 		setBackground(new Color(197,229,240));
 		setLayout(null);
 		
