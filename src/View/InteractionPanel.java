@@ -43,11 +43,12 @@ public class InteractionPanel extends JPanel{
 	private Image myImage;
 	public InteractionPanel(JFrame main, String vp, String msg) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,(int)(StartFrame.frameWidth*99/100),StartFrame.frameHeight*95/100);
 		//setBackground(new Color(197,229,240));
 		setBackground("assets/park.png");
 		setLayout(new BorderLayout());
 		rightPanel = new JPanel(new BorderLayout());
+		rightPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, 0,0,0));
 		rightPanel.setOpaque(false);
 		leftPanel = new JPanel(new BorderLayout());
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 50);
@@ -70,9 +71,10 @@ public class InteractionPanel extends JPanel{
 		}
 		
 		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*35/100, StartFrame.frameWidth*65/100,Image.SCALE_SMOOTH);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*90/100,Image.SCALE_SMOOTH);
 		peer1.setImage(image1);
 //		peer1.setLocation(-70, 100);
+		leftPanel.setBorder(BorderFactory.createEmptyBorder(0, -StartFrame.frameWidth*3/100, 0, 0));
 		leftPanel.add(peer1);
 		
 		ImagePanel dialog = new ImagePanel("");
@@ -89,7 +91,7 @@ public class InteractionPanel extends JPanel{
 		
 		message = new JTextArea(msg);
         //message.setSize(850,100);
-        message.setSize(StartFrame.frameWidth*70/100-StartFrame.frameWidth*10/100,StartFrame.frameHeight*50/100-StartFrame.frameHeight*5/100);
+        message.setSize(StartFrame.frameWidth*60/100,StartFrame.frameHeight*45/100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -102,12 +104,12 @@ public class InteractionPanel extends JPanel{
         dialog.add(message);
         
 		// For horizontal Alignment
-        sarahLayout.putConstraint(SpringLayout.WEST, message, 120, SpringLayout.WEST, dialog);
+        sarahLayout.putConstraint(SpringLayout.WEST, message, 110, SpringLayout.WEST, dialog);
 		
 		// For Vertical Alignment
 		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
 		
-		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth*70/100,StartFrame.frameHeight*50/100,"assets/story_dialog_box.png");
+		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth*70/100,StartFrame.frameHeight*45/100,"assets/story_dialog_box.png");
 		ImagePanel box = new ImagePanel(img1);
 		box.setOpaque(false);
 		SpringLayout layout = new SpringLayout();
@@ -118,7 +120,7 @@ public class InteractionPanel extends JPanel{
 
         answer = new CustomTextArea();
         answer.setPlaceholder("Type your answer here...");
-        answer.setSize(StartFrame.frameWidth*70/100-StartFrame.frameWidth*2/100,StartFrame.frameHeight*50/100-StartFrame.frameHeight*10/100);
+        answer.setSize(StartFrame.frameWidth*68/100,StartFrame.frameHeight*40/100);
         answer.setFont(font);
         answer.setWrapStyleWord(true);
         answer.setLineWrap(true);
@@ -142,10 +144,10 @@ public class InteractionPanel extends JPanel{
 			public void keyTyped(KeyEvent e) {}
         }
     );
-//		layout.putConstraint(SpringLayout.WEST, answer, 5, SpringLayout.WEST, box);
-//		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
+		layout.putConstraint(SpringLayout.WEST, answer, 5, SpringLayout.WEST, box);
+		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
-//		box.add(answer);
+		box.add(answer);
 		
 //		box.setComponentZOrder(answer, 1);
 		
