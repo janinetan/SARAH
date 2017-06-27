@@ -30,6 +30,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class InteractionPanel extends JPanel{
 	JTextArea message,confirmHome;
@@ -58,7 +59,7 @@ public class InteractionPanel extends JPanel{
 		Boolean isSarahWorried = false;
 		Boolean isLiamSick = false;
 		
-		ImagePanel peer1 = new ImagePanel();
+		ImagePanel peer1 = new ImagePanel("");
 		image = ImageIO.read(new File("assets/"+vp+".png"));
 		if(vp.equalsIgnoreCase("sarah") && isSarahWorried){
 			image = ImageIO.read(new File("assets/worried sarah.png"));
@@ -74,7 +75,7 @@ public class InteractionPanel extends JPanel{
 //		peer1.setLocation(-70, 100);
 		leftPanel.add(peer1);
 		
-		ImagePanel dialog = new ImagePanel();
+		ImagePanel dialog = new ImagePanel("");
 		image = ImageIO.read(new File("assets/"+vp+"_dialog_box1.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*70/100,StartFrame.frameHeight*45/100,Image.SCALE_SMOOTH);
@@ -141,8 +142,8 @@ public class InteractionPanel extends JPanel{
 			public void keyTyped(KeyEvent e) {}
         }
     );
-		layout.putConstraint(SpringLayout.WEST, answer, 5, SpringLayout.WEST, box);
-		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
+//		layout.putConstraint(SpringLayout.WEST, answer, 5, SpringLayout.WEST, box);
+//		layout.putConstraint(SpringLayout.NORTH, answer, 15, SpringLayout.NORTH, box);
      
         BufferedImage nextButtonIcon = ImageIO.read(new File("assets/tap_next.png"));
         ImageIcon icon = new ImageIcon(nextButtonIcon);
@@ -177,10 +178,10 @@ public class InteractionPanel extends JPanel{
 		layout.putConstraint(SpringLayout.SOUTH, nextButton, -15, SpringLayout.SOUTH, box);
 
 		box.add(nextButton);
-		box.add(answer);
+//		box.add(answer);
 		
 		box.setComponentZOrder(nextButton, 0);
-		box.setComponentZOrder(answer, 1);
+//		box.setComponentZOrder(answer, 1);
 		
 		rightPanel.add(dialog, BorderLayout.NORTH);
 		rightPanel.add(box,BorderLayout.SOUTH);
@@ -314,10 +315,10 @@ public class InteractionPanel extends JPanel{
 		this.add(leftPanel,BorderLayout.WEST);
 		this.add(rightPanel,BorderLayout.EAST);
 	}
-	public String getUserInput()
-	{
+	public String getUserInput(){
 		return answer.getText();
 	}
+	
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;
 		try {
@@ -334,28 +335,11 @@ public class InteractionPanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
     protected void paintComponent(Graphics g){ 
         super.paintComponent(g);    
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(myImage, 0, 0, null);
     } 
-	public JLayeredPane setStoryCharacterHolder(){
-		JLayeredPane storyElementHolder = new JLayeredPane();
-		
-		msgHolder = new ImagePanel("");
-		displayMessage("sarah", "hello");
-	
-		sarahHolder = new ImagePanel("");
-		double h = StartFrame.h*0.65;
-		double w = StartFrame.w*0.25;
-		sarahHolder.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
-		this.setVPImage(sarahDefaultImage, sarahHolder);
-		
-		
-		storyElementHolder.add(sarahHolder, new Integer(0), 0);
-		storyElementHolder.add(msgHolder, new Integer(1), 0);
-		
-		return storyElementHolder;
-	}
 }

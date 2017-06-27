@@ -19,6 +19,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -47,7 +48,7 @@ public class StartMenuPanelTest extends JPanel{
 		leftPanel.setLayout(leftLayout);
 		leftPanel.setOpaque(false);
 		
-        ImagePanel title = new ImagePanel();
+        ImagePanel title = new ImagePanel("");
 		image = ImageIO.read(new File("assets/title.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*45/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
@@ -57,7 +58,7 @@ public class StartMenuPanelTest extends JPanel{
 		leftPanel.setBorder(BorderFactory.createEmptyBorder(0,StartFrame.frameWidth*15/100,0,0));
         
         JPanel rightPanel = new JPanel();
-        ImagePanel character = new ImagePanel();
+        ImagePanel character = new ImagePanel("");
 		image = ImageIO.read(new File("assets/tilted_sarah.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100,StartFrame.frameHeight*80/100,Image.SCALE_SMOOTH);
@@ -136,7 +137,6 @@ public class StartMenuPanelTest extends JPanel{
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	instructionsButton.setIcon(icon);
-		        StartFrameController.displayStory();
 		    }
 		});
 		

@@ -1,14 +1,17 @@
 package View;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -19,8 +22,12 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import viewElements.ItemLoggerPanel;
 
 public class StoryPanelRaisa extends JPanel{
 	private JPanel upperControlHolder, lowerControlHolder;
@@ -34,17 +41,27 @@ public class StoryPanelRaisa extends JPanel{
 	private String sarahDefaultImage = "assets/vp-sarah.png";
 	private String liamDefaultImage = "assets/vp-liam.png";
 	
+	public static boolean isOkay = true;
+	private static JTextArea msgTextArea;
+	private static ArrayList<String> msgList;
+	private static int msgCounter;
+	private int msgLength = 190;
+	
 	public StoryPanelRaisa(String backgroundImagePath) {
 		// TODO Auto-generated constructor stub
+		
+		JPanel bodyPanel = new JPanel();
+		bodyPanel.setOpaque(false);
+		bodyPanel.setSize(StartFrame.s);
+		bodyPanel.setLayout(new BorderLayout());
+		bodyPanel.add(setLowerControlHolder(), BorderLayout.SOUTH);   
+		bodyPanel.add(setStoryCharacterHolder(), BorderLayout.CENTER);
+		bodyPanel.add(setUpperControlHolder(), BorderLayout.NORTH);
+				
 		this.setBackground(backgroundImagePath);
 		this.setLayout(new BorderLayout());
-		this.add(setUpperControlHolder(), BorderLayout.NORTH);
-		this.add(setLowerControlHolder(), BorderLayout.SOUTH);
-		this.add(setStoryCharacterHolder(), BorderLayout.CENTER);
-	}
-	
-	public void test(){
-		setVPImage("assets/vp-liam.png", sarahHolder);
+		this.setSize(StartFrame.s);
+		this.add(bodyPanel, BorderLayout.CENTER);
 	}
 	
 	public void setBackground( String backgroundImagePath ){
@@ -66,14 +83,12 @@ public class StoryPanelRaisa extends JPanel{
 	
 	public void setVPImage(String filepath, ImagePanel imgPanel){
 		BufferedImage bufferedImage;
-		System.out.println(filepath);
 		try {
 			bufferedImage = ImageIO.read(new File(filepath));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
 			double h = imgPanel.getPreferredSize().getHeight();
 			double w = imgPanel.getPreferredSize().getWidth();
 			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
-				    System.out.println(h + ":" + w);
 			imgPanel.setImage(image);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -89,7 +104,6 @@ public class StoryPanelRaisa extends JPanel{
 		upperControlHolder.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		upperControlHolder.setLayout(new BorderLayout());
 		
-		upperControlHolder.add(new PanelHome(), BorderLayout.NORTH);
 		upperControlHolder.add(setActivityStatusHolder(), BorderLayout.SOUTH);
 		return upperControlHolder;
 	}
@@ -154,31 +168,71 @@ public class StoryPanelRaisa extends JPanel{
 		JLayeredPane storyElementHolder = new JLayeredPane();
 		
 		msgHolder = new ImagePanel("");
-		displayMessage("sarah", "hello");
+		double h = StartFrame.h*0.5*0.7;		
+		double w = StartFrame.w*0.48;
+		double x = StartFrame.w/2 - w/2 ;
+		double y = StartFrame.h*0.5 - h - h*0.15;
+		msgHolder.setBounds((new Double(x)).intValue(),(new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
+		msgHolder.setLayout(new BorderLayout());
 		
+		
+		int fontSize = msgHolder.getBounds().height / 8;
+		Font font = new Font("Comic Sans MS", Font.PLAIN, fontSize);
+		msgTextArea = new JTextArea();
+//        msgTextArea.setText("When you are done reading the current text, "
+//        		+ "you can tap the arrow button on the lower right to proceed to the next part of the story.");
+//        message.setSize(950,100);
+        msgTextArea.setSize(750,400);
+        msgTextArea.setFont(font);
+        msgTextArea.setWrapStyleWord(true);
+        msgTextArea.setLineWrap(true);
+        msgTextArea.setOpaque(false);
+        msgTextArea.setEditable(false);
+        msgTextArea.setFocusable(false);
+        msgTextArea.getCaret().deinstall( msgTextArea );
+        
+        msgHolder.add(msgTextArea, BorderLayout.CENTER);
+        
 		JPanel characterHolder = new JPanel();
-		double h = StartFrame.h*0.57;	
-		double w = StartFrame.w;	
+		h = StartFrame.h*0.6;	
+		w = StartFrame.w;	
+		y = StartFrame.h*-0.08;
 		
-		characterHolder.setBounds(0, 0, (new Double(w)).intValue(), (new Double(h)).intValue());
-		double gap = StartFrame.w*0.25;
-		characterHolder.setLayout(new FlowLayout( FlowLayout.CENTER, (new Double(gap)).intValue(), 0));
+		characterHolder.setBounds(0, (new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
+		characterHolder.setLayout(new FlowLayout( FlowLayout.CENTER ));
 		characterHolder.setOpaque(false);
 		
+		JPanel sarahPanel = new JPanel();
+		sarahPanel.setLayout( new BorderLayout() );
+		sarahPanel.setOpaque(false);
+		double sarahGap = StartFrame.h*0.6*0.10;
+		sarahPanel.setBorder(new EmptyBorder((new Double(sarahGap)).intValue(), 0, 0, 0));
 		sarahHolder = new ImagePanel("");
 		h = StartFrame.h*0.65;
-		w = StartFrame.w*0.25;
+		w = StartFrame.w*0.27;
 		sarahHolder.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		this.setVPImage(sarahDefaultImage, sarahHolder);
+		sarahPanel.add(sarahHolder, BorderLayout.CENTER);
 		
-		liamHolder = new ImagePanel("");                                                                   
-		h = StartFrame.h*0.55;                                                                               
-		w = StartFrame.w*0.22;
+		JPanel gapPanel = new JPanel();
+		double gap = StartFrame.w*0.65;
+		sarahHolder.setPreferredSize(new Dimension((new Double(gap)).intValue(), (new Double(h)).intValue()));
+		
+		JPanel liamPanel = new JPanel();
+		liamPanel.setLayout( new BorderLayout() );
+		liamPanel.setOpaque(false);
+		double liamGap = StartFrame.h*0.6*0.177;
+		liamPanel.setBorder(new EmptyBorder((new Double(liamGap)).intValue(), 0, 0, 0));
+		liamHolder = new ImagePanel("");
+		h = StartFrame.h*0.58;                                                                               
+		w = StartFrame.w*0.24;
 		liamHolder.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		this.setVPImage(liamDefaultImage, liamHolder);
+		liamPanel.add(liamHolder, BorderLayout.CENTER);
 		
-		characterHolder.add(sarahHolder);
-		characterHolder.add(liamHolder);
+		characterHolder.add(sarahPanel);
+		characterHolder.add(gapPanel);
+		characterHolder.add(liamPanel);
 		
 		storyElementHolder.add(characterHolder, new Integer(0), 0);
 		storyElementHolder.add(msgHolder, new Integer(1), 0);
@@ -187,24 +241,50 @@ public class StoryPanelRaisa extends JPanel{
 	}
 	
 	public void displayMessage( String vp, String message ){
+		
+		System.out.println("bonjour!!" + vp + "message"+ message);
 		BufferedImage bufferedImage;
 		String imagePath = "assets/msg-" + vp.toLowerCase() + ".png";
 		try {
 			bufferedImage = ImageIO.read(new File(imagePath));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
-			double h = StartFrame.h*0.57*0.4;		
-			double w = StartFrame.w*0.50;
-			double x = StartFrame.w - w - w/2;
-			double y = StartFrame.h*0.57*0.45;
+			double h = StartFrame.h*0.5*0.7;		
+			double w = StartFrame.w*0.48;
+			double x = StartFrame.w/2 - w/2 ;
+			double y = StartFrame.h*0.5 - h - h*0.15;
 			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
-			msgHolder = new ImagePanel(image);
-			msgHolder.setBounds((new Double(x)).intValue(),(new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
+			msgHolder.setImage(image);
+//			msgHolder.setBounds((new Double(x)).intValue(),(new Double(y)).intValue(), (new Double(w)).intValue(), (new Double(h)).intValue());
 			
 			msgHolder.repaint();
 			msgHolder.revalidate();
+			this.revalidate();
+			this.repaint();
+			
+			this.cutMessageDialog(message);
+			msgCounter = 0;
+			this.reflectInMsgArea();
+			
+			this.revalidate();
+			this.repaint();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public static void reflectInMsgArea(){
+		msgTextArea.setText(msgList.get(msgCounter));
+		msgTextArea.repaint();
+		msgTextArea.revalidate();
+		
+		if (msgCounter + 1 != msgList.size()){
+			msgCounter++;
+			isOkay = false;
+		}
+		else {
+			isOkay = true;
 		}
 	}
 		
@@ -230,4 +310,43 @@ public class StoryPanelRaisa extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(myImage, 0, 0, null);
     } 
+	
+	public ArrayList<String> cutMessageDialog(String msg)
+	{
+		msgList = new ArrayList();
+		int endIndex=0;
+		String temp="", cut;
+		if(msg.length()<=msgLength)
+//			message.setText(msg); removed 23c084e
+			msgList.add(msg);
+			
+		else
+		{
+			while(msg.length()!=0)
+			{
+				if(msg.length()>=msgLength){
+					temp = msg.substring(0, msgLength);
+					endIndex = temp.lastIndexOf(".")+1;
+					if(endIndex == 0)
+						endIndex = temp.lastIndexOf(",")+1;
+					if(endIndex == 0)
+						endIndex = temp.lastIndexOf("!")+1;
+					if(endIndex == 0)
+						endIndex = temp.lastIndexOf("?")+1;
+					if(endIndex == 0)
+						endIndex = temp.lastIndexOf(";")+1;
+					if(endIndex == 0)
+						endIndex = temp.lastIndexOf(" ")+1;
+					cut = temp.substring(0,endIndex);
+					msgList.add(cut);
+					msg = msg.substring(endIndex);
+				}
+				else{
+					msgList.add(msg);
+					msg="";
+				}
+			}
+		}
+		return msgList;
+	}
 }

@@ -19,6 +19,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class TutorialPromptPanel extends JPanel{
 

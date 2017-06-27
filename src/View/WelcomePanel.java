@@ -27,6 +27,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class WelcomePanel extends JPanel{
 	public static CustomTextField name;
@@ -42,7 +43,7 @@ public class WelcomePanel extends JPanel{
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, StartFrame.frameWidth*4/100);
 		
-		ImagePanel liam = new ImagePanel();
+		ImagePanel liam = new ImagePanel("");
 		image = ImageIO.read(new File("assets/liam_flipped.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*40/100, StartFrame.frameWidth*70/100,Image.SCALE_SMOOTH);

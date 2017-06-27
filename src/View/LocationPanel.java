@@ -26,6 +26,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class LocationPanel extends JPanel{
 	private JTextArea message; 
@@ -47,7 +48,7 @@ public class LocationPanel extends JPanel{
 		JPanel dialogPanel = new JPanel();
 		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*6/100,0,0,0));
 		dialogPanel.setOpaque(false);
-		ImagePanel box = new ImagePanel();
+		ImagePanel box = new ImagePanel("");
 		image = ImageIO.read(new File("assets/cloud2.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*80/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);

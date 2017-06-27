@@ -279,8 +279,9 @@ public class StoryGenerator2 {
 				System.out.println("episode goal = "+episode.getEpisodeGoalId());
 				System.out.println("event index = "+curStoryEventIndex);
 				System.out.println("events size = "+(eventsId.size()-1));
-				
-				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
+
+//				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
+//				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
 				
 				if (curStoryEventIndex == this.eventsId.size() - 1){
 					if (!ifLiamMeetsAssertions()){

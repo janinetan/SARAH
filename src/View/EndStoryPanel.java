@@ -18,6 +18,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class EndStoryPanel extends JPanel{
 	JTextArea message;
