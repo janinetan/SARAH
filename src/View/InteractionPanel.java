@@ -43,7 +43,7 @@ public class InteractionPanel extends JPanel{
 	private Image myImage;
 	public InteractionPanel(JFrame main, String vp, String msg) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*95.2/100));
+		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
 		//setBackground(new Color(197,229,240));
 		setBackground("assets/park.png");
 		setLayout(new BorderLayout());

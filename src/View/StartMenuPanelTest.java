@@ -38,7 +38,7 @@ public class StartMenuPanelTest extends JPanel{
 	{
 		System.out.println("hi");
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth*99/100,StartFrame.frameHeight*95/100);
+		setBounds(0,0,StartFrame.frameWidth*99/100,(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(new Color(197,229,240));
 		SpringLayout mainLayout = new SpringLayout();
 		setLayout(new BorderLayout());
