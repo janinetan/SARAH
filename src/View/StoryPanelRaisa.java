@@ -241,9 +241,9 @@ public class StoryPanelRaisa extends JPanel{
 	}
 	
 	// 	ADD FILEPATH AS VARIABLE
-	public void displayMessage( String vp, String message ){
+	public void displayMessage( String vp, String message, String filepath ){
 		
-		String filepath = "assets/worried sarah.png";
+//		String filepath = "assets/worried sarah.png";
 		BufferedImage bufferedImage;
 		String imagePath = "assets/msg-" + vp.toLowerCase() + ".png";
 		

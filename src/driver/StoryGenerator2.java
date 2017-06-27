@@ -371,7 +371,7 @@ public class StoryGenerator2 {
 							this.lastQuestion = sentence.getMessage();
 						}
 						m = polishMessage(m);
-						StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast());
+						StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast(), message.getRuling());
 						if (!message.getIsLast()){
 							this.roundRobinVP();
 						}
@@ -467,7 +467,7 @@ public class StoryGenerator2 {
 				verdict = "Wait, we're going out of topic. Let's go back. " + polishMessage(sentence.getMessage());
 			}
 			
-			StartFrameController.displayMessage(this.curVP.getName(), verdict, true);
+			StartFrameController.displayMessage(this.curVP.getName(), verdict, true, storyRuling);
 		}
 //		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_NEUTRAL)){
 //			this.storyRuling = Event.RULING_NEUTRAL;

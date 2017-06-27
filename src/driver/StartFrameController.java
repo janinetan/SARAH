@@ -94,12 +94,12 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayMessage(String peer, String msg, boolean isLast){
+	public static void displayMessage(String peer, String msg, boolean isLast, int eventRuling){
 		if (isLast){
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
-			((StoryPanelRaisa)frame.getCurPanel()).displayMessage(peer, msg);
+			((StoryPanelRaisa)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
 		}
 	}
 	
