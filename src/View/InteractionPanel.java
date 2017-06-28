@@ -52,7 +52,7 @@ public class InteractionPanel extends JPanel{
 		rightPanel.setOpaque(false);
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
 		
 		Boolean isSarahWorried = false;
 		Boolean isLiamSick = false;
