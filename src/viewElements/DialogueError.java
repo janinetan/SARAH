@@ -32,8 +32,8 @@ import driver.StartFrameController;
 public class DialogueError extends JDialog{
 	
 	private JButton btnOk;
-	private String btnOkImage = "assets/btn-yes.png";
-	private String btnOkImageClicked = "assets/btn-yes_clicked.png";
+	private String btnOkImage = "assets/btn-ok.png";
+	private String btnOkImageClicked = "assets/btn-ok_clicked.png";
 	private Font font;
 	private double width, height;
 	
