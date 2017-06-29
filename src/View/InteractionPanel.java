@@ -153,6 +153,11 @@ public class InteractionPanel extends JPanel{
 		return answer.getText();
 	}
 	
+	public void setAnotherMessage(String msg){
+		message.setText(msg);
+        answer.setPlaceholder("Type your answer here...");
+	}
+	
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;
 		try {

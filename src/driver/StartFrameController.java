@@ -19,6 +19,7 @@ public class StartFrameController implements IController {
 
 	private static StartFrame frame;
 	private static StoryGenerator2 storyGenerator;
+	private static String theme;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -78,6 +79,7 @@ public class StartFrameController implements IController {
 	}
 
 	public static void displayStartStory(String theme) {
+		StartFrameController.theme = theme;
 		storyGenerator = new StoryGenerator2();
 		storyGenerator.setUpStory();
 		displayStory((new StoryWorldManager()).getLocationBg(theme));
@@ -98,7 +100,12 @@ public class StartFrameController implements IController {
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
-			((StoryPanel2)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
+			JPanel curPanel = frame.getCurPanel();
+			if (! (curPanel instanceof StoryPanel2) ){
+				displayStory((new StoryWorldManager()).getLocationBg(theme));
+				curPanel = frame.getCurPanel();
+			}
+			((StoryPanel2)curPanel).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
 		}
 	}
 	
@@ -108,7 +115,11 @@ public class StartFrameController implements IController {
 	
 	public static void displayInteractionPanel(String vp, String msg){
 		try {
-			frame.changePanel(new InteractionPanel(frame, vp, msg, ((StoryPanel2)frame.getCurPanel()).getBgImagepath()));
+			JPanel curPanel = frame.getCurPanel();
+			if (curPanel instanceof StoryPanel2)
+				frame.changePanel(new InteractionPanel(frame, vp, msg, ((StoryPanel2)curPanel).getBgImagepath()));
+			else
+				((InteractionPanel)curPanel).setAnotherMessage(msg);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
