@@ -108,7 +108,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayInteractionPanel(String vp, String msg){
 		try {
-			frame.changePanel(new InteractionPanel(frame, vp, msg));
+			frame.changePanel(new InteractionPanel(frame, vp, msg, ((StoryPanel2)frame.getCurPanel()).getBgImagepath()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

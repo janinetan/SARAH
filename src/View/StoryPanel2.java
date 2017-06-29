@@ -40,6 +40,7 @@ public class StoryPanel2 extends JPanel{
 	private ImagePanel sarahHolder, liamHolder;
 	private String sarahDefaultImage = "assets/vp-sarah.png";
 	private String liamDefaultImage = "assets/vp-liam.png";
+	private String bgImagepath;
 	
 	public static boolean isOkay = true;
 	private static JTextArea msgTextArea;
@@ -67,6 +68,7 @@ public class StoryPanel2 extends JPanel{
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;
 		try {
+			this.bgImagepath = backgroundImagePath;
 			bufferedImage = ImageIO.read(new File(backgroundImagePath));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
 			double h = StartFrame.h;		
@@ -79,6 +81,10 @@ public class StoryPanel2 extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getBgImagepath() {
+		return bgImagepath;
 	}
 	
 	public void setVPImage(String filepath, ImagePanel imgPanel){
