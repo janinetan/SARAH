@@ -131,6 +131,7 @@ public class StoryGenerator2 {
 		System.out.print("; curStoryEpisodeIndex = "+curStoryEpisodeIndex);
 		//System.out.print("; cur epGoal = " +episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
+		System.out.println(";curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 		System.out.println("; actionCtr = "+actionCtr);
 		
 		//display end screen
@@ -149,39 +150,83 @@ public class StoryGenerator2 {
 				System.out.println(".......");
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 						episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
+					
+//					boolean eleven = false;
+//					if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
+//						eleven = true;
+//					}
+					
 					System.out.println("ENTERRRRRR");
 					System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 					System.out.println("cur episode index = "+curStoryEpisodeIndex);
 					
-	//				System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-	//				
-	//				int i = 0;
-	//				for (Episode e : episodesList){
-	//					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-	//					i++;
-	//				}
+//					System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+//					
+//					int i = 0;
+//					for (Episode e : episodesList){
+//						System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
+//						i++;
+//					}
+					
+//					System.out.println();
 					
 					episodesList.remove(episodesList.get(curStoryEpisodeIndex));
 					
-	//				System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-	//				
-	//				i = 0;
-	//				for (Episode e : episodesList){
-	//					System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-	//					i++;
-	//				}
+//					System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+//					
+//					i = 0;
+//					for (Episode e : episodesList){
+//						System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
+//						i++;
+//					}
 					
 					curStoryEpisodeIndex--;
 					System.out.println("cur episode index = "+curStoryEpisodeIndex);
+//					if (eleven && storyRuling == Event.RULING_GOOD){
+//						curStoryEpisodeIndex++;
+//						System.out.println(",,,,,,,,,,,,,,,,,, entered ELEVEN");
+//						
+//						int i = 0;
+//						for (Episode ep : episodesList){
+//							System.out.print(", ep (" +i+ ") = "+ep.getEpisodeGoalId());
+//							i++;
+//						}
+//						
+//						System.out.println();
+//						
+//						System.out.println("--- curStoryEpisodeIndex = "+curStoryEpisodeIndex);
+//						System.out.println("--- curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+//						
+//						Episode e = (new EpisodeDAO()).getEpisodeById(13); 
+//						episodesList.add(curStoryEpisodeIndex, e);
+//						curStoryEventIndex = 0;
+//						
+//						System.out.println("added 13: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+//						
+//						int ii = 0;
+//						for (Episode ep : episodesList){
+//							System.out.print(", ep (" +ii+ ") = "+ep.getEpisodeGoalId());
+//							ii++;
+//						}
+//						
+//						System.out.println();
+//						
+//						System.out.println("--- curStoryEpisodeIndex = "+curStoryEpisodeIndex);
+//						System.out.println("--- curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+//					}
+					 
 				}
 				
 				
 				
+				
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 4){
-					curStoryEpisodeIndex--;
+					curStoryEpisodeIndex-=2;
 				} else {
+					System.out.println("PUMASOK SIYA DITO BESSSS");
 	//				if(!(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 8 && checkIfLiamHasAllGoodAssertions()))
-						curStoryEpisodeIndex++;
+//						if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() !=13)
+							curStoryEpisodeIndex++;
 					System.out.println("***Symptoms list size = "+symptomsList.size());
 					System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 					for(String x : mappingActionSymptom)
@@ -359,7 +404,7 @@ public class StoryGenerator2 {
 					if (event.getType() == Event.TYPE_MESSAGE){
 						Message message = (new MessageDAO()).getMessageById(event.getId());
 						message.setRuling(event.getRuling());
-						if ( curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
+						if (curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
 							message.setIsLast(true);
 						ArrayList<String> sentenceTags = message.getSentenceTags();
 						String m = "";
@@ -384,7 +429,10 @@ public class StoryGenerator2 {
 				}
 	//		}
 				
-				
+			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
+				System.out.println("Enter HERE JANINEEEEEE");
+					curStoryEpisodeIndex++;
+				}	
 			
 			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
 				selectStoryTheme();
@@ -454,6 +502,21 @@ public class StoryGenerator2 {
 		}
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_GOOD)){
 			this.storyRuling = Event.RULING_GOOD;
+			
+//			System.out.println("GGGGGGGGGGGGGGGG : entered verdict good");
+//			Episode e = (new EpisodeDAO()).getEpisodeById(13); 
+//			episodesList.add(curStoryEpisodeIndex, e);
+//			curStoryEventIndex = 0;
+//			System.out.println("GGGGGGGGGGGGGGGG : adding .....");
+//			
+//			int i = 0;
+//			for (Episode ep : episodesList){
+//				System.out.print(", ep (" +i+ ") = "+ep.getEpisodeGoalId());
+//				i++;
+//			}
+//			
+//			System.out.println();
+			
 			StartFrameController.playEvent();
 		}else{
 			this.storyRuling = Event.RULING_NEUTRAL;
@@ -589,12 +652,13 @@ public class StoryGenerator2 {
 				}
 			}
 			
-			message = message.replaceAll("<prevAction-verb-ing>", tempPrevAction.split(" :: ")[2]);
+			message = message.replaceAll("<prevAction-verb-ing>", getNLG(tempPrevAction.split(" :: ")[2]));
 			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" :: ")[2]);
 			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" :: ")[1]);
 		}
 		
 		if(message.contains("reverseAction")){
+		message = message.replaceAll("<reverseAction-verb-ing>", getNLG(reverse.getChosenObject().getVerb()));
 		message = message.replaceAll("<reverseAction-verb>", reverse.getChosenObject().getVerb());
 		message = message.replaceAll("<reverseAction-object>", reverse.getChosenObject().getName());
 		message = message.replaceAll("<reverseAction-postCondition-property>", (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept2());
@@ -632,7 +696,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-	XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
