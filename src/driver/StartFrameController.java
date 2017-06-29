@@ -19,6 +19,7 @@ public class StartFrameController implements IController {
 
 	private static StartFrame frame;
 	private static StoryGenerator2 storyGenerator;
+	private static String theme;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -78,6 +79,7 @@ public class StartFrameController implements IController {
 	}
 
 	public static void displayStartStory(String theme) {
+		StartFrameController.theme = theme;
 		storyGenerator = new StoryGenerator2();
 		storyGenerator.setUpStory();
 		displayStory((new StoryWorldManager()).getLocationBg(theme));
@@ -98,6 +100,7 @@ public class StartFrameController implements IController {
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
+			displayStory(StartFrameController.theme);
 			((StoryPanel2)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
 		}
 	}
