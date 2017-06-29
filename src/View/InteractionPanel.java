@@ -87,7 +87,7 @@ public class InteractionPanel extends JPanel{
 		
 		message = new JTextArea(msg);
         //message.setSize(850,100);
-        message.setSize(StartFrame.frameWidth*60/100,StartFrame.frameHeight*45/100);
+        message.setSize(StartFrame.frameWidth*58/100,StartFrame.frameHeight*45/100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -100,7 +100,7 @@ public class InteractionPanel extends JPanel{
         dialog.add(message);
         
 		// For horizontal Alignment
-        sarahLayout.putConstraint(SpringLayout.WEST, message, 110, SpringLayout.WEST, dialog);
+        sarahLayout.putConstraint(SpringLayout.WEST, message, StartFrame.frameWidth*9/100, SpringLayout.WEST, dialog);
 		
 		// For Vertical Alignment
 		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
