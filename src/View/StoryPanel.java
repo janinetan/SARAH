@@ -26,7 +26,9 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
+// THIS IS OLD FILE... CURRENTLY NOT USED
 
 public class StoryPanel extends JPanel{
 	JTextArea message,confirmHome;
@@ -46,7 +48,6 @@ public class StoryPanel extends JPanel{
 	
 	public StoryPanel() throws IOException
 	{
-		System.out.println("hi");
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);

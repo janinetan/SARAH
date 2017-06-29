@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,19 +28,33 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.DialogueConfirmHome;
+import viewElements.DialogueError;
+import viewElements.ImagePanel;
+import viewElements.PanelBackNext;
 
 public class LocationPanel extends JPanel{
 	private JTextArea message; 
-	private String theme="";
-	private ImageIcon imageIcon;
+	private String theme = "";
 	private JButton locationButton1,locationButton2,locationButton3;
-	BufferedImage image;
-	ImageIcon icon;
-	Image image1;
-	public LocationPanel(JFrame main) throws IOException 
-	{
+	private BufferedImage image;
+	private ImageIcon icon;
+	private Image image1;
+	
+	private String btnLoc1Image = "assets/loc1.png";
+	private String btnLoc2Image = "assets/loc2.png";
+	private String btnLoc3Image = "assets/loc3.png";
+	private String btnLoc1Clicked = "assets/loc1_clicked.png";
+	private String btnLoc2Clicked = "assets/loc2_clicked.png";
+	private String btnLoc3Clicked = "assets/loc3_clicked.png";
+	
+	private String theme1 = "room";
+	private String theme2 = "classroom";
+	private String theme3 = "park";
+	
+	public LocationPanel(JFrame main) throws IOException {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,StartFrame.frameWidth*99/100,(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
@@ -47,7 +63,7 @@ public class LocationPanel extends JPanel{
 		JPanel dialogPanel = new JPanel();
 		dialogPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*6/100,0,0,0));
 		dialogPanel.setOpaque(false);
-		ImagePanel box = new ImagePanel();
+		ImagePanel box = new ImagePanel("");
 		image = ImageIO.read(new File("assets/cloud2.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*80/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
@@ -75,134 +91,39 @@ public class LocationPanel extends JPanel{
 		dialogPanel.add(box);
         
         JPanel location = new JPanel();
-        SpringLayout locationLayout = new SpringLayout();
         location.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*2/100,StartFrame.frameHeight*6/100,0,StartFrame.frameHeight*6/100));
-        //location.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        //themes.setBounds(30, 450, 1600, 270);
-        //location.setBounds(50, 310, 1500, 500);
-        //location.setSize(1000,30);
-        //themes.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         location.setOpaque(false);
-
+        
+        SpringLayout locationLayout = new SpringLayout(); 
 		location.setLayout(locationLayout);
         
-        image = ImageIO.read(new File("assets/loc1.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-		locationButton1 = new JButton(new ImageIcon(image1));
+        locationButton1 = new JButton();
 		locationButton1.setBorder(BorderFactory.createEmptyBorder());
 		locationButton1.setContentAreaFilled(false);
 		locationButton1.setBorderPainted(false);
-		locationButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	icon = new ImageIcon("assets/loc1_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton1.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("home"))
-		    	{
-			    	icon = new ImageIcon("assets/loc1.png");
-					image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-					icon = new ImageIcon(image1, icon.getDescription());
-			    	locationButton1.setIcon(icon);
-			    	
-			    	
-		    	}
-		    }
-		});
-		locationButton1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        theme = "home";
-		        icon = new ImageIcon("assets/loc2.png");
-				image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		        locationButton2.setIcon(icon);
-		    	icon = new ImageIcon("assets/loc3.png");
-				image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton3.setIcon(icon);
-		    }
-		});
+		locationButton1.addMouseListener(new BtnMouseListener());
+		locationButton1.addActionListener(new ButtonListener());
+		setButtonIcon(btnLoc1Image, locationButton1);
 		
-		image = ImageIO.read(new File("assets/loc2.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-		locationButton2 = new JButton(new ImageIcon(image1));
+		
+		locationButton2 = new JButton();
 		locationButton2.setBorder(BorderFactory.createEmptyBorder());
 		locationButton2.setContentAreaFilled(false);
 		locationButton2.setBorderPainted(false);
-		locationButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	icon = new ImageIcon("assets/loc2_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton2.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("school"))
-		    	{
-			    	icon = new ImageIcon("assets/loc2.png");
-			    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-					icon = new ImageIcon(image1, icon.getDescription());
-			    	locationButton2.setIcon(icon);
-		    	}
-		    }
-		});
-		locationButton2.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        theme = "school";
-		        icon = new ImageIcon("assets/loc1.png");
-		        image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		        locationButton1.setIcon(icon);
-		    	icon = new ImageIcon("assets/loc3.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton3.setIcon(icon);
-		    }
-		});
+		locationButton2.addMouseListener(new BtnMouseListener());
+		locationButton2.addActionListener(new ButtonListener());
+		setButtonIcon(btnLoc2Image, locationButton2);
 		
-		image = ImageIO.read(new File("assets/loc3.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-		locationButton3 = new JButton(new ImageIcon(image1));
+		
+		locationButton3 = new JButton();
 		locationButton3.setBorder(BorderFactory.createEmptyBorder());
 		locationButton3.setContentAreaFilled(false);
 		locationButton3.setBorderPainted(false);
-		locationButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	icon = new ImageIcon("assets/loc3_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton3.setIcon(icon);
-		    }
+		locationButton3.addMouseListener(new BtnMouseListener());
+		locationButton3.addActionListener(new ButtonListener());
+		setButtonIcon(btnLoc3Image, locationButton3);
+		
 
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	if(!theme.equals("park")){
-			    	icon = new ImageIcon("assets/loc3.png");
-			    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-					icon = new ImageIcon(image1, icon.getDescription());
-			    	locationButton3.setIcon(icon);
-		    	}
-		    }
-		});
-		locationButton3.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        theme = "park";
-		        icon = new ImageIcon("assets/loc1.png");
-		        image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		        locationButton1.setIcon(icon);
-		    	icon = new ImageIcon("assets/loc2.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image1, icon.getDescription());
-		    	locationButton2.setIcon(icon);
-		    }
-		});
 		location.add(locationButton1);
 		location.add(locationButton2);
 		location.add(locationButton3);
@@ -212,86 +133,7 @@ public class LocationPanel extends JPanel{
 		
 		JPanel bottomPanel = new JPanel(new BorderLayout());
 		bottomPanel.setOpaque(false);
-		JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.X_AXIS));
-        buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,0));
-        
-		image = ImageIO.read(new File("assets/next_button.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		JButton nextButton = new JButton(new ImageIcon(image1));
-		nextButton.setBorder(BorderFactory.createEmptyBorder());
-		nextButton.setContentAreaFilled(false);
-		nextButton.setBorderPainted(false);
-		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/next_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-//		    public void mouseClicked(java.awt.event.MouseEvent evt)
-//		    {
-//		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
-//		        startButton.setIcon(image);
-//		    }
-		    
-		});
-		nextButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	/*not working when mouselistener code was added*/
-		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		        StartFrameController.displayStartStory(theme);
-		    }
-		});
-		
-		image = ImageIO.read(new File("assets/back_button.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		JButton backButton = new JButton(new ImageIcon(image1));
-		backButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		//backButton.setAlignmentY(Component.RIGHT_ALIGNMENT);
-		backButton.setBorder(BorderFactory.createEmptyBorder());
-		backButton.setContentAreaFilled(false);
-		backButton.setBorderPainted(false);
-		backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-				ImageIcon icon = new ImageIcon("assets/back_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		    }
-		});
-		backButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		        StartFrameController.displayWelcome();
-		    }
-		});
-		buttonPanel.add(backButton);
-		buttonPanel.add(nextButton);
-		bottomPanel.add(buttonPanel,BorderLayout.EAST);
+		bottomPanel.add(new PanelBackNext(),BorderLayout.EAST);
 		
 		this.add(dialogPanel, BorderLayout.NORTH);
 		this.add(location,BorderLayout.CENTER);
@@ -301,5 +143,89 @@ public class LocationPanel extends JPanel{
 	
 	public String getTheme(){
 		return theme;
+	}
+	
+	public void setButtonIcon(String filepath, JButton button){
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(new File(filepath));
+			ImageIcon imageIcon = new ImageIcon(bufferedImage);
+			double w = StartFrame.frameWidth*28/100;
+			double h = StartFrame.frameHeight*30/100;
+			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
+			imageIcon = new ImageIcon(image);
+			button.setIcon(imageIcon);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private class BtnMouseListener implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			JButton button = (JButton) arg0.getSource();
+			String filepath = null;
+			if (button == locationButton1){
+				filepath = btnLoc1Clicked;
+			}
+			else if (button == locationButton2){
+				filepath = btnLoc2Clicked;
+			}
+			else if (button == locationButton3){
+				filepath = btnLoc3Clicked;
+			}
+			setButtonIcon(filepath, button);
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			JButton button = (JButton) arg0.getSource();
+			String filepath = null;
+			if (button == locationButton1 && !theme.equals(theme1)){
+				filepath = btnLoc1Image;
+			}
+			else if (button == locationButton2 && !theme.equals(theme2)){
+				filepath = btnLoc2Image;
+			}
+			else if (button == locationButton3 && !theme.equals(theme3)){
+				filepath = btnLoc3Image;
+			}
+			if (filepath != null)
+				setButtonIcon(filepath, button);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	}
+	
+	private class ButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JButton button = (JButton) arg0.getSource();
+			if (button == locationButton1){
+		    	theme = theme1;
+		    	setButtonIcon(btnLoc2Image, locationButton2);
+		    	setButtonIcon(btnLoc3Image, locationButton3);
+			}
+			else if (button == locationButton2){
+				theme = theme2;
+				setButtonIcon(btnLoc1Image, locationButton1);
+				setButtonIcon(btnLoc3Image, locationButton3);
+			}
+			else if (button == locationButton3){
+				theme = theme3;
+				setButtonIcon(btnLoc1Image, locationButton1);
+				setButtonIcon(btnLoc2Image, locationButton2);
+			}
+			
+		}
 	}
 }

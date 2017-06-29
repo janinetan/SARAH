@@ -27,22 +27,24 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
+import viewElements.PanelBackNext;
 
 public class WelcomePanel extends JPanel{
 	public static CustomTextField name;
-	BufferedImage image;
-	ImageIcon icon;
-	Image image1;
+	private BufferedImage image;
+	private ImageIcon icon;
+	private Image image1;
 	public WelcomePanel() throws IOException 
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,StartFrame.frameWidth*99/100,(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(new Color(197,229,240));
 		setLayout(new BorderLayout());
 		
 		Font font = new Font("Comic Sans MS", Font.PLAIN, StartFrame.frameWidth*4/100);
 		
-		ImagePanel liam = new ImagePanel();
+		ImagePanel liam = new ImagePanel("");
 		image = ImageIO.read(new File("assets/liam_flipped.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*40/100, StartFrame.frameWidth*70/100,Image.SCALE_SMOOTH);
@@ -124,88 +126,11 @@ public class WelcomePanel extends JPanel{
         
         nameLayout.putConstraint(SpringLayout.NORTH, name, 0, SpringLayout.NORTH, namePanel);
         nameLayout.putConstraint(SpringLayout.NORTH, line, name.getHeight()+StartFrame.frameHeight*3/100, SpringLayout.NORTH, name);
-		
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.X_AXIS));
-        buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,0));
-		image = ImageIO.read(new File("assets/next_button.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		JButton nextButton = new JButton(new ImageIcon(image1));
-		nextButton.setBorder(BorderFactory.createEmptyBorder());
-		nextButton.setContentAreaFilled(false);
-		nextButton.setBorderPainted(false);
-		nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/next_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		    }
-//		    public void mouseClicked(java.awt.event.MouseEvent evt)
-//		    {
-//		    	ImageIcon image = new ImageIcon("assets/start_button_clicked.png");
-//		        startButton.setIcon(image);
-//		    }
-		    
-		});
-		nextButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	/*not working when mouselistener code was added*/
-		    	ImageIcon icon = new ImageIcon("assets/next_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	nextButton.setIcon(icon);
-		        StartFrameController.displayTheme();
-		    }
-		});
-		
-		image = ImageIO.read(new File("assets/back_button.png"));
-		icon = new ImageIcon(image);
-		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		JButton backButton = new JButton(new ImageIcon(image1));
-		backButton.setBorder(BorderFactory.createEmptyBorder());
-		backButton.setContentAreaFilled(false);
-		backButton.setBorderPainted(false);
-		backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-				ImageIcon icon = new ImageIcon("assets/back_button.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		    }
-		});
-		backButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	ImageIcon icon = new ImageIcon("assets/back_button_clicked.png");
-		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*30/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	backButton.setIcon(icon);
-		        StartFrameController.displayWelcome();
-		    }
-		});
-		buttonPanel.add(backButton);
-		buttonPanel.add(nextButton);
         
 		//this.add(welcome);
 		rightPanel.add(dialogPanel,BorderLayout.NORTH);
 		rightPanel.add(namePanel,BorderLayout.CENTER);
-		rightPanel.add(buttonPanel,BorderLayout.SOUTH);
+		rightPanel.add(new PanelBackNext(),BorderLayout.SOUTH);
 		
 		/*this.add(name);
 		this.add(line);

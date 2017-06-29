@@ -3,13 +3,15 @@ package driver;
 import java.awt.EventQueue;
 import java.io.IOException;
 
+import javax.swing.JPanel;
+
 import View.EndStoryPanel;
 import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
-import View.StartMenuPanel;
 import View.StartMenuPanelTest;
 import View.StoryPanel;
+import View.StoryPanel2;
 import View.ThemePanel;
 import View.WelcomePanel;
 
@@ -58,13 +60,8 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayStory(){
-		try {
-			frame.changePanel(new StoryPanel());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	public static void displayStory(String bgFilePath){
+		frame.changePanel(new StoryPanel2(bgFilePath));
 	}
 
 	@Override
@@ -82,8 +79,8 @@ public class StartFrameController implements IController {
 
 	public static void displayStartStory(String theme) {
 		storyGenerator = new StoryGenerator2();
-//		storyGenerator.selectStoryTheme(theme, "runny nose");
 		storyGenerator.setUpStory();
+		displayStory((new StoryWorldManager()).getLocationBg(theme));
 		playEvent();
 	}
 	
@@ -96,13 +93,12 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayMessage(String peer, String msg, boolean isLast){
+	public static void displayMessage(String peer, String msg, boolean isLast, int eventRuling){
 		if (isLast){
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
-			displayStory();
-			((StoryPanel)frame.getCurPanel()).displayMessage(peer, msg);
+			((StoryPanel2)frame.getCurPanel()).displayMessage(peer, msg, (new StoryWorldManager()).getVPImagepath(peer, eventRuling));
 		}
 	}
 	
@@ -112,7 +108,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayInteractionPanel(String vp, String msg){
 		try {
-			frame.changePanel(new InteractionPanel(frame, vp, msg));
+			frame.changePanel(new InteractionPanel(frame, vp, msg, ((StoryPanel2)frame.getCurPanel()).getBgImagepath()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -135,5 +131,9 @@ public class StartFrameController implements IController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static JPanel getFramePanel(){
+		return frame.getCurPanel();
 	}
 }

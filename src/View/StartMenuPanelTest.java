@@ -19,6 +19,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -29,15 +30,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class StartMenuPanelTest extends JPanel{
-	JPanel buttonPanel;
-	BufferedImage image;
-	ImageIcon icon;
-	Image image1;
-	public StartMenuPanelTest() throws IOException
-	{
-		System.out.println("hi");
+	private JPanel buttonPanel;
+	private BufferedImage image;
+	private ImageIcon icon;
+	private Image image1;
+	
+	public StartMenuPanelTest() throws IOException	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
+		setBounds(0,0,StartFrame.frameWidth*99/100,(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(new Color(197,229,240));
 		SpringLayout mainLayout = new SpringLayout();
 		setLayout(new BorderLayout());
@@ -47,7 +47,7 @@ public class StartMenuPanelTest extends JPanel{
 		leftPanel.setLayout(leftLayout);
 		leftPanel.setOpaque(false);
 		
-        ImagePanel title = new ImagePanel();
+        ImagePanel title = new ImagePanel("");
 		image = ImageIO.read(new File("assets/title.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*45/100, StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
@@ -57,7 +57,7 @@ public class StartMenuPanelTest extends JPanel{
 		leftPanel.setBorder(BorderFactory.createEmptyBorder(0,StartFrame.frameWidth*15/100,0,0));
         
         JPanel rightPanel = new JPanel();
-        ImagePanel character = new ImagePanel();
+        ImagePanel character = new ImagePanel("");
 		image = ImageIO.read(new File("assets/tilted_sarah.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*28/100,StartFrame.frameHeight*80/100,Image.SCALE_SMOOTH);
@@ -136,7 +136,6 @@ public class StartMenuPanelTest extends JPanel{
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	instructionsButton.setIcon(icon);
-		        StartFrameController.displayStory();
 		    }
 		});
 		

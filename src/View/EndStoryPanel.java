@@ -18,13 +18,14 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 public class EndStoryPanel extends JPanel{
-	JTextArea message;
-	JButton home;
-	ImagePanel peer,box,room,sticker,action;
-	Font font;
-	JFrame main;
+	private JTextArea message;
+	private JButton home;
+	private ImagePanel peer,box,room,sticker,action;
+	private Font font;
+	private JFrame main;
 	
 	public EndStoryPanel(JFrame main) throws IOException
 	{
