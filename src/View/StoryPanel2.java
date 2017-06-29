@@ -27,6 +27,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import viewElements.ImagePanel;
 import viewElements.ItemLoggerPanel;
 
 public class StoryPanel2 extends JPanel{

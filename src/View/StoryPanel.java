@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
+import viewElements.ImagePanel;
 
 // THIS IS OLD FILE... CURRENTLY NOT USED
 
