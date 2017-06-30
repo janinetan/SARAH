@@ -329,6 +329,7 @@ CREATE TABLE `object` (
   `category` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `verb` varchar(100) NOT NULL,
+  `connector` varchar(45) NOT NULL,
   `filename` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
@@ -340,7 +341,7 @@ CREATE TABLE `object` (
 
 LOCK TABLES `object` WRITE;
 /*!40000 ALTER TABLE `object` DISABLE KEYS */;
-INSERT INTO `object` VALUES (2,'indoorToy','ball','throw','ball'),(3,'indoorToy','stuffed toy','hug','stuff_toy'),(4,'outdoorToy','mud','splash','mud'),(5,'outdoorToy','slide','ride','slide'),(6,'outdoorToy','sandcastle','build','sandcastle'),(7,'food','sandwich','eat','sandwich'),(8,'food','fruit','eat','fruits'),(9,'bodyPart','hands','clean','wash_hands'),(10,'facialBodyPart','eyes','rub','scratch_face'),(11,'facialBodyPart','nose','scratch','scratch_nose'),(12,'facialBodyPart','face','scratch','scratch_face'),(13,'sanitizer','alcohol','spray','sanitize_hands'),(14,'sanitizer','alcohol','rub','sanitize_hands'),(15,'sleepObject','bed','sleep on the','sleep'),(16,'restObject','bench','rest on the','bench'),(17,'facialBodyPart','mouth','scratch','scratch_face');
+INSERT INTO `object` VALUES (2,'indoorToy','ball','throw','','ball'),(3,'indoorToy','stuffed toy','hug','','stuff_toy'),(4,'outdoorToy','mud','splash','','mud'),(5,'outdoorToy','slide','ride','','slide'),(6,'outdoorToy','sandcastle','build','','sandcastle'),(7,'food','sandwich','eat','','sandwich'),(8,'food','fruit','eat','','fruits'),(9,'bodyPart','hands','clean','','wash_hands'),(10,'facialBodyPart','eyes','rub','','scratch_face'),(11,'facialBodyPart','nose','scratch','','scratch_nose'),(12,'facialBodyPart','face','scratch','','scratch_face'),(13,'sanitizer','alcohol','spray','','sanitize_hands'),(14,'sanitizer','alcohol','rub','','sanitize_hands'),(15,'sleepObject','bed','sleep on the','','sleep'),(16,'restObject','bench','rest on the','','bench'),(17,'facialBodyPart','mouth','scratch','','scratch_face');
 /*!40000 ALTER TABLE `object` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,4 +635,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-29 22:15:52
+-- Dump completed on 2017-06-30 21:16:14
