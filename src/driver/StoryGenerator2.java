@@ -495,7 +495,7 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		String verdict = SarahChatbot.getVerdict(this.lastQuestion + userInput);
+		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion) + userInput);
 		System.out.println(verdict);
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
 			this.storyRuling = Event.RULING_BAD;
