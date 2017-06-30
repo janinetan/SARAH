@@ -13,7 +13,14 @@ public class Object {
 	private String category;
 	private String verb;
 	private String filename;
+	private String connector;
 	
+	public String getConnector() {
+		return connector;
+	}
+	public void setConnector(String connector) {
+		this.connector = connector;
+	}
 	public int getId() {
 		return id;
 	}
