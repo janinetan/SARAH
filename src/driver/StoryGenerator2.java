@@ -36,7 +36,11 @@ import Models.VirtualPeer;
 import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
+import simplenlg.features.Tense;
+import simplenlg.framework.InflectedWordElement;
+import simplenlg.framework.LexicalCategory;
 import simplenlg.framework.NLGFactory;
+import simplenlg.framework.WordElement;
 import simplenlg.lexicon.XMLLexicon;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
@@ -668,10 +672,11 @@ public class StoryGenerator2 {
 		}
 		
 		if(message.contains("reverseAction")){
-		message = message.replaceAll("<reverseAction-verb-ing>", getNLG(reverse.getChosenObject().getVerb()));
-		message = message.replaceAll("<reverseAction-verb>", reverse.getChosenObject().getVerb());
-		message = message.replaceAll("<reverseAction-object>", reverse.getChosenObject().getName());
-		message = message.replaceAll("<reverseAction-postCondition-property>", (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept2());
+			message = message.replaceAll("<reverseAction-verb-past>", getPast(reverse.getChosenObject().getVerb()));
+			message = message.replaceAll("<reverseAction-verb-ing>", getNLG(reverse.getChosenObject().getVerb()));
+			message = message.replaceAll("<reverseAction-verb>", reverse.getChosenObject().getVerb());
+			message = message.replaceAll("<reverseAction-object>", reverse.getChosenObject().getName());
+			message = message.replaceAll("<reverseAction-postCondition-property>", (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept2());
 		}
 		
 		if(message.contains("curCondition")){
@@ -706,7 +711,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
@@ -719,5 +724,17 @@ public class StoryGenerator2 {
 		System.out.println(gerund);
 		return gerund;
 	}
+	
+	public String getPast (String word){
+			XMLLexicon lexicon = new XMLLexicon("C:\\Users\\Janine Tan\\Desktop\\SARAH\\NLG\\src\\simplenlg\\lexicon\\default-lexicon.xml");
+			
+			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
+			InflectedWordElement infl = new InflectedWordElement(word2);
+			infl.setFeature(Feature.TENSE, Tense.PAST);
+			Realiser realiser = new Realiser(lexicon);
+			String past = realiser.realise(infl).getRealisation();
+			return past;
+		}
+	
 }
 
