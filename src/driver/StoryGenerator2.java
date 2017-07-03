@@ -503,7 +503,11 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion) + userInput);
+		
+		String shiz = polishMessage(this.lastQuestion).replaceAll("[\n\r]", "").concat(userInput);
+		
+		System.out.println("BWISIT TALAGA: "+shiz);
+		String verdict = SarahChatbot.getVerdict(shiz);
 		System.out.println(verdict);
 		
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
