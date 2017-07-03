@@ -330,6 +330,7 @@ public class StoryGenerator2 {
 
 //				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
 //				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
+				StartFrameController.displayAction("Liam", curAction.getChosenObject().getName(), curAction.getRuling());
 				
 				if (curStoryEventIndex == this.eventsId.size() - 1){
 					if (!ifLiamMeetsAssertions()){
@@ -420,6 +421,9 @@ public class StoryGenerator2 {
 						if (!message.getIsLast()){
 							this.roundRobinVP();
 						}
+					}
+					else if (event.getType() == Event.TYPE_ACTION){
+						StartFrameController.displayAction("Liam", curAction.getChosenObject().getName(), curAction.getRuling());
 					}
 					curStoryEventIndex++;
 				}

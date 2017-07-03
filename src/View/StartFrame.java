@@ -60,9 +60,10 @@ public class StartFrame extends JFrame {
 	
 	public void changePanel (JPanel panel){
 		curPanel = panel;
+		
 		lPane.removeAll();
 		
-		if (panel instanceof StoryPanel2 || panel instanceof InteractionPanel){
+		if (panel instanceof StoryPanel2 || panel instanceof InteractionPanel || panel instanceof ActionPanel){
 			JPanel homePanel = new JPanel();
 			homePanel.setOpaque(false);
 			homePanel.setSize(StartFrame.s);
@@ -79,7 +80,6 @@ public class StartFrame extends JFrame {
 		}
 		
 		lPane.add(panel, new Integer(0), 0);
-		
 		lPane.repaint();
 		lPane.revalidate();
 	}

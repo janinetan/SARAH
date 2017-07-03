@@ -16,7 +16,7 @@ public class StoryWorldManager {
 		
 		if (vp.equalsIgnoreCase("liam")){
 //			check if liam is not sick here
-				imagePath += negativeExt;
+//				imagePath += negativeExt;
 		}
 		else if (vp.equalsIgnoreCase("sarah")){
 			if (ruling == Event.RULING_BAD)
@@ -25,6 +25,10 @@ public class StoryWorldManager {
 		imagePath += ".png";
 		
 		return imagePath;
+	}
+
+	public String getIconImagepath(String act) {
+		return folderName + "icn-" + act.toLowerCase() + ".png";
 	}
 	
 //	object image paths
