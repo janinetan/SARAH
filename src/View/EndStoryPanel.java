@@ -22,7 +22,6 @@ import viewElements.ImagePanel;
 
 public class EndStoryPanel extends JPanel{
 	private JTextArea message;
-	private JButton home;
 	private ImagePanel peer,box,room,sticker,action;
 	private Font font;
 	private JFrame main;
@@ -60,19 +59,19 @@ public class EndStoryPanel extends JPanel{
         message.getCaret().deinstall( message );
         //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
-        BufferedImage buttonIcon = ImageIO.read(new File("assets/yes.png"));
+        BufferedImage buttonIcon = ImageIO.read(new File("assets/btn-yes.png"));
 		JButton yesButton = new JButton(new ImageIcon(buttonIcon));
 		yesButton.setBorder(BorderFactory.createEmptyBorder());
 		yesButton.setContentAreaFilled(false);
 		yesButton.setBorderPainted(false);
 		yesButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/yes_clicked.png");
+		    	ImageIcon image = new ImageIcon("assets/btn-yes_clicked.png");
 		    	yesButton.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/yes.png");
+		    	ImageIcon image = new ImageIcon("assets/btn-yes.png");
 		    	yesButton.setIcon(image);
 		    }
 		});
@@ -81,19 +80,19 @@ public class EndStoryPanel extends JPanel{
 		    	StartFrameController.displayTheme();
 		    }
 		});
-		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/no.png"));
+		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/btn-no.png"));
 		JButton noButton = new JButton(new ImageIcon(buttonIcon1));
 		noButton.setBorder(BorderFactory.createEmptyBorder());
 		noButton.setContentAreaFilled(false);
 		noButton.setBorderPainted(false);
 		noButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/no_clicked.png");
+		    	ImageIcon image = new ImageIcon("assets/btn-no_clicked.png");
 		    	noButton.setIcon(image);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/no.png");
+		    	ImageIcon image = new ImageIcon("assets/btn-no.png");
 		    	noButton.setIcon(image);
 		    }
 		});
@@ -126,15 +125,6 @@ public class EndStoryPanel extends JPanel{
         box.setLayout(layout);
         box.setLocation(0, 500);
         
-        BufferedImage homeButtonIcon = ImageIO.read(new File("assets/home_button.png"));
-        ImageIcon homeIcon = new ImageIcon(homeButtonIcon);
-        home = new JButton(homeIcon);
-        home.setBorder(BorderFactory.createEmptyBorder());
-        home.setContentAreaFilled(false);
-        home.setBorderPainted(false);
-        home.setBounds(1450,10,150,150);        
-        
-        this.add(home);
         this.add(peer);
 		this.add(box);
 		this.add(room);

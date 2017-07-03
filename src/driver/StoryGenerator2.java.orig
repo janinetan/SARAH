@@ -132,12 +132,12 @@ public class StoryGenerator2 {
 	
 	public void playEvent() throws IOException{
 		System.out.println("***********************************");
-//		System.out.print("event arr = "+eventsId);
-//		System.out.print("; curStoryEpisodeIndex = "+curStoryEpisodeIndex);
-//		//System.out.print("; cur epGoal = " +episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
-//		System.out.println(";curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//		System.out.println("; actionCtr = "+actionCtr);
+		System.out.print("event arr = "+eventsId);
+		System.out.print("; curStoryEpisodeIndex = "+curStoryEpisodeIndex);
+		//System.out.print("; cur epGoal = " +episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
+		System.out.println(";curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
+		System.out.println("; actionCtr = "+actionCtr);
 		
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
@@ -335,7 +335,7 @@ public class StoryGenerator2 {
 
 //				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
 //				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
-				StartFrameController.displayAction("Liam", curAction.getChosenObject().getFilename(), curAction.getRuling());
+				StartFrameController.displayAction("Liam", curAction.getChosenObject().getName(), curAction.getRuling());
 				System.out.println("COOPERATION PLETH");
 				
 				if (curStoryEventIndex == this.eventsId.size() - 1){
@@ -438,13 +438,16 @@ public class StoryGenerator2 {
 				}
 				else{
 					curStoryEventIndex++;
+//					recursion
 					playEvent();
 				}
 			}
+	//		}
 				
 			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
-				curStoryEpisodeIndex++;
-			}	
+				System.out.println("Enter HERE JANINEEEEEE");
+					curStoryEpisodeIndex++;
+				}	
 			
 			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
 				selectStoryTheme();
@@ -718,8 +721,13 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
+<<<<<<< HEAD
 //	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+=======
+	XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+>>>>>>> 771f860e75c9ad0ef8736d078b10128558331a05
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();

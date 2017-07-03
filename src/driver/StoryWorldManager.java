@@ -28,7 +28,7 @@ public class StoryWorldManager {
 	}
 
 	public String getIconImagepath(String act) {
-		return folderName + "icn-" + act.toLowerCase() + ".png";
+		return folderName + "icn-" + act + ".png";
 	}
 	
 //	object image paths
