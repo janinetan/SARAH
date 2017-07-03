@@ -497,6 +497,7 @@ public class StoryGenerator2 {
 	public void getVerdict(String userInput) throws IOException {
 		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion) + userInput);
 		System.out.println(verdict);
+		
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
 			this.storyRuling = Event.RULING_BAD;
 			StartFrameController.playEvent();
@@ -701,7 +702,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-	XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
