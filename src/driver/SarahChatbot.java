@@ -15,13 +15,13 @@ public class SarahChatbot {
 //	public static final String VERDICT_NEUTRAL = "I have no answer for that.";
 	
 	public static String getVerdict (String input){
-//		String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
-		String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
+		String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
+//		String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
 		Bot bot = new Bot("sarah-bot", path);
 		Chat chat = new Chat(bot);
 		
 		input = input.replaceAll("\\?", " 999 ");
-		input = input.replaceAll("[!\\.]", " ");
+		input = input.replaceAll("[,!\\.]", " ");
 		
 		input = chat.multisentenceRespond(input);
 		
@@ -30,6 +30,6 @@ public class SarahChatbot {
 			return output[1];	
 		}
 		
-		return input;	
+		return input;
 	}
 }

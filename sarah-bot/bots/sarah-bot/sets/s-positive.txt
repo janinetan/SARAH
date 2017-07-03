@@ -1,5 +1,6 @@
 awesome
 behave
+clean
 drink
 eat
 fine
@@ -15,6 +16,8 @@ okay
 prevention
 relax
 rest
+rub
+spray
 sleep
 treatment
 wash

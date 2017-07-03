@@ -499,8 +499,9 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		String verdict = SarahChatbot.getVerdict(this.lastQuestion + userInput);
+		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion) + userInput);
 		System.out.println(verdict);
+		
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
 			this.storyRuling = Event.RULING_BAD;
 			StartFrameController.playEvent();
@@ -646,7 +647,11 @@ public class StoryGenerator2 {
 			message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
 			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
 		}
-
+		
+		if(message.contains("connector")){
+			message = message.replaceAll("<connector>", this.curAction.getChosenObject().getConnector());
+		}
+		
 		if(message.contains("prevAction")){
 			String tempPrevAction = "";
 			
