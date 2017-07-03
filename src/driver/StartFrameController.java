@@ -112,23 +112,16 @@ public class StartFrameController implements IController {
 	
 	public static void displayAction(String vp, String act, int eventRuling){
 		JPanel curPanel = frame.getCurPanel();
-//		TEMP
 		System.out.println("DOING ACTIONNNNNNNNNNNNNNNNNNNNNNN0 " + act);
 		
-		
-		try {
-			frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath("LIAM", 1), (new StoryWorldManager()).getIconImagepath("colds")));
-			Thread.sleep(5);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath("LIAM", 1), (new StoryWorldManager()).getIconImagepath("colds")));
+
+		if (curPanel instanceof StoryPanel2){
+			frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(act)));
 		}
-//		if (curPanel instanceof StoryPanel2){
-//			frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(act)));
-//		}
-//		else{
-//			((ActionPanel)curPanel).setContent((new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(act));
-//		}
+		else{
+			((ActionPanel)curPanel).setContent((new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(act));
+		}
 	}
 	
 	public static void displayInteractionPanel(String vp, String msg){

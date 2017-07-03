@@ -33,6 +33,7 @@ import Models.Sentence;
 import Models.Sickness;
 import Models.Symptom;
 import Models.VirtualPeer;
+import View.StoryPanel2;
 import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
@@ -321,7 +322,7 @@ public class StoryGenerator2 {
 			}
 			
 			//9 - doActivity && if curStoryEventIndex is second to the last or last	
-			if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) ){
+			if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) && StartFrameController.getFramePanel() instanceof StoryPanel2){
 				
 				System.out.println("pasok dito!");
 				System.out.println("episode goal = "+episode.getEpisodeGoalId());
@@ -331,6 +332,7 @@ public class StoryGenerator2 {
 //				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
 //				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
 				StartFrameController.displayAction("Liam", curAction.getChosenObject().getName(), curAction.getRuling());
+				System.out.println("COOPERATION PLETH");
 				
 				if (curStoryEventIndex == this.eventsId.size() - 1){
 					if (!ifLiamMeetsAssertions()){
@@ -359,7 +361,6 @@ public class StoryGenerator2 {
 							System.out.println("TO BE SEARCH: " + assertionIdOpp);
 							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 						}
-						
 						
 						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " :: " + reverse.getChosenObject().getName() + " :: " + reverse.getChosenObject().getVerb());
 						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
@@ -390,9 +391,13 @@ public class StoryGenerator2 {
 					}
 					
 				} //if (curStoryEventIndex == this.eventsId.size() - 1){	
+				
 			}
 			
+			
+			
 	//		if ( this.episode.getEpisodeGoalId() < 9 || this.episode.getEpisodeGoalId() >= 11) {
+			else{
 				Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
 				this.lastQuestion = "";
 				
@@ -429,9 +434,10 @@ public class StoryGenerator2 {
 				}
 				else{
 					curStoryEventIndex++;
-					//recursion
+//					recursion
 					playEvent();
 				}
+			}
 	//		}
 				
 			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
@@ -706,8 +712,8 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-	//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();

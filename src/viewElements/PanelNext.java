@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import View.ActionPanel;
 import View.InteractionPanel;
 import View.StartFrame;
 import View.StoryPanel;
@@ -64,6 +65,9 @@ public class PanelNext extends JPanel {
 			}
 			else if (StartFrameController.getFramePanel() instanceof InteractionPanel ){
 		    	StartFrameController.sendUserResponse(((InteractionPanel)StartFrameController.getFramePanel()).getUserInput());
+			}
+			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
+				StartFrameController.playEvent();
 			}
 		}
 	}
