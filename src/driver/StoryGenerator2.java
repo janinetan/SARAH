@@ -507,10 +507,10 @@ public class StoryGenerator2 {
 
 	public void getVerdict(String userInput) throws IOException {
 		
-		String shiz = polishMessage(this.lastQuestion).replaceAll("[\n\r]", "").concat(userInput);
-		
-		System.out.println("BWISIT TALAGA: "+shiz);
-		String verdict = SarahChatbot.getVerdict(shiz);
+//		String shiz = polishMessage(this.lastQuestion).replaceAll("[\n\r]", "").concat(userInput);
+//		
+//		System.out.println("BWISIT TALAGA: "+shiz);
+		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion).replaceAll("[\n\r]", ""), userInput);
 		System.out.println(verdict);
 		
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
