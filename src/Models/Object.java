@@ -14,6 +14,7 @@ public class Object {
 	private String verb;
 	private String filename;
 	private String connector;
+	private String connectorNarration;
 	
 	public String getConnector() {
 		return connector;
@@ -50,6 +51,12 @@ public class Object {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public String getConnectorNarration() {
+		return connectorNarration;
+	}
+	public void setConnectorNarration(String connectorNarration) {
+		this.connectorNarration = connectorNarration;
 	}
 	
 }

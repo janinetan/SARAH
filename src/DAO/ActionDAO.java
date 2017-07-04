@@ -162,6 +162,7 @@ public class ActionDAO {
 				object.setVerb(rs.getString("verb"));
 				object.setFilename(rs.getString("filename"));
 				object.setConnector(rs.getString("connector"));
+				object.setConnectorNarration(rs.getString("connectorNarration"));
 				objectList.add(object);
 			}
 			return objectList;
