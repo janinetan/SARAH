@@ -137,7 +137,7 @@ public class LocationPanel extends JPanel{
 		
 		this.add(dialogPanel, BorderLayout.NORTH);
 		this.add(location,BorderLayout.CENTER);
-		this.add(bottomPanel,BorderLayout.SOUTH);
+		//this.add(bottomPanel,BorderLayout.SOUTH);
 		validate();
 	}
 	
@@ -225,7 +225,7 @@ public class LocationPanel extends JPanel{
 				setButtonIcon(btnLoc1Image, locationButton1);
 				setButtonIcon(btnLoc2Image, locationButton2);
 			}
-			
+	        StartFrameController.displayStartStory(theme);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package View;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -25,31 +26,44 @@ public class EndStoryPanel extends JPanel{
 	private ImagePanel peer,box,room,sticker,action;
 	private Font font;
 	private JFrame main;
+	private ImageIcon icon;
+	private Image image1;
+	private Image myImage;
+	private BufferedImage image;
 	
-	public EndStoryPanel(JFrame main) throws IOException
+	public EndStoryPanel(JFrame main, String bgImagepath) throws IOException
 	{
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBounds(0,0,StartFrame.frameWidth,StartFrame.frameHeight);
-		setBackground(new Color(197,229,240));
+		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
+		setBackground(bgImagepath);
 		setLayout(null);
 		
-		font = new Font("Comic Sans MS", Font.PLAIN, 50);
-		
+		font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
+		/*
 		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
 		room = new ImagePanel(img);
 		room.setLocation(0, 0);
 		
 		peer = new ImagePanel("assets/sarah.png");
-		peer.setLocation(-70, 100);
+		peer.setLocation(-70, 100);*/
 		
-		BufferedImage img1 = new ImgUtils().scaleImage(1640,450,"assets/story_dialog_box.png");
+		ImagePanel peer1 = new ImagePanel("");
+		image = ImageIO.read(new File("assets/sarah.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*35/100, StartFrame.frameHeight*90/100,Image.SCALE_SMOOTH);
+		peer1.setImage(image1);
+//		peer1.setLocation(-70, 100);
+//		leftPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, -StartFrame.frameWidth*1/100, 0, 0));
+//		leftPanel.add(peer1);
+		
+		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth,StartFrame.frameHeight*40/100,"assets/story_dialog_box.png");
 		box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
 
         message = new JTextArea();
         message.setText("Yey! You have now completed the story about Pneumonia. I hope you learned a lot! Do you want to hear another story?");
-        message.setSize(950,100);
+        message.setSize(StartFrame.frameWidth*60/100,StartFrame.frameHeight*35/100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
@@ -128,5 +142,37 @@ public class EndStoryPanel extends JPanel{
         this.add(peer);
 		this.add(box);
 		this.add(room);
+	}
+	public void setBackground( String backgroundImagePath ){
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(new File(backgroundImagePath));
+			ImageIcon imageIcon = new ImageIcon(bufferedImage);
+			double h = StartFrame.frameHeight;		
+			double w = StartFrame.frameWidth;	
+			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
+			this.myImage = image;
+			this.revalidate();
+			this.repaint();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setButtonIcon(String filepath, JButton button){
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(new File(filepath));
+			ImageIcon imageIcon = new ImageIcon(bufferedImage);
+			double w = StartFrame.frameWidth*28/100;
+			double h = StartFrame.frameHeight*30/100;
+			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
+			imageIcon = new ImageIcon(image);
+			button.setIcon(imageIcon);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

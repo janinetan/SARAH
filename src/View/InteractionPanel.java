@@ -74,7 +74,8 @@ public class InteractionPanel extends JPanel{
 		leftPanel.add(peer1);
 		
 		ImagePanel dialog = new ImagePanel("");
-		image = ImageIO.read(new File("assets/"+vp+"_dialog_interaction.png"));
+		System.out.println(vp);
+		image = ImageIO.read(new File("assets/"+vp.toLowerCase()+"_dialog_interaction.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*70/100,StartFrame.frameHeight*40/100,Image.SCALE_SMOOTH);
 		dialog.setImage(image1);
