@@ -640,20 +640,22 @@ public class StoryGenerator2 {
 	public String polishMessage (String message){
 		System.out.println("mssg = " +message);
 		
-		message = message.replaceAll("<user>", username);
+		message = message.replaceAll("<user-cap>", username.substring(0, 1).toUpperCase() + username.substring(1));
 		message = message.replaceAll("<day>", "Saturday");
-		message = message.replaceAll("<liam-status>", " <liam-status>sick");
+		message = message.replaceAll("<liam-status>", "sick");
 		
 		if(message.contains("sickness"))
 			message = message.replaceAll("<sickness>", this.storyTheme.getName());
 		
 		if(message.contains("body-part")){
 			message = message.replaceAll("<body-part-affected>", this.bodyPartsList.get(0).getName());
+			message = message.replaceAll("<body-part-affected-cap>", this.bodyPartsList.get(0).getName().substring(0, 1).toUpperCase() + this.bodyPartsList.get(0).getName().substring(1));
 			message = message.replaceAll("<body-part-definition>", this.bodyPartsList.get(0).getDescription());
 		}
 		
 		if (message.contains("curAction")){
 			message = message.replaceAll("<curAction-verb-ing>", getNLG(this.curAction.getChosenObject().getVerb()));
+			message = message.replaceAll("<curAction-verb-ing-cap>", getNLG(this.curAction.getChosenObject().getVerb()).substring(0, 1).toUpperCase() + getNLG(this.curAction.getChosenObject().getVerb()).substring(1));
 			message = message.replaceAll("<curAction-verb>", this.curAction.getChosenObject().getVerb());
 			message = message.replaceAll("<curAction-object>", this.curAction.getChosenObject().getName());
 			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
@@ -704,8 +706,20 @@ public class StoryGenerator2 {
 		}
 		
 		i = 0;
+		while (message.contains("[treatment-cap]")){
+			message = message.replaceFirst("\\[treatment\\]", this.treatmentsList.get(i).substring(0, 1).toUpperCase() + this.treatmentsList.get(i).substring(1));
+			i++;
+		}
+		
+		i = 0;
 		while (message.contains("[cause]")){
 			message = message.replaceFirst("\\[cause\\]", this.causesList.get(i));
+			i++;
+		}
+		
+		i = 0;
+		while (message.contains("[cause-cap]")){
+			message = message.replaceFirst("\\[cause\\]", this.causesList.get(i).substring(0, 1).toUpperCase() + this.causesList.get(i).substring(1));
 			i++;
 		}
 		
@@ -718,8 +732,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-//	XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -733,8 +746,7 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-			XMLLexicon lexicon = new XMLLexicon("C:\\Users\\Janine Tan\\Desktop\\SARAH\\NLG\\src\\simplenlg\\lexicon\\default-lexicon.xml");
-			
+			XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);
