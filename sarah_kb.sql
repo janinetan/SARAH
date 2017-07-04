@@ -331,6 +331,7 @@ CREATE TABLE `object` (
   `verb` varchar(100) NOT NULL,
   `connector` varchar(45) NOT NULL,
   `filename` varchar(100) NOT NULL,
+  `connectorNarration` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -341,7 +342,7 @@ CREATE TABLE `object` (
 
 LOCK TABLES `object` WRITE;
 /*!40000 ALTER TABLE `object` DISABLE KEYS */;
-INSERT INTO `object` VALUES (2,'indoorToy','ball','throw','the','ball'),(3,'indoorToy','stuffed toy','hug','the','stuff_toy'),(4,'outdoorToy','mud','splash','in the','mud'),(5,'outdoorToy','slide','ride','the','slide'),(6,'outdoorToy','sandcastle','build','a','sandcastle'),(7,'food','sandwich','eat','a','sandwich'),(8,'food','fruit','eat','the','fruits'),(9,'bodyPart','hands','clean','his','wash_hands'),(10,'facialBodyPart','eyes','rub','our','scratch_face'),(11,'facialBodyPart','nose','scratch','our','scratch_nose'),(12,'facialBodyPart','face','scratch','our','scratch_face'),(13,'sanitizer','alcohol','spray','the','sanitize_hands'),(14,'sanitizer','alcohol','rub','the','sanitize_hands'),(15,'sleepObject','bed','sleep on the','on the','sleep'),(16,'restObject','bench','rest on the','the','bench'),(17,'facialBodyPart','mouth','scratch','our','scratch_face');
+INSERT INTO `object` VALUES (2,'indoorToy','ball','throw','the','ball',''),(3,'indoorToy','stuffed toy','hug','the','stuff_toy',''),(4,'outdoorToy','mud','splash','in the','mud',''),(5,'outdoorToy','slide','ride','the','slide',''),(6,'outdoorToy','sandcastle','build','a','sandcastle',''),(7,'food','sandwich','eat','a','sandwich',''),(8,'food','fruit','eat','the','fruits',''),(9,'bodyPart','hands','clean','his','wash_hands',''),(10,'facialBodyPart','eyes','rub','our','scratch_face',''),(11,'facialBodyPart','nose','scratch','our','scratch_nose',''),(12,'facialBodyPart','face','scratch','our','scratch_face',''),(13,'sanitizer','alcohol','spray','the','sanitize_hands',''),(14,'sanitizer','alcohol','rub','the','sanitize_hands',''),(15,'sleepObject','bed','sleep on the','on the','sleep',''),(16,'restObject','bench','rest on the','the','bench',''),(17,'facialBodyPart','mouth','scratch','our','scratch_face','');
 /*!40000 ALTER TABLE `object` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -621,6 +622,10 @@ LOCK TABLES `virtual_peer` WRITE;
 INSERT INTO `virtual_peer` VALUES (1,'Sarah','happy',0,'image'),(2,'Liam','sick',1,'image');
 /*!40000 ALTER TABLE `virtual_peer` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'sarah_kb'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -631,4 +636,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-05  0:04:33
+-- Dump completed on 2017-07-05  0:29:06
