@@ -335,7 +335,7 @@ public class StoryGenerator2 {
 
 //				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
 //				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
-				StartFrameController.displayAction("Liam", curAction.getChosenObject().getFilename(), curAction.getRuling());
+				StartFrameController.displayAction("Liam", curAction.getChosenObject().getVerb() + " " + curAction.getChosenObject().getName() ,curAction.getChosenObject().getFilename(), curAction.getRuling());
 				System.out.println("COOPERATION PLETH");
 				
 				if (curStoryEventIndex == this.eventsId.size() - 1){
@@ -432,7 +432,7 @@ public class StoryGenerator2 {
 						}
 					}
 					else if (event.getType() == Event.TYPE_ACTION){
-						StartFrameController.displayAction("Liam", curAction.getChosenObject().getName(), curAction.getRuling());
+						StartFrameController.displayAction("Liam", curAction.getChosenObject().getVerb() + " " + curAction.getChosenObject().getName(), curAction.getChosenObject().getName(), curAction.getRuling());
 					}
 					curStoryEventIndex++;
 				}
