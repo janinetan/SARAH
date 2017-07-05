@@ -664,8 +664,17 @@ public class StoryGenerator2 {
 		}
 		
 		if(message.contains("connector")){
-			message = message.replaceAll("<connector>", this.curAction.getChosenObject().getConnector());
+			if(reverse != null)
+				message = message.replaceAll("<reverseAction-connector>", reverse.getChosenObject().getConnector());
+			message = message.replaceAll("<curAction-connector>", this.curAction.getChosenObject().getConnector());
 		}
+		
+		if(message.contains("connectorNarration")){
+			if(reverse != null)
+			message = message.replaceAll("<reverseAction-connectorNarration>", reverse.getChosenObject().getConnectorNarration());
+			message = message.replaceAll("<curAction-connectorNarration>", this.curAction.getChosenObject().getConnectorNarration());
+		}
+		
 		
 		if(message.contains("prevAction")){
 			String tempPrevAction = "";
