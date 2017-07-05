@@ -510,7 +510,9 @@ public class StoryGenerator2 {
 //		String shiz = polishMessage(this.lastQuestion).replaceAll("[\n\r]", "").concat(userInput);
 //		
 //		System.out.println("BWISIT TALAGA: "+shiz);
-		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion).replaceAll("[\n\r]", ""), userInput);
+//		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion).replaceAll("[\n\r]", ""), userInput);
+		String verdict = SarahChatbot.getVerdict(lastSentenceTag + " ", userInput);
+		System.out.println("lastSentenceTag = "+lastSentenceTag);
 		System.out.println(verdict);
 		
 		if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_BAD)){
@@ -732,7 +734,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -746,7 +748,7 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-			XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);

@@ -1,0 +1,17 @@
+0,askAction # <set>s-negative</set> #,*,*,V>negative,sarah.aiml
+0,askAction # <set>s-positive</set> #,*,*,V>positive,sarah.aiml
+0,# Liam should # <set>s-negation</set> # <set>s-positive</set> #,*,*,V>negative,sarah.aiml
+0,# He should # <set>s-negation</set> # <set>s-positive</set> #,*,*,V>negative,sarah.aiml
+0,# Liam should # <set>s-negation</set> # <set>s-negative</set> #,*,*,V>positive,sarah.aiml
+0,# He should # <set>s-negation</set> # <set>s-negative</set> #,*,*,V>positive,sarah.aiml
+0,# Liam should # <set>s-negative</set> #,*,*,V>negative,sarah.aiml
+0,# He should # <set>s-negative</set> #,*,*,V>negative,sarah.aiml
+0,# Liam should # <set>s-positive</set> #,*,*,V>positive,sarah.aiml
+0,# He should # <set>s-positive</set> #,*,*,V>positive,sarah.aiml
+0,_ 999 #,*,*,"DI KO ALAM BES <think> <set name=""topic""><star/></set> </think>",sarah.aiml
+0,user-askFeeling # <set>s-negation</set> # <set>s-positive</set> #,*,*,V>negative,sarah.aiml
+0,user-askFeeling # <set>s-negation</set> # <set>s-negative</set> #,*,*,V>positive,sarah.aiml
+0,user-askFeeling # <set>s-negative</set> #,*,*,V>negative,sarah.aiml
+0,user-askFeeling # <set>s-positive</set> #,*,*,V>positive,sarah.aiml
+0,user-askSickness # no #,*,*,V>negative,sarah.aiml
+0,user-askSickness # yes #,*,*,V>positive,sarah.aiml
