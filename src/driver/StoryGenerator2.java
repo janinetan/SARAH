@@ -500,7 +500,7 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		String verdict = SarahChatbot.getVerdict(lastSentenceTag + "? ", userInput);
+		String verdict = SarahChatbot.getVerdict(lastSentenceTag + " ", userInput);
 		System.out.println("lastSentenceTag = "+lastSentenceTag);
 		System.out.println(verdict);
 		
