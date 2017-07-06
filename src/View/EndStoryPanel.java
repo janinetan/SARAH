@@ -1,6 +1,9 @@
 package View;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,8 +39,9 @@ public class EndStoryPanel extends JPanel{
 		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
+		System.out.println(bgImagepath);
 		setBackground(bgImagepath);
-		setLayout(null);
+		setLayout(new BorderLayout());
 		
 		font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
 		/*
@@ -57,7 +61,7 @@ public class EndStoryPanel extends JPanel{
 //		leftPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, -StartFrame.frameWidth*1/100, 0, 0));
 //		leftPanel.add(peer1);
 		
-		BufferedImage img1 = new ImgUtils().scaleImage(StartFrame.frameWidth,StartFrame.frameHeight*40/100,"assets/story_dialog_box.png");
+		BufferedImage img1 = new ImgUtils().scaleImage((int)(StartFrame.frameWidth*98.6/100),StartFrame.frameHeight*40/100,"assets/story_dialog_box.png");
 		box = new ImagePanel(img1);
 		SpringLayout layout = new SpringLayout();
 
@@ -122,7 +126,13 @@ public class EndStoryPanel extends JPanel{
 		box.add(yesButton);
         box.add(noButton);
 		box.add(message);
+		box.add(peer1);
 		
+		// For horizontal Alignment of story message
+		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
+		// For Vertical Alignment of story message
+		layout.putConstraint(SpringLayout.NORTH, message, 10, SpringLayout.NORTH, box);
+				
 		// For horizontal Alignment of story message
 		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
 		// For Vertical Alignment of story message
@@ -139,9 +149,9 @@ public class EndStoryPanel extends JPanel{
         box.setLayout(layout);
         box.setLocation(0, 500);
         
-        this.add(peer);
-		this.add(box);
-		this.add(room);
+        this.add(peer1);
+		this.add(box,BorderLayout.SOUTH);
+		//this.add(room);
 	}
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;
@@ -175,4 +185,11 @@ public class EndStoryPanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+    protected void paintComponent(Graphics g){ 
+        super.paintComponent(g);    
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(myImage, 0, 0, null);
+    } 
 }

@@ -225,7 +225,8 @@ public class LocationPanel extends JPanel{
 				setButtonIcon(btnLoc1Image, locationButton1);
 				setButtonIcon(btnLoc2Image, locationButton2);
 			}
-	        StartFrameController.displayStartStory(theme);
+	        //StartFrameController.displayStartStory(theme);
+	        StartFrameController.displayEnd(theme);
 		}
 	}
 }

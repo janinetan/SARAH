@@ -141,6 +141,7 @@ public class StoryGenerator2 {
 		
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
+			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 			StartFrameController.displayEnd();
 		}else{
 		
