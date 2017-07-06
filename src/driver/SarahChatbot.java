@@ -17,7 +17,7 @@ public class SarahChatbot {
 	
 	public static void main(String[] args){
 		System.out.println(getVerdict("askReverseAction? ", "anuna bes"));
-		System.out.println(getVerdict("askReverseAction ", "yes"));
+		System.out.println(getVerdict("askReverseAction? ", "of course"));
 	}
 	
 	public static String getVerdict (String question, String response){

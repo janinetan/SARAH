@@ -344,8 +344,11 @@ public class StoryGenerator2 {
 							if(curAction.getSymptomList().size() != 0){
 								int index = randomGenerator.nextInt(curAction.getSymptomList().size());
 			//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
-								if(!symptomsList.contains( curAction.getSymptomList().get(index)))
-									symptomsList.add( curAction.getSymptomList().get(index));
+								String symTemp = curAction.getSymptomList().get(index);
+								if( !symptomsList.contains(symTemp) ){
+									symptomsList.add( symTemp );
+									StartFrameController.addSymptom(symTemp);
+								}
 							}
 							System.out.println("hassymptom");
 							System.out.println("symptomsList size: "+symptomsList.size());
@@ -472,15 +475,6 @@ public class StoryGenerator2 {
 		ArrayList<Integer> actionAssertions = curAction.getPrecondition();
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
 		
-//		System.out.println("LIAM HEALTH: ");
-//		for (int temp1 : liamHealthAssertions)
-//			System.out.print(temp1 + ", ");
-//		System.out.println();
-//		System.out.println("ACTION PRECOND: ");
-//		for (int temp2 : actionAssertions)
-//			System.out.print(temp2 + ", ");
-//		System.out.println();
-		
 		for (int tempAssertionIndex : actionAssertions ){
 			if (liamHealthAssertions.indexOf(tempAssertionIndex) == -1)
 				return false;
@@ -506,12 +500,7 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		
-//		String shiz = polishMessage(this.lastQuestion).replaceAll("[\n\r]", "").concat(userInput);
-//		
-//		System.out.println("BWISIT TALAGA: "+shiz);
-//		String verdict = SarahChatbot.getVerdict(polishMessage(this.lastQuestion).replaceAll("[\n\r]", ""), userInput);
-		String verdict = SarahChatbot.getVerdict(lastSentenceTag + " ", userInput);
+		String verdict = SarahChatbot.getVerdict(lastSentenceTag + "? ", userInput);
 		System.out.println("lastSentenceTag = "+lastSentenceTag);
 		System.out.println(verdict);
 		
@@ -521,23 +510,10 @@ public class StoryGenerator2 {
 		}
 		else if (verdict.equalsIgnoreCase(SarahChatbot.VERDICT_GOOD)){
 			this.storyRuling = Event.RULING_GOOD;
-			
-//			System.out.println("GGGGGGGGGGGGGGGG : entered verdict good");
-//			Episode e = (new EpisodeDAO()).getEpisodeById(13); 
-//			episodesList.add(curStoryEpisodeIndex, e);
-//			curStoryEventIndex = 0;
-//			System.out.println("GGGGGGGGGGGGGGGG : adding .....");
-//			
-//			int i = 0;
-//			for (Episode ep : episodesList){
-//				System.out.print(", ep (" +i+ ") = "+ep.getEpisodeGoalId());
-//				i++;
-//			}
-//			
-//			System.out.println();
-			
+						
 			StartFrameController.playEvent();
-		}else{
+		}
+		else{
 			this.storyRuling = Event.RULING_NEUTRAL;
 			successionCtr++;
 			
@@ -559,19 +535,6 @@ public class StoryGenerator2 {
 	}
 
 	public void selectStoryTheme() {
-		// gets random sickness with symptom chosen and sets it as story theme
-		// sets all facts about selected story theme
-//		Symptom selectedSymptom = (new SymptomDAO()).getRandomSicknessIdWithSymptom(symptomInput);
-//		int sicknessId = selectedSymptom.getSicknessId();
-//		Sickness sickness = (new SicknessDAO()).getSicknessWithId(sicknessId);
-//		System.out.println("?????");
-//		System.out.println(sickness);
-//		this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(sicknessId));
-//		this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(sicknessId));
-//		this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(sicknessId));
-//		this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(sicknessId));
-//		this.storyTheme = sickness;
-		
 		System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW: entered function selectStoryTheme");
 		System.out.println("symptomsList size = " +symptomsList.size());
 		
