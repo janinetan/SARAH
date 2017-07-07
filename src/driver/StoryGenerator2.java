@@ -459,8 +459,8 @@ public class StoryGenerator2 {
 	
 	private boolean checkIfLiamHasAllGoodAssertions() {
 		ArrayList<Integer> liamHealthAssertions = this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions();
-		System.out.println("Liam's health assertions = " +liamHealthAssertions);
-		System.out.println("Good health assertions = " +goodHealthAssertions);
+//		System.out.println("Liam's health assertions = " +liamHealthAssertions);
+//		System.out.println("Good health assertions = " +goodHealthAssertions);
 		for (int assertionTemp: goodHealthAssertions){
 			if (liamHealthAssertions.indexOf(assertionTemp) == -1)
 				return false;

@@ -319,6 +319,7 @@ public class StoryPanel2 extends JPanel{
 	}
 	
 	public void addSymptom(String imagePath, String symptomName){
+		System.out.println("LIAM'S SYMPTOMS: " + symptomName);
 		symptomLogPanel.addItem(imagePath, symptomName);
 	}
 	

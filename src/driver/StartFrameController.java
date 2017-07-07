@@ -11,9 +11,7 @@ import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanelTest;
-import View.StoryPanel;
 import View.StoryPanel2;
-import View.ThemePanel;
 import View.WelcomePanel;
 
 public class StartFrameController implements IController {
@@ -22,6 +20,8 @@ public class StartFrameController implements IController {
 	private static StoryGenerator2 storyGenerator;
 	private static StoryPanel2 storyPanel;
 	private static String theme;
+	private static MyFilewriter logger;
+	private static boolean logOn = false;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -77,6 +77,11 @@ public class StartFrameController implements IController {
 		storyGenerator = new StoryGenerator2();
 		storyGenerator.setUpStory();
 		storyPanel = new StoryPanel2((new StoryWorldManager()).getLocationBg(theme));
+		if (logOn){
+			if (logger != null)
+				logger.closeFile();
+			logger = new MyFilewriter(WelcomePanel.getPlayerName());
+		}
 		playEvent();
 	}
 	
@@ -93,6 +98,7 @@ public class StartFrameController implements IController {
 			StartFrameController.displayInteractionPanel(peer, msg);
 		}
 		else{
+			logMessage(peer + ": " + msg);
 			JPanel curPanel = frame.getCurPanel();
 			if (! (curPanel instanceof StoryPanel2) ){
 				frame.changePanel(storyPanel);
@@ -103,6 +109,7 @@ public class StartFrameController implements IController {
 	}
 	
 	public static void displayAction(String vp, String action, String actionFilename, int eventRuling){
+		logMessage(vp + " " + action);
 		JPanel curPanel = frame.getCurPanel();
 		if (curPanel instanceof StoryPanel2){
 			String icnImagepath = (new StoryWorldManager()).getIconImagepath(actionFilename);
@@ -116,6 +123,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayInteractionPanel(String vp, String msg){
 		try {
+			logMessage(vp + ": " + msg);
 			JPanel curPanel = frame.getCurPanel();
 			if (curPanel instanceof StoryPanel2)
 				frame.changePanel(new InteractionPanel(frame, vp, msg, ((StoryPanel2)curPanel).getBgImagepath()));
@@ -141,9 +149,16 @@ public class StartFrameController implements IController {
 	
 	public static void sendUserResponse(String userInput){
 		try {
+			logMessage(WelcomePanel.getPlayerName() + ": " + userInput);
 			storyGenerator.getVerdict(userInput);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void logMessage(String text){
+		if (logOn){
+			logger.writeToFile(text);
 		}
 	}
 	
