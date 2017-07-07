@@ -450,7 +450,7 @@ public class StoryGenerator2 {
 				mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
 			}
 		}
-		StartFrameController.displayAction("Liam", a.getChosenObject().getVerb() + " " + a.getChosenObject().getName(), a.getChosenObject().getFilename(), a.getRuling());
+		StartFrameController.displayAction("Liam", a.getChosenObject().getVerb() + " " + a.getChosenObject().getName(), a.getChosenObject().getFilename(), a.getRuling(), m);
 	}
 	
 	private boolean checkIfLiamHasAllGoodAssertions() {

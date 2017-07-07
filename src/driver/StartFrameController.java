@@ -112,17 +112,17 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayAction(String vp, String action, String actionFilename, int eventRuling){
+	public static void displayAction(String vp, String action, String actionFilename, int eventRuling, String msg){
 		logMessage(vp + " " + action);
 		System.out.println(vp + " is doing " + action + " with image path " + actionFilename);
 		JPanel curPanel = frame.getCurPanel();
 		if (curPanel instanceof StoryPanel2){
 			String icnImagepath = (new StoryWorldManager()).getIconImagepath(actionFilename);
-			frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath(vp, eventRuling), icnImagepath));
+			frame.changePanel(new ActionPanel ((new StoryWorldManager()).getLocationBg(theme), (new StoryWorldManager()).getVPImagepath(vp, eventRuling), icnImagepath, msg));
 			storyPanel.addActivity(icnImagepath, action);
 		}
 		else{
-			((ActionPanel)curPanel).setContent((new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(actionFilename));
+			((ActionPanel)curPanel).setContent((new StoryWorldManager()).getVPImagepath(vp, eventRuling), (new StoryWorldManager()).getIconImagepath(actionFilename), msg);
 		}
 	}
 	
