@@ -110,6 +110,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayAction(String vp, String action, String actionFilename, int eventRuling){
 		logMessage(vp + " " + action);
+		System.out.println(vp + " is doing " + action + " with image path " + actionFilename);
 		JPanel curPanel = frame.getCurPanel();
 		if (curPanel instanceof StoryPanel2){
 			String icnImagepath = (new StoryWorldManager()).getIconImagepath(actionFilename);
