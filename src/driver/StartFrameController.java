@@ -48,6 +48,10 @@ public class StartFrameController implements IController {
 		frame.setVisible(false);
 	}
 	
+	public static StartFrame getFrame(){
+		return frame;
+	}
+	
 	public static void displayStartMenu(){
 		try {
 			frame.changePanel(new StartMenuPanelTest());

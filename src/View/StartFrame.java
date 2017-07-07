@@ -4,13 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import viewElements.PanelHome;
@@ -87,5 +92,4 @@ public class StartFrame extends JFrame {
 	public JPanel getCurPanel() {
 		return curPanel;
 	}
-
 }

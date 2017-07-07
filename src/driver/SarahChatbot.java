@@ -10,7 +10,7 @@ public class SarahChatbot {
 	
 	public static String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
 	
-//	public static String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
+//	public static String path = "C:/Users/Heinson/Documents/GitHub/SARAH/sarah-bot";
 	public static Bot bot = new Bot("sarah-bot", path);
 	public static Chat chat = new Chat(bot);
 	public static String s = "";
@@ -22,18 +22,19 @@ public class SarahChatbot {
 	}
 	
 	public static String getVerdict (String question, String response){
-		
 		question = question.replaceAll("\\?", " 999 ");
 		question = question.replaceAll("[,!\\.]", " ");
 		
 		s = chat.multisentenceRespond(question + response);
 
-		if (s.equals(VERDICT_NEUTRAL)){
+		if (s.equals(VERDICT_NEUTRAL) /*|| !s.contains("V:") || !s.contains("T:")*/){
+			System.out.println("********** SarahChatbot getVerdict if verdict_neutral");
 			s = chat.multisentenceRespond(response);
 		}
 		
-		if (s.contains("V>")){
-			String[] output = s.split("V>");
+		if (s.contains("V:")){
+			System.out.println("********** SarahChatbot getVerdict if contains V:");
+			String[] output = s.split("V:");
 			return output[1];	
 		}
 		

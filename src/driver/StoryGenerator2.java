@@ -31,9 +31,7 @@ import Models.Event;
 import Models.Message;
 import Models.Sentence;
 import Models.Sickness;
-import Models.Symptom;
 import Models.VirtualPeer;
-import View.StoryPanel2;
 import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
@@ -141,6 +139,7 @@ public class StoryGenerator2 {
 		
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
+			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 			StartFrameController.displayEnd();
 		}else{
 		
@@ -326,150 +325,67 @@ public class StoryGenerator2 {
 			}
 			
 			
-//			ITO YUNG PINAGLALARUAN KO
-//			//9 - doActivity && if curStoryEventIndex is second to the last or last	
-//			if( this.episode.getEpisodeGoalId() == 9 && ( curStoryEventIndex == this.eventsId.size() - 1) && StartFrameController.getFramePanel() instanceof StoryPanel2){
-//				
-//				System.out.println("pasok dito!");
-//				System.out.println("episode goal = "+episode.getEpisodeGoalId());
-//				System.out.println("event index = "+curStoryEventIndex);
-//				System.out.println("events size = "+(eventsId.size()-1));
-//
-////				RAISA REMOVED ACTION PANEL, TO BE FIXED :)
-////				StartFrameController.displayAction(curAction.getChosenObject().getFilename());
-////				StartFrameController.displayAction("Liam", curAction.getChosenObject().getVerb() + " " + curAction.getChosenObject().getName() ,curAction.getChosenObject().getFilename(), curAction.getRuling());
-//				
-//				if (curStoryEventIndex == this.eventsId.size() - 1){
-//					System.out.println("YOKO NA HUHUHU");
-//					if (!ifLiamMeetsAssertions()){
-//						if(storyRuling == Event.RULING_BAD){
-//							if(curAction.getSymptomList().size() != 0){
-//								int index = randomGenerator.nextInt(curAction.getSymptomList().size());
-//			//					System.out.println(">>>>> randomized symptom = " + curAction.getSymptomList().get(index));
-//								String symTemp = curAction.getSymptomList().get(index);
-//								if( !symptomsList.contains(symTemp) ){
-//									symptomsList.add( symTemp );
-//									StartFrameController.addSymptom(symTemp);
-//								}
-//							}
-//							System.out.println("hassymptom");
-//							System.out.println("symptomsList size: "+symptomsList.size());
-//						}
-//					}
-//					//apply postcondition to liam
-//					System.out.println("CHANGING LIAM PROPERTY");
-//					
-////					System.out.println("THIS = "+ curAction.getActivityName() + " " + curAction.getChosenObject().getName() + " " + curAction.getChosenObject().getVerb());
-//					
-//					if(storyRuling == Event.RULING_GOOD && curAction.getReverseActions()!= null && curStoryEventIndex == this.eventsId.size() - 1){
-//						System.out.println("UPDATING REVERSE");
-//						ArrayList<Integer> postconditions = reverse.getPostcondition();
-//						System.out.println("POSTCONDITION SIZE: " + postconditions.size());
-//						for (int postconTemp: postconditions){
-//							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
-//							System.out.println("TO BE SEARCH: " + assertionIdOpp);
-//							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
-//						}
-//						
-//						mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " :: " + reverse.getChosenObject().getName() + " :: " + reverse.getChosenObject().getVerb());
-//						mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
-//						
-//						if (curAction.getPostcondition().size() == 0){
-//							mappingActionSymptom.add("NONE");
-//						}else{
-//							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(curAction.getPostcondition().get(0)).getConcept2());
-//						}
-////						StartFrameController.displayAction("Liam", reverse.getChosenObject().getVerb() + " " + reverse.getChosenObject().getName() , reverse.getChosenObject().getFilename(), reverse.getRuling());
-//					}
-////					else{
-//						System.out.println("UPDATING");
-//						ArrayList<Integer> postconditions = curAction.getPostcondition();
-//						System.out.println("curAction name = " +curAction.getActivityName());
-//						System.out.println("posconditions size = "+postconditions.size());
-//						for (int postconTemp: postconditions){
-//							int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
-//							this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
-//						}
-//						
-//						if (postconditions.size() == 0){
-//							mappingActionSymptom.add("NONE");
-//						}else{
-//							mappingActionSymptom.add((new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
-//						}
-//						StartFrameController.displayAction("Liam", curAction.getChosenObject().getVerb() + " " + curAction.getChosenObject().getName() ,curAction.getChosenObject().getFilename(), curAction.getRuling());
-////					}
-//					
-//					
-//				} //if (curStoryEventIndex == this.eventsId.size() - 1){	
-//				
-//			}
-			
-			
-	//		if ( this.episode.getEpisodeGoalId() < 9 || this.episode.getEpisodeGoalId() >= 11) {
-//			else{
-				Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
-				this.lastQuestion = "";
-				
+
+			Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
+			this.lastQuestion = "";
 		
-				System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
-				System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
+			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
+			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
 				
-				//start StoryRuling is good
-				//if storyRuling is same as event ruling or event ruling is equal to neutral
-				if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
-					if (event.getType() == Event.TYPE_MESSAGE){
-						Message message = (new MessageDAO()).getMessageById(event.getId());
-						message.setRuling(event.getRuling());
-						if (curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
-							message.setIsLast(true);
-						ArrayList<String> sentenceTags = message.getSentenceTags();
-						String m = "";
-						for (String tempSentenceTag: sentenceTags){
-							Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
-							m += sentence.getMessage() + " ";
-							this.lastSentenceTag = tempSentenceTag;
-							this.lastQuestion = sentence.getMessage();
-						}
-						m = polishMessage(m);
-						StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast(), message.getRuling());
-						if (!message.getIsLast()){
-							this.roundRobinVP();
-						}
+			// start StoryRuling is good
+			// if storyRuling is same as event ruling or event ruling is equal to neutral
+			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
+				if (event.getType() == Event.TYPE_MESSAGE){
+					Message message = (new MessageDAO()).getMessageById(event.getId());
+					message.setRuling(event.getRuling());
+					if (curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
+						message.setIsLast(true);
+					ArrayList<String> sentenceTags = message.getSentenceTags();
+					String m = "";
+					for (String tempSentenceTag: sentenceTags){
+						Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
+						m += sentence.getMessage() + " ";
+						this.lastSentenceTag = tempSentenceTag;
+						this.lastQuestion = sentence.getMessage();
 					}
-					else if (event.getType() == Event.TYPE_ACTION){
-						Message message = (new MessageDAO()).getMessageById(event.getId());
-						if (curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
-							message.setIsLast(true);
-						ArrayList<String> sentenceTags = message.getSentenceTags();
-						String m = "";
-						for (String tempSentenceTag: sentenceTags){
-							Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
-							m += sentence.getMessage() + " ";
-							this.lastSentenceTag = tempSentenceTag;
-							this.lastQuestion = sentence.getMessage();
-						}
-						
-						boolean isReverseAct = m.contains("reverseAction");
-						if (m.contains("reverseAction")){
-							doAction( reverse , true, polishMessage(m));
-						}
-						else if (m.contains("curAction")){
-							doAction( curAction, false, polishMessage(m));
-						}
-						m = polishMessage(m);
-//						StartFrameController.displayAction("Liam", curAction.getChosenObject().getVerb() + " " + curAction.getChosenObject().getName(), curAction.getChosenObject().getName(), curAction.getRuling());
+					m = polishMessage(m);
+					StartFrameController.displayMessage(this.curVP.getName(), m, message.getIsLast(), message.getRuling());
+					if (!message.getIsLast()){
 						this.roundRobinVP();
-											}
-					curStoryEventIndex++;
+					}
 				}
-				else{
-					curStoryEventIndex++;
+				else if (event.getType() == Event.TYPE_ACTION){
+					Message message = (new MessageDAO()).getMessageById(event.getId());
+					if (curStoryEventIndex == eventsId.size()-1 && episode.getDiscourseActId() != 0)
+						message.setIsLast(true);
+					ArrayList<String> sentenceTags = message.getSentenceTags();
+					String m = "";
+					for (String tempSentenceTag: sentenceTags){
+						Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
+						m += sentence.getMessage() + " ";
+						this.lastSentenceTag = tempSentenceTag;
+						this.lastQuestion = sentence.getMessage();
+					}
 					
-					// narrate activity para sa reverse
-					// narrate action para sa current action
-					playEvent();
+					boolean isReverseAct = m.contains("reverseAction");
+					if (m.contains("reverseAction")){
+						doAction( reverse , true, polishMessage(m));
+					}
+					else if (m.contains("curAction")){
+						doAction( curAction, false, polishMessage(m));
+					}
+					m = polishMessage(m);
+					this.roundRobinVP();
 				}
-//			}
+				curStoryEventIndex++;
+			}
+			else{
+				curStoryEventIndex++;
+				
+				// narrate activity para sa reverse
+				// narrate action para sa current action
+				playEvent();
+			}
 				
 			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
 				curStoryEpisodeIndex++;
@@ -595,9 +511,18 @@ public class StoryGenerator2 {
 		}
 		else{
 			this.storyRuling = Event.RULING_NEUTRAL;
-			successionCtr++;
+			Sentence sentence;
 			
-			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+			if(verdict.contains("T:")){
+				System.out.println("********** StoryGenerator getVerdict if contains T:");
+				String[] output = verdict.split("T:");
+				sentence = (new SentenceDAO()).getSentenceByTag(output[1]);
+				verdict = polishMessage(sentence.getMessage());
+			}else{
+				sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+			}
+			
+			successionCtr++;
 			
 			if(successionCtr == 3){
 				successionCtr = 0;
@@ -707,17 +632,8 @@ public class StoryGenerator2 {
 		}
 		
 		if(message.contains("connector")){
-			if(reverse != null)
-				message = message.replaceAll("<reverseAction-connector>", reverse.getChosenObject().getConnector());
-			message = message.replaceAll("<curAction-connector>", this.curAction.getChosenObject().getConnector());
+			message = message.replaceAll("<connector>", this.curAction.getChosenObject().getConnector());
 		}
-		
-		if(message.contains("connectorNarration")){
-			if(reverse != null)
-			message = message.replaceAll("<reverseAction-connectorNarration>", reverse.getChosenObject().getConnectorNarration());
-			message = message.replaceAll("<curAction-connectorNarration>", this.curAction.getChosenObject().getConnectorNarration());
-		}
-		
 		
 		if(message.contains("prevAction")){
 			String tempPrevAction = "";
@@ -773,6 +689,7 @@ public class StoryGenerator2 {
 		
 		i = 0;
 		while (message.contains("[cause-cap]")){
+			System.out.println(">>>>>>>>>> cause-cap "+i);
 			message = message.replaceFirst("\\[cause\\]", this.causesList.get(i).substring(0, 1).toUpperCase() + this.causesList.get(i).substring(1));
 			i++;
 		}
@@ -786,7 +703,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -800,7 +717,7 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+			XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);

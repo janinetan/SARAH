@@ -4,14 +4,19 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import View.ActionPanel;
 import View.InteractionPanel;
@@ -51,6 +56,16 @@ public class PanelNext extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		JFrame frame = StartFrameController.getFrame();
+		
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),"clickButton");
+
+		frame.getRootPane().getActionMap().put("clickButton",new AbstractAction(){
+	        public void actionPerformed(ActionEvent ae){
+	        	btnNext.doClick();
+			}
+	    });
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -64,7 +79,13 @@ public class PanelNext extends JPanel {
 					StoryPanel2.reflectInMsgArea();
 			}
 			else if (StartFrameController.getFramePanel() instanceof InteractionPanel ){
-		    	StartFrameController.sendUserResponse(((InteractionPanel)StartFrameController.getFramePanel()).getUserInput());
+				String userInput = ((InteractionPanel)StartFrameController.getFramePanel()).getUserInput();
+				if ( userInput.equals("Type your answer here...") ){
+					DialogueError dch = new DialogueError((java.awt.Frame)null, "Oops", true);
+				}
+				else{
+					StartFrameController.sendUserResponse(userInput);
+				}
 			}
 			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
 				StartFrameController.playEvent();

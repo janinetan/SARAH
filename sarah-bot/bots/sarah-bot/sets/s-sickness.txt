@@ -1,0 +1,10 @@
+allergy
+asthma
+coughandcolds
+chickenpox
+dengue
+fever
+measles
+pneumonia
+stomachache
+urinarytractinfection

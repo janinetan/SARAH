@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
 import View.WelcomePanel;
@@ -94,6 +95,9 @@ public class DialogueError extends JDialog{
 		}
 		else if (curpanel instanceof WelcomePanel){
 			return "Please enter your name.";
+		}
+		else if (curpanel instanceof InteractionPanel){
+			return "Please enter your response.";
 		}
 		else{
 			return "Unidentified error.";
