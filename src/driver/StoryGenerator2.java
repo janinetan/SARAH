@@ -515,9 +515,18 @@ public class StoryGenerator2 {
 		}
 		else{
 			this.storyRuling = Event.RULING_NEUTRAL;
-			successionCtr++;
+			Sentence sentence;
 			
-			Sentence sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+			if(verdict.contains("T:")){
+				System.out.println("********** StoryGenerator getVerdict if contains T:");
+				String[] output = verdict.split("T:");
+				sentence = (new SentenceDAO()).getSentenceByTag(output[1]);
+				verdict = polishMessage(sentence.getMessage());
+			}else{
+				sentence = (new SentenceDAO()).getSentenceByTag(this.lastSentenceTag);
+			}
+			
+			successionCtr++;
 			
 			if(successionCtr == 3){
 				successionCtr = 0;
@@ -693,6 +702,7 @@ public class StoryGenerator2 {
 		
 		i = 0;
 		while (message.contains("[cause-cap]")){
+			System.out.println(">>>>>>>>>> cause-cap "+i);
 			message = message.replaceFirst("\\[cause\\]", this.causesList.get(i).substring(0, 1).toUpperCase() + this.causesList.get(i).substring(1));
 			i++;
 		}

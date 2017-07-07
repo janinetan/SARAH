@@ -28,12 +28,14 @@ public class SarahChatbot {
 		
 		s = chat.multisentenceRespond(question + response);
 
-		if (s.equals(VERDICT_NEUTRAL)){
+		if (s.equals(VERDICT_NEUTRAL) /*|| !s.contains("V:") || !s.contains("T:")*/){
+			System.out.println("********** SarahChatbot getVerdict if verdict_neutral");
 			s = chat.multisentenceRespond(response);
 		}
 		
-		if (s.contains("V>")){
-			String[] output = s.split("V>");
+		if (s.contains("V:")){
+			System.out.println("********** SarahChatbot getVerdict if contains V:");
+			String[] output = s.split("V:");
 			return output[1];	
 		}
 		
