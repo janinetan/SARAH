@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sarah_kb
 -- ------------------------------------------------------
--- Server version	5.7.9-log
+-- Server version	5.6.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -302,8 +302,7 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `eventId` int(11) NOT NULL AUTO_INCREMENT,
   `message` varchar(250) NOT NULL,
-  PRIMARY KEY (`eventId`),
-  UNIQUE KEY `message_UNIQUE` (`message`)
+  PRIMARY KEY (`eventId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -313,7 +312,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (3,'agreeWithPlayer + stateSymptom'),(22,'askPrevention'),(52,'askReverseAction'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(8,'commentNegativeFiller + user-askPlay'),(55,'commentPositiveFiller + greetUser'),(34,'commentPositiveFiller + stateHealed'),(54,'commentPositiveFillerPlayAction'),(60,'commentPositiveFillerPlayAction + doneActivity'),(59,'commentRejoiceFiller + describePastActivity'),(58,'commentRejoiceFiller + liamNarrateActivity'),(5,'commentRejoiceFiller + sadRemark + stateNegativeStatus + stateSymptom'),(9,'counterPlay'),(14,'expressDelight'),(29,'expressDisbelief + counterTreatment'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(36,'expressDisbelief + succumb + stateRest'),(35,'expressDoubt + suggestFullDayRest'),(41,'expressEmpathy'),(38,'expressFarewell'),(19,'expressNaivety'),(25,'expressNaivety + expressWonder'),(51,'expressPlayfulAction + stateCurCondition + wantCurAction'),(7,'expressPlayfulness'),(40,'expressSick + expressRegret + takeTreatment'),(50,'expressWorryCondition + suggestRestAction'),(33,'giveTreatment'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(61,'greetUser + mentionSetting'),(2,'greetUser + user-askFeeling'),(10,'ignoreSarah + suggestPlayUser'),(46,'inquireActivity'),(39,'introduceLiam'),(47,'inviteActivity'),(1,'mentionSetting + greetUser + introduceSarahAndLiam + introduceLiam'),(48,'narrateAction + commentFunKids'),(56,'narrateActivity'),(57,'narrateNotDoingActivity + indicateSick'),(6,'respondToStatus + suggestLiamRest'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(23,'stateAgreement + user-askPrevention'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(44,'stateHealed + thankSarah'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(49,'stateMotivationAction'),(24,'statePrevention'),(18,'stateSickness'),(28,'stateTreatment'),(31,'stateWarning'),(15,'succumb'),(11,'succumb + remindSick + transitionToPlay'),(53,'succumbPlayAction + suggestActionToUser'),(4,'suggestBothRest'),(42,'thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(16,'transitionToRest'),(27,'transitionToTreatment'),(20,'user-askSickness'),(30,'user-askTreatment'),(43,'wishGoodHealth + stateMoral + expressFarewell');
+INSERT INTO `message` VALUES (1,'mentionSetting + greetUser + introduceSarahAndLiam + introduceLiam'),(2,'greetUser + user-askFeeling'),(3,'agreeWithPlayer + stateSymptom'),(4,'suggestBothRest'),(5,'commentRejoiceFiller + sadRemark + stateNegativeStatus + stateSymptom'),(6,'respondToStatus + suggestLiamRest'),(7,'expressPlayfulness'),(8,'commentNegativeFiller + user-askPlay'),(9,'counterPlay'),(10,'ignoreSarah + suggestPlayUser'),(11,'succumb + remindSick + transitionToPlay'),(12,'commentNegativeFiller + stateNegativeStatus + transitionToSarah'),(13,'greetKids + expressWorry + suggestRest + stateSickness'),(14,'expressDelight'),(15,'succumb'),(16,'transitionToRest'),(17,'greetUser + commentRest + stateTraceOfSymptom'),(18,'stateSickness'),(19,'expressNaivety'),(20,'user-askSickness'),(21,'stateCauses + stateBodyPart + explainBodyPart'),(22,'askPrevention'),(23,'stateAgreement + user-askPrevention'),(24,'statePrevention'),(25,'expressNaivety + expressWonder'),(26,'stateAgreement + encouragePrevention + concludePrevention'),(27,'transitionToTreatment'),(28,'stateTreatment'),(29,'expressDisbelief + counterTreatment'),(30,'user-askTreatment'),(31,'stateWarning'),(32,'expressDisbelief + expressStubbornness + transitionToEndDay + expressAppreciation + comeBack + expressFarewell'),(33,'giveTreatment'),(34,'commentPositiveFiller + stateHealed'),(35,'expressDoubt + suggestFullDayRest'),(36,'expressDisbelief + succumb + stateRest'),(37,'stateLiamCare + expressAppreciation + stateMoral + comeBack'),(38,'expressFarewell'),(39,'introduceLiam'),(40,'expressSick + expressRegret + takeTreatment'),(41,'expressEmpathy'),(42,'thankSarah'),(43,'wishGoodHealth + stateMoral + expressFarewell'),(44,'stateHealed + thankSarah'),(45,'thankUser + stateMoral + wishGoodHealth + expressFarewell'),(46,'inquireActivity'),(47,'inviteActivity'),(48,'narrateAction + commentFunKids'),(49,'stateMotivationAction'),(50,'expressWorryCondition + suggestRestAction'),(51,'expressPlayfulAction + stateCurCondition + wantCurAction'),(52,'askReverseAction'),(53,'succumbPlayAction + suggestActionToUser'),(54,'commentPositiveFillerPlayAction'),(55,'commentPositiveFiller + greetUser'),(56,'narrateActivity'),(57,'narrateNotDoingActivity + indicateSick'),(58,'commentRejoiceFiller + liamNarrateActivity'),(59,'commentRejoiceFiller + describePastActivity'),(60,'commentPositiveFillerPlayAction + doneActivity'),(61,'greetUser + mentionSetting');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -631,5 +630,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
--- Dump completed on 2017-07-08  0:39:45
+-- Dump completed on 2017-07-08  2:12:22
