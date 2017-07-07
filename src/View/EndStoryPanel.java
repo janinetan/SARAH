@@ -129,14 +129,9 @@ public class EndStoryPanel extends JPanel{
 		box.add(peer1);
 		
 		// For horizontal Alignment of story message
-		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
+		layout.putConstraint(SpringLayout.EAST, message, StartFrame.frameWidth*2/100, SpringLayout.EAST, box);
 		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.NORTH, message, 10, SpringLayout.NORTH, box);
-				
-		// For horizontal Alignment of story message
-		layout.putConstraint(SpringLayout.EAST, message, -70, SpringLayout.EAST, box);
-		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.NORTH, message, 10, SpringLayout.NORTH, box);
+		layout.putConstraint(SpringLayout.NORTH, message, StartFrame.frameHeight*2/100, SpringLayout.NORTH, box);
 
 		layout.putConstraint(SpringLayout.WEST, peer1, 10, SpringLayout.WEST, box);
 		layout.putConstraint(SpringLayout.NORTH, peer1, -200, SpringLayout.NORTH, box);
