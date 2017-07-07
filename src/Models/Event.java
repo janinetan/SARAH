@@ -11,7 +11,7 @@ public class Event {
 	public static final int RULING_BAD = 1;
 	public static final int RULING_GOOD = 2;
 	
-	public static final int TYPE_ACTION = 0;
+	public static final int TYPE_ACTION = 2;
 	public static final int TYPE_MESSAGE = 1;
 	
 	private int id;

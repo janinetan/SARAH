@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -12,10 +13,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import View.InteractionPanel;
 import View.LocationPanel;
@@ -54,6 +59,16 @@ public class PanelBackNext extends JPanel {
 		btnNext.addMouseListener(new BtnMouseListener());
 		btnNext.addActionListener(new ButtonListener());
 		setButtonIcon(btnNextImage, btnNext);
+		
+		JFrame frame = StartFrameController.getFrame();
+		
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),"clickButton");
+
+		frame.getRootPane().getActionMap().put("clickButton",new AbstractAction(){
+	        public void actionPerformed(ActionEvent ae){
+	        	btnNext.doClick();
+			}
+	    });
 		
         this.add(btnBack);
         this.add(btnNext);
