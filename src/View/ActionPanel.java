@@ -108,7 +108,7 @@ public class ActionPanel extends JPanel{
         msgTextArea.setFont(font);
         msgTextArea.setWrapStyleWord(true);
         msgTextArea.setLineWrap(true);
-        //msgTextArea.setOpaque(false);
+        msgTextArea.setOpaque(false);
         msgTextArea.setEditable(false);
         msgTextArea.setFocusable(false);
         //msgTextArea.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*1/100, StartFrame.frameWidth*1/100, 0, 0));
