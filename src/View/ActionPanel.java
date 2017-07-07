@@ -2,6 +2,7 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,7 +13,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
 
 import viewElements.ImagePanel;
 
@@ -22,7 +26,7 @@ public class ActionPanel extends JPanel{
 	
 	private String actionBubbleImage = "assets/action_bubble.png";
 	
-	public ActionPanel (String backgroundImagepath, String peerImagepath, String icnImagepath) {
+	public ActionPanel (String backgroundImagepath, String peerImagepath, String icnImagepath, String msg) {
 		// TODO Auto-generated constructor stub
 		
 
@@ -32,7 +36,7 @@ public class ActionPanel extends JPanel{
 		bodyPanel.setLayout(new BorderLayout());
 //		bodyPanel.add(setLowerControlHolder(), BorderLayout.SOUTH);   
 //		bodyPanel.add(setUpperControlHolder(), BorderLayout.NORTH);
-		setContent(peerImagepath, icnImagepath);		
+		setContent(peerImagepath, icnImagepath, msg);		
 		
 		this.setBackground(backgroundImagepath);
 		this.setLayout(new BorderLayout());
@@ -40,10 +44,22 @@ public class ActionPanel extends JPanel{
 		this.add(bodyPanel, BorderLayout.CENTER);
 	}
 	
-	public void setContent(String peerImagepath, String icnImagepath){
+	public void setContent(String peerImagepath, String icnImagepath, String msg){
 		bodyPanel.removeAll();
-		bodyPanel.add(setVP(peerImagepath), BorderLayout.EAST);
-		bodyPanel.add(setAction(icnImagepath), BorderLayout.CENTER);
+		JPanel test = new JPanel();
+		test.setSize(StartFrame.s);
+		test.setLayout(new BorderLayout());
+		test.setOpaque(false);
+		test.add(setVP(peerImagepath), BorderLayout.EAST);
+		test.add(setAction(icnImagepath), BorderLayout.CENTER);
+		
+		JLayeredPane actionElementHolder = new JLayeredPane();
+		actionElementHolder.setSize(StartFrame.s);
+		actionElementHolder.add(test, new Integer(0), 0);
+		actionElementHolder.add(setDialog(msg), new Integer(1), 0);
+		bodyPanel.add(actionElementHolder);
+		
+		
 	}
 	
 	public JPanel setVP(String peerImagepath){
@@ -63,6 +79,50 @@ public class ActionPanel extends JPanel{
 		
 		vpanel.add(vpHolder, BorderLayout.CENTER);
 		return vpanel;
+	}
+	
+	public JPanel setDialog(String message){
+		JPanel dpanel = new JPanel();
+		dpanel.setLayout(new BorderLayout());
+		dpanel.setOpaque(false);
+		dpanel.setSize(StartFrame.s);
+//		double h = StartFrame.h*0.45;		
+//		double w = StartFrame.w;	
+//		int gap = (new Double(h*0.05)).intValue();
+//		dpanel.setBorder(BorderFactory.createEmptyBorder(gap, 0, gap, 0));
+		
+		ImagePanel dialogBox = new ImagePanel("");
+		SpringLayout msgLayout = new SpringLayout();
+		dialogBox.setOpaque(false);
+		double h = StartFrame.h*0.40;		
+		double w = StartFrame.w*0.986;			
+		dialogBox.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
+		this.setImagePanelImage("assets/story_dialog_box.png", dialogBox);
+		
+		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
+		//JTextArea msgTextArea = new JTextArea(5, 20);
+		JTextArea msgTextArea = new JTextArea();
+		msgTextArea.setSize(StartFrame.frameWidth*95/100,StartFrame.frameHeight*35/100);
+		System.out.println("message here " + message);
+		msgTextArea.setText(message);
+        msgTextArea.setFont(font);
+        msgTextArea.setWrapStyleWord(true);
+        msgTextArea.setLineWrap(true);
+        //msgTextArea.setOpaque(false);
+        msgTextArea.setEditable(false);
+        msgTextArea.setFocusable(false);
+        //msgTextArea.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameHeight*1/100, StartFrame.frameWidth*1/100, 0, 0));
+        msgTextArea.getCaret().deinstall( msgTextArea );
+		
+		dialogBox.add(msgTextArea);
+		// For horizontal Alignment of story message
+		msgLayout.putConstraint(SpringLayout.WEST, msgTextArea, StartFrame.frameWidth*2/100, SpringLayout.WEST, dialogBox);
+		// For Vertical Alignment of story message
+		msgLayout.putConstraint(SpringLayout.NORTH, msgTextArea, StartFrame.frameHeight*2/100 , SpringLayout.NORTH, dialogBox);
+
+		dialogBox.setLayout(msgLayout);
+		dpanel.add(dialogBox,BorderLayout.SOUTH);
+		return dpanel;
 	}
 	
 	public JPanel setAction(String icnImagepath){

@@ -243,7 +243,6 @@ public class StoryPanel2 extends JPanel{
 		
 		storyElementHolder.add(characterHolder, new Integer(0), 0);
 		storyElementHolder.add(msgHolder, new Integer(1), 0);
-		
 		return storyElementHolder;
 	}
 	
