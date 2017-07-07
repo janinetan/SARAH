@@ -500,7 +500,8 @@ public class StoryGenerator2 {
 	}
 
 	public void getVerdict(String userInput) throws IOException {
-		String verdict = SarahChatbot.getVerdict(lastSentenceTag + " ", userInput);
+		System.out.println("{{{{{-BES-}}}}}");
+		String verdict = SarahChatbot.getVerdict(lastSentenceTag, userInput, successionCtr);
 		System.out.println("lastSentenceTag = "+lastSentenceTag);
 		System.out.println(verdict);
 		
@@ -530,7 +531,7 @@ public class StoryGenerator2 {
 			
 			if(successionCtr == 3){
 				successionCtr = 0;
-				verdict = "Wait, we're going out of topic. Let's go back. " + polishMessage(sentence.getMessage());
+				verdict += " Wait, we're going out of topic. Let's go back. " + polishMessage(sentence.getMessage());
 			}
 			
 			StartFrameController.displayMessage(this.curVP.getName(), verdict, true, storyRuling);
