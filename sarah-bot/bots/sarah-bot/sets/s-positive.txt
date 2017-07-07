@@ -19,7 +19,11 @@ rest
 rub
 spray
 sleep
+sure
 treatment
 wash
 well
 wonderful
+yeah
+yes
+yup

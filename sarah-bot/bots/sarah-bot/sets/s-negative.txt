@@ -6,6 +6,9 @@ game
 hurt
 jog
 jump
+never
+no
+nope
 play
 run
 sick
