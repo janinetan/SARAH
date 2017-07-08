@@ -40,8 +40,10 @@ public class InteractionPanel extends JPanel{
 	private ImageIcon icon;
 	private Image image1;
 	private Image myImage;
+	private JPanel IP;
 	
 	public InteractionPanel(JFrame main, String vp, String msg, String bgImagepath) throws IOException {
+		IP = this;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
 		setBackground(bgImagepath);
@@ -129,7 +131,10 @@ public class InteractionPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					StartFrameController.sendUserResponse(answer.getText());
-                }    
+					answer.setText("");
+//					IP.requestFocusInWindow();
+//					answer.setPlaceholder("Type your answer here...");
+                }   
 			}
 
 			@Override
@@ -156,7 +161,8 @@ public class InteractionPanel extends JPanel{
 	
 	public void setAnotherMessage(String msg){
 		message.setText(msg);
-        answer.setPlaceholder("Type your answer here...");
+//		IP.requestFocusInWindow();
+//        answer.setPlaceholder("Type your answer here...");
 	}
 	
 	public void setBackground( String backgroundImagePath ){

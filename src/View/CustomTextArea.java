@@ -91,6 +91,7 @@ public class CustomTextArea extends JTextArea {
             public void focusGained(FocusEvent e) {
                 if (!isTextWrittenIn()) {
                     setText("");
+                    System.out.println("pumapasok ba dito, dpat pumapasok pag click");
                     setForeground(new Color(0,0,0));
                 }
  
@@ -100,6 +101,7 @@ public class CustomTextArea extends JTextArea {
             public void focusLost(FocusEvent e) {
                 if (getText().trim().length() == 0) {
                     customizeText(text);
+                    setTextWrittenIn(false);
                 }
             }
  
@@ -107,7 +109,7 @@ public class CustomTextArea extends JTextArea {
  
     }
  
-    private void customizeText(String text) {
+    public void customizeText(String text) {
         setText(text);
         
         /**If you change font, family and size will follow

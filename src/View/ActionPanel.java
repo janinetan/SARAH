@@ -94,7 +94,7 @@ public class ActionPanel extends JPanel{
 		ImagePanel dialogBox = new ImagePanel("");
 		SpringLayout msgLayout = new SpringLayout();
 		dialogBox.setOpaque(false);
-		double h = StartFrame.h*0.40;		
+		double h = StartFrame.h*0.30;		
 		double w = StartFrame.w*0.986;			
 		dialogBox.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		this.setImagePanelImage("assets/story_dialog_box.png", dialogBox);
@@ -102,7 +102,7 @@ public class ActionPanel extends JPanel{
 		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
 		//JTextArea msgTextArea = new JTextArea(5, 20);
 		JTextArea msgTextArea = new JTextArea();
-		msgTextArea.setSize(StartFrame.frameWidth*95/100,StartFrame.frameHeight*35/100);
+		msgTextArea.setSize(StartFrame.frameWidth*95/100,StartFrame.frameHeight*25/100);
 		System.out.println("message here " + message);
 		msgTextArea.setText(message);
         msgTextArea.setFont(font);
