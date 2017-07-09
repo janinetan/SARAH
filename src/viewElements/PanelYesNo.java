@@ -37,7 +37,7 @@ public class PanelYesNo extends JPanel {
 	
 	public PanelYesNo() {
 		this.setOpaque(false);
-		this.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*5/100,StartFrame.frameHeight*5/100));
+		this.setBorder(BorderFactory.createEmptyBorder(0,0,StartFrame.frameHeight*45/100,0));
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnBack = new JButton();
@@ -55,9 +55,9 @@ public class PanelYesNo extends JPanel {
 		btnNext.addMouseListener(new BtnMouseListener());
 		btnNext.addActionListener(new ButtonListener());
 		setButtonIcon(btnNextImage, btnNext);
-		
-        this.add(btnBack);
+
         this.add(btnNext);
+        this.add(btnBack);
 	}
 	
 	
@@ -104,7 +104,7 @@ public class PanelYesNo extends JPanel {
 		try {
 			bufferedImage = ImageIO.read(new File(filepath));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
-			double w = StartFrame.frameWidth*30/100;
+			double w = StartFrame.frameWidth*25/100;
 			double h = StartFrame.frameHeight*15/100;
 			Image image = imageIcon.getImage().getScaledInstance((new Double(w)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
 			imageIcon = new ImageIcon(image);

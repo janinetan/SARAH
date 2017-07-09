@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,136 +21,84 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import driver.StartFrameController;
 import viewElements.ImagePanel;
+import viewElements.PanelYesNo;
 
 public class EndStoryPanel extends JPanel{
 	private JTextArea message;
 	private ImagePanel peer,box,room,sticker,action;
 	private Font font;
 	private JFrame main;
+	private JPanel leftPanel, rightPanel;
+	private BufferedImage image;
 	private ImageIcon icon;
 	private Image image1;
 	private Image myImage;
-	private BufferedImage image;
 	
 	public EndStoryPanel(JFrame main, String bgImagepath) throws IOException
 	{
-		this.main = main;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
-		System.out.println(bgImagepath);
 		setBackground(bgImagepath);
 		setLayout(new BorderLayout());
-		
-		font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
-		/*
-		BufferedImage img = new ImgUtils().scaleImage(1640,700,"assets/park.png");
-		room = new ImagePanel(img);
-		room.setLocation(0, 0);
-		
-		peer = new ImagePanel("assets/sarah.png");
-		peer.setLocation(-70, 100);*/
+		rightPanel = new JPanel(new BorderLayout());
+		rightPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*2/100,0,0, StartFrame.frameWidth*2/100));
+		rightPanel.setOpaque(false);
+		leftPanel = new JPanel(new BorderLayout());
+		leftPanel.setOpaque(false);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
 		
 		ImagePanel peer1 = new ImagePanel("");
 		image = ImageIO.read(new File("assets/sarah.png"));
+		
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*35/100, StartFrame.frameHeight*90/100,Image.SCALE_SMOOTH);
 		peer1.setImage(image1);
 //		peer1.setLocation(-70, 100);
-//		leftPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, -StartFrame.frameWidth*1/100, 0, 0));
-//		leftPanel.add(peer1);
+		leftPanel.setBorder(BorderFactory.createEmptyBorder(StartFrame.frameWidth*5/100, -StartFrame.frameWidth*1/100, 0, 0));
+		leftPanel.add(peer1);
 		
-		BufferedImage img1 = new ImgUtils().scaleImage((int)(StartFrame.frameWidth*98.6/100),StartFrame.frameHeight*40/100,"assets/story_dialog_box.png");
-		box = new ImagePanel(img1);
-		SpringLayout layout = new SpringLayout();
-
-        message = new JTextArea();
-        message.setText("Yey! You have now completed the story about Pneumonia. I hope you learned a lot! Do you want to hear another story?");
-        message.setSize(StartFrame.frameWidth*60/100,StartFrame.frameHeight*35/100);
+		ImagePanel dialog = new ImagePanel("");
+		image = ImageIO.read(new File("assets/sarah_dialog_interaction.png"));
+		icon = new ImageIcon(image);
+		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*67/100,StartFrame.frameHeight*30/100,Image.SCALE_SMOOTH);
+		dialog.setImage(image1);
+		dialog.setOpaque(false);
+		
+		SpringLayout sarahLayout = new SpringLayout();
+		dialog.setLayout(sarahLayout);
+		//dialog.setLocation(550, 25);
+		//dialog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		message = new JTextArea("Yey! You have now completed the story about <sickness>. I hope you learned a lot! Do you want to hear another story?");
+        //message.setSize(850,100);
+        message.setSize(StartFrame.frameWidth*55/100,StartFrame.frameHeight*25/100);
         message.setFont(font);
         message.setWrapStyleWord(true);
         message.setLineWrap(true);
         message.setOpaque(false);
         message.setEditable(false);
         message.setFocusable(false);
-        message.getCaret().deinstall( message );
+        message.getCaret().deinstall(message);
         //message.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
-        BufferedImage buttonIcon = ImageIO.read(new File("assets/btn-yes.png"));
-		JButton yesButton = new JButton(new ImageIcon(buttonIcon));
-		yesButton.setBorder(BorderFactory.createEmptyBorder());
-		yesButton.setContentAreaFilled(false);
-		yesButton.setBorderPainted(false);
-		yesButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/btn-yes_clicked.png");
-		    	yesButton.setIcon(image);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/btn-yes.png");
-		    	yesButton.setIcon(image);
-		    }
-		});
-		yesButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	StartFrameController.displayTheme();
-		    }
-		});
-		BufferedImage buttonIcon1 = ImageIO.read(new File("assets/btn-no.png"));
-		JButton noButton = new JButton(new ImageIcon(buttonIcon1));
-		noButton.setBorder(BorderFactory.createEmptyBorder());
-		noButton.setContentAreaFilled(false);
-		noButton.setBorderPainted(false);
-		noButton.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/btn-no_clicked.png");
-		    	noButton.setIcon(image);
-		    }
-
-		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	ImageIcon image = new ImageIcon("assets/btn-no.png");
-		    	noButton.setIcon(image);
-		    }
-		});
-		noButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    	/*not working when mouselistener code was added*/
-		        StartFrameController.displayStartMenu();
-		        
-		    }
-		});
-
-		layout.putConstraint(SpringLayout.WEST, noButton, 20, SpringLayout.EAST, yesButton);
-		box.add(yesButton);
-        box.add(noButton);
-		box.add(message);
-		box.add(peer1);
-		
-		// For horizontal Alignment of story message
-		layout.putConstraint(SpringLayout.EAST, message, StartFrame.frameWidth*2/100, SpringLayout.EAST, box);
-		// For Vertical Alignment of story message
-		layout.putConstraint(SpringLayout.NORTH, message, StartFrame.frameHeight*2/100, SpringLayout.NORTH, box);
-
-		layout.putConstraint(SpringLayout.WEST, peer1, 10, SpringLayout.WEST, box);
-		layout.putConstraint(SpringLayout.NORTH, peer1, -200, SpringLayout.NORTH, box);
-		
-		// For horizontal Alignment of button panel
-		layout.putConstraint(SpringLayout.WEST, yesButton, 610, SpringLayout.WEST, box);
-		// For Vertical Alignment of button panel
-		layout.putConstraint(SpringLayout.NORTH, yesButton, 10, SpringLayout.SOUTH, message);
-		layout.putConstraint(SpringLayout.NORTH, noButton, 10, SpringLayout.SOUTH, message);
-		
-
-        box.setLayout(layout);
-        box.setLocation(0, 500);
+        dialog.add(message);
         
-        //this.add(peer1);
-		this.add(box,BorderLayout.SOUTH);
-		//this.add(room);
+		// For horizontal Alignment
+        sarahLayout.putConstraint(SpringLayout.WEST, message, StartFrame.frameWidth*9/100, SpringLayout.WEST, dialog);
+		
+		// For Vertical Alignment
+		sarahLayout.putConstraint(SpringLayout.VERTICAL_CENTER, message, 0, SpringLayout.VERTICAL_CENTER, dialog);
+		
+		rightPanel.add(dialog, BorderLayout.NORTH);
+		rightPanel.add(new PanelYesNo(),BorderLayout.SOUTH);
+
+		this.add(leftPanel,BorderLayout.WEST);
+		this.add(rightPanel,BorderLayout.EAST);
 	}
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;

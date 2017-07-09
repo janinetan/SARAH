@@ -141,7 +141,7 @@ public class StartFrameController implements IController {
 	
 	public static void displayEnd(){
 		try {
-			//frame.changePanel(new EndStoryPanel(frame,ttheme));
+			//frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme)));
 			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme)));
 		} catch (IOException e1) {
 			e1.printStackTrace();
