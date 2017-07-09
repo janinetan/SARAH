@@ -14,9 +14,9 @@ public class SarahChatbot {
 	public static final String VERDICT_BAD = "negative";
 	public static final String VERDICT_NEUTRAL = "I have no answer for that.";
 	
-//	public static String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
+	public static String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
 //	public static String path = "C:/Users/Heinson/Documents/GitHub/SARAH/sarah-bot";
-	public static String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
+//	public static String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
 	public static Bot bot = new Bot("sarah-bot", path);
 	public static Chat chat = new Chat(bot);
 	public static String s = "";
@@ -54,12 +54,15 @@ public class SarahChatbot {
 		
 		// set topic
 		if(successionCtr == 0){
+			System.out.println("ASKING AIML ON: " + "000 " + response);
 			s = chat.multisentenceRespond("000 " + response);
 			if(s.equals("OKIES")){
+				System.out.println("ASKING AIML ON: " + question + " 999");
 				s = chat.multisentenceRespond(question + " 999"); // set topic
 			}
 		}
 		
+		System.out.println("ASKING AIML ON: " + response);
 		s = chat.multisentenceRespond(response);
 		
 //		if (s.equals(VERDICT_NEUTRAL)){
