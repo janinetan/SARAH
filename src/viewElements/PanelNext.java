@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingWorker;
 
 import View.ActionPanel;
 import View.InteractionPanel;
@@ -90,7 +91,21 @@ public class PanelNext extends JPanel {
 			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
 				StartFrameController.playEvent();
 			}
+			//delayEnable(btnNext, 1500);
 		}
+	}
+	public void delayEnable(JButton b, final long ms) {
+	    b.setEnabled(false);
+	   
+	    new SwingWorker() {
+	        @Override protected Object doInBackground() throws Exception {
+	            Thread.sleep(ms);
+	            return null;
+	        }
+	        @Override protected void done() {
+	            b.setEnabled(true);
+	        }
+	    }.execute();
 	}
 	
 }
