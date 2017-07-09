@@ -12,6 +12,7 @@ import View.LocationPanel;
 import View.StartFrame;
 import View.StartMenuPanelTest;
 import View.StoryPanel2;
+import View.TransitionPanel;
 import View.WelcomePanel;
 
 public class StartFrameController implements IController {
@@ -141,8 +142,15 @@ public class StartFrameController implements IController {
 	
 	public static void displayEnd(){
 		try {
-			//frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme)));
 			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme)));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public static void displayTransition(){
+		try {
+			frame.changePanel(new TransitionPanel(frame));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
