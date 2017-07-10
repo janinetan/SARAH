@@ -428,3 +428,6 @@
 " stomach ache "," stomachache "
 " urinary tract infection "," urinarytractinfection "
 " uti "," urinarytractinfection "
+" salt water "," water "
+" saltwater "," water "
+" cough drops "," drops "

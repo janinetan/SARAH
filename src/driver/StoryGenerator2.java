@@ -341,6 +341,7 @@ public class StoryGenerator2 {
 					ArrayList<String> sentenceTags = message.getSentenceTags();
 					String m = "";
 					for (String tempSentenceTag: sentenceTags){
+						System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+tempSentenceTag);
 						Sentence sentence = (new SentenceDAO()).getSentenceByTag(tempSentenceTag);
 						m += sentence.getMessage() + " ";
 						this.lastSentenceTag = tempSentenceTag;
@@ -718,8 +719,8 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -733,8 +734,8 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-//			XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);

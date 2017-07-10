@@ -1,5 +1,7 @@
 0,# 000 # <set>s-negative</set> #,*,*,OKIES,sarah.aiml
 0,# 000 # <set>s-positive</set> #,*,*,OKIES,sarah.aiml
+0,# 000 # <set>s-feels-unpleasant</set> #,*,*,OKIES,sarah.aiml
+0,# 000 # <set>s-feels-pleasant</set> #,*,*,OKIES,sarah.aiml
 0,# 000 *,*,*,"<think> <set name=""topic""><star /></set> </think>",sarah.aiml
 0,_ 999,*,*,"<think> <set name=""topic""><star /></set> </think>",sarah.aiml
 0,# <set>s-negative</set> #,*,askAction,V:negative,sarah.aiml
