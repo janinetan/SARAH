@@ -9,7 +9,7 @@ public class DBConnection {
 	public DBConnection()
 	{
 		this.username = "root";
-		this.password = "";
+		this.password = "abc123";
 		
 		this.url = "jdbc:mysql://localhost:3306/sarah_kb";
 
