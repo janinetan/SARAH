@@ -13,16 +13,44 @@ public class Object {
 	private String category;
 	private String verb;
 	private String filename;
-	private String connector;
+	private String connector1;
+	private String connector2;
+	private String connector3;
+	private String connector4;
+	private String connector5;
 	
-	public String getConnector() {
-		return connector;
-	}
-	public void setConnector(String connector) {
-		this.connector = connector;
-	}
 	public int getId() {
 		return id;
+	}
+	public String getConnector1() {
+		return connector1;
+	}
+	public void setConnector1(String connector1) {
+		this.connector1 = connector1;
+	}
+	public String getConnector2() {
+		return connector2;
+	}
+	public void setConnector2(String connector2) {
+		this.connector2 = connector2;
+	}
+	public String getConnector3() {
+		return connector3;
+	}
+	public void setConnector3(String connector3) {
+		this.connector3 = connector3;
+	}
+	public String getConnector4() {
+		return connector4;
+	}
+	public void setConnector4(String connector4) {
+		this.connector4 = connector4;
+	}
+	public String getConnector5() {
+		return connector5;
+	}
+	public void setConnector5(String connector5) {
+		this.connector5 = connector5;
 	}
 	public void setId(int id) {
 		this.id = id;

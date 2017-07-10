@@ -161,7 +161,11 @@ public class ActionDAO {
 				object.setName(rs.getString("name"));
 				object.setVerb(rs.getString("verb"));
 				object.setFilename(rs.getString("filename"));
-				object.setConnector(rs.getString("connector"));
+				object.setConnector1(rs.getString("connector1"));
+				object.setConnector2(rs.getString("connector2"));
+				object.setConnector3(rs.getString("connector3"));
+				object.setConnector4(rs.getString("connector4"));
+				object.setConnector5(rs.getString("connector5"));
 				objectList.add(object);
 			}
 			return objectList;

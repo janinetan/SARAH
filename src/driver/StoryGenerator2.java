@@ -632,8 +632,24 @@ public class StoryGenerator2 {
 			message = message.replaceAll("<curAction-motivation>", this.curAction.getMotivation().get(new Random().nextInt(this.curAction.getMotivation().size())));
 		}
 		
-		if(message.contains("connector")){
-			message = message.replaceAll("<connector>", this.curAction.getChosenObject().getConnector());
+		if(message.contains("curAction-connector")){
+			message = message.replaceAll("<curAction-connector1>", this.curAction.getChosenObject().getConnector1());
+			message = message.replaceAll("<curAction-connector2>", this.curAction.getChosenObject().getConnector2());
+			message = message.replaceAll("<curAction-connector3>", this.curAction.getChosenObject().getConnector3());
+			message = message.replaceAll("<curAction-connector4>", this.curAction.getChosenObject().getConnector4());
+			message = message.replaceAll("<curAction-connector5>", this.curAction.getChosenObject().getConnector5());
+			
+		}
+		
+		if(message.contains("reverseAction-connector")){
+			message = message.replaceAll("<reverseAction-connector1>", reverse.getChosenObject().getConnector1());
+			message = message.replaceAll("<reverseAction-connector2>", reverse.getChosenObject().getConnector2());
+			message = message.replaceAll("<reverseAction-connector3>", reverse.getChosenObject().getConnector3());
+			message = message.replaceAll("<reverseAction-connector4>", reverse.getChosenObject().getConnector4());
+			message = message.replaceAll("<reverseAction-connector5>", reverse.getChosenObject().getConnector5());
+		}
+		
+		if(message.contains("prevAction-connector")){
 		}
 		
 		if(message.contains("prevAction")){
@@ -704,7 +720,7 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -718,7 +734,7 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-			XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+			XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);
