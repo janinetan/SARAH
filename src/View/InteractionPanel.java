@@ -161,6 +161,7 @@ public class InteractionPanel extends JPanel{
 	
 	public void setAnotherMessage(String msg){
 		message.setText(msg);
+		answer.setText("");
 //		IP.requestFocusInWindow();
 //        answer.setPlaceholder("Type your answer here...");
 	}
