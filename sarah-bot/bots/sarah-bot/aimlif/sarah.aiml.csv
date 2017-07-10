@@ -12,12 +12,12 @@
 0,# He # <set>s-negative</set> #,*,askAction,V:negative,sarah.aiml
 0,# Liam # <set>s-positive</set> #,*,*,V:positive,sarah.aiml
 0,# He # <set>s-positive</set> #,*,askAction,V:positive,sarah.aiml
-0,# <set>s-negation</set> # <set>s-positive</set> #,*,user-askFeeling,V:negative,sarah.aiml
-0,# <set>s-negation</set> # <set>s-negative</set> #,*,user-askFeeling,V:positive,sarah.aiml
-0,# <set>s-negative</set> #,*,user-askFeeling,V:negative,sarah.aiml
-0,# <set>s-positive</set> #,*,user-askFeeling,V:positive,sarah.aiml
-0,# <set>s-negation</set> # <set>s-positive</set> #,*,user-askSPT,V:negative,sarah.aiml
-0,# <set>s-negation</set> # <set>s-negative</set> #,*,user-askSPT,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-feels-pleasant</set> #,*,user-askFeeling,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-feels-unpleasant</set> #,*,user-askFeeling,V:positive,sarah.aiml
+0,# <set>s-feels-unpleasant</set> #,*,user-askFeeling,V:negative,sarah.aiml
+0,# <set>s-feels-pleasant</set> #,*,user-askFeeling,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-positive</set> #,*,user-askSPT,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-negative</set> #,*,user-askSPT,V:positive,sarah.aiml
 0,# <set>s-negative</set> #,*,user-askSPT,V:negative,sarah.aiml
 0,# <set>s-positive</set> #,*,user-askSPT,V:positive,sarah.aiml
 0,# what # <set>s-sickness</set> #,*,user-askSPT,T:stateCauses,sarah.aiml

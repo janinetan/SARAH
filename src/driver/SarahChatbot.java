@@ -54,12 +54,12 @@ public class SarahChatbot {
 		
 		// set topic
 		if(successionCtr == 0){
-			System.out.println("ASKING AIML ON: " + "000 " + response);
-			s = chat.multisentenceRespond("000 " + response);
-			if(s.equals("OKIES")){
+//			System.out.println("ASKING AIML ON: " + "000 " + response);
+//			s = chat.multisentenceRespond("000 " + response);
+//			if(s.equals("OKIES")){
 				System.out.println("ASKING AIML ON: " + question + " 999");
 				s = chat.multisentenceRespond(question + " 999"); // set topic
-			}
+//			}
 		}
 		
 		System.out.println("ASKING AIML ON: " + response);

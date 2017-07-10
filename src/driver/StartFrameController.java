@@ -114,7 +114,7 @@ public class StartFrameController implements IController {
 	}
 	
 	public static void displayAction(String vp, String action, String actionFilename, int eventRuling, String msg){
-		logMessage(vp + " " + action);
+		logMessage(msg);
 		System.out.println(vp + " is doing " + action + " with image path " + actionFilename);
 		JPanel curPanel = frame.getCurPanel();
 		if (curPanel instanceof StoryPanel2){
