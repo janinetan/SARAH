@@ -22,7 +22,7 @@ public class StartFrameController implements IController {
 	private static StoryPanel2 storyPanel;
 	private static String theme;
 	private static MyFilewriter logger;
-	private static boolean logOn = false;
+	private static boolean logOn = true;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {

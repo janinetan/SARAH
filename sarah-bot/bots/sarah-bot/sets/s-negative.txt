@@ -4,6 +4,7 @@ cough
 cry
 game
 hurt
+ignore
 jog
 jump
 never
@@ -16,4 +17,4 @@ slide
 sneeze
 toy
 walk
-ignore
+wrong

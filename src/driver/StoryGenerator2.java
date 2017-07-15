@@ -135,6 +135,8 @@ public class StoryGenerator2 {
 //		System.out.println(";curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 //		System.out.println("; actionCtr = "+actionCtr);
 		
+		System.out.println("!!! curStoryEpisodeIndex == episodesList.size()" + curStoryEpisodeIndex + ":" + episodesList.size());
+		System.out.println("!!! curStoryEventIndex == this.eventsId.size()" + curStoryEventIndex + ":" + this.eventsId.size());
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");

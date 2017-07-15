@@ -76,6 +76,7 @@ restless
 sad
 scared
 shaky
+sick
 sneeze
 sore
 sorrowful
