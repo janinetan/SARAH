@@ -22,7 +22,7 @@ public class StartFrameController implements IController {
 	private static StoryPanel2 storyPanel;
 	private static String theme;
 	private static MyFilewriter logger;
-	private static boolean logOn = true;
+	private static boolean logOn = false;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -140,9 +140,9 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayEnd(){
+	public static void displayEnd(String sickness){
 		try {
-			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme)));
+			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme), sickness));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

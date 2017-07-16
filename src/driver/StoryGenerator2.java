@@ -2,6 +2,7 @@ package driver;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -78,6 +79,7 @@ public class StoryGenerator2 {
 	
 	private int actionCtr;
 	private String username;
+	private Boolean hasSymptom;
 	
 	
 	public StoryGenerator2(){
@@ -142,14 +144,8 @@ public class StoryGenerator2 {
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
-			StartFrameController.displayEnd();
+			StartFrameController.displayEnd(this.storyTheme.getName());
 		}else{
-			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
-				//StartFrameController.displayTransition();
-				System.out.println("DISPLAY TRANSITION");
-				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
-			}
-		
 			//if start or if tapos na sa events to move on to the next episode
 			if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size()){
 				this.episode = episodesList.get(curStoryEpisodeIndex);
@@ -399,6 +395,10 @@ public class StoryGenerator2 {
 				curStoryEpisodeIndex++;
 			}	
 			
+				System.out.println("DISPLAY TRANSITION");
+				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+			}
+			
 			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
 				selectStoryTheme();
 			}
@@ -424,6 +424,7 @@ public class StoryGenerator2 {
 					String symTemp = curAction.getSymptomList().get(index);
 					if( !symptomsList.contains(symTemp) ){
 						symptomsList.add( symTemp );
+						//mappingActionSymptom.add()
 						StartFrameController.addSymptom(symTemp);
 					}
 				}
@@ -620,7 +621,7 @@ public class StoryGenerator2 {
 		System.out.println("mssg = " +message);
 		
 		message = message.replaceAll("<user-cap>", username.substring(0, 1).toUpperCase() + username.substring(1));
-		message = message.replaceAll("<day>", "Saturday");
+		message = message.replaceAll("<day>", getDay());
 		message = message.replaceAll("<liam-status>", "sick");
 		
 		if(message.contains("sickness"))
@@ -753,7 +754,44 @@ public class StoryGenerator2 {
 			Realiser realiser = new Realiser(lexicon);
 			String past = realiser.realise(infl).getRealisation();
 			return past;
+	}
+	
+	public String getDay(){
+		Calendar calendar = Calendar.getInstance();
+		int day = calendar.get(Calendar.DAY_OF_WEEK); 
+		String dayOfWeek = null;
+		switch (day) {
+		    case Calendar.SUNDAY:
+		    	dayOfWeek = "Sunday";
+		    	break; 
+		    	
+		    case Calendar.MONDAY:
+		    	dayOfWeek = "Monday";
+		    	break;
+		    
+		    case Calendar.TUESDAY:
+		    	dayOfWeek = "Tuesday";
+		    	break;
+	
+		    case Calendar.WEDNESDAY:
+		    	dayOfWeek = "Wednesday";
+		    	break;
+		    	
+		    case Calendar.THURSDAY:
+		    	dayOfWeek = "Thursday";
+		    	break;
+		    	
+		    case Calendar.FRIDAY:
+		    	dayOfWeek = "Friday";
+		    	break;
+		    	
+		    case Calendar.SATURDAY:
+		    	dayOfWeek = "Saturday";	
+		    	break;
 		}
+		return dayOfWeek;
+		
+	}
 	
 }
 
