@@ -1,7 +1,11 @@
 package viewElements;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,10 +15,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingWorker;
@@ -22,37 +28,47 @@ import javax.swing.SwingWorker;
 import View.ActionPanel;
 import View.InteractionPanel;
 import View.StartFrame;
-import View.StoryPanel;
 import View.StoryPanel2;
 import driver.StartFrameController;
 
 public class PanelNext extends JPanel {
 
 	private JButton btnNext;
+	JPanel arrowNextButton;
 	
 	public PanelNext() {
 		this.setOpaque(false);
-		double h = StartFrame.h*0.25*0.50;
-		double w = StartFrame.w;	
+		double h = StartFrame.h*0.3;
+		double w = StartFrame.h*0.15;	
+		arrowNextButton = new JPanel();
+		arrowNextButton.setOpaque(false);
+		arrowNextButton.setSize((new Double(w)).intValue(), (new Double(h)).intValue());
+		arrowNextButton.setLayout(new BorderLayout());
+		arrowNextButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+		arrowNextButton.add(addNextButton(),BorderLayout.SOUTH);
 		this.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
-		this.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		this.addNextButton(); 
+		//this.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		this.setLayout(new BorderLayout());
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		//this.addNextButton(); 
+		this.add(arrowNextButton,BorderLayout.EAST);
 	}
 	
-	public void addNextButton(){
+	public JButton addNextButton(){
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(new File("assets/btn-next.png"));
 			ImageIcon imageIcon = new ImageIcon(bufferedImage);
-			double h = this.getPreferredSize().getHeight() - 10;
+			double h = arrowNextButton.getSize().getHeight()/2 - 10;
 			Image image = imageIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue(), Image.SCALE_SMOOTH);
 			imageIcon = new ImageIcon(image);
 			btnNext = new JButton(imageIcon);
 			btnNext.setContentAreaFilled(false);
-	        btnNext.setBorderPainted(false);
-			btnNext.setBorder(null);
+	       // btnNext.setBorderPainted(false);
+			//btnNext.setBorder(null);
+			btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
-			this.add(btnNext);
+			delayEnable(btnNext, 1500);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,6 +83,7 @@ public class PanelNext extends JPanel {
 	        	btnNext.doClick();
 			}
 	    });
+		return btnNext;
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -104,8 +121,33 @@ public class PanelNext extends JPanel {
 	        }
 	        @Override protected void done() {
 	            b.setEnabled(true);
+	            arrowNextButton.add(addArrow(), BorderLayout.NORTH);
+	            arrowNextButton.repaint();
+	            arrowNextButton.revalidate();
 	        }
 	    }.execute();
+	}
+	
+	public JLabel addArrow()
+	{
+		JLabel arrow = new JLabel();
+		BufferedImage bufferedImage;
+			Image image =Toolkit.getDefaultToolkit().createImage("assets/tryarrow.gif");
+			ImageIcon xIcon = new ImageIcon(image);
+			double h = arrowNextButton.getSize().getHeight()/2+5;
+			image = xIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue()+5, Image.SCALE_DEFAULT);
+			xIcon.setImage(image);
+			//xIcon.setImageObserver(this);
+			
+		/*	bufferedImage = ImageIO.read(new File("assets/arrow_down.gif"));
+			ImageIcon imageIcon = new ImageIcon(bufferedImage);
+			double h = arrowNextButton.getSize().getHeight()/2 - 10;
+			Image image = imageIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue(), Image.SCALE_DEFAULT);
+			imageIcon = new ImageIcon(image);
+			arrow.setIcon(imageIcon);*/
+			arrow.setIcon(xIcon);
+			arrow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		return arrow;
 	}
 	
 }
