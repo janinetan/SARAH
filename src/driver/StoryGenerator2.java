@@ -395,6 +395,7 @@ public class StoryGenerator2 {
 				curStoryEpisodeIndex++;
 			}	
 			
+			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
 				System.out.println("DISPLAY TRANSITION");
 				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
 			}
