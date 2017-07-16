@@ -1,25 +1,49 @@
+0,# 000 # <set>s-no</set> #,*,*,OKIES,sarah.aiml
+0,# 000 # <set>s-yes</set> #,*,*,OKIES,sarah.aiml
+0,# 000 # <set>s-idk</set> #,*,*,OKIES,sarah.aiml
 0,# 000 # <set>s-negative</set> #,*,*,OKIES,sarah.aiml
 0,# 000 # <set>s-positive</set> #,*,*,OKIES,sarah.aiml
 0,# 000 # <set>s-feels-unpleasant</set> #,*,*,OKIES,sarah.aiml
 0,# 000 # <set>s-feels-pleasant</set> #,*,*,OKIES,sarah.aiml
-0,# 000 *,*,*,"<think> <set name=""topic""><star /></set> </think>",sarah.aiml
+0,# 000 # <set>s-questions</set> #,*,*,OKIES,sarah.aiml
 0,_ 999,*,*,"<think> <set name=""topic""><star /></set> </think>",sarah.aiml
-0,# <set>s-negative</set> #,*,askAction,V:negative,sarah.aiml
-0,# <set>s-positive</set> #,*,askAction,V:positive,sarah.aiml
-0,# Liam # <set>s-negation</set> # <set>s-positive</set> #,*,*,V:negative,sarah.aiml
-0,# He # <set>s-negation</set> # <set>s-positive</set> #,*,askAction,V:negative,sarah.aiml
-0,# Liam # <set>s-negation</set> # <set>s-negative</set> #,*,*,V:positive,sarah.aiml
-0,# He # <set>s-negation</set> # <set>s-negative</set> #,*,askAction,V:positive,sarah.aiml
-0,# Liam # <set>s-negative</set> #,*,*,V:negative,sarah.aiml
-0,# He # <set>s-negative</set> #,*,askAction,V:negative,sarah.aiml
+0,# do # whatever # <set>s-feels-pleasant</set> #,*,askAction,V:negative,sarah.aiml
+0,# <set>s-no</set> # whatever # <set>s-feels-pleasant</set> #,*,askAction,V:positive,sarah.aiml
+0,# <set>s-no</set> #,*,askAction,V:negative,sarah.aiml
+0,# <set>s-yes</set> #,*,askAction,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-positive</set> #  Liam #,*,*,V:negative,sarah.aiml
+0,# Liam # <set>s-no</set> # <set>s-positive</set> #,*,*,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-positive</set> #,*,askAction,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-negative</set> # Liam # ,*,*,V:positive,sarah.aiml
+0,# Liam # <set>s-no</set> # <set>s-negative</set> #,*,*,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-negative</set> #,*,askAction,V:positive,sarah.aiml
+0,# <set>s-no</set> # Liam # ,*,*,V:negative,sarah.aiml
+0,# Liam # <set>s-no</set> #,*,*,V:negative,sarah.aiml
+0,# <set>s-no</set> #,*,askAction,V:negative,sarah.aiml
+0,# <set>s-positive</set> # Liam # ,*,*,V:positive,sarah.aiml
 0,# Liam # <set>s-positive</set> #,*,*,V:positive,sarah.aiml
-0,# He # <set>s-positive</set> #,*,askAction,V:positive,sarah.aiml
+0,# <set>s-positive</set> #,*,askAction,V:positive,sarah.aiml
 0,# <set>s-no</set> # <set>s-feels-pleasant</set> #,*,user-askFeeling,V:negative,sarah.aiml
 0,# <set>s-no</set> # <set>s-feels-unpleasant</set> #,*,user-askFeeling,V:positive,sarah.aiml
 0,# <set>s-feels-unpleasant</set> #,*,user-askFeeling,V:negative,sarah.aiml
 0,# <set>s-feels-pleasant</set> #,*,user-askFeeling,V:positive,sarah.aiml
-0,# <set>s-no</set> # <set>s-positive</set> #,*,user-askSPT,V:negative,sarah.aiml
-0,# <set>s-no</set> # <set>s-negative</set> #,*,user-askSPT,V:positive,sarah.aiml
-0,# <set>s-negative</set> #,*,user-askSPT,V:negative,sarah.aiml
-0,# <set>s-positive</set> #,*,user-askSPT,V:positive,sarah.aiml
-0,# what # <set>s-sickness</set> #,*,user-askSPT,T:stateCauses,sarah.aiml
+0,# what # <set>s-sickness</set> #,*,*,T:stateCauses,sarah.aiml
+0,# <set>s-questions</set> # ,*,user-askSickness,V:negative,sarah.aiml
+0,# <set>s-no</set> #,*,user-askSickness,V:negative,sarah.aiml
+0,# <set>s-idk</set> #,*,user-askSickness,V:negative,sarah.aiml
+0,# <set>s-yes</set> #,*,user-askSickness,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-yes</set> #,*,user-askSickness,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-no</set> #,*,user-askSickness,V:positive,sarah.aiml
+0,# <set>s-questions</set> # ,*,user-askPrevention,V:negative,sarah.aiml
+0,# <set>s-no</set> #,*,user-askPrevention,V:negative,sarah.aiml
+0,# <set>s-idk</set> #,*,user-askPrevention,V:negative,sarah.aiml
+0,# <set>s-yes</set> #,*,user-askPrevention,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-yes</set> #,*,user-askPrevention,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-no</set> #,*,user-askPrevention,V:positive,sarah.aiml
+0,# do # whatever # <set>s-feels-pleasant</set> #,*,user-askTreatment,V:negative,sarah.aiml
+0,# <set>s-no</set> # do # whatever # <set>s-feels-pleasant</set> #,*,user-askTreatment,V:positive,sarah.aiml
+0,# <set>s-no</set> #,*,user-askTreatment,V:negative,sarah.aiml
+0,# <set>s-yes</set> #,*,user-askTreatment,V:positive,sarah.aiml
+0,# <set>s-treatment</set> #,*,user-askTreatment,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-treatment</set> #,*,user-askTreatment,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-no</set> #,*,user-askTreatment,V:positive,sarah.aiml

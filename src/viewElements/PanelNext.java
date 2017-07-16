@@ -108,7 +108,7 @@ public class PanelNext extends JPanel {
 			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
 				StartFrameController.playEvent();
 			}
-			delayEnable(btnNext, 1500);
+//			delayEnable(btnNext, 1500);
 		}
 	}
 	public void delayEnable(JButton b, final long ms) {
