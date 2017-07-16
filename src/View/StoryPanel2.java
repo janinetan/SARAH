@@ -34,8 +34,8 @@ public class StoryPanel2 extends JPanel{
 	private JPanel upperControlHolder, lowerControlHolder;
 	private ItemLoggerPanel activityLogPanel;
 	private ItemLoggerPanel healthLogPanel;
-	private ItemLoggerPanel sicknessLogPanel;
-	private ItemLoggerPanel symptomLogPanel;
+//	private ItemLoggerPanel sicknessLogPanel;
+//	private ItemLoggerPanel symptomLogPanel;
 	private Image myImage;
 	private ImagePanel msgHolder;
 	private ImagePanel sarahHolder, liamHolder;
@@ -52,18 +52,34 @@ public class StoryPanel2 extends JPanel{
 	public StoryPanel2(String backgroundImagePath) {
 		// TODO Auto-generated constructor stub
 		
+		JLayeredPane mainPanel = new JLayeredPane();
+		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setOpaque(false);
 		bodyPanel.setSize(StartFrame.s);
 		bodyPanel.setLayout(new BorderLayout());
 		bodyPanel.add(setLowerControlHolder(), BorderLayout.SOUTH);   
-		bodyPanel.add(setStoryCharacterHolder(), BorderLayout.CENTER);
 		bodyPanel.add(setUpperControlHolder(), BorderLayout.NORTH);
+		
+		JPanel charPanel = new JPanel();
+		charPanel.setOpaque(false);
+		charPanel.setSize(StartFrame.s);
+		charPanel.setLayout(new BorderLayout());
+		JPanel gapPanel = new JPanel();
+		gapPanel.setOpaque(false);
+		double h = StartFrame.h*0.25;		
+		double w = StartFrame.w;				
+		gapPanel.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
+		charPanel.add(gapPanel, BorderLayout.NORTH);
+		charPanel.add(setStoryCharacterHolder(), BorderLayout.CENTER);
+		
+		mainPanel.add(bodyPanel, new Integer(0), 0);
+		mainPanel.add(charPanel, new Integer(1), 0);
 				
 		this.setBackground(backgroundImagePath);
 		this.setLayout(new BorderLayout());
 		this.setSize(StartFrame.s);
-		this.add(bodyPanel, BorderLayout.CENTER);
+		this.add(mainPanel, BorderLayout.CENTER);
 	}
 	
 	public void setBackground( String backgroundImagePath ){
@@ -127,11 +143,11 @@ public class StoryPanel2 extends JPanel{
 		activityLogPanel.setSize(upperControlHolder, 0.08*6, 0.70);
 		activityLogPanel.setTitle("History of Actions");
 		
-		symptomLogPanel = new ItemLoggerPanel();
-		symptomLogPanel.setSize(upperControlHolder, 0.08*3, 0.70);
-		symptomLogPanel.setTitle("Gathered Symptoms");
+//		symptomLogPanel = new ItemLoggerPanel();
+//		symptomLogPanel.setSize(upperControlHolder, 0.08*3, 0.70);
+//		symptomLogPanel.setTitle("Gathered Symptoms");
 		
-		activityStatusHolder.add(symptomLogPanel);
+//		activityStatusHolder.add(symptomLogPanel);
 		activityStatusHolder.add(activityLogPanel);
 		return activityStatusHolder;
 	}
@@ -157,15 +173,15 @@ public class StoryPanel2 extends JPanel{
 		sicknessStatusHolder.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		sicknessStatusHolder.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
 		
-		sicknessLogPanel = new ItemLoggerPanel();
-		sicknessLogPanel.setSize(lowerControlHolder, 0.08*3, 0.9);
-		sicknessLogPanel.setTitle("Possible Sickness");
+//		sicknessLogPanel = new ItemLoggerPanel();
+//		sicknessLogPanel.setSize(lowerControlHolder, 0.08*3, 0.9);
+//		sicknessLogPanel.setTitle("Possible Sickness");
 		
 		healthLogPanel = new ItemLoggerPanel();
 		healthLogPanel.setSize(lowerControlHolder, 0.08*6, 0.9);
 		healthLogPanel.setTitle("Liam Health Status");
 		
-		sicknessStatusHolder.add(sicknessLogPanel);
+//		sicknessStatusHolder.add(sicknessLogPanel);
 		sicknessStatusHolder.add(healthLogPanel);
 		
 		return sicknessStatusHolder;
@@ -200,7 +216,7 @@ public class StoryPanel2 extends JPanel{
         msgHolder.add(msgTextArea);
         
 		JPanel characterHolder = new JPanel();
-		h = StartFrame.h*0.6;	
+		h = StartFrame.h*0.8;	
 		w = StartFrame.w;	
 		y = StartFrame.h*-0.08;
 		
@@ -317,14 +333,14 @@ public class StoryPanel2 extends JPanel{
 		healthLogPanel.addItem(imagePath, healthStatus);
 	}
 	
-	public void addSymptom(String imagePath, String symptomName){
-		System.out.println("LIAM'S SYMPTOMS: " + symptomName);
-		symptomLogPanel.addItem(imagePath, symptomName);
-	}
+//	public void addSymptom(String imagePath, String symptomName){
+//		System.out.println("LIAM'S SYMPTOMS: " + symptomName);
+//		symptomLogPanel.addItem(imagePath, symptomName);
+//	}
 	
-	public void addSickness(String imagePath, String sicknessName){
-		sicknessLogPanel.addItem(imagePath, sicknessName);
-	}
+//	public void addSickness(String imagePath, String sicknessName){
+//		sicknessLogPanel.addItem(imagePath, sicknessName);
+//	}
 	
 	@Override
     protected void paintComponent(Graphics g){ 

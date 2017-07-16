@@ -158,7 +158,7 @@ public class StartFrameController implements IController {
 	
 	public static void addSymptom(String symptomName){
 		String icnImagepath = (new StoryWorldManager()).getIconImagepath(symptomName);
-		storyPanel.addSymptom(icnImagepath, symptomName);
+//		storyPanel.addSymptom(icnImagepath, symptomName);
 	}
 	
 	public static void sendUserResponse(String userInput){
