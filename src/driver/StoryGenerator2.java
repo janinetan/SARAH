@@ -89,7 +89,9 @@ public class StoryGenerator2 {
 		// set vps to have good health conditions
 		for (VirtualPeer vp: vpList){
 			vp.setHealthAssertions(goodHealthAssertions);
+			vp.setSick(false);
 		}
+		
 		this.setCurVP(VirtualPeer.VP_SARAH);
 		this.causesList = new ArrayList<String>();
 		this.preventionsList = new ArrayList<String>();
@@ -131,7 +133,7 @@ public class StoryGenerator2 {
 //		System.out.print("event arr = "+eventsId);
 //		System.out.print("; curStoryEpisodeIndex = "+curStoryEpisodeIndex);
 //		//System.out.print("; cur epGoal = " +episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//		System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
+		//System.out.print("; curStoryEventIndex = "+curStoryEventIndex);
 //		System.out.println(";curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 //		System.out.println("; actionCtr = "+actionCtr);
 		
@@ -142,6 +144,11 @@ public class StoryGenerator2 {
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 			StartFrameController.displayEnd();
 		}else{
+			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
+				//StartFrameController.displayTransition();
+				System.out.println("DISPLAY TRANSITION");
+				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+			}
 		
 			//if start or if tapos na sa events to move on to the next episode
 			if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size()){
@@ -721,8 +728,9 @@ public class StoryGenerator2 {
 		return message;
 	}
 	public String getNLG (String word){
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 //		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -736,8 +744,9 @@ public class StoryGenerator2 {
 	}
 	
 	public String getPast (String word){
-			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 //		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);
