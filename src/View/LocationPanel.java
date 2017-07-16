@@ -227,7 +227,7 @@ public class LocationPanel extends JPanel{
 			}
 	        StartFrameController.displayStartStory(theme);
 	        //StartFrameController.displayTransition();
-	        //StartFrameController.displayEnd(theme);
+	        //StartFrameController.displayEnd("hi");
 		}
 	}
 }

@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,6 +35,7 @@ import driver.StartFrameController;
 public class PanelNext extends JPanel {
 
 	private JButton btnNext;
+	JPanel p = this;
 	JPanel arrowNextButton;
 
 	JLabel arrow;
@@ -46,6 +48,7 @@ public class PanelNext extends JPanel {
 		arrowNextButton.setOpaque(false);
 		arrowNextButton.setSize((new Double(w)).intValue(), (new Double(h)).intValue());
 		arrowNextButton.setLayout(new BorderLayout());
+		arrowNextButton.setBorder(null);
 		//arrowNextButton.setBorder(BorderFactory.createLineBorder(Color.RED));
 		arrowNextButton.add(addArrow(), BorderLayout.NORTH);
 		arrowNextButton.add(addNextButton(),BorderLayout.SOUTH);
@@ -71,7 +74,7 @@ public class PanelNext extends JPanel {
 			btnNext.setBorder(null);
 			//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
-			delayEnable(btnNext, 1500);
+			delayEnable(btnNext, 10000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,7 +118,8 @@ public class PanelNext extends JPanel {
 		}
 	}
 	public void delayEnable(JButton b, final long ms) {
-	    b.setEnabled(false);
+	    //b.setEnabled(false);
+	    b.setVisible(false);
 	    arrow.setVisible(false);
 	    new SwingWorker() {
 	        @Override protected Object doInBackground() throws Exception {
@@ -123,8 +127,20 @@ public class PanelNext extends JPanel {
 	            return null;
 	        }
 	        @Override protected void done() {
-	            b.setEnabled(true);
-	            arrow.setVisible(true);
+	           // b.setEnabled(true);
+	            //b.setVisible(true);
+	            Action showArrow = new AbstractAction()
+	            {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						arrow.setVisible(true);
+					}
+	            };
+	             
+	            InactivityListener listener = new InactivityListener(p, showArrow, 10000);
+	            listener.start();
+	            
 	        }
 	    }.execute();
 	}
@@ -138,6 +154,7 @@ public class PanelNext extends JPanel {
 			image = xIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue()+5, Image.SCALE_DEFAULT);
 			xIcon.setImage(image);
 			arrow.setIcon(xIcon);
+			arrow.setBorder(null);
 		return arrow;
 	}
 	

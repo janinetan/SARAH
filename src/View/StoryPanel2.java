@@ -179,7 +179,7 @@ public class StoryPanel2 extends JPanel{
 		
 		healthLogPanel = new ItemLoggerPanel();
 		healthLogPanel.setSize(lowerControlHolder, 0.08*6, 0.9);
-		healthLogPanel.setTitle("Liam Health Status");
+		healthLogPanel.setTitle("Liam's Health");
 		
 //		sicknessStatusHolder.add(sicknessLogPanel);
 		sicknessStatusHolder.add(healthLogPanel);
@@ -199,6 +199,7 @@ public class StoryPanel2 extends JPanel{
 		msgHolder.setLayout(new FlowLayout());
 		
 		int fontSize = msgHolder.getBounds().height / 8;
+		System.out.println("fontsize "+ fontSize);
 		Font font = new Font("Comic Sans MS", Font.PLAIN, fontSize);
 		msgTextArea = new JTextArea(5, 20);
 //        msgTextArea.setText("When you are done reading the current text, "
