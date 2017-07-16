@@ -35,6 +35,8 @@ public class PanelNext extends JPanel {
 
 	private JButton btnNext;
 	JPanel arrowNextButton;
+
+	JLabel arrow;
 	
 	public PanelNext() {
 		this.setOpaque(false);
@@ -45,6 +47,7 @@ public class PanelNext extends JPanel {
 		arrowNextButton.setSize((new Double(w)).intValue(), (new Double(h)).intValue());
 		arrowNextButton.setLayout(new BorderLayout());
 		//arrowNextButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+		arrowNextButton.add(addArrow(), BorderLayout.NORTH);
 		arrowNextButton.add(addNextButton(),BorderLayout.SOUTH);
 		this.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		//this.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
@@ -66,7 +69,7 @@ public class PanelNext extends JPanel {
 			btnNext.setContentAreaFilled(false);
 	        btnNext.setBorderPainted(false);
 			btnNext.setBorder(null);
-		//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
 			delayEnable(btnNext, 1500);
 		} catch (IOException e) {
@@ -108,12 +111,12 @@ public class PanelNext extends JPanel {
 			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
 				StartFrameController.playEvent();
 			}
-//			delayEnable(btnNext, 1500);
+			delayEnable(btnNext, 1500);
 		}
 	}
 	public void delayEnable(JButton b, final long ms) {
 	    b.setEnabled(false);
-	   
+	    arrow.setVisible(false);
 	    new SwingWorker() {
 	        @Override protected Object doInBackground() throws Exception {
 	            Thread.sleep(ms);
@@ -121,16 +124,14 @@ public class PanelNext extends JPanel {
 	        }
 	        @Override protected void done() {
 	            b.setEnabled(true);
-	            arrowNextButton.add(addArrow(), BorderLayout.NORTH);
-	            arrowNextButton.repaint();
-	            arrowNextButton.revalidate();
+	            arrow.setVisible(true);
 	        }
 	    }.execute();
 	}
 	
 	public JLabel addArrow()
 	{
-		JLabel arrow = new JLabel();
+			arrow = new JLabel();
 			Image image =Toolkit.getDefaultToolkit().createImage("assets/tryarrow.gif");
 			ImageIcon xIcon = new ImageIcon(image);
 			double h = arrowNextButton.getSize().getHeight()/2+5;
