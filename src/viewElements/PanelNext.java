@@ -44,12 +44,12 @@ public class PanelNext extends JPanel {
 		arrowNextButton.setOpaque(false);
 		arrowNextButton.setSize((new Double(w)).intValue(), (new Double(h)).intValue());
 		arrowNextButton.setLayout(new BorderLayout());
-		arrowNextButton.setBorder(BorderFactory.createLineBorder(Color.RED));
+		//arrowNextButton.setBorder(BorderFactory.createLineBorder(Color.RED));
 		arrowNextButton.add(addNextButton(),BorderLayout.SOUTH);
 		this.setPreferredSize(new Dimension((new Double(w)).intValue(), (new Double(h)).intValue()));
 		//this.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		this.setLayout(new BorderLayout());
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		//this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		//this.addNextButton(); 
 		this.add(arrowNextButton,BorderLayout.EAST);
 	}
@@ -64,9 +64,9 @@ public class PanelNext extends JPanel {
 			imageIcon = new ImageIcon(image);
 			btnNext = new JButton(imageIcon);
 			btnNext.setContentAreaFilled(false);
-	       // btnNext.setBorderPainted(false);
-			//btnNext.setBorder(null);
-			btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	        btnNext.setBorderPainted(false);
+			btnNext.setBorder(null);
+		//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
 			delayEnable(btnNext, 1500);
 		} catch (IOException e) {
@@ -131,22 +131,12 @@ public class PanelNext extends JPanel {
 	public JLabel addArrow()
 	{
 		JLabel arrow = new JLabel();
-		BufferedImage bufferedImage;
 			Image image =Toolkit.getDefaultToolkit().createImage("assets/tryarrow.gif");
 			ImageIcon xIcon = new ImageIcon(image);
 			double h = arrowNextButton.getSize().getHeight()/2+5;
 			image = xIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue()+5, Image.SCALE_DEFAULT);
 			xIcon.setImage(image);
-			//xIcon.setImageObserver(this);
-			
-		/*	bufferedImage = ImageIO.read(new File("assets/arrow_down.gif"));
-			ImageIcon imageIcon = new ImageIcon(bufferedImage);
-			double h = arrowNextButton.getSize().getHeight()/2 - 10;
-			Image image = imageIcon.getImage().getScaledInstance((new Double(h)).intValue(), (new Double(h)).intValue(), Image.SCALE_DEFAULT);
-			imageIcon = new ImageIcon(image);
-			arrow.setIcon(imageIcon);*/
 			arrow.setIcon(xIcon);
-			arrow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		return arrow;
 	}
 	
