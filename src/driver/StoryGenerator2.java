@@ -33,6 +33,7 @@ import Models.Message;
 import Models.Sentence;
 import Models.Sickness;
 import Models.VirtualPeer;
+import View.TransitionPanel;
 import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
@@ -116,6 +117,10 @@ public class StoryGenerator2 {
 		successionCtr = 0;
 	}
 	
+	public boolean getIsLiamSick(){
+		return vpList.get(VirtualPeer.VP_LIAM-1).isSick();
+	}
+	
 	public void setUpStory() {
 		// gets random episode set (1,8,2,3,4,5,6,7)
 		EpisodeSet storyTemplate = (new EpisodeSetDAO()).getRandomEpisodeSet();
@@ -154,10 +159,6 @@ public class StoryGenerator2 {
 					this.eventsId = episode.getEventsId(); // return arraylist of events
 				}
 				
-				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
-					StartFrameController.displayTransition();
-				}
-				
 				//12,8,9,8,11,9,8,9
 				System.out.println(".......");
 				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
@@ -171,12 +172,13 @@ public class StoryGenerator2 {
 						if ( this.episode.getDiscourseActId() != 10){
 							this.eventsId = episode.getEventsId(); // return arraylist of events
 						}
-					}else{
-						System.out.println("DISPLAY TRANSITION");
+					}
+					else{
+//						StartFrameController.displayTransition();
 						vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
 					}
-					
 				}
+				
 				
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 						episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
@@ -353,14 +355,21 @@ public class StoryGenerator2 {
 			
 
 			Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
+			
+			
 			this.lastQuestion = "";
 		
-			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
-			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
+//			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
+//			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
 				
 			// start StoryRuling is good
 			// if storyRuling is same as event ruling or event ruling is equal to neutral
-			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
+			if (event == null){
+				String duration = "A few days later";
+				StartFrameController.displayTransition(duration);
+				curStoryEventIndex++;
+			}
+			else if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
 				if (event.getType() == Event.TYPE_MESSAGE){
 					Message message = (new MessageDAO()).getMessageById(event.getId());
 					message.setRuling(event.getRuling());

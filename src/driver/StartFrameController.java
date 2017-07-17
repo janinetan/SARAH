@@ -154,13 +154,18 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayTransition(){
+	public static void displayTransition(String text){
 		try {
-			frame.changePanel(new TransitionPanel(frame));
+			frame.changePanel(new TransitionPanel(frame, text));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
+	
+	public static boolean getIsLiamSick(){
+		return storyGenerator.getIsLiamSick();
+	}
+	
 	public static void displayTutorialPanel()
 	{
 		try {

@@ -16,7 +16,8 @@ public class StoryWorldManager {
 		
 		if (vp.equalsIgnoreCase("liam")){
 //			check if liam is not sick here
-//				imagePath += negativeExt;
+			if (StartFrameController.getIsLiamSick())
+				imagePath += negativeExt;
 		}
 		else if (vp.equalsIgnoreCase("sarah")){
 			if (ruling == Event.RULING_BAD)
