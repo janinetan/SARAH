@@ -154,6 +154,10 @@ public class StoryGenerator2 {
 					this.eventsId = episode.getEventsId(); // return arraylist of events
 				}
 				
+				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
+					StartFrameController.displayTransition();
+				}
+				
 				//12,8,9,8,11,9,8,9
 				System.out.println(".......");
 				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
