@@ -191,7 +191,7 @@ public class StartFrameController implements IController {
 			tPanel = curPanel;
 		String msg="";
 		if (((TutorialPanel)tPanel).nextBg() ==2 ){
-			msg = "Once you reach this screen, you have finished the story. If you want to read another story and select another location click YES, if you want to go back to the start menu click NO.";
+			msg = "Once you reach this screen, you have finished the story. Do you want to proceed to the story now?";
 			try {
 				frame.changePanel(new TutorialEndStoryPanel(frame,(new StoryWorldManager()).getLocationBg("park"), msg));
 			} catch (IOException e1) {

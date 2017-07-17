@@ -120,43 +120,20 @@ public class PanelYesNo extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
 			JPanel curPanel = StartFrameController.getFramePanel();
-			if ( curPanel instanceof LocationPanel){
-				if ( button == btnBack )
-					StartFrameController.displayWelcome();
-				else if ( button == btnNext ){
-					String theme = ((LocationPanel)curPanel).getTheme();
-					if (theme.equals("")){
-				    	DialogueError dch = new DialogueError((java.awt.Frame)null, "Oops", true);
-			    	}
-			    	else {
-				        StartFrameController.displayStartStory(theme);
-				    }
-				}
-			}
-			else if (curPanel instanceof WelcomePanel ){
-				if ( button == btnBack )
-					StartFrameController.displayStartMenu();
-				else if ( button == btnNext )
-					StartFrameController.displayTheme();		    	
-			}
-			else if (curPanel instanceof EndStoryPanel ){
+			if (curPanel instanceof EndStoryPanel ){
 				if ( button == btnBack ){
-					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
-					StartFrameController.displayTheme();
+					StartFrameController.displayStartMenu();	
 				}
 				else if ( button == btnNext ){
-					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
-					StartFrameController.displayStartMenu();	
+					StartFrameController.displayTheme();
 				}
 			}
 			else if (curPanel instanceof TutorialEndStoryPanel ){
 				if ( button == btnBack ){
-					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
 					StartFrameController.displayStartMenu();
 				}
 				else if ( button == btnNext ){
-					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
-					StartFrameController.displayStartMenu();	
+					StartFrameController.displayWelcome();	
 				}
 			}
 		}

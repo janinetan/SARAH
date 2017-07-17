@@ -142,6 +142,7 @@ public class StoryGenerator2 {
 		System.out.println("!!! curStoryEpisodeIndex == episodesList.size()" + curStoryEpisodeIndex + ":" + episodesList.size());
 		System.out.println("!!! curStoryEventIndex == this.eventsId.size()" + curStoryEventIndex + ":" + this.eventsId.size());
 		//display end screen
+		
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
 			StartFrameController.displayEnd();
@@ -155,6 +156,24 @@ public class StoryGenerator2 {
 				
 				//12,8,9,8,11,9,8,9
 				System.out.println(".......");
+				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
+					if(symptomsList.isEmpty()){
+						episodesList.subList(curStoryEpisodeIndex, episodesList.size()).clear();
+						Episode episode = (new EpisodeDAO()).getEpisodeById(14);
+						episodesList.add(episode);
+						curStoryEventIndex = 0;
+						
+						this.episode = episodesList.get(curStoryEpisodeIndex);
+						if ( this.episode.getDiscourseActId() != 10){
+							this.eventsId = episode.getEventsId(); // return arraylist of events
+						}
+					}else{
+						System.out.println("DISPLAY TRANSITION");
+						vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+					}
+					
+				}
+				
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 						episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
 					
@@ -391,26 +410,14 @@ public class StoryGenerator2 {
 				playEvent();
 			}
 				
-			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
-				curStoryEpisodeIndex++;
-			}	
-			
-			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
-				if(symptomsList.isEmpty()){
-					episodesList.subList(curStoryEpisodeIndex, episodesList.size()).clear();
-					Episode episode = (new EpisodeDAO()).getEpisodeById(14);
-					episodesList.add(episode);
-					curStoryEventIndex = 0;
-					
-				}else{
-					System.out.println("DISPLAY TRANSITION");
-					vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+			if(curStoryEpisodeIndex != episodesList.size()){
+				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
+					curStoryEpisodeIndex++;
 				}
 				
-			}
-			
-			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
-				selectStoryTheme();
+				if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
+					selectStoryTheme();
+				}
 			}
 		
 		}
