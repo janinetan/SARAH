@@ -75,11 +75,17 @@ public class ItemLoggerPanel extends RoundedPanel{
 		this.add(label, BorderLayout.NORTH);
 	}
 	
+	public void clearLog(){
+		itemLogHolder.removeAll();
+		itemLogHolder.repaint();
+		itemLogHolder.revalidate();
+	}
+	
 	public void addItem(String imagePath, String caption){
 		
 		JPanel itemHolder = new JPanel();
-		double h = this.refPanel.getPreferredSize().getHeight()*0.50;		
-		double w = this.refPanel.getPreferredSize().getWidth()*0.08;
+		double h = this.getPreferredSize().getHeight()*0.70;		
+		double w = (this.getPreferredSize().getWidth()-15)*0.16;
 		itemwidth += w;
 		
 		if (itemwidth > elementwidth){

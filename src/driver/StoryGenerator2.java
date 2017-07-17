@@ -25,6 +25,7 @@ import DAO.SymptomDAO;
 import DAO.TreatmentDAO;
 import DAO.VirtualPeerDAO;
 import Models.Action;
+import Models.Assertion;
 import Models.BodyPart;
 import Models.Episode;
 import Models.EpisodeSet;
@@ -468,6 +469,15 @@ public class StoryGenerator2 {
 			System.out.println("TO BE SEARCH: " + assertionIdOpp);
 			this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 		}
+		
+		ArrayList<String> toUpdateLiamBadAssertions = new ArrayList<String>();
+		ArrayList<Integer> liamAssertions = (ArrayList<Integer>) this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions().clone();
+		liamAssertions.retainAll(badHealthAssertions);
+		for (int tempA: liamAssertions){
+			Assertion assertion = (new AssertionDAO()).getAssertionById(tempA);
+			toUpdateLiamBadAssertions.add(assertion.getConcept1() + " " + assertion.getConcept2());
+		}
+		StartFrameController.updateHealthAssertion(toUpdateLiamBadAssertions);
 		
 		// THIS IS STEP 4
 		if(isReverseAct){

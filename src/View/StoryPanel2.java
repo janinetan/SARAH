@@ -343,6 +343,10 @@ public class StoryPanel2 extends JPanel{
 //		sicknessLogPanel.addItem(imagePath, sicknessName);
 //	}
 	
+	public void clearHealth(){
+		healthLogPanel.clearLog();
+	}
+	
 	@Override
     protected void paintComponent(Graphics g){ 
         super.paintComponent(g);    

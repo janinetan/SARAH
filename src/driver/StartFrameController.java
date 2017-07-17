@@ -2,6 +2,7 @@ package driver;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -172,6 +173,13 @@ public class StartFrameController implements IController {
 			frame.changePanel(new TutorialPanel(frame));
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public static void updateHealthAssertion(ArrayList<String> liamBadHealthAssertions){
+		storyPanel.clearHealth();
+		for (String tempString: liamBadHealthAssertions){
+			storyPanel.addLiamHealthStatus((new StoryWorldManager()).getIconImagepath(tempString), tempString);
 		}
 	}
 	
