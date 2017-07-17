@@ -139,6 +139,16 @@ public class PanelYesNo extends JPanel {
 				else if ( button == btnNext )
 					StartFrameController.displayTheme();		    	
 			}
+			else if (curPanel instanceof EndStoryPanel ){
+				if ( button == btnBack ){
+					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
+					StartFrameController.displayTheme();
+				}
+				else if ( button == btnNext ){
+					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
+					StartFrameController.displayStartMenu();	
+				}
+			}
 			else if (curPanel instanceof TutorialEndStoryPanel ){
 				if ( button == btnBack ){
 					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);

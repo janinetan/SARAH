@@ -144,7 +144,7 @@ public class StoryGenerator2 {
 		//display end screen
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
-			StartFrameController.displayEnd(this.storyTheme.getName());
+			StartFrameController.displayEnd();
 		}else{
 			//if start or if tapos na sa events to move on to the next episode
 			if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size()){
@@ -396,8 +396,17 @@ public class StoryGenerator2 {
 			}	
 			
 			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
-				System.out.println("DISPLAY TRANSITION");
-				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+				if(symptomsList.isEmpty()){
+					episodesList.subList(curStoryEpisodeIndex, episodesList.size()).clear();
+					Episode episode = (new EpisodeDAO()).getEpisodeById(14);
+					episodesList.add(episode);
+					curStoryEventIndex = 0;
+					
+				}else{
+					System.out.println("DISPLAY TRANSITION");
+					vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+				}
+				
 			}
 			
 			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){

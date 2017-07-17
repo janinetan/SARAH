@@ -145,8 +145,8 @@ public class StartFrameController implements IController {
 		}
 	}
 	
-	public static void displayEnd(String sickness){
-		String msg = "Yey! You have now completed the story about "+ sickness +". I hope you learned a lot! Do you want to hear another story?";
+	public static void displayEnd(){
+		String msg = "Yey! You have now completed the story. I hope you learned a lot! Do you want to hear another story?";
 		try {
 			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme), msg));
 		} catch (IOException e1) {
