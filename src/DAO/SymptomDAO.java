@@ -61,4 +61,22 @@ public class SymptomDAO {
 		}
 		return null;
 	}
+	
+	public ArrayList<Integer> getAllSicknessIdWithSymptom( String name ){
+		ArrayList<Integer> sicknessIdList=  new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement("SELECT sicknessId FROM " + Symptom.TABLE_SYMPTOM +
+															" WHERE " + Symptom.COL_NAME + " = ? ");
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				sicknessIdList.add(rs.getInt(Symptom.COL_SICKNESSID));
+			}
+			return sicknessIdList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

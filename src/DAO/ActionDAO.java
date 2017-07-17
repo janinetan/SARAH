@@ -10,6 +10,7 @@ import Models.Action;
 import Models.Assertion;
 import Models.BodyPart;
 import Models.Object;
+import Models.VirtualPeer;
 
 public class ActionDAO {
 	private Connection con;
@@ -18,8 +19,10 @@ public class ActionDAO {
 		con = DBConnection.getConnection();
 	}
 	
-	public ArrayList<Integer> getFirstAction(ArrayList<Integer> goodAssertions, String location){
+	public ArrayList<Integer> getFirstAction(ArrayList<Integer> goodAssertions, String location, ArrayList<Integer> badAssertions){
 		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
+		ArrayList<Integer> postCondition = new ArrayList<Integer>();
+		ArrayList<Integer> finalList = new ArrayList<Integer>();
 		String number = "";
 		for (int i = 0; i < goodAssertions.size(); i++){
 			number += goodAssertions.get(i);
@@ -28,22 +31,54 @@ public class ActionDAO {
 		}
 		
 		try {
-			PreparedStatement ps = con.prepareStatement( " SELECT possible.id FROM (SELECT * FROM ( " +
-					" SELECT a.id, a.activity_name, a.object_category, a.duration, p.assertion_id " +
-					" FROM sarah_kb.action a " +
-					" LEFT JOIN sarah_kb.precondition p " + 
-					" ON p.action_id = a.id " + 
-				" ) k " +
-				" WHERE k.assertion_id IN ( " + number + " ) OR k.assertion_id IS NULL) possible, location, postcondition WHERE location = ? And possible.id = location.action_id AND possible.id = postcondition.action_id " +
-				" GROUP BY possible.id ") ;
+			PreparedStatement ps = con.prepareStatement( "SELECT k.id "
+					+ "FROM (SELECT a.id as id "
+					+ "FROM   action a LEFT   JOIN precondition p ON p.action_id = a.id  "
+					+ "WHERE  p.action_id IS NULL "
+					+ "UNION "
+					+ "SELECT action_id as id "
+					+ "FROM sarah_kb.precondition "
+					+ "WHERE assertion_id IN("+ number +")) k, location  "
+					+ "WHERE k.id = location.action_id AND location = ? ") ;
 				
 			ps.setString(1, location);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()){
-				Action action = new Action();
-				action.setId(rs.getInt(Action.COL_ID));
-				actionIdsList.add(action.getId());
+				actionIdsList.add(rs.getInt("id"));
+			}
+			
+			for(int i = 0; i < actionIdsList.size(); i++){
+				postCondition = getAllPostCondition(actionIdsList.get(i));
+				postCondition.retainAll(badAssertions);
+				if(!postCondition.isEmpty()){
+					finalList.add(actionIdsList.get(i));
+				}
+			   
+			}
+			
+			System.out.println("FINAL");
+			for(int i = 0; i < finalList.size(); i++){
+				System.out.println(finalList.get(i));
+			}
+			return finalList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Integer> getAllPostCondition(int id){
+		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement("SELECT assertion_id FROM sarah_kb.postcondition WHERE action_id = ? ") ;
+				
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				actionIdsList.add(rs.getInt("assertion_id"));
 			}
 			return actionIdsList;
 		} catch (SQLException e) {
@@ -52,7 +87,6 @@ public class ActionDAO {
 		}
 		return null;
 	}
-	
 	
 	public ArrayList<Integer> getActionWithPrecondition(String location, int assertionId){
 		ArrayList<Integer> actionIdsList = new ArrayList<Integer>();
@@ -121,7 +155,6 @@ public class ActionDAO {
 				action.setId(rs.getInt(Action.COL_ID));
 				action.setActivityName(rs.getString(Action.COL_ACTIVITYNAME));
 				action.setObjectCategory(rs.getString(Action.COL_OBJECT));
-				action.setDuration(rs.getString(Action.COL_DURATION));
 				action.setPrecondition(getAllPrecondition(action.getId()));
 				action.setMotivation(getMotivations(action.getActivityName()));
 				action.setPostcondition(getAllPostcondition(action.getId()));
@@ -160,7 +193,11 @@ public class ActionDAO {
 				object.setCategory(rs.getString("category"));
 				object.setName(rs.getString("name"));
 				object.setVerb(rs.getString("verb"));
-				object.setFilename(rs.getString("filename"));
+				if(rs.getString("filename") == null){
+					object.setFilename("fruits");
+				}else{
+					object.setFilename(rs.getString("filename"));
+				}
 				object.setConnector1(rs.getString("connector1"));
 				object.setConnector2(rs.getString("connector2"));
 				object.setConnector3(rs.getString("connector3"));

@@ -231,6 +231,10 @@ public class StartFrameController implements IController {
 	public static JPanel getFramePanel(){
 		return frame.getCurPanel();
 	}
+	
+	public static String getPlace(){
+		return theme;
+	}
 	public void resetTutorialCounter(){
 		counter = 1;
 	}

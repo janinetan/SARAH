@@ -84,6 +84,9 @@ public class StoryGenerator2 {
 	private int actionCtr;
 	private String username;
 	private Boolean hasSymptom;
+	private String place;
+	private ArrayList<String> actions = new ArrayList<String>();
+	private List<List<String>> postCondition = new ArrayList<List<String>>();
 	
 	
 	public StoryGenerator2(){
@@ -119,6 +122,7 @@ public class StoryGenerator2 {
 	
 		actionCtr = 0;
 		successionCtr = 0;
+		place = StartFrameController.getPlace();
 	}
 	
 	public boolean getIsLiamSick(){
@@ -187,73 +191,16 @@ public class StoryGenerator2 {
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 						episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
 					
-//					boolean eleven = false;
-//					if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
-//						eleven = true;
-//					}
-					
 					System.out.println("ENTERRRRRR");
 					System.out.println("cur ep goal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
 					System.out.println("cur episode index = "+curStoryEpisodeIndex);
 					
-//					System.out.println("BEFORE: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-//					
-//					int i = 0;
-//					for (Episode e : episodesList){
-//						System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-//						i++;
-//					}
-					
-//					System.out.println();
-					
 					episodesList.remove(episodesList.get(curStoryEpisodeIndex));
 					
-//					System.out.println("AFTER: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-//					
-//					i = 0;
-//					for (Episode e : episodesList){
-//						System.out.print(", ep (" +i+ ") = "+e.getEpisodeGoalId());
-//						i++;
-//					}
-					
+
 					curStoryEpisodeIndex--;
 					System.out.println("cur episode index = "+curStoryEpisodeIndex);
-//					if (eleven && storyRuling == Event.RULING_GOOD){
-//						curStoryEpisodeIndex++;
-//						System.out.println(",,,,,,,,,,,,,,,,,, entered ELEVEN");
-//						
-//						int i = 0;
-//						for (Episode ep : episodesList){
-//							System.out.print(", ep (" +i+ ") = "+ep.getEpisodeGoalId());
-//							i++;
-//						}
-//						
-//						System.out.println();
-//						
-//						System.out.println("--- curStoryEpisodeIndex = "+curStoryEpisodeIndex);
-//						System.out.println("--- curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//						
-//						Episode e = (new EpisodeDAO()).getEpisodeById(13); 
-//						episodesList.add(curStoryEpisodeIndex, e);
-//						curStoryEventIndex = 0;
-//						
-//						System.out.println("added 13: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-//						
-//						int ii = 0;
-//						for (Episode ep : episodesList){
-//							System.out.print(", ep (" +ii+ ") = "+ep.getEpisodeGoalId());
-//							ii++;
-//						}
-//						
-//						System.out.println();
-//						
-//						System.out.println("--- curStoryEpisodeIndex = "+curStoryEpisodeIndex);
-//						System.out.println("--- curEpGoal = "+episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId());
-//					}
-					 
 				}
-				
-				
 				
 				
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 9 && actionCtr < 4){
@@ -281,7 +228,7 @@ public class StoryGenerator2 {
 			if ( this.episode.getEpisodeGoalId() == 8 && curStoryEventIndex == 0){
 				if ( checkIfLiamHasAllGoodAssertions() ){
 					System.out.println("((((( entered liam has all good assertions )))))");
-					ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, "park");
+					ArrayList<Integer> possibleActionIds = (new ActionDAO()).getFirstAction(goodHealthAssertions, place, badHealthAssertions);
 					
 					Action a;
 					do {
@@ -296,9 +243,16 @@ public class StoryGenerator2 {
 					System.out.println(">>>> curAction activity = " + curAction.getChosenObject().getVerb());
 	//				if(!curAction.getSymptomList().isEmpty())
 	//					System.out.println(">>>> symptomsList of curAction = " + curAction.getSymptomList().get(0));
+					System.out.println("H");
 					
 					String tempAction = a.getActivityName() + " :: " + a.getChosenObject().getName() + " :: " + a.getChosenObject().getVerb();
+					
 					pastAction.add(tempAction);
+					
+					ArrayList<Integer> post = curAction.getPostcondition();
+					actions.add(tempAction);
+					postCondition.add(getStringFormatPostCondition(post));
+					
 					mappingActionSymptom.add(tempAction);
 				}
 				else {
@@ -309,7 +263,7 @@ public class StoryGenerator2 {
 				    
 				    System.out.println(badHealthAssertions + " " +  liamHealthAssertions + "mew: " + result);
 				    int rightop = (new AssertionDAO()).getOppsotiteAssertion(result.get(randomGenerator.nextInt(result.size())));
-					ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition("park", rightop);
+					ArrayList<Integer> possibleActionIds = (new ActionDAO()).getActionWithPrecondition(place, rightop);
 					
 					Action a;
 					do {
@@ -329,10 +283,16 @@ public class StoryGenerator2 {
 					
 					String tempAction = a.getActivityName() + " :: " + a.getChosenObject().getName() + " :: " + a.getChosenObject().getVerb();
 					pastAction.add(tempAction);
+					
+					System.out.println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+					ArrayList<Integer> post = curAction.getPostcondition();
+					actions.add(tempAction);
+					postCondition.add(getStringFormatPostCondition(post));
+					
 					mappingActionSymptom.add(tempAction);
 					
 					System.out.println("GETTING REVERSE ACTION");
-					ArrayList<Integer> reverseActions = (new ActionDAO()).getReverseAction("park", (new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0)));
+					ArrayList<Integer> reverseActions = (new ActionDAO()).getReverseAction(place, (new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0)));
 					if(reverseActions.size() != 0){
 						int index = randomGenerator.nextInt(reverseActions.size());		
 						reverse = (new ActionDAO()).setActionDetails(reverseActions.get(index));
@@ -596,7 +556,9 @@ public class StoryGenerator2 {
 
 	public void selectStoryTheme() {
 		System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW: entered function selectStoryTheme");
-		System.out.println("symptomsList size = " +symptomsList.size());
+		System.out.println("symptomsList size = " + symptomsList.size());
+		List<List<String>> resultList = new ArrayList<List<String>>();
+		List<List<String>> highestList = new ArrayList<List<String>>();
 		
 		for(String s : symptomsList)
 			System.out.println("SYMPTOM: "+s);
@@ -606,6 +568,7 @@ public class StoryGenerator2 {
 			Sickness maxSickness = new Sickness();
 			ArrayList<Float> result =  new ArrayList<Float>();
 			ArrayList<Integer> highest = new ArrayList<Integer>();
+			
 			
 			for(int i = 1; i <= 10; i++){
 				Sickness sickness = (new SicknessDAO()).getSicknessWithId(i);
@@ -618,8 +581,8 @@ public class StoryGenerator2 {
 				symptoms.retainAll(symptomsList);
 				System.out.println("symptoms after retain: "+symptoms.size());
 				
-				
-				
+				resultList.add(symptoms);
+			
 				float percentage = ((float)symptoms.size() / (float)symptomsList.size()) * 100;
 				result.add(percentage);
 				System.out.println("percentage = "+percentage);
@@ -634,6 +597,7 @@ public class StoryGenerator2 {
 			for(int i = 1; i <= 10; i++){
 				if(maxPercentage == result.get(i-1)){
 					highest.add(i);
+					highestList.add(resultList.get(i-1));
 				}
 			}
 			
@@ -645,11 +609,22 @@ public class StoryGenerator2 {
 			System.out.println("maxSickness id = " +maxSickness.getId());
 			System.out.println("maxSickness name = " +maxSickness.getName());
 			
+			System.out.println("SYMPTOMS BEFORE");
+			for(int i = 0; i <symptomsList.size();i++){
+				System.out.println(symptomsList.get(i));
+			}
+			
 			this.storyTheme = maxSickness;
 			this.causesList.addAll((new CauseDAO()).get5CausesBySicknessId(maxSickness.getId()));
 			this.preventionsList.addAll((new PreventionDAO()).get5PreventionBySicknessId(maxSickness.getId()));
 			this.treatmentsList.addAll((new TreatmentDAO()).get5TreatmentsBySicknessId(maxSickness.getId()));
 			this.bodyPartsList.addAll((new BodyPartDAO()).getBodyPartsBySicknessId(maxSickness.getId()));
+			this.symptomsList = (ArrayList<String>) highestList.get(index);
+			
+			System.out.println("SYMPTOMS AFTER");
+			for(int i = 0; i <symptomsList.size();i++){
+				System.out.println(symptomsList.get(i));
+			}
 		} // if symptomsList is not empty
 	}
 	
@@ -687,26 +662,87 @@ public class StoryGenerator2 {
 		}
 		
 		if(message.contains("curAction-connector")){
-			message = message.replaceAll("<curAction-connector1>", this.curAction.getChosenObject().getConnector1());
-			message = message.replaceAll("<curAction-connector2>", this.curAction.getChosenObject().getConnector2());
-			message = message.replaceAll("<curAction-connector3>", this.curAction.getChosenObject().getConnector3());
-			message = message.replaceAll("<curAction-connector4>", this.curAction.getChosenObject().getConnector4());
-			message = message.replaceAll("<curAction-connector5>", this.curAction.getChosenObject().getConnector5());
+			if(this.curAction.getChosenObject().getConnector1() == null){
+				message = message.replaceAll("<curAction-connector1> ", "");
+			}else{
+				message = message.replaceAll("<curAction-connector1>", this.curAction.getChosenObject().getConnector1());
+			}
+			
+			if(this.curAction.getChosenObject().getConnector2() == null){
+				message = message.replaceAll("<curAction-connector2> ", "");
+			}else{
+				message = message.replaceAll("<curAction-connector2>", this.curAction.getChosenObject().getConnector2());
+			}
+			
+			if(this.curAction.getChosenObject().getConnector3() == null){
+				message = message.replaceAll("<curAction-connector3> ", "");
+			}else{
+				message = message.replaceAll("<curAction-connector3>", this.curAction.getChosenObject().getConnector3());
+			}
+			
+			if(this.curAction.getChosenObject().getConnector4() == null){
+				message = message.replaceAll("<curAction-connector4> ", "");
+			}else{
+				message = message.replaceAll("<curAction-connector4>", this.curAction.getChosenObject().getConnector4());
+			}
+			
+			if(this.curAction.getChosenObject().getConnector5() == null){
+				message = message.replaceAll("<curAction-connector5> ", "");
+			}else{
+				message = message.replaceAll("<curAction-connector5>", this.curAction.getChosenObject().getConnector5());
+			}
+			
 			
 		}
 		
 		if(message.contains("reverseAction-connector")){
-			message = message.replaceAll("<reverseAction-connector1>", reverse.getChosenObject().getConnector1());
-			message = message.replaceAll("<reverseAction-connector2>", reverse.getChosenObject().getConnector2());
-			message = message.replaceAll("<reverseAction-connector3>", reverse.getChosenObject().getConnector3());
-			message = message.replaceAll("<reverseAction-connector4>", reverse.getChosenObject().getConnector4());
-			message = message.replaceAll("<reverseAction-connector5>", reverse.getChosenObject().getConnector5());
+			if(reverse.getChosenObject().getConnector1() == null){
+				message = message.replaceAll("<reverseAction-connector1> ", "");
+			}else{
+				message = message.replaceAll("<reverseAction-connector1>", reverse.getChosenObject().getConnector1());
+			}
+			
+			if(reverse.getChosenObject().getConnector2() == null){
+				message = message.replaceAll("<reverseAction-connector2> ", "");
+			}else{
+				message = message.replaceAll("<reverseAction-connector2>", reverse.getChosenObject().getConnector2());
+			}
+			
+			if(reverse.getChosenObject().getConnector3() == null){
+				message = message.replaceAll("<reverseAction-connector3> ", "");
+			}else{
+				message = message.replaceAll("<reverseAction-connector3>", reverse.getChosenObject().getConnector3());
+			}
+			
+			if(reverse.getChosenObject().getConnector4() == null){
+				message = message.replaceAll("<reverseAction-connector4> ", "");
+			}else{
+				message = message.replaceAll("<reverseAction-connector4>", reverse.getChosenObject().getConnector4());
+			}
+			
+			if(reverse.getChosenObject().getConnector5() == null){
+				message = message.replaceAll("<reverseAction-connector5> ", "");
+			}else{
+				message = message.replaceAll("<reverseAction-connector5>", reverse.getChosenObject().getConnector5());
+			}
+			
 		}
 		
 		if(message.contains("prevAction-connector")){
+			
 		}
 		
 		if(message.contains("prevAction")){
+			/*System.out.println("SIIIIIIIZE: " +postCondition.size());
+			String search = (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept1() + " " + (new AssertionDAO()).getAssertionById((new AssertionDAO()).getOppsotiteAssertion(curAction.getPrecondition().get(0))).getConcept2();
+			
+			System.out.println("TO BE SEARCHED IN POSTCONDITION: "+ search);
+			String tempPrevAction = actions.get(searchAssertioninPostCondition(search));
+			
+			message = message.replaceAll("<prevAction-verb-ing>", getNLG(tempPrevAction.split(" :: ")[2]));
+			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" :: ")[2]);
+			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" :: ")[1]);*/
+			
 			String tempPrevAction = "";
 			
 			String bodyPart = (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept1();
@@ -714,6 +750,10 @@ public class StoryGenerator2 {
 			System.out.println(actionDetails);
 			String prevVerb = actionDetails.split(" :: ")[0];
 			String prevObj = actionDetails.split(" :: ")[1];
+			System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+			for(String xxx : mappingActionSymptom)
+				System.out.println("mapping xxx = "+xxx);
+			System.out.println(":::::::::;; DONE NA BES");
 			
 //			for(int i = mappingActionSymptom.size()-1; i >= 0; i-=2){
 //				if(!mappingActionSymptom.get(i-1).equalsIgnoreCase("NONE")){
@@ -848,7 +888,29 @@ public class StoryGenerator2 {
 		}
 		return dayOfWeek;
 		
+	}	
+	
+	public ArrayList<String> getStringFormatPostCondition(ArrayList<Integer> post){
+		ArrayList<String> temp = new ArrayList<String>();
+		for(int i= 0; i < post.size(); i++){
+			Assertion b = (new AssertionDAO()).getAssertionById(post.get(i));
+			String onepost = b.getConcept1() + " " + b.getConcept2(); 
+			temp.add(onepost);
+		}
+		return temp;
 	}
 	
+	
+	public int searchAssertioninPostCondition(String search){
+		for(int i = 0; i < postCondition.size(); i--){
+			ArrayList one = (ArrayList) postCondition.get(i);
+			System.out.println("ACTION NUMBER: " + i);
+			System.out.println("ONE SIZE: " + i);
+			if(one.contains(search))
+				return i;
+		}
+		
+		return -1;
+	}
 }
 
