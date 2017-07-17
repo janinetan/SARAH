@@ -25,6 +25,8 @@ know
 little
 right
 sure
+think
+too
 true
 well
 yeah

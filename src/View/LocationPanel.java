@@ -48,8 +48,8 @@ public class LocationPanel extends JPanel{
 	private String btnLoc2Clicked = "assets/loc2_clicked.png";
 	private String btnLoc3Clicked = "assets/loc3_clicked.png";
 	
-	private String theme1 = "room";
-	private String theme2 = "classroom";
+	private String theme1 = "home";
+	private String theme2 = "school";
 	private String theme3 = "park";
 	
 	public LocationPanel(JFrame main) throws IOException {
