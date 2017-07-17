@@ -30,6 +30,8 @@ import View.ActionPanel;
 import View.InteractionPanel;
 import View.StartFrame;
 import View.StoryPanel2;
+import View.TutorialInteractionPanel;
+import View.TutorialPanel;
 import driver.StartFrameController;
 
 public class PanelNext extends JPanel {
@@ -74,7 +76,7 @@ public class PanelNext extends JPanel {
 			btnNext.setBorder(null);
 			//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
-			delayEnable(btnNext, 10000);
+			delayEnable(btnNext, 1500);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,12 +116,15 @@ public class PanelNext extends JPanel {
 			else if (StartFrameController.getFramePanel() instanceof ActionPanel ){
 				StartFrameController.playEvent();
 			}
+			else if (StartFrameController.getFramePanel() instanceof TutorialPanel || StartFrameController.getFramePanel() instanceof TutorialInteractionPanel){
+				StartFrameController.nextTutorialsPage();
+			}
 			delayEnable(btnNext, 1500);
 		}
 	}
 	public void delayEnable(JButton b, final long ms) {
-	    //b.setEnabled(false);
-	    b.setVisible(false);
+	    b.setEnabled(false);
+	    //b.setVisible(false);
 	    arrow.setVisible(false);
 	    new SwingWorker() {
 	        @Override protected Object doInBackground() throws Exception {
@@ -127,7 +132,7 @@ public class PanelNext extends JPanel {
 	            return null;
 	        }
 	        @Override protected void done() {
-	           // b.setEnabled(true);
+	        	b.setEnabled(true);
 	            //b.setVisible(true);
 	            Action showArrow = new AbstractAction()
 	            {

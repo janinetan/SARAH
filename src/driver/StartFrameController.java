@@ -13,6 +13,9 @@ import View.StartFrame;
 import View.StartMenuPanelTest;
 import View.StoryPanel2;
 import View.TransitionPanel;
+import View.TutorialEndStoryPanel;
+import View.TutorialInteractionPanel;
+import View.TutorialPanel;
 import View.WelcomePanel;
 
 public class StartFrameController implements IController {
@@ -23,6 +26,8 @@ public class StartFrameController implements IController {
 	private static String theme;
 	private static MyFilewriter logger;
 	private static boolean logOn = false;
+	private int counter =1;
+	static JPanel tPanel;
 	
 	public StartFrameController(){
 		EventQueue.invokeLater(new Runnable() {
@@ -141,8 +146,9 @@ public class StartFrameController implements IController {
 	}
 	
 	public static void displayEnd(String sickness){
+		String msg = "Yey! You have now completed the story about "+ sickness +". I hope you learned a lot! Do you want to hear another story?";
 		try {
-			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme), sickness));
+			frame.changePanel(new EndStoryPanel(frame,(new StoryWorldManager()).getLocationBg(theme), msg));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -151,6 +157,14 @@ public class StartFrameController implements IController {
 	public static void displayTransition(){
 		try {
 			frame.changePanel(new TransitionPanel(frame));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	public static void displayTutorialPanel()
+	{
+		try {
+			frame.changePanel(new TutorialPanel(frame));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -170,6 +184,31 @@ public class StartFrameController implements IController {
 		}
 	}
 	
+	public static void nextTutorialsPage(){
+		JPanel curPanel = frame.getCurPanel();
+		
+		if(curPanel instanceof TutorialPanel)
+			tPanel = curPanel;
+		String msg="";
+		if (((TutorialPanel)tPanel).nextBg() ==2 ){
+			msg = "Once you reach this screen, you have finished the story. If you want to read another story and select another location click YES, if you want to go back to the start menu click NO.";
+			try {
+				frame.changePanel(new TutorialEndStoryPanel(frame,(new StoryWorldManager()).getLocationBg("park"), msg));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}/*
+		else if (((TutorialPanel)tPanel).nextBg() ==1)
+		{
+			msg = "In this screen, Sarah will ask you a question and you should type your answer in the text box below. Once you are done, click the blue button on the lower right." ;
+			try {
+				frame.changePanel(new TutorialInteractionPanel(frame,"sarah",msg,(new StoryWorldManager()).getLocationBg("park")));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}*/
+	}
+	
 	public static void logMessage(String text){
 		if (logOn){
 			logger.writeToFile(text);
@@ -178,5 +217,8 @@ public class StartFrameController implements IController {
 	
 	public static JPanel getFramePanel(){
 		return frame.getCurPanel();
+	}
+	public void resetTutorialCounter(){
+		counter = 1;
 	}
 }

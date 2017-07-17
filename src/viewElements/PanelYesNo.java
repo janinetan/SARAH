@@ -22,6 +22,7 @@ import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
 import View.StoryPanel2;
+import View.TutorialEndStoryPanel;
 import View.WelcomePanel;
 import driver.StartFrameController;
 
@@ -138,11 +139,15 @@ public class PanelYesNo extends JPanel {
 				else if ( button == btnNext )
 					StartFrameController.displayTheme();		    	
 			}
-			else if (curPanel instanceof EndStoryPanel ){
-				if ( button == btnBack )
+			else if (curPanel instanceof TutorialEndStoryPanel ){
+				if ( button == btnBack ){
+					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
 					StartFrameController.displayStartMenu();
-				else if ( button == btnNext )
-					StartFrameController.displayTheme();		    	
+				}
+				else if ( button == btnNext ){
+					DialogueError dch = new DialogueError((java.awt.Frame)null, "Yey!", true);
+					StartFrameController.displayStartMenu();	
+				}
 			}
 		}
 	}

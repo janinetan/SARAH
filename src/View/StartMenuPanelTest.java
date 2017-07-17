@@ -111,31 +111,32 @@ public class StartMenuPanelTest extends JPanel{
 		image = ImageIO.read(new File("assets/tutorial_button.png"));
 		icon = new ImageIcon(image);
 		image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
-		JButton instructionsButton = new JButton(new ImageIcon(image1));
-		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
-		instructionsButton.setContentAreaFilled(false);
-		instructionsButton.setBorderPainted(false);
-		instructionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		JButton tutorialButton = new JButton(new ImageIcon(image1));
+		tutorialButton.setBorder(BorderFactory.createEmptyBorder());
+		tutorialButton.setContentAreaFilled(false);
+		tutorialButton.setBorderPainted(false);
+		tutorialButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/tutorial_button_clicked.png");
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	instructionsButton.setIcon(icon);
+		    	tutorialButton.setIcon(icon);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 		    	ImageIcon icon = new ImageIcon("assets/tutorial_button.png");
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	instructionsButton.setIcon(icon);
+		    	tutorialButton.setIcon(icon);
 		    }
 		});
-		instructionsButton.addActionListener(new ActionListener() {
+		tutorialButton.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	ImageIcon icon = new ImageIcon("assets/tutorial_button_clicked.png");
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
-		    	instructionsButton.setIcon(icon);
+		    	tutorialButton.setIcon(icon);
+		    	StartFrameController.displayTutorialPanel();
 		    }
 		});
 		
@@ -171,7 +172,7 @@ public class StartMenuPanelTest extends JPanel{
 		});
 		buttonPanel.add(startButton);
 		buttonPanel.add(Box.createVerticalStrut(StartFrame.frameHeight*2/100));
-		buttonPanel.add(instructionsButton);
+		buttonPanel.add(tutorialButton);
 		buttonPanel.add(Box.createVerticalStrut(StartFrame.frameHeight*2/100));
 		buttonPanel.add(aboutButton);
 		leftPanel.add(title);

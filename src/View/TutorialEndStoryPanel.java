@@ -28,7 +28,7 @@ import driver.StartFrameController;
 import viewElements.ImagePanel;
 import viewElements.PanelYesNo;
 
-public class EndStoryPanel extends JPanel{
+public class TutorialEndStoryPanel extends JPanel{
 	private JTextArea message;
 	private ImagePanel peer,box,room,sticker,action;
 	private Font font;
@@ -39,7 +39,7 @@ public class EndStoryPanel extends JPanel{
 	private Image image1;
 	private Image myImage;
 	
-	public EndStoryPanel(JFrame main, String bgImagepath, String sickMessage) throws IOException
+	public TutorialEndStoryPanel(JFrame main, String bgImagepath, String sickMessage) throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
