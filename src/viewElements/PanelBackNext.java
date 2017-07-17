@@ -25,7 +25,6 @@ import javax.swing.KeyStroke;
 import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
-import View.StoryPanel;
 import View.StoryPanel2;
 import View.WelcomePanel;
 import driver.StartFrameController;

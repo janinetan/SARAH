@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
+import View.TutorialEndStoryPanel;
 import View.WelcomePanel;
 import driver.StartFrameController;
 
@@ -98,6 +99,9 @@ public class DialogueError extends JDialog{
 		}
 		else if (curpanel instanceof InteractionPanel){
 			return "Please enter your response.";
+		}
+		else if (curpanel instanceof TutorialEndStoryPanel){
+			return " You have now completed the tutorial! Now let's go back to the start menu.";
 		}
 		else{
 			return "Unidentified error.";

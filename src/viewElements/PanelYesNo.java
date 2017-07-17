@@ -21,8 +21,8 @@ import View.EndStoryPanel;
 import View.InteractionPanel;
 import View.LocationPanel;
 import View.StartFrame;
-import View.StoryPanel;
 import View.StoryPanel2;
+import View.TutorialEndStoryPanel;
 import View.WelcomePanel;
 import driver.StartFrameController;
 
@@ -120,30 +120,21 @@ public class PanelYesNo extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			JButton button = (JButton) arg0.getSource();
 			JPanel curPanel = StartFrameController.getFramePanel();
-			if ( curPanel instanceof LocationPanel){
-				if ( button == btnBack )
-					StartFrameController.displayWelcome();
+			if (curPanel instanceof EndStoryPanel ){
+				if ( button == btnBack ){
+					StartFrameController.displayStartMenu();	
+				}
 				else if ( button == btnNext ){
-					String theme = ((LocationPanel)curPanel).getTheme();
-					if (theme.equals("")){
-				    	DialogueError dch = new DialogueError((java.awt.Frame)null, "Oops", true);
-			    	}
-			    	else {
-				        StartFrameController.displayStartStory(theme);
-				    }
+					StartFrameController.displayTheme();
 				}
 			}
-			else if (curPanel instanceof WelcomePanel ){
-				if ( button == btnBack )
+			else if (curPanel instanceof TutorialEndStoryPanel ){
+				if ( button == btnBack ){
 					StartFrameController.displayStartMenu();
-				else if ( button == btnNext )
-					StartFrameController.displayTheme();		    	
-			}
-			else if (curPanel instanceof EndStoryPanel ){
-				if ( button == btnBack )
-					StartFrameController.displayStartMenu();
-				else if ( button == btnNext )
-					StartFrameController.displayTheme();		    	
+				}
+				else if ( button == btnNext ){
+					StartFrameController.displayWelcome();	
+				}
 			}
 		}
 	}

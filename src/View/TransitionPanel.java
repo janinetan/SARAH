@@ -49,8 +49,9 @@ public class TransitionPanel extends JPanel{
 	private Image myImage;
 	private JPanel IP;
 	
-	public TransitionPanel(JFrame main) throws IOException {
+	public TransitionPanel(JFrame main, String text) throws IOException {
 		IP = this;
+		setSize(StartFrame.s);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
 		//setBackground("assets/setandrise.gif");
@@ -66,7 +67,7 @@ public class TransitionPanel extends JPanel{
 		ImageIcon icon = new ImageIcon("assets/setandrise.gif");
         JLabel bg = new JLabel();
         bg.setIcon(new ImageIcon(icon.getImage().getScaledInstance((int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight), Image.SCALE_DEFAULT)));
-        JLabel sentence = new JLabel("After a few days...");
+        JLabel sentence = new JLabel(text);
         sentence.setFont(font);
 	        
 		JPanel background = new JPanel();
@@ -89,13 +90,8 @@ public class TransitionPanel extends JPanel{
 		timer.schedule(new TimerTask() {
 		    @Override
 		   public void run() {
-		       /*try {
-		    	   System.out.println("hello");
-		    	   CALL FUNCTION HERE TO GO TO NEXT PANEL
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+		       System.out.println("hello");
+				StartFrameController.playEvent();
 		    }
 		}, 7000);
 	}

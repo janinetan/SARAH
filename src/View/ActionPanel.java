@@ -131,7 +131,7 @@ public class ActionPanel extends JPanel{
 		double h = StartFrame.h;
 		double w = StartFrame.w*0.60;
 		apanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		int gap = (new Double(h*0.20)).intValue();
+		int gap = (new Double(h*0.10)).intValue();
 		apanel.setBorder(BorderFactory.createEmptyBorder(gap, 0, gap, 0));
 		
 		ImagePanel bubbleHolder = new ImagePanel("");

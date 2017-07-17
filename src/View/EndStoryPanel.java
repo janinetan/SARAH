@@ -39,7 +39,7 @@ public class EndStoryPanel extends JPanel{
 	private Image image1;
 	private Image myImage;
 	
-	public EndStoryPanel(JFrame main, String bgImagepath, String sickness) throws IOException
+	public EndStoryPanel(JFrame main, String bgImagepath, String sickMessage) throws IOException
 	{
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setBounds(0,0,(int)(StartFrame.frameWidth*98.6/100),(int)(StartFrame.frameHeight*94.5/100));
@@ -50,7 +50,7 @@ public class EndStoryPanel extends JPanel{
 		rightPanel.setOpaque(false);
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
-		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4.5/100));
+		Font font = new Font("Comic Sans MS", Font.PLAIN, (int)(StartFrame.frameHeight*4/100));
 		
 		ImagePanel peer1 = new ImagePanel("");
 		image = ImageIO.read(new File("assets/sarah.png"));
@@ -74,7 +74,7 @@ public class EndStoryPanel extends JPanel{
 		//dialog.setLocation(550, 25);
 		//dialog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
-		message = new JTextArea("Yey! You have now completed the story about "+ sickness +". I hope you learned a lot! Do you want to hear another story?");
+		message = new JTextArea(sickMessage);
         //message.setSize(850,100);
         message.setSize(StartFrame.frameWidth*55/100,StartFrame.frameHeight*25/100);
         message.setFont(font);
@@ -100,6 +100,7 @@ public class EndStoryPanel extends JPanel{
 		this.add(leftPanel,BorderLayout.WEST);
 		this.add(rightPanel,BorderLayout.EAST);
 	}
+	
 	public void setBackground( String backgroundImagePath ){
 		BufferedImage bufferedImage;
 		try {

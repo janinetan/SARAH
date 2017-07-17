@@ -34,6 +34,7 @@ import Models.Message;
 import Models.Sentence;
 import Models.Sickness;
 import Models.VirtualPeer;
+import View.TransitionPanel;
 import View.WelcomePanel;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
@@ -121,6 +122,10 @@ public class StoryGenerator2 {
 		place = StartFrameController.getPlace();
 	}
 	
+	public boolean getIsLiamSick(){
+		return vpList.get(VirtualPeer.VP_LIAM-1).isSick();
+	}
+	
 	public void setUpStory() {
 		// gets random episode set (1,8,2,3,4,5,6,7)
 		EpisodeSet storyTemplate = (new EpisodeSetDAO()).getRandomEpisodeSet();
@@ -147,9 +152,10 @@ public class StoryGenerator2 {
 		System.out.println("!!! curStoryEpisodeIndex == episodesList.size()" + curStoryEpisodeIndex + ":" + episodesList.size());
 		System.out.println("!!! curStoryEventIndex == this.eventsId.size()" + curStoryEventIndex + ":" + this.eventsId.size());
 		//display end screen
+		
 		if ( curStoryEpisodeIndex == episodesList.size() && curStoryEventIndex == this.eventsId.size() ){
 			System.out.println("END DISPLAYEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED");
-			StartFrameController.displayEnd(this.storyTheme.getName());
+			StartFrameController.displayEnd();
 		}else{
 			//if start or if tapos na sa events to move on to the next episode
 			if ( eventsId.isEmpty() || curStoryEventIndex == this.eventsId.size()){
@@ -160,6 +166,25 @@ public class StoryGenerator2 {
 				
 				//12,8,9,8,11,9,8,9
 				System.out.println(".......");
+				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1){
+					if(symptomsList.isEmpty()){
+						episodesList.subList(curStoryEpisodeIndex, episodesList.size()).clear();
+						Episode episode = (new EpisodeDAO()).getEpisodeById(14);
+						episodesList.add(episode);
+						curStoryEventIndex = 0;
+						
+						this.episode = episodesList.get(curStoryEpisodeIndex);
+						if ( this.episode.getDiscourseActId() != 10){
+							this.eventsId = episode.getEventsId(); // return arraylist of events
+						}
+					}
+					else{
+//						StartFrameController.displayTransition();
+						vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
+					}
+				}
+				
+				
 				if (episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 10 || 
 						episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 11){
 					
@@ -291,14 +316,21 @@ public class StoryGenerator2 {
 			
 
 			Event event = (new EventDAO()).getEventById(eventsId.get(curStoryEventIndex));
+			
+			
 			this.lastQuestion = "";
 		
-			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
-			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
+//			System.out.println("!!!!!!!!!!!!!!! event ruling = "+event.getRuling());
+//			System.out.println("!!!!!!!!!!!!!!! story ruling = "+storyRuling);
 				
 			// start StoryRuling is good
 			// if storyRuling is same as event ruling or event ruling is equal to neutral
-			if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
+			if (event == null){
+				String duration = "A few days later";
+				StartFrameController.displayTransition(duration);
+				curStoryEventIndex++;
+			}
+			else if (storyRuling == event.getRuling() || event.getRuling() == Event.RULING_NEUTRAL){
 				if (event.getType() == Event.TYPE_MESSAGE){
 					Message message = (new MessageDAO()).getMessageById(event.getId());
 					message.setRuling(event.getRuling());
@@ -352,17 +384,14 @@ public class StoryGenerator2 {
 				playEvent();
 			}
 				
-			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
-				curStoryEpisodeIndex++;
-			}	
-			
-			if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 1 && curStoryEventIndex == 2){
-				System.out.println("DISPLAY TRANSITION");
-				vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
-			}
-			
-			if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
-				selectStoryTheme();
+			if(curStoryEpisodeIndex != episodesList.size()){
+				if(episodesList.get(curStoryEpisodeIndex).getEpisodeGoalId() == 13 && curAction.getReverseActions() == null){
+					curStoryEpisodeIndex++;
+				}
+				
+				if(this.episode.getEpisodeGoalId() == 1 && curStoryEventIndex == 1){
+					selectStoryTheme();
+				}
 			}
 		
 		}
@@ -400,6 +429,15 @@ public class StoryGenerator2 {
 			System.out.println("TO BE SEARCH: " + assertionIdOpp);
 			this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
 		}
+		
+		ArrayList<String> toUpdateLiamBadAssertions = new ArrayList<String>();
+		ArrayList<Integer> liamAssertions = (ArrayList<Integer>) this.vpList.get(VirtualPeer.VP_LIAM - 1).getHealthAssertions().clone();
+		liamAssertions.retainAll(badHealthAssertions);
+		for (int tempA: liamAssertions){
+			Assertion assertion = (new AssertionDAO()).getAssertionById(tempA);
+			toUpdateLiamBadAssertions.add(assertion.getConcept1() + " " + assertion.getConcept2());
+		}
+		StartFrameController.updateHealthAssertion(toUpdateLiamBadAssertions);
 		
 		// THIS IS STEP 4
 		if(isReverseAct){
@@ -774,7 +812,8 @@ public class StoryGenerator2 {
 	public String getNLG (String word){
 //		XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 //		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 		NLGFactory phraseFactory = new NLGFactory(lexicon);
 		VPPhraseSpec live = phraseFactory.createVerbPhrase(word);
 		SPhraseSpec clause = phraseFactory.createClause();
@@ -790,7 +829,8 @@ public class StoryGenerator2 {
 	public String getPast (String word){
 //			XMLLexicon lexicon = new XMLLexicon("C:/Users/Bianca/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 //		XMLLexicon lexicon = new XMLLexicon("C:/Users/Raisa/projects/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
-		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+//		XMLLexicon lexicon = new XMLLexicon("C:/Users/Janine Tan/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
+		XMLLexicon lexicon = new XMLLexicon("C:/Users/Heinson/Documents/GitHub/SARAH/src/simplenlg/lexicon/default-lexicon.xml");
 			WordElement word2 = lexicon.getWord(word, LexicalCategory.VERB);
 			InflectedWordElement infl = new InflectedWordElement(word2);
 			infl.setFeature(Feature.TENSE, Tense.PAST);
