@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -71,6 +72,7 @@ public class StoryGenerator2 {
 	private ArrayList<Integer> badHealthAssertions;
 	
 	private ArrayList<String> mappingActionSymptom;
+	private Hashtable<String, String> hashtable = new Hashtable<String, String>();
 	
 	private ArrayList<String> pastAction;
 	private Random randomGenerator = new Random();
@@ -104,6 +106,7 @@ public class StoryGenerator2 {
 		this.bodyPartsList = new ArrayList<BodyPart>();
 		this.episodesList = new ArrayList<Episode>();
 		
+		this.hashtable = new Hashtable<String, String>();
 		this.mappingActionSymptom = new ArrayList<String>();
 		
 		// temp
@@ -468,6 +471,8 @@ public class StoryGenerator2 {
 			int assertionIdOpp = (new AssertionDAO()).getOppsotiteAssertion(postconTemp);
 			System.out.println("TO BE SEARCH: " + assertionIdOpp);
 			this.vpList.get(VirtualPeer.VP_LIAM - 1).exchangeHealthAssertion(assertionIdOpp, postconTemp);
+			Assertion assertion = (new AssertionDAO()).getAssertionById(assertionIdOpp); 
+			hashtable.put(assertion.getConcept1(), a.getChosenObject().getVerb() + " :: " + a.getChosenObject().getName());
 		}
 		
 		ArrayList<String> toUpdateLiamBadAssertions = new ArrayList<String>();
@@ -704,16 +709,26 @@ public class StoryGenerator2 {
 		if(message.contains("prevAction")){
 			String tempPrevAction = "";
 			
-			for(int i = mappingActionSymptom.size()-1; i >= 0; i-=2){
-				if(!mappingActionSymptom.get(i-1).equalsIgnoreCase("NONE")){
-					tempPrevAction = mappingActionSymptom.get(i-2);
-					break;
-				}
-			}
+			String bodyPart = (new AssertionDAO()).getAssertionById(reverse.getPostcondition().get(0)).getConcept1();
+			String actionDetails = hashtable.get(bodyPart);
+			System.out.println(actionDetails);
+			String prevVerb = actionDetails.split(" :: ")[0];
+			String prevObj = actionDetails.split(" :: ")[1];
 			
-			message = message.replaceAll("<prevAction-verb-ing>", getNLG(tempPrevAction.split(" :: ")[2]));
-			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" :: ")[2]);
-			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" :: ")[1]);
+//			for(int i = mappingActionSymptom.size()-1; i >= 0; i-=2){
+//				if(!mappingActionSymptom.get(i-1).equalsIgnoreCase("NONE")){
+//					tempPrevAction = mappingActionSymptom.get(i-2);
+//					break;
+//				}
+//			}
+			
+//			message = message.replaceAll("<prevAction-verb-ing>", getNLG(tempPrevAction.split(" :: ")[2]));
+//			message = message.replaceAll("<prevAction-verb>", tempPrevAction.split(" :: ")[2]);
+//			message = message.replaceAll("<prevAction-object>", tempPrevAction.split(" :: ")[1]);
+			
+			message = message.replaceAll("<prevAction-verb-ing>", getNLG(prevVerb));
+			message = message.replaceAll("<prevAction-verb>", prevVerb);
+			message = message.replaceAll("<prevAction-object>", prevObj);
 		}
 		
 		if(message.contains("reverseAction")){
