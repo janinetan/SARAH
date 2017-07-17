@@ -134,18 +134,20 @@ public class PanelNext extends JPanel {
 	        @Override protected void done() {
 	        	b.setEnabled(true);
 	            //b.setVisible(true);
-	            Action showArrow = new AbstractAction()
-	            {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						arrow.setVisible(true);
-					}
-	            };
-	             
-	            InactivityListener listener = new InactivityListener(p, showArrow, 10000);
-	            listener.start();
-	            
+	        	if (!(StartFrameController.getFramePanel() instanceof TutorialPanel || StartFrameController.getFramePanel() instanceof TutorialInteractionPanel)){      
+		            Action showArrow = new AbstractAction()
+		            {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							arrow.setVisible(true);
+						}
+		            };
+		            InactivityListener listener = new InactivityListener(p, showArrow, 10000);
+		            listener.start();
+		       }
+	        	else
+	        		arrow.setVisible(true);
 	        }
 	    }.execute();
 	}
