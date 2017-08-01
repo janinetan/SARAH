@@ -74,6 +74,7 @@ public class AssertionDAO {
 	}
 	
 	public int getOppsotiteAssertion(int id){
+		System.out.println("doble daw result: " + id);
 		try {
 			PreparedStatement ps = con.prepareStatement(			
 			" SELECT id " +

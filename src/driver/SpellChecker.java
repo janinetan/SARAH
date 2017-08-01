@@ -53,10 +53,11 @@ public class SpellChecker
     	System.out.println("suggestion: "+spellChecker.checkSpelling("uppp"));
     }
     
-    public SpellChecker() throws IOException{
+    public static void initialize() throws IOException{
     	 //Read in file containing words into memory
         String line;
-        InputStream fis = new FileInputStream("C:/Users/Bianca/Documents/GitHub/SARAH/dictionary/english.0");
+        InputStream fis = new FileInputStream("C:/Users/Heinson/Documents/GitHub/SARAH/dictionary/english.0");
+      
         BufferedReader dictReader = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
         //contains all words from file
         //hashset is O(1) or O(log n) time for contains()
@@ -76,7 +77,7 @@ public class SpellChecker
         fis = null;
     }
      
-    public String checkSpelling(String mistake) throws IOException
+    public static String checkSpelling(String mistake) throws IOException
     {
            //reset to allow dictionary search
             found = false;

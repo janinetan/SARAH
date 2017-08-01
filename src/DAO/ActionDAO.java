@@ -269,5 +269,23 @@ public class ActionDAO {
 		return null;
 	}
 	
+	public String getConnectorGivenName(String name){
+		ArrayList<Integer> postconditions = new ArrayList<Integer>();
+		try {
+			PreparedStatement ps = con.prepareStatement( "SELECT connector3 FROM object WHERE name = ?" ) ;
+				
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()){
+				return rs.getString("connector3");
+			}
+			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 }

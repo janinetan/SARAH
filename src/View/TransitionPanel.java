@@ -93,7 +93,7 @@ public class TransitionPanel extends JPanel{
 		       System.out.println("hello");
 				StartFrameController.playEvent();
 		    }
-		}, 7000);
+		}, 6000);
 	}
 	
 	public void setBackground( String backgroundImagePath ){

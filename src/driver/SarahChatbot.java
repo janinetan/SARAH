@@ -15,8 +15,8 @@ public class SarahChatbot {
 	public static final String VERDICT_NEUTRAL = "I have no answer for that.";
 	
 	//public static String path = "C:/Users/Raisa/projects/SARAH/sarah-bot";
-//	public static String path = "C:/Users/Heinson/Documents/GitHub/SARAH/sarah-bot";
-	public static String path = "C:/Users/Janine Tan/Documents/GitHub/SARAH/sarah-bot";
+	public static String path = "C:/Users/Heinson/Documents/GitHub/SARAH/sarah-bot";
+//	public static String path = "C:/Users/Janine Tan/Documents/GitHub/SARAH/sarah-bot";
 //	public static String path = "C:/Users/Bianca/Documents/GitHub/SARAH/sarah-bot";
 	public static Bot bot = new Bot("sarah-bot", path);
 	public static Chat chat = new Chat(bot);

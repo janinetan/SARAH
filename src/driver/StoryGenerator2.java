@@ -73,6 +73,8 @@ public class StoryGenerator2 {
 	
 	private ArrayList<String> mappingActionSymptom;
 	private Hashtable<String, String> hashtable = new Hashtable<String, String>();
+	private ArrayList<String> myCompletePastActions;
+	private ArrayList<Action> actionList;
 	
 	private ArrayList<String> pastAction;
 	private Random randomGenerator = new Random();
@@ -109,8 +111,10 @@ public class StoryGenerator2 {
 		this.bodyPartsList = new ArrayList<BodyPart>();
 		this.episodesList = new ArrayList<Episode>();
 		
+		this.myCompletePastActions = new ArrayList<String>();
 		this.hashtable = new Hashtable<String, String>();
 		this.mappingActionSymptom = new ArrayList<String>();
+		this.actionList =  new ArrayList<Action>();
 		
 		// temp
 		storyRuling = Event.RULING_GOOD;
@@ -184,7 +188,10 @@ public class StoryGenerator2 {
 					else{
 //						StartFrameController.displayTransition();
 						vpList.get(VirtualPeer.VP_LIAM-1).setSick(true);
-					}
+						curAction = (new ActionDAO()).setActionDetails(40);
+						int index = randomGenerator.nextInt(curAction.getObectList().size());
+						curAction.setChosenObject(curAction.getObectList().get(index));  
+					}                   
 				}
 				
 				
@@ -301,7 +308,10 @@ public class StoryGenerator2 {
 						System.out.println("REVERSE : " + reverse.getActivityName());
 						curAction.setReverseActions(reverse);
 					}
-				}
+					
+					actionList.add(curAction);
+					String revActionDetails = reverse.getChosenObject().getVerb() + "::" + reverse.getChosenObject().getName();     
+				}   String curActionDetails = curAction.getChosenObject().getVerb() + "::" + curAction.getChosenObject().getName(); 
 				
 				actionCtr++;	
 				
@@ -446,6 +456,10 @@ public class StoryGenerator2 {
 		
 		// THIS IS STEP 4
 		if(isReverseAct){
+			String revActionDetails = reverse.getChosenObject().getVerb() + "::" + reverse.getChosenObject().getName();
+			String curActionDetails = curAction.getChosenObject().getVerb() + "::" + curAction.getChosenObject().getName();
+			
+			myCompletePastActions.add(revActionDetails + "::" + curActionDetails);
 			System.out.println("UPDATING REVERSE");
 			mappingActionSymptom.add(mappingActionSymptom.size()-1, reverse.getActivityName() + " :: " + reverse.getChosenObject().getName() + " :: " + reverse.getChosenObject().getVerb());
 			mappingActionSymptom.add(mappingActionSymptom.size()-1, (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept1() + " :: " + (new AssertionDAO()).getAssertionById(postconditions.get(0)).getConcept2());
@@ -568,6 +582,7 @@ public class StoryGenerator2 {
 			Sickness maxSickness = new Sickness();
 			ArrayList<Float> result =  new ArrayList<Float>();
 			ArrayList<Integer> highest = new ArrayList<Integer>();
+			ArrayList<Integer> sicknessId = new ArrayList<Integer>();
 			
 			
 			for(int i = 1; i <= 10; i++){
@@ -643,6 +658,100 @@ public class StoryGenerator2 {
 		message = message.replaceAll("<user-cap>", username.substring(0, 1).toUpperCase() + username.substring(1));
 		message = message.replaceAll("<day>", getDay());
 		message = message.replaceAll("<liam-status>", "sick");
+		
+		if(message.contains("pastAction")){
+			System.out.println("Starttttttttt");
+			for (String temp: this.myCompletePastActions){
+				String prevVerb = temp.split("::")[0];    
+				String prevObj = temp.split("::")[1];     
+				String curVerb = temp.split("::")[2];     
+				String curObj = temp.split("::")[3];
+				
+				System.out.println(curVerb +" "+curObj);
+				System.out.println(prevVerb +" "+prevObj);
+				for(int i = 0; i < actionList.size(); i++){
+					if(actionList.get(i).getChosenObject().getName().equals(curObj) && actionList.get(i).getChosenObject().getVerb().equals(curVerb) &&
+							actionList.get(i).getReverseActions().getChosenObject().getName().equals(prevObj) && actionList.get(i).getReverseActions().getChosenObject().getVerb().equals(prevVerb))
+						actionList.remove(i);
+				}
+			}
+			System.out.println("NATIRA");
+			for(int i = 0; i < actionList.size(); i++){
+				message = message.replaceFirst("<pastAction-revreseVerb>", actionList.get(i).getReverseActions().getChosenObject().getVerb());
+				if(actionList.get(i).getReverseActions().getChosenObject().getConnector5() == null){
+					message = message.replaceFirst("<pastAction-revreseVerb-connector> ", "");
+				}else{
+				message = message.replaceFirst("<pastAction-revreseVerb-connector>", actionList.get(i).getReverseActions().getChosenObject().getConnector5());
+				}
+				message = message.replaceFirst("<pastAction-revreseName>", actionList.get(i).getReverseActions().getChosenObject().getName());
+				message = message.replaceFirst("<body>", (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept1());
+				message = message.replaceFirst("<condition>", (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept2());
+				message = message.replaceFirst("<pastAction-curVerb>", getNLG(actionList.get(i).getChosenObject().getVerb()));
+				if(actionList.get(i).getChosenObject().getConnector5() ==  null){
+					message = message.replaceFirst("<pastAction-curVerb-connector> ", "");
+				}
+				else{
+					message = message.replaceFirst("<pastAction-curVerb-connector>", actionList.get(i).getChosenObject().getConnector5());
+				}
+				message = message.replaceFirst("<pastAction-curName>", actionList.get(i).getChosenObject().getName());
+				
+				if(i != 0){
+					message = message + "Also, " + "You probably got your sickness because you did not <pastAction-revreseVerb> <pastAction-revreseVerb-connector> <pastAction-revreseName> when your <body> was <condition> before <pastAction-curVerb> <pastAction-curVerb-connector> <pastAction-curName>.";
+					message = message.replaceFirst("<pastAction-revreseVerb>", actionList.get(i).getReverseActions().getChosenObject().getVerb());	
+						if(actionList.get(i).getReverseActions().getChosenObject().getConnector5() == null){
+								message = message.replaceFirst("<pastAction-revreseVerb-connector> ", "");
+							}else{
+							message = message.replaceFirst("<pastAction-revreseVerb-connector>", actionList.get(i).getReverseActions().getChosenObject().getConnector5());
+							}
+							message = message.replaceFirst("<pastAction-revreseName>", actionList.get(i).getReverseActions().getChosenObject().getName());
+							message = message.replaceFirst("<body>", (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept1());
+							message = message.replaceFirst("<condition>", (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept2());
+							message = message.replaceFirst("<pastAction-curVerb>", getNLG(actionList.get(i).getChosenObject().getVerb()));
+							if(actionList.get(i).getChosenObject().getConnector5() ==  null){
+								message = message.replaceFirst("<pastAction-curVerb-connector> ", "");
+							}
+							else{
+								message = message.replaceFirst("<pastAction-curVerb-connector>", actionList.get(i).getChosenObject().getConnector5());
+							}
+							message = message.replaceFirst("<pastAction-curName>", actionList.get(i).getChosenObject().getName());
+				
+				}/*<pastAction-revreseVerb> <pastAction-revreseVerb-connector> <pastAction-revreseName> when your <body> was <condition> before <pastAction-curVerb> <pastAction-curVerb-connector> <pastAction-curName>.
+				
+				System.out.println(actionList.get(i).getReverseActions().getChosenObject().getVerb() + " " + actionList.get(i).getReverseActions().getChosenObject().getName());
+				
+				System.out.println("body: " + (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept1());
+				System.out.println("conditon: " + (new AssertionDAO()).getAssertionById(actionList.get(i).getReverseActions().getPrecondition().get(0)).getConcept2());
+			
+				 System.out.println(actionList.get(i).getChosenObject().getVerb() + " " + actionList.get(i).getChosenObject().getName());*/
+				 
+			}
+			
+			System.out.println("ENDDDDDDDDDDDDD");
+		}
+		
+		if(message.contains("review")){
+			for (String temp: this.myCompletePastActions){
+				String prevVerb = temp.split("::")[0];
+				String prevObj = temp.split("::")[1];
+				String curVerb = temp.split("::")[2];
+				String curObj = temp.split("::")[3];
+				
+				if((new ActionDAO()).getConnectorGivenName(prevObj) != null){
+					message = message.replaceFirst("<reviewRevAction-verb-past>", prevVerb + " " + (new ActionDAO()).getConnectorGivenName(prevObj));
+				}else{
+					message = message.replaceFirst("<reviewRevAction-verb-past>", prevVerb);
+				}
+
+				message = message.replaceFirst("<reviewRevAction-object>", prevObj);
+				
+				if((new ActionDAO()).getConnectorGivenName(curObj) != null){
+					message = message.replaceFirst("<reviewCurAction-verb-ing>", getNLG(curVerb) + " " + (new ActionDAO()).getConnectorGivenName(curObj));
+				}else{
+					message = message.replaceFirst("<reviewCurAction-verb-ing>", getNLG(curVerb));
+				}
+				message = message.replaceFirst("<reviewCurAction-object>", curObj);
+			}
+		}
 		
 		if(message.contains("sickness"))
 			message = message.replaceAll("<sickness>", this.storyTheme.getName());

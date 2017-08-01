@@ -76,7 +76,7 @@ public class PanelNext extends JPanel {
 			btnNext.setBorder(null);
 			//btnNext.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			btnNext.addActionListener(new ButtonListener());
-			//delayEnable(btnNext, 1500);
+			delayEnable(btnNext, 1000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,7 +119,7 @@ public class PanelNext extends JPanel {
 			else if (StartFrameController.getFramePanel() instanceof TutorialPanel || StartFrameController.getFramePanel() instanceof TutorialInteractionPanel){
 				StartFrameController.nextTutorialsPage();
 			}
-			//delayEnable(btnNext, 1500);
+			delayEnable(btnNext, 1000);
 		}
 	}
 	public void delayEnable(JButton b, final long ms) {

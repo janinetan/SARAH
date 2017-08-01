@@ -188,10 +188,34 @@ public class StartFrameController implements IController {
 //		storyPanel.addSymptom(icnImagepath, symptomName);
 	}
 	
+//	public static void sendUserResponse(String userInput){
+//		try {
+//			logMessage(WelcomePanel.getPlayerName() + ": " + userInput);
+//			storyGenerator.getVerdict(userInput);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
 	public static void sendUserResponse(String userInput){
 		try {
 			logMessage(WelcomePanel.getPlayerName() + ": " + userInput);
-			storyGenerator.getVerdict(userInput);
+			
+			String[] beforeCheck = userInput.split(" ");
+			int s = beforeCheck.length;
+			String afterCheck = "";
+			String temp = "";
+			for (int i = 0; i < s; i++){
+				SpellChecker.initialize();
+				temp = SpellChecker.checkSpelling(beforeCheck[i]);
+				if (temp.equalsIgnoreCase("NO SUGGESTION")){
+					afterCheck += beforeCheck[i] + " ";
+				} else{
+					afterCheck += temp + " ";
+				}
+			}
+			System.out.println("aftercheck: "+afterCheck);
+			storyGenerator.getVerdict(afterCheck);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
