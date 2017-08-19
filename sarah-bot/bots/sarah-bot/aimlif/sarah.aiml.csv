@@ -12,15 +12,21 @@
 0,# <set>s-yes</set> #,*,askAction,V:positive,sarah.aiml
 0,# <set>s-no</set> # <set>s-positive</set> #  Liam #,*,*,V:negative,sarah.aiml
 0,# Liam # <set>s-no</set> # <set>s-positive</set> #,*,*,V:negative,sarah.aiml
-0,# <set>s-no</set> # <set>s-positive</set> #,*,askAction,V:negative,sarah.aiml
+0,# <set>s-no</set> # <set>s-negative</set> #,*,askAction,V:positive,sarah.aiml
 0,# <set>s-no</set> # <set>s-negative</set> # Liam # ,*,*,V:positive,sarah.aiml
 0,# Liam # <set>s-no</set> # <set>s-negative</set> #,*,*,V:positive,sarah.aiml
+0,# Liam # <set>s-no</set> # <set>s-positive</set> #,*,*,V:negative,sarah.aiml
 0,# <set>s-no</set> # <set>s-negative</set> #,*,askAction,V:positive,sarah.aiml
+0,# <set>s-no</set> # <set>s-positive</set> #,*,askAction,V:negative,sarah.aiml
 0,# <set>s-no</set> # Liam # ,*,*,V:negative,sarah.aiml
+0,# <set>s-yes</set> # Liam # ,*,*,V:positive,sarah.aiml
 0,# Liam # <set>s-no</set> #,*,*,V:negative,sarah.aiml
-0,# <set>s-no</set> #,*,askAction,V:negative,sarah.aiml
+0,# Liam # <set>s-yes</set> #,*,*,V:positive,sarah.aiml
 0,# <set>s-positive</set> # Liam # ,*,*,V:positive,sarah.aiml
+0,# <set>s-negative</set> # Liam # ,*,*,V:negative,sarah.aiml
 0,# Liam # <set>s-positive</set> #,*,*,V:positive,sarah.aiml
+0,# Liam # <set>s-negative</set> #,*,*,V:negative,sarah.aiml
+0,# <set>s-negative</set> #,*,askAction,V:negative,sarah.aiml
 0,# <set>s-positive</set> #,*,askAction,V:positive,sarah.aiml
 0,# <set>s-no</set> # <set>s-feels-pleasant</set> #,*,user-askFeeling,V:negative,sarah.aiml
 0,# <set>s-no</set> # <set>s-feels-unpleasant</set> #,*,user-askFeeling,V:positive,sarah.aiml
