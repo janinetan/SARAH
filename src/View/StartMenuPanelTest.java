@@ -168,6 +168,7 @@ public class StartMenuPanelTest extends JPanel{
 		    	image1 = icon.getImage().getScaledInstance(StartFrame.frameWidth*27/100, StartFrame.frameHeight*15/100,Image.SCALE_SMOOTH);
 		    	icon = new ImageIcon(image1, icon.getDescription());
 		    	aboutButton.setIcon(icon);
+		    	StartFrameController.displayAbout();
 		    }
 		});
 		buttonPanel.add(startButton);

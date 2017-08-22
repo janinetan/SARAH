@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import View.AboutPanel;
 import View.ActionPanel;
 import View.EndStoryPanel;
 import View.InteractionPanel;
@@ -161,6 +162,10 @@ public class StartFrameController implements IController {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public static void displayAbout(){
+		frame.changePanel(new AboutPanel());
 	}
 	
 	public static boolean getIsLiamSick(){
