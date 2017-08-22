@@ -68,20 +68,22 @@ public class StartFrame extends JFrame {
 		
 		lPane.removeAll();
 		
-		if (panel instanceof StoryPanel2 || panel instanceof InteractionPanel || panel instanceof ActionPanel || panel instanceof TutorialPanel || panel instanceof TutorialInteractionPanel){
+		if (panel instanceof StoryPanel2 || panel instanceof InteractionPanel || panel instanceof ActionPanel || panel instanceof TutorialPanel || panel instanceof TutorialInteractionPanel || panel instanceof AboutPanel){
 			JPanel homePanel = new JPanel();
 			homePanel.setOpaque(false);
 			homePanel.setSize(StartFrame.s);
 			homePanel.setLayout(new BorderLayout());
 			homePanel.add(new PanelHome(), BorderLayout.NORTH);
 			
+			if(!(panel instanceof AboutPanel)){
 			JPanel nextPanel = new JPanel();
 			nextPanel.setOpaque(false);
 			nextPanel.setSize(StartFrame.s);
 			nextPanel.setLayout(new BorderLayout());
 			nextPanel.add(new PanelNext(), BorderLayout.SOUTH);
-			lPane.add(homePanel, new Integer(1), 0);
 			lPane.add(nextPanel, new Integer(2), 0);
+			}
+			lPane.add(homePanel, new Integer(1), 0);
 		}
 		
 		lPane.add(panel, new Integer(0), 0);
